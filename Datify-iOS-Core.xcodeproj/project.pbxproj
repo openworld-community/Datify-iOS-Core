@@ -44,6 +44,7 @@
 		D0DC46732A92699F0097CFF3 /* Datify-iOS-CoreUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Datify-iOS-CoreUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0DC46772A92699F0097CFF3 /* Datify_iOS_CoreUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Datify_iOS_CoreUITests.swift; sourceTree = "<group>"; };
 		D0DC46792A92699F0097CFF3 /* Datify_iOS_CoreUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Datify_iOS_CoreUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		D0DC46862A926C650097CFF3 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +75,7 @@
 		D0DC46502A92699C0097CFF3 = {
 			isa = PBXGroup;
 			children = (
+				D0DC46862A926C650097CFF3 /* README.md */,
 				D0DC465B2A92699D0097CFF3 /* Datify-iOS-Core */,
 				D0DC466C2A92699F0097CFF3 /* Datify-iOS-CoreTests */,
 				D0DC46762A92699F0097CFF3 /* Datify-iOS-CoreUITests */,
