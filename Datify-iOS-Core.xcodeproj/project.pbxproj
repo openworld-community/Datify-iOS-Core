@@ -15,6 +15,8 @@
 		4A4CE2D82A9B47060098FF80 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CE2D72A9B47060098FF80 /* LoginView.swift */; };
 		4A4CE2DA2A9B47650098FF80 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CE2D92A9B47650098FF80 /* LoginViewModel.swift */; };
 		4A4CE2DC2A9B485B0098FF80 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CE2DB2A9B485B0098FF80 /* WelcomeView.swift */; };
+		4A4CE2E02A9B4F800098FF80 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A4CE2DF2A9B4F800098FF80 /* Colors.xcassets */; };
+		4A4CE2E32A9B53E70098FF80 /* Color+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CE2E22A9B53E70098FF80 /* Color+extension.swift */; };
 		D0DC465D2A92699D0097CFF3 /* DatifyiOSCoreApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DC465C2A92699D0097CFF3 /* DatifyiOSCoreApp.swift */; };
 		D0DC465F2A92699D0097CFF3 /* MainAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DC465E2A92699D0097CFF3 /* MainAppView.swift */; };
 		D0DC46612A92699F0097CFF3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0DC46602A92699F0097CFF3 /* Assets.xcassets */; };
@@ -50,6 +52,8 @@
 		4A4CE2D72A9B47060098FF80 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		4A4CE2D92A9B47650098FF80 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		4A4CE2DB2A9B485B0098FF80 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
+		4A4CE2DF2A9B4F800098FF80 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		4A4CE2E22A9B53E70098FF80 /* Color+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+extension.swift"; sourceTree = "<group>"; };
 		D0DC46592A92699D0097CFF3 /* Datify-iOS-Core.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Datify-iOS-Core.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0DC465C2A92699D0097CFF3 /* DatifyiOSCoreApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatifyiOSCoreApp.swift; sourceTree = "<group>"; };
 		D0DC465E2A92699D0097CFF3 /* MainAppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainAppView.swift; sourceTree = "<group>"; };
@@ -117,68 +121,68 @@
 		4A4CE2C42A9B3A290098FF80 /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				4A4CE2CB2A9B3FFB0098FF80 /* WelcomeView */,
-				4A4CE2CE2A9B41920098FF80 /* TabbarView */,
+				4A4CE2CB2A9B3FFB0098FF80 /* Welcome */,
+				4A4CE2CE2A9B41920098FF80 /* Tabbar */,
 			);
 			path = Main;
 			sourceTree = "<group>";
 		};
-		4A4CE2CB2A9B3FFB0098FF80 /* WelcomeView */ = {
+		4A4CE2CB2A9B3FFB0098FF80 /* Welcome */ = {
 			isa = PBXGroup;
 			children = (
 				4A4CE2DB2A9B485B0098FF80 /* WelcomeView.swift */,
-				4A4CE2CC2A9B40DA0098FF80 /* LoginView */,
-				4A4CE2CD2A9B40E30098FF80 /* RegistrationView */,
+				4A4CE2CC2A9B40DA0098FF80 /* Login */,
+				4A4CE2CD2A9B40E30098FF80 /* Registration */,
 				4A4CE2DD2A9B4CB70098FF80 /* FillProfile */,
 			);
-			path = WelcomeView;
+			path = Welcome;
 			sourceTree = "<group>";
 		};
-		4A4CE2CC2A9B40DA0098FF80 /* LoginView */ = {
+		4A4CE2CC2A9B40DA0098FF80 /* Login */ = {
 			isa = PBXGroup;
 			children = (
 				4A4CE2D72A9B47060098FF80 /* LoginView.swift */,
 				4A4CE2D92A9B47650098FF80 /* LoginViewModel.swift */,
 			);
-			path = LoginView;
+			path = Login;
 			sourceTree = "<group>";
 		};
-		4A4CE2CD2A9B40E30098FF80 /* RegistrationView */ = {
+		4A4CE2CD2A9B40E30098FF80 /* Registration */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = RegistrationView;
+			path = Registration;
 			sourceTree = "<group>";
 		};
-		4A4CE2CE2A9B41920098FF80 /* TabbarView */ = {
+		4A4CE2CE2A9B41920098FF80 /* Tabbar */ = {
 			isa = PBXGroup;
 			children = (
-				4A4CE2CF2A9B41B90098FF80 /* DatingView */,
-				4A4CE2D02A9B41C40098FF80 /* ChatView */,
-				4A4CE2D12A9B41D20098FF80 /* MenuView */,
+				4A4CE2CF2A9B41B90098FF80 /* Dating */,
+				4A4CE2D02A9B41C40098FF80 /* Chat */,
+				4A4CE2D12A9B41D20098FF80 /* Menu */,
 			);
-			path = TabbarView;
+			path = Tabbar;
 			sourceTree = "<group>";
 		};
-		4A4CE2CF2A9B41B90098FF80 /* DatingView */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = DatingView;
-			sourceTree = "<group>";
-		};
-		4A4CE2D02A9B41C40098FF80 /* ChatView */ = {
+		4A4CE2CF2A9B41B90098FF80 /* Dating */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = ChatView;
+			path = Dating;
 			sourceTree = "<group>";
 		};
-		4A4CE2D12A9B41D20098FF80 /* MenuView */ = {
+		4A4CE2D02A9B41C40098FF80 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = MenuView;
+			path = Chat;
+			sourceTree = "<group>";
+		};
+		4A4CE2D12A9B41D20098FF80 /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Menu;
 			sourceTree = "<group>";
 		};
 		4A4CE2D22A9B41F30098FF80 /* NavigationViewBuilder */ = {
@@ -196,6 +200,22 @@
 			children = (
 			);
 			path = FillProfile;
+			sourceTree = "<group>";
+		};
+		4A4CE2DE2A9B4EEB0098FF80 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4A4CE2DF2A9B4F800098FF80 /* Colors.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		4A4CE2E12A9B53D50098FF80 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				4A4CE2E22A9B53E70098FF80 /* Color+extension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		D0DC46502A92699C0097CFF3 = {
@@ -224,8 +244,10 @@
 			children = (
 				D0DC465C2A92699D0097CFF3 /* DatifyiOSCoreApp.swift */,
 				D0DC465E2A92699D0097CFF3 /* MainAppView.swift */,
+				4A4CE2DE2A9B4EEB0098FF80 /* Resources */,
 				4A4CE2C02A9B39FB0098FF80 /* NaigationStack */,
 				4A4CE2C22A9B3A100098FF80 /* Views */,
+				4A4CE2E12A9B53D50098FF80 /* Extensions */,
 				D0DC46602A92699F0097CFF3 /* Assets.xcassets */,
 				D0DC46622A92699F0097CFF3 /* Preview Content */,
 			);
@@ -361,6 +383,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4A4CE2E02A9B4F800098FF80 /* Colors.xcassets in Resources */,
 				D0DC46642A92699F0097CFF3 /* Preview Assets.xcassets in Resources */,
 				D0DC46612A92699F0097CFF3 /* Assets.xcassets in Resources */,
 			);
@@ -392,6 +415,7 @@
 				4A4CE2C82A9B3B620098FF80 /* Router.swift in Sources */,
 				4A4CE2DC2A9B485B0098FF80 /* WelcomeView.swift in Sources */,
 				D0DC465F2A92699D0097CFF3 /* MainAppView.swift in Sources */,
+				4A4CE2E32A9B53E70098FF80 /* Color+extension.swift in Sources */,
 				D0DC465D2A92699D0097CFF3 /* DatifyiOSCoreApp.swift in Sources */,
 				4A4CE2D62A9B44C20098FF80 /* LoginFlow.swift in Sources */,
 				4A4CE2D82A9B47060098FF80 /* LoginView.swift in Sources */,
