@@ -16,13 +16,19 @@ struct WelcomeView: View {
 
     var body: some View {
         VStack {
-            Button("Login") {
+            DtButton(title: "Login", style: .gradient) {
                 router.push(.login(data: "LoginView"))
             }
-            Button("Registration") {
+
+            DtButton(title: "Registration", style: .secondary) {
                 router.push(.registrationSex)
             }
+
+            DtButton(title: "Temp", style: .primary) {
+                router.push(.temp)
+            }
         }
+        .padding()
     }
 }
 

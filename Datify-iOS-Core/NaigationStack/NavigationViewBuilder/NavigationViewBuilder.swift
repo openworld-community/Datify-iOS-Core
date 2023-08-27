@@ -14,8 +14,14 @@ final class NavigationViewBuilder {
         self.router = router
     }
 
-    // Unauthorized views
+    /// Unauthorized views
     func createWelcomeView() -> some View {
         WelcomeView(router: router)
     }
+
+    /// Temp View
+    func createTempView() -> some View {
+        TempView()
+    }
+
 }

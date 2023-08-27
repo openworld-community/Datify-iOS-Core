@@ -16,6 +16,9 @@ struct LoginView: View {
 
     var body: some View {
         Text(viewModel.data)
+            .dtTypo(.h1Medium, color: .textPrimaryLink)
+            .padding()
+            .background(Color.backgroundSecondary)
     }
 }
 

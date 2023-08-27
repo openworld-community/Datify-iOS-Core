@@ -8,6 +8,7 @@
 import Foundation
 
 enum AppRoute {
+    case temp
     case login(data: String)
     case registrationSex
     case registrationEmail
@@ -19,6 +20,7 @@ enum AppRoute {
 extension AppRoute: Hashable, Equatable {
     static func == (lhs: AppRoute, rhs: AppRoute) -> Bool {
         switch (lhs, rhs) {
+        case (.temp, .temp): return true
         case (.login, .login): return true
         case (.registrationSex, .registrationSex): return true
         case (.registrationEmail, .registrationEmail): return true
