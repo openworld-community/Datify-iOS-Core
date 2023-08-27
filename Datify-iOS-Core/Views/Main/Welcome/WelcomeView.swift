@@ -1,5 +1,5 @@
 //
-//  WelcomView.swift
+//  WelcomeView.swift
 //  Datify-iOS-Core
 //
 //  Created by Sergei Volkov on 27.08.2023.
