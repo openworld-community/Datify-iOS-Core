@@ -7,8 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D0DC465D2A92699D0097CFF3 /* Datify_iOS_CoreApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DC465C2A92699D0097CFF3 /* Datify_iOS_CoreApp.swift */; };
-		D0DC465F2A92699D0097CFF3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DC465E2A92699D0097CFF3 /* ContentView.swift */; };
+		4A4CE2C62A9B3A5F0098FF80 /* AppRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CE2C52A9B3A5F0098FF80 /* AppRoute.swift */; };
+		4A4CE2C82A9B3B620098FF80 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CE2C72A9B3B620098FF80 /* Router.swift */; };
+		4A4CE2CA2A9B3E8C0098FF80 /* NavigationViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CE2C92A9B3E8C0098FF80 /* NavigationViewBuilder.swift */; };
+		4A4CE2D42A9B44280098FF80 /* RegistrationFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CE2D32A9B44280098FF80 /* RegistrationFlow.swift */; };
+		4A4CE2D62A9B44C20098FF80 /* LoginFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CE2D52A9B44C20098FF80 /* LoginFlow.swift */; };
+		4A4CE2D82A9B47060098FF80 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CE2D72A9B47060098FF80 /* LoginView.swift */; };
+		4A4CE2DA2A9B47650098FF80 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CE2D92A9B47650098FF80 /* LoginViewModel.swift */; };
+		4A4CE2DC2A9B485B0098FF80 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CE2DB2A9B485B0098FF80 /* WelcomeView.swift */; };
+		4A4CE2E02A9B4F800098FF80 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A4CE2DF2A9B4F800098FF80 /* Colors.xcassets */; };
+		4A4CE2E32A9B53E70098FF80 /* Color+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CE2E22A9B53E70098FF80 /* Color+extension.swift */; };
+		4A4CE2E82A9B58590098FF80 /* DtTypography.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CE2E72A9B58590098FF80 /* DtTypography.swift */; };
+		4A4CE2EA2A9B5FB80098FF80 /* DtButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CE2E92A9B5FB80098FF80 /* DtButton.swift */; };
+		4A4CE2ED2A9B60A60098FF80 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CE2EC2A9B60A60098FF80 /* AppConstants.swift */; };
+		4A4CE2EF2A9B66DC0098FF80 /* TempView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CE2EE2A9B66DC0098FF80 /* TempView.swift */; };
+		4A4CE2F12A9B67B90098FF80 /* Text+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CE2F02A9B67B90098FF80 /* Text+extension.swift */; };
+		D0DC465D2A92699D0097CFF3 /* DatifyiOSCoreApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DC465C2A92699D0097CFF3 /* DatifyiOSCoreApp.swift */; };
+		D0DC465F2A92699D0097CFF3 /* MainAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DC465E2A92699D0097CFF3 /* MainAppView.swift */; };
 		D0DC46612A92699F0097CFF3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0DC46602A92699F0097CFF3 /* Assets.xcassets */; };
 		D0DC46642A92699F0097CFF3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0DC46632A92699F0097CFF3 /* Preview Assets.xcassets */; };
 		D0DC466E2A92699F0097CFF3 /* Datify_iOS_CoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DC466D2A92699F0097CFF3 /* Datify_iOS_CoreTests.swift */; };
@@ -34,9 +49,26 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4A4CE2C52A9B3A5F0098FF80 /* AppRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRoute.swift; sourceTree = "<group>"; };
+		4A4CE2C72A9B3B620098FF80 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		4A4CE2C92A9B3E8C0098FF80 /* NavigationViewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewBuilder.swift; sourceTree = "<group>"; };
+		4A4CE2D32A9B44280098FF80 /* RegistrationFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationFlow.swift; sourceTree = "<group>"; };
+		4A4CE2D52A9B44C20098FF80 /* LoginFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFlow.swift; sourceTree = "<group>"; };
+		4A4CE2D72A9B47060098FF80 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		4A4CE2D92A9B47650098FF80 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		4A4CE2DB2A9B485B0098FF80 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
+		4A4CE2DF2A9B4F800098FF80 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		4A4CE2E22A9B53E70098FF80 /* Color+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+extension.swift"; sourceTree = "<group>"; };
+		4A4CE2E52A9B57AC0098FF80 /* SF-Pro-Display-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Regular.otf"; sourceTree = "<group>"; };
+		4A4CE2E62A9B57CE0098FF80 /* SF-Pro-Display-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Medium.otf"; sourceTree = "<group>"; };
+		4A4CE2E72A9B58590098FF80 /* DtTypography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtTypography.swift; sourceTree = "<group>"; };
+		4A4CE2E92A9B5FB80098FF80 /* DtButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtButton.swift; sourceTree = "<group>"; };
+		4A4CE2EC2A9B60A60098FF80 /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
+		4A4CE2EE2A9B66DC0098FF80 /* TempView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempView.swift; sourceTree = "<group>"; };
+		4A4CE2F02A9B67B90098FF80 /* Text+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Text+extension.swift"; sourceTree = "<group>"; };
 		D0DC46592A92699D0097CFF3 /* Datify-iOS-Core.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Datify-iOS-Core.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D0DC465C2A92699D0097CFF3 /* Datify_iOS_CoreApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Datify_iOS_CoreApp.swift; sourceTree = "<group>"; };
-		D0DC465E2A92699D0097CFF3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		D0DC465C2A92699D0097CFF3 /* DatifyiOSCoreApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatifyiOSCoreApp.swift; sourceTree = "<group>"; };
+		D0DC465E2A92699D0097CFF3 /* MainAppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainAppView.swift; sourceTree = "<group>"; };
 		D0DC46602A92699F0097CFF3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D0DC46632A92699F0097CFF3 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D0DC46692A92699F0097CFF3 /* Datify-iOS-CoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Datify-iOS-CoreTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -72,6 +104,154 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4A4CE2C02A9B39FB0098FF80 /* NaigationStack */ = {
+			isa = PBXGroup;
+			children = (
+				4A4CE2C52A9B3A5F0098FF80 /* AppRoute.swift */,
+				4A4CE2C72A9B3B620098FF80 /* Router.swift */,
+				4A4CE2D22A9B41F30098FF80 /* NavigationViewBuilder */,
+			);
+			path = NaigationStack;
+			sourceTree = "<group>";
+		};
+		4A4CE2C22A9B3A100098FF80 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4A4CE2C42A9B3A290098FF80 /* Main */,
+				4A4CE2C32A9B3A1E0098FF80 /* Common */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		4A4CE2C32A9B3A1E0098FF80 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				4A4CE2E92A9B5FB80098FF80 /* DtButton.swift */,
+				4A4CE2EE2A9B66DC0098FF80 /* TempView.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		4A4CE2C42A9B3A290098FF80 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				4A4CE2CB2A9B3FFB0098FF80 /* Welcome */,
+				4A4CE2CE2A9B41920098FF80 /* Tabbar */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		4A4CE2CB2A9B3FFB0098FF80 /* Welcome */ = {
+			isa = PBXGroup;
+			children = (
+				4A4CE2DB2A9B485B0098FF80 /* WelcomeView.swift */,
+				4A4CE2CC2A9B40DA0098FF80 /* Login */,
+				4A4CE2CD2A9B40E30098FF80 /* Registration */,
+				4A4CE2DD2A9B4CB70098FF80 /* FillProfile */,
+			);
+			path = Welcome;
+			sourceTree = "<group>";
+		};
+		4A4CE2CC2A9B40DA0098FF80 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				4A4CE2D72A9B47060098FF80 /* LoginView.swift */,
+				4A4CE2D92A9B47650098FF80 /* LoginViewModel.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		4A4CE2CD2A9B40E30098FF80 /* Registration */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Registration;
+			sourceTree = "<group>";
+		};
+		4A4CE2CE2A9B41920098FF80 /* Tabbar */ = {
+			isa = PBXGroup;
+			children = (
+				4A4CE2CF2A9B41B90098FF80 /* Dating */,
+				4A4CE2D02A9B41C40098FF80 /* Chat */,
+				4A4CE2D12A9B41D20098FF80 /* Menu */,
+			);
+			path = Tabbar;
+			sourceTree = "<group>";
+		};
+		4A4CE2CF2A9B41B90098FF80 /* Dating */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Dating;
+			sourceTree = "<group>";
+		};
+		4A4CE2D02A9B41C40098FF80 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
+		4A4CE2D12A9B41D20098FF80 /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Menu;
+			sourceTree = "<group>";
+		};
+		4A4CE2D22A9B41F30098FF80 /* NavigationViewBuilder */ = {
+			isa = PBXGroup;
+			children = (
+				4A4CE2C92A9B3E8C0098FF80 /* NavigationViewBuilder.swift */,
+				4A4CE2D52A9B44C20098FF80 /* LoginFlow.swift */,
+				4A4CE2D32A9B44280098FF80 /* RegistrationFlow.swift */,
+			);
+			path = NavigationViewBuilder;
+			sourceTree = "<group>";
+		};
+		4A4CE2DD2A9B4CB70098FF80 /* FillProfile */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = FillProfile;
+			sourceTree = "<group>";
+		};
+		4A4CE2DE2A9B4EEB0098FF80 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4A4CE2DF2A9B4F800098FF80 /* Colors.xcassets */,
+				4A4CE2E42A9B57870098FF80 /* Fonts */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		4A4CE2E12A9B53D50098FF80 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				4A4CE2E22A9B53E70098FF80 /* Color+extension.swift */,
+				4A4CE2F02A9B67B90098FF80 /* Text+extension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		4A4CE2E42A9B57870098FF80 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				4A4CE2E52A9B57AC0098FF80 /* SF-Pro-Display-Regular.otf */,
+				4A4CE2E62A9B57CE0098FF80 /* SF-Pro-Display-Medium.otf */,
+				4A4CE2E72A9B58590098FF80 /* DtTypography.swift */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		4A4CE2EB2A9B60950098FF80 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				4A4CE2EC2A9B60A60098FF80 /* AppConstants.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		D0DC46502A92699C0097CFF3 = {
 			isa = PBXGroup;
 			children = (
@@ -96,8 +276,13 @@
 		D0DC465B2A92699D0097CFF3 /* Datify-iOS-Core */ = {
 			isa = PBXGroup;
 			children = (
-				D0DC465C2A92699D0097CFF3 /* Datify_iOS_CoreApp.swift */,
-				D0DC465E2A92699D0097CFF3 /* ContentView.swift */,
+				D0DC465C2A92699D0097CFF3 /* DatifyiOSCoreApp.swift */,
+				D0DC465E2A92699D0097CFF3 /* MainAppView.swift */,
+				4A4CE2DE2A9B4EEB0098FF80 /* Resources */,
+				4A4CE2C02A9B39FB0098FF80 /* NaigationStack */,
+				4A4CE2C22A9B3A100098FF80 /* Views */,
+				4A4CE2EB2A9B60950098FF80 /* Helpers */,
+				4A4CE2E12A9B53D50098FF80 /* Extensions */,
 				D0DC46602A92699F0097CFF3 /* Assets.xcassets */,
 				D0DC46622A92699F0097CFF3 /* Preview Content */,
 			);
@@ -233,6 +418,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4A4CE2E02A9B4F800098FF80 /* Colors.xcassets in Resources */,
 				D0DC46642A92699F0097CFF3 /* Preview Assets.xcassets in Resources */,
 				D0DC46612A92699F0097CFF3 /* Assets.xcassets in Resources */,
 			);
@@ -259,8 +445,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D0DC465F2A92699D0097CFF3 /* ContentView.swift in Sources */,
-				D0DC465D2A92699D0097CFF3 /* Datify_iOS_CoreApp.swift in Sources */,
+				4A4CE2EA2A9B5FB80098FF80 /* DtButton.swift in Sources */,
+				4A4CE2D42A9B44280098FF80 /* RegistrationFlow.swift in Sources */,
+				4A4CE2CA2A9B3E8C0098FF80 /* NavigationViewBuilder.swift in Sources */,
+				4A4CE2C82A9B3B620098FF80 /* Router.swift in Sources */,
+				4A4CE2DC2A9B485B0098FF80 /* WelcomeView.swift in Sources */,
+				4A4CE2E82A9B58590098FF80 /* DtTypography.swift in Sources */,
+				D0DC465F2A92699D0097CFF3 /* MainAppView.swift in Sources */,
+				4A4CE2E32A9B53E70098FF80 /* Color+extension.swift in Sources */,
+				D0DC465D2A92699D0097CFF3 /* DatifyiOSCoreApp.swift in Sources */,
+				4A4CE2D62A9B44C20098FF80 /* LoginFlow.swift in Sources */,
+				4A4CE2D82A9B47060098FF80 /* LoginView.swift in Sources */,
+				4A4CE2ED2A9B60A60098FF80 /* AppConstants.swift in Sources */,
+				4A4CE2F12A9B67B90098FF80 /* Text+extension.swift in Sources */,
+				4A4CE2EF2A9B66DC0098FF80 /* TempView.swift in Sources */,
+				4A4CE2C62A9B3A5F0098FF80 /* AppRoute.swift in Sources */,
+				4A4CE2DA2A9B47650098FF80 /* LoginViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
