@@ -22,6 +22,9 @@
 		4A4CE2ED2A9B60A60098FF80 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CE2EC2A9B60A60098FF80 /* AppConstants.swift */; };
 		4A4CE2EF2A9B66DC0098FF80 /* TempView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CE2EE2A9B66DC0098FF80 /* TempView.swift */; };
 		4A4CE2F12A9B67B90098FF80 /* Text+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CE2F02A9B67B90098FF80 /* Text+extension.swift */; };
+		9808959C2A9F208B00F82F02 /* DtSecureFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9808959B2A9F208B00F82F02 /* DtSecureFieldView.swift */; };
+		980895BA2A9F4A5700F82F02 /* DtSpinnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980895B92A9F4A5700F82F02 /* DtSpinnerView.swift */; };
+		98F3B6D62A9E4F9D0097B5C0 /* DtLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F3B6D52A9E4F9D0097B5C0 /* DtLogoView.swift */; };
 		D0DC465D2A92699D0097CFF3 /* DatifyiOSCoreApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DC465C2A92699D0097CFF3 /* DatifyiOSCoreApp.swift */; };
 		D0DC465F2A92699D0097CFF3 /* MainAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DC465E2A92699D0097CFF3 /* MainAppView.swift */; };
 		D0DC46612A92699F0097CFF3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0DC46602A92699F0097CFF3 /* Assets.xcassets */; };
@@ -66,6 +69,9 @@
 		4A4CE2EC2A9B60A60098FF80 /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
 		4A4CE2EE2A9B66DC0098FF80 /* TempView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempView.swift; sourceTree = "<group>"; };
 		4A4CE2F02A9B67B90098FF80 /* Text+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Text+extension.swift"; sourceTree = "<group>"; };
+		9808959B2A9F208B00F82F02 /* DtSecureFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtSecureFieldView.swift; sourceTree = "<group>"; };
+		980895B92A9F4A5700F82F02 /* DtSpinnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtSpinnerView.swift; sourceTree = "<group>"; };
+		98F3B6D52A9E4F9D0097B5C0 /* DtLogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtLogoView.swift; sourceTree = "<group>"; };
 		D0DC46592A92699D0097CFF3 /* Datify-iOS-Core.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Datify-iOS-Core.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0DC465C2A92699D0097CFF3 /* DatifyiOSCoreApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatifyiOSCoreApp.swift; sourceTree = "<group>"; };
 		D0DC465E2A92699D0097CFF3 /* MainAppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainAppView.swift; sourceTree = "<group>"; };
@@ -128,6 +134,9 @@
 			children = (
 				4A4CE2E92A9B5FB80098FF80 /* DtButton.swift */,
 				4A4CE2EE2A9B66DC0098FF80 /* TempView.swift */,
+				98F3B6D52A9E4F9D0097B5C0 /* DtLogoView.swift */,
+				9808959B2A9F208B00F82F02 /* DtSecureFieldView.swift */,
+				980895B92A9F4A5700F82F02 /* DtSpinnerView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -447,12 +456,15 @@
 			files = (
 				4A4CE2EA2A9B5FB80098FF80 /* DtButton.swift in Sources */,
 				4A4CE2D42A9B44280098FF80 /* RegistrationFlow.swift in Sources */,
+				980895BA2A9F4A5700F82F02 /* DtSpinnerView.swift in Sources */,
 				4A4CE2CA2A9B3E8C0098FF80 /* NavigationViewBuilder.swift in Sources */,
 				4A4CE2C82A9B3B620098FF80 /* Router.swift in Sources */,
 				4A4CE2DC2A9B485B0098FF80 /* WelcomeView.swift in Sources */,
 				4A4CE2E82A9B58590098FF80 /* DtTypography.swift in Sources */,
 				D0DC465F2A92699D0097CFF3 /* MainAppView.swift in Sources */,
 				4A4CE2E32A9B53E70098FF80 /* Color+extension.swift in Sources */,
+				9808959C2A9F208B00F82F02 /* DtSecureFieldView.swift in Sources */,
+				98F3B6D62A9E4F9D0097B5C0 /* DtLogoView.swift in Sources */,
 				D0DC465D2A92699D0097CFF3 /* DatifyiOSCoreApp.swift in Sources */,
 				4A4CE2D62A9B44C20098FF80 /* LoginFlow.swift in Sources */,
 				4A4CE2D82A9B47060098FF80 /* LoginView.swift in Sources */,
