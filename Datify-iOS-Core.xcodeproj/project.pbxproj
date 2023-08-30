@@ -28,9 +28,9 @@
 		D0DC465F2A92699D0097CFF3 /* MainAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DC465E2A92699D0097CFF3 /* MainAppView.swift */; };
 		D0DC46612A92699F0097CFF3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0DC46602A92699F0097CFF3 /* Assets.xcassets */; };
 		D0DC46642A92699F0097CFF3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0DC46632A92699F0097CFF3 /* Preview Assets.xcassets */; };
-		D0DC466E2A92699F0097CFF3 /* Datify_iOS_CoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DC466D2A92699F0097CFF3 /* Datify_iOS_CoreTests.swift */; };
-		D0DC46782A92699F0097CFF3 /* Datify_iOS_CoreUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DC46772A92699F0097CFF3 /* Datify_iOS_CoreUITests.swift */; };
-		D0DC467A2A92699F0097CFF3 /* Datify_iOS_CoreUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DC46792A92699F0097CFF3 /* Datify_iOS_CoreUITestsLaunchTests.swift */; };
+		D0DC466E2A92699F0097CFF3 /* DatifyIOSCoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DC466D2A92699F0097CFF3 /* DatifyIOSCoreTests.swift */; };
+		D0DC46782A92699F0097CFF3 /* DatifyIOSCoreUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DC46772A92699F0097CFF3 /* DatifyIOSCoreUITests.swift */; };
+		D0DC467A2A92699F0097CFF3 /* DatifyIOSCoreUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DC46792A92699F0097CFF3 /* DatifyIOSCoreUITestsLaunchTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,10 +76,10 @@
 		D0DC46602A92699F0097CFF3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D0DC46632A92699F0097CFF3 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D0DC46692A92699F0097CFF3 /* Datify-iOS-CoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Datify-iOS-CoreTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D0DC466D2A92699F0097CFF3 /* Datify_iOS_CoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Datify_iOS_CoreTests.swift; sourceTree = "<group>"; };
+		D0DC466D2A92699F0097CFF3 /* DatifyIOSCoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatifyIOSCoreTests.swift; sourceTree = "<group>"; };
 		D0DC46732A92699F0097CFF3 /* Datify-iOS-CoreUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Datify-iOS-CoreUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D0DC46772A92699F0097CFF3 /* Datify_iOS_CoreUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Datify_iOS_CoreUITests.swift; sourceTree = "<group>"; };
-		D0DC46792A92699F0097CFF3 /* Datify_iOS_CoreUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Datify_iOS_CoreUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		D0DC46772A92699F0097CFF3 /* DatifyIOSCoreUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatifyIOSCoreUITests.swift; sourceTree = "<group>"; };
+		D0DC46792A92699F0097CFF3 /* DatifyIOSCoreUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatifyIOSCoreUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		D0DC46862A926C650097CFF3 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -322,7 +322,7 @@
 		D0DC466C2A92699F0097CFF3 /* Datify-iOS-CoreTests */ = {
 			isa = PBXGroup;
 			children = (
-				D0DC466D2A92699F0097CFF3 /* Datify_iOS_CoreTests.swift */,
+				D0DC466D2A92699F0097CFF3 /* DatifyIOSCoreTests.swift */,
 			);
 			path = "Datify-iOS-CoreTests";
 			sourceTree = "<group>";
@@ -330,8 +330,8 @@
 		D0DC46762A92699F0097CFF3 /* Datify-iOS-CoreUITests */ = {
 			isa = PBXGroup;
 			children = (
-				D0DC46772A92699F0097CFF3 /* Datify_iOS_CoreUITests.swift */,
-				D0DC46792A92699F0097CFF3 /* Datify_iOS_CoreUITestsLaunchTests.swift */,
+				D0DC46772A92699F0097CFF3 /* DatifyIOSCoreUITests.swift */,
+				D0DC46792A92699F0097CFF3 /* DatifyIOSCoreUITestsLaunchTests.swift */,
 			);
 			path = "Datify-iOS-CoreUITests";
 			sourceTree = "<group>";
@@ -343,6 +343,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D0DC467D2A92699F0097CFF3 /* Build configuration list for PBXNativeTarget "Datify-iOS-Core" */;
 			buildPhases = (
+				4A4CE2FE2A9F0CA00098FF80 /* ShellScript */,
 				D0DC46552A92699D0097CFF3 /* Sources */,
 				D0DC46562A92699D0097CFF3 /* Frameworks */,
 				D0DC46572A92699D0097CFF3 /* Resources */,
@@ -352,6 +353,8 @@
 			dependencies = (
 			);
 			name = "Datify-iOS-Core";
+			packageProductDependencies = (
+			);
 			productName = "Datify-iOS-Core";
 			productReference = D0DC46592A92699D0097CFF3 /* Datify-iOS-Core.app */;
 			productType = "com.apple.product-type.application";
@@ -424,6 +427,9 @@
 				Base,
 			);
 			mainGroup = D0DC46502A92699C0097CFF3;
+			packageReferences = (
+				4A4CE2F92A9F093C0098FF80 /* XCRemoteSwiftPackageReference "SwiftLint" */,
+			);
 			productRefGroup = D0DC465A2A92699D0097CFF3 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -462,6 +468,27 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		4A4CE2FE2A9F0CA00098FF80 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint > /dev/null; then\n  swiftlint --fix && swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		D0DC46552A92699D0097CFF3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -492,7 +519,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D0DC466E2A92699F0097CFF3 /* Datify_iOS_CoreTests.swift in Sources */,
+				D0DC466E2A92699F0097CFF3 /* DatifyIOSCoreTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -500,8 +527,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D0DC467A2A92699F0097CFF3 /* Datify_iOS_CoreUITestsLaunchTests.swift in Sources */,
-				D0DC46782A92699F0097CFF3 /* Datify_iOS_CoreUITests.swift in Sources */,
+				D0DC467A2A92699F0097CFF3 /* DatifyIOSCoreUITestsLaunchTests.swift in Sources */,
+				D0DC46782A92699F0097CFF3 /* DatifyIOSCoreUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -815,6 +842,17 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4A4CE2F92A9F093C0098FF80 /* XCRemoteSwiftPackageReference "SwiftLint" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/SwiftLint/";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.52.4;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
 	};
 	rootObject = D0DC46512A92699C0097CFF3 /* Project object */;
 }

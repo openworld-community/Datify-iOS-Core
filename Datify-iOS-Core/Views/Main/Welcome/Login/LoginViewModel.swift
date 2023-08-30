@@ -14,4 +14,3 @@ final class LoginViewModel: ObservableObject {
         self.data = data
     }
 }
-
