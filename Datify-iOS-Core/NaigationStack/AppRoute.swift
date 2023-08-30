@@ -35,4 +35,3 @@ extension AppRoute: Hashable, Equatable {
         hasher.combine(self)
     }
 }
-

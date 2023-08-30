@@ -8,7 +8,7 @@
 import XCTest
 @testable import Datify_iOS_Core
 
-final class Datify_iOS_CoreTests: XCTestCase {
+final class DatifyIOSCoreTests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
