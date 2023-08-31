@@ -16,6 +16,5 @@ struct DatifyiOSCoreApp: App {
         WindowGroup {
             MainAppView(router: router, navViewBuilder: builder)
         }
-        
     }
 }

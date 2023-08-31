@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-fileprivate enum DtFont: String {
+private enum DtFont: String {
     case regular = "SF-Pro-Display-Regular"
     case medium = "SF-Pro-Display-Medium"
 }
@@ -37,6 +37,7 @@ struct DtTypography: ViewModifier {
 
     var style: Style
 
+    // swiftlint:disable cyclomatic_complexity
     public func body(content: Content) -> some View {
         switch style {
         case .h1Medium: return content.font(.custom(DtFont.medium.rawValue, size: 36))

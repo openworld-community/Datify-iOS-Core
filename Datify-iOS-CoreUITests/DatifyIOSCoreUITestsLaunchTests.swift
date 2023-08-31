@@ -7,7 +7,7 @@
 
 import XCTest
 
-final class Datify_iOS_CoreUITestsLaunchTests: XCTestCase {
+final class DatifyIOSCoreUITestsLaunchTests: XCTestCase {
 
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true
