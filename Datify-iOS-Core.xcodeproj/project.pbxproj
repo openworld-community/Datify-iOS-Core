@@ -22,6 +22,7 @@
 		4A4CE2ED2A9B60A60098FF80 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CE2EC2A9B60A60098FF80 /* AppConstants.swift */; };
 		4A4CE2EF2A9B66DC0098FF80 /* TempView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CE2EE2A9B66DC0098FF80 /* TempView.swift */; };
 		4A4CE2F12A9B67B90098FF80 /* Text+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CE2F02A9B67B90098FF80 /* Text+extension.swift */; };
+		63A365A32AA04FFB00CBF5CD /* CustomTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A365A22AA04FFB00CBF5CD /* CustomTextFieldView.swift */; };
 		D0DC465D2A92699D0097CFF3 /* DatifyiOSCoreApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DC465C2A92699D0097CFF3 /* DatifyiOSCoreApp.swift */; };
 		D0DC465F2A92699D0097CFF3 /* MainAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DC465E2A92699D0097CFF3 /* MainAppView.swift */; };
 		D0DC46612A92699F0097CFF3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0DC46602A92699F0097CFF3 /* Assets.xcassets */; };
@@ -66,6 +67,7 @@
 		4A4CE2EC2A9B60A60098FF80 /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
 		4A4CE2EE2A9B66DC0098FF80 /* TempView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempView.swift; sourceTree = "<group>"; };
 		4A4CE2F02A9B67B90098FF80 /* Text+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Text+extension.swift"; sourceTree = "<group>"; };
+		63A365A22AA04FFB00CBF5CD /* CustomTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextFieldView.swift; sourceTree = "<group>"; };
 		D0DC46592A92699D0097CFF3 /* Datify-iOS-Core.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Datify-iOS-Core.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0DC465C2A92699D0097CFF3 /* DatifyiOSCoreApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatifyiOSCoreApp.swift; sourceTree = "<group>"; };
 		D0DC465E2A92699D0097CFF3 /* MainAppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainAppView.swift; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 		4A4CE2C32A9B3A1E0098FF80 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				63A365A12AA04FD800CBF5CD /* CustomTextField */,
 				4A4CE2E92A9B5FB80098FF80 /* DtButton.swift */,
 				4A4CE2EE2A9B66DC0098FF80 /* TempView.swift */,
 			);
@@ -250,6 +253,14 @@
 				4A4CE2EC2A9B60A60098FF80 /* AppConstants.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		63A365A12AA04FD800CBF5CD /* CustomTextField */ = {
+			isa = PBXGroup;
+			children = (
+				63A365A22AA04FFB00CBF5CD /* CustomTextFieldView.swift */,
+			);
+			path = CustomTextField;
 			sourceTree = "<group>";
 		};
 		D0DC46502A92699C0097CFF3 = {
@@ -459,6 +470,7 @@
 				4A4CE2ED2A9B60A60098FF80 /* AppConstants.swift in Sources */,
 				4A4CE2F12A9B67B90098FF80 /* Text+extension.swift in Sources */,
 				4A4CE2EF2A9B66DC0098FF80 /* TempView.swift in Sources */,
+				63A365A32AA04FFB00CBF5CD /* CustomTextFieldView.swift in Sources */,
 				4A4CE2C62A9B3A5F0098FF80 /* AppRoute.swift in Sources */,
 				4A4CE2DA2A9B47650098FF80 /* LoginViewModel.swift in Sources */,
 			);
