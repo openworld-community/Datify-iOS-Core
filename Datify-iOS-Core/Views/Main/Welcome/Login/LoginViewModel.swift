@@ -40,4 +40,3 @@ final class LoginViewModel: ObservableObject {
 
     //    func anotherWayToLogIn() {}
 }
-

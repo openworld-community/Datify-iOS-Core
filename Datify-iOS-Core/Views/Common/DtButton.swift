@@ -88,7 +88,6 @@ private extension View {
     }
 }
 
-
 struct DtButton_Previews: PreviewProvider {
     static var previews: some View {
         DtButton(title: "Button", style: .primary, action: {})

@@ -48,7 +48,7 @@ extension Color {
                 Color(hex: 0x9049D4),
                 Color(hex: 0xDD60D8),
                 Color(hex: 0xED75BD),
-                Color(hex: 0xFF80AC),
+                Color(hex: 0xFF80AC)
             ],
             startPoint: UnitPoint(x: 0, y: 0.5),
             endPoint: UnitPoint(x: 1, y: 0.5)
@@ -59,12 +59,10 @@ extension Color {
                 Color(hex: 0xAB63F3),
                 Color(hex: 0xDD60D8),
                 Color(hex: 0xED75BD),
-                Color(hex: 0xFF80AC),
+                Color(hex: 0xFF80AC)
             ],
             startPoint: UnitPoint(x: 0, y: 0.5),
             endPoint: UnitPoint(x: 1, y: 0.5)
         )
     }
 }
-
-
