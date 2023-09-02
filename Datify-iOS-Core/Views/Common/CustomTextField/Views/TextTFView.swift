@@ -1,5 +1,5 @@
 //
-//  EmailTFView.swift
+//  NameTFView.swift
 //  Datify-iOS-Core
 //
 //  Created by Ildar Khabibullin on 02.09.2023.
@@ -7,12 +7,11 @@
 
 import SwiftUI
 
-struct EmailTFView: View {
+struct TextTFView: View {
     @Binding var input: String
+    let placeholder: String
 
     var body: some View {
-        let placeholder = ConstantsTF.emailPlaceholder.stringValue
-
         TextField(placeholder, text: $input)
             .frame(height: AppConstants.Visual.buttonHeight)
             .keyboardType(.emailAddress)
