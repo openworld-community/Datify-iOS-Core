@@ -33,6 +33,7 @@ extension Color {
     static let accentsViolet: Color = Color("AccentsViolet")
     static let accentsYellow: Color = Color("AccentsYellow")
     static let accentsBlack: Color = Color("AccentsBlack")
+    static let accentsPrimary: Color = Color("AccentsPrimary")
     static let accentsWhite: Color = Color("AccentsWhite")
 
     static let textInverted: Color = Color("TextInverted")
