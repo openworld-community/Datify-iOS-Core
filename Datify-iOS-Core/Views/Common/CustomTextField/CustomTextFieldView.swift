@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum CustomTFStyle: CaseIterable {
+enum CustomTFType: CaseIterable {
     case phoneAndEmail
     case email
     case password
@@ -19,11 +19,11 @@ enum CustomTFStyle: CaseIterable {
 
 struct CustomTF: View {
     @Binding var text: String
-    var placeholder: String
-    var style: CustomTFStyle
+    let placeholder: String
+    var type: CustomTFType
     
     var body: some View {
-        switch style {
+        switch type {
             case .phoneAndEmail:
                 TextField(placeholder, text: $text)
                     .padding()
@@ -52,41 +52,6 @@ struct CustomTF: View {
                 TextField(placeholder, text: $text)
                     .padding()
                     .overlay(Rectangle().frame(height: 1).padding(.top, 30), alignment: .top)
-        }
-    }
-}
-
-
-struct CustomTF_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            ForEach(CustomTFStyle.allCases, id: \.self) { style in
-                CustomTF(text: .constant("Example"), placeholder: "Placeholder", style: style)
-                    .previewDisplayName(style.displayName)
-                    .previewLayout(.sizeThatFits)
-                    .padding()
-            }
-        }
-    }
-}
-
-extension CustomTFStyle {
-    var displayName: String {
-        switch self {
-        case .phoneAndEmail:
-            return "Phone and Email Style"
-        case .email:
-            return "Email Style"
-        case .password:
-            return "Password Style"
-        case .name:
-            return "Name Style"
-        case .phone:
-            return "Phone Style"
-        case .sms:
-            return "SMS Style"
-        case .answer:
-            return "Answer Style"
         }
     }
 }
