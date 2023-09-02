@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum CustomTextFieldStyle {
+enum CustomTFStyle: CaseIterable {
     case phoneAndEmail
     case email
     case password
@@ -17,10 +17,10 @@ enum CustomTextFieldStyle {
     case answer
 }
 
-struct CustomTextField: View {
+struct CustomTF: View {
     @Binding var text: String
     var placeholder: String
-    var style: CustomTextFieldStyle
+    var style: CustomTFStyle
     
     var body: some View {
         switch style {
@@ -55,3 +55,40 @@ struct CustomTextField: View {
         }
     }
 }
+
+
+struct CustomTF_Previews: PreviewProvider {
+    static var previews: some View {
+        Group {
+            ForEach(CustomTFStyle.allCases, id: \.self) { style in
+                CustomTF(text: .constant("Example"), placeholder: "Placeholder", style: style)
+                    .previewDisplayName(style.displayName)
+                    .previewLayout(.sizeThatFits)
+                    .padding()
+            }
+        }
+    }
+}
+
+extension CustomTFStyle {
+    var displayName: String {
+        switch self {
+        case .phoneAndEmail:
+            return "Phone and Email Style"
+        case .email:
+            return "Email Style"
+        case .password:
+            return "Password Style"
+        case .name:
+            return "Name Style"
+        case .phone:
+            return "Phone Style"
+        case .sms:
+            return "SMS Style"
+        case .answer:
+            return "Answer Style"
+        }
+    }
+}
+
+
