@@ -45,28 +45,45 @@ struct PreviewCTF: View {
         VStack {
             DtCustomTF(
                 input: $inputPhoneEmail,
-                style: .phoneAndEmail
+                style: .phoneAndEmail,
+                action: {
+                    print("Enter нажат: \(inputPhoneEmail)")
+                }
             )
             DtCustomTF(
                 input: $inputEmail,
-                style: .email
+                style: .email,
+                action: {
+                    print("Enter нажат: \(inputEmail)")
+                }
             )
             DtCustomTF(
                 input: $inputPassword,
-                style: .password
-            )
+                style: .password,
+                action: {
+                    print("Enter нажат: \(inputPassword)")
+                })
             DtCustomTF(
                 input: $inputPhone,
-                style: .phone
+                style: .phone,
+                action: {
+                    print("Enter нажат: \(inputPhone)")
+                }
             )
             DtCustomTF(
                 input: $inputSms,
-                style: .sms
+                style: .sms,
+                action: {
+                    print("Enter нажат: \(inputSms)")
+                }
             )
             DtCustomTF(
                 input: $inputName,
                 style: .text,
-                textPlaceholder: "Your Name"
+                textPlaceholder: "Your Name",
+                action: {
+                    print("Enter нажат: \(inputName)")
+                }
             )
         }
     }

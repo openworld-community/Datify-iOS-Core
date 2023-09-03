@@ -26,18 +26,22 @@ struct DtCustomTF: View {
     private let style: DtCustomTF.Style
     private let textPlaceholder: String?
 
+    var action: (() -> Void)?
+
     init(
         input: Binding<String>,
         width: CGFloat = .infinity,
         height: CGFloat = AppConstants.Visual.buttonHeight,
         style: DtCustomTF.Style,
-        textPlaceholder: String? = nil
+        textPlaceholder: String? = nil,
+        action: (() -> Void)?
     ) {
         self._input = input
         self.width = width
         self.height = height
         self.style = style
         self.textPlaceholder = textPlaceholder
+        self.action = action
     }
 
     var body: some View {
@@ -138,7 +142,8 @@ struct DtCustomTF: View {
                 textAlignment: configuration.textAlignment,
                 keyboardType: configuration.keyboardType,
                 width: width,
-                height: height
+                height: height,
+                action: action
             )).eraseToAnyView()
         } else {
             return (RegularTextFieldView(
@@ -149,7 +154,8 @@ struct DtCustomTF: View {
                 keyboardType: configuration.keyboardType,
                 width: width,
                 height: height,
-                style: style
+                style: style,
+                action: action
             )).eraseToAnyView()
         }
     }
