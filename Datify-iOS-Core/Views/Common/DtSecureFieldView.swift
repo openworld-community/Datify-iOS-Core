@@ -8,46 +8,68 @@
 import SwiftUI
 
 struct DtSecureFieldView: View {
-    @State var isSecureField: Bool = true
     @Binding var text: String
-    var title: String
+    @State private var style: DtSecureFieldView.Style
+    let placeholder: String
+
+    enum Style {
+        case standart, secure
+    }
+
+    init(
+        text: Binding<String>,
+        style: DtSecureFieldView.Style,
+        placeholder: String
+    ) {
+        _text = text
+        self.style = style
+        self.placeholder = placeholder
+    }
 
     var body: some View {
-        HStack {
-            if isSecureField {
-                SecureField(title, text: $text)
-            } else {
-                TextField(title, text: $text)
-            }
-        }
-        .dtTypo(.p2Regular, color: .textPrimary)
-        .padding()
-        .padding(.trailing, 36)
-        .background(Color.backgroundSecondary)
-        .cornerRadius(AppConstants.Visual.cornerRadius)
-        .overlay(
-            RoundedRectangle(
-                cornerRadius: AppConstants.Visual.cornerRadius
-            )
-            .stroke(
-                Color.backgroundStroke,
-                lineWidth: 0.33
-            )
-        )
-        .textInputAutocapitalization(.never)
-        .autocorrectionDisabled()
-        .overlay(alignment: .trailing) {
-            Image(systemName: isSecureField ? "eye.slash" : "eye")
-                .padding(.trailing)
-                .onTapGesture {
-                    isSecureField.toggle()
+        switch style {
+        case .standart:
+            DtTextFieldView(
+                text: $text,
+                placeholder: placeholder,
+                imageName: "eye",
+                isImageAlwaysShown: true,
+                submitLabel: .done) {
+                    style = .secure
                 }
+        case .secure:
+            HStack {
+                SecureField(placeholder, text: $text)
+
+                Button {
+                    style = .standart
+                } label: {
+                    Image(systemName: "eye.slash")
+                }
+                .frame(width: 24, height: 24)
+            }
+            .dtTypo(.p2Regular, color: .textPrimary)
+            .padding()
+            .background(Color.backgroundSecondary)
+            .cornerRadius(AppConstants.Visual.cornerRadius)
+            .overlay(
+                RoundedRectangle(
+                    cornerRadius: AppConstants.Visual.cornerRadius
+                )
+                .stroke(
+                    Color.backgroundStroke,
+                    lineWidth: 1
+                )
+            )
+            .textInputAutocapitalization(.never)
+            .autocorrectionDisabled()
+            .submitLabel(.done)
         }
     }
 }
 
 struct DtSecureFieldView_Previews: PreviewProvider {
     static var previews: some View {
-        DtSecureFieldView(text: .constant("aaa"), title: "Password")
+        DtSecureFieldView(text: .constant(""), style: .standart, placeholder: "Password")
     }
 }

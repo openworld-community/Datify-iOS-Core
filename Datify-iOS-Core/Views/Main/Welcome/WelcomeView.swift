@@ -17,7 +17,7 @@ struct WelcomeView: View {
     var body: some View {
         VStack {
             DtButton(title: "Login", style: .gradient) {
-                router.push(.login(data: "LoginView"))
+                router.push(.login)
             }
 
             DtButton(title: "Registration", style: .secondary) {

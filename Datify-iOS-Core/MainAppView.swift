@@ -22,7 +22,7 @@ struct MainAppView: View {
     private func buildViews(view: AppRoute) -> some View {
         switch view {
         case .temp: navViewBuilder.createTempView()
-        case let .login(data): navViewBuilder.createLoginView(transferData: data)
+        case .login: navViewBuilder.createLoginView()
         case .registrationSex: navViewBuilder.createRegSexView()
         case .registrationEmail: navViewBuilder.createRegEmailView()
         case .registrationLocation: navViewBuilder.createRegLocationView()

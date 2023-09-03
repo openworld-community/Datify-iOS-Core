@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct DtSpinnerView: View {
-    @State var isAnimating = false
+    @State var isAnimating: Bool = false
+    let sideSize: CGFloat
 
     var body: some View {
         Circle()
@@ -20,8 +21,7 @@ struct DtSpinnerView: View {
                     lineCap: .round
                 )
             )
-            .frame(width: 56, height: 56)
-//            .shadow(radius: 3)
+            .frame(width: sideSize, height: sideSize)
             .rotationEffect(.degrees(isAnimating ? 360 : 0))
             .animation(Animation.linear(duration: 1).repeatForever(autoreverses: false), value: isAnimating)
             .onAppear {
@@ -35,6 +35,6 @@ struct DtSpinnerView: View {
 
 struct DtSpinnerView_Previews: PreviewProvider {
     static var previews: some View {
-        DtSpinnerView()
+        DtSpinnerView(sideSize: 56)
     }
 }

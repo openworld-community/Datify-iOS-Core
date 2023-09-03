@@ -10,11 +10,11 @@ import SwiftUI
 protocol LoginFlow {
     associatedtype Login: View
 
-    func createLoginView(transferData: String) -> Login
+    func createLoginView() -> Login
 }
 
 extension NavigationViewBuilder: LoginFlow {
-    func createLoginView(transferData: String) -> some View {
-        LoginView(transferData: transferData)
+    func createLoginView() -> some View {
+        LoginView()
     }
 }

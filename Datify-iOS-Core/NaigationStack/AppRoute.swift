@@ -9,7 +9,7 @@ import Foundation
 
 enum AppRoute {
     case temp
-    case login(data: String)
+    case login
     case registrationSex
     case registrationEmail
     case registrationLocation

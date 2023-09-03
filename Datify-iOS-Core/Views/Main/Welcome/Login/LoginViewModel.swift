@@ -7,36 +7,35 @@
 
 import Foundation
 
-final class LoginViewModel: ObservableObject {    
-    @Published var email: String = ""
-    @Published var password: String = ""
-    @Published var authenticated: Bool = false
-    @Published var invalid: Bool = false
-    @Published var showSpinner: Bool = false
-    @Published var showForgotPassword: Bool = false
+enum LoginState {
+    case idle, inProcess, success, error
+}
+
+final class LoginViewModel: ObservableObject {
+    @Published var loginState: LoginState = .idle
+    @Published var email: String = .init()
+    @Published var password: String = .init()
+    @Published var isShowingSheet = false
 
     var isButtonDisabled: Bool {
         email.isEmpty || password.isEmpty
     }
 
     func authenticate() {
+        loginState = .inProcess
+
         guard email.lowercased() == "a", password == "a" else {
-            invalid = true
+            loginState = .error
             return
         }
-        showSpinner = true
-        authenticated = true
-        email = ""
-        password = ""
+
+        self.loginState = .success
+
+        email = .init()
+        password = .init()
     }
 
     func forgotPassword() {
-        showForgotPassword = true
+        isShowingSheet = true
     }
-
-    func logIn() {
-        authenticate()
-    }
-
-    //    func anotherWayToLogIn() {}
 }
