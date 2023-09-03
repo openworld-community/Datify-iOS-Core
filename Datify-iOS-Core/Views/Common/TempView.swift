@@ -11,6 +11,8 @@ struct TempView: View {
     var body: some View {
         Text("TEMP VIEW")
             .foregroundLinearGradient()
+        ContentViewCTF()
+            .padding(.horizontal, AppConstants.Visual.paddings)
     }
 }
 
