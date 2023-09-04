@@ -8,26 +8,25 @@
 import SwiftUI
 
 struct LoginView: View {
+    private unowned let router: Router<AppRoute>
     @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel: LoginViewModel
-    @State private var showErrorAlert: Bool = false
     @FocusState private var focusedField: FocusField?
 
     private enum FocusField {
         case textField, secureField
     }
 
-    init(viewModel: LoginViewModel = LoginViewModel()) {
-        _viewModel = StateObject(wrappedValue: LoginViewModel())
+    init(router: Router<AppRoute>,
+         viewModel: LoginViewModel = LoginViewModel(router: nil)
+    ) {
+        self.router = router
+        _viewModel = StateObject(wrappedValue: LoginViewModel(router: router))
     }
 
     var body: some View {
         checkState()
-            // Временный(?) алерт
-            .alert("Wrong Login or password. Please try again!", isPresented: $showErrorAlert) {
-                Button("OK", action: { viewModel.loginState = .idle })
-            }
-            .sheet(isPresented: $viewModel.isShowingSheet) {
+            .sheet(isPresented: $viewModel.forgotSheet) {
                 TempView()
             }
             .onTapGesture {
@@ -35,92 +34,97 @@ struct LoginView: View {
             }
     }
 
-    @ViewBuilder
-    private func checkState() -> some View {
-        switch viewModel.loginState {
-        case .idle:
-            VStack {
-                DtLogoView()
+    private var idleView: some View {
+        VStack {
+            DtLogoView()
 
-                Spacer()
+            Spacer()
 
-                VStack(spacing: 8) {
-                    Text("Welcome!")
-                        .dtTypo(.h3Medium, color: .textPrimary)
+            VStack(spacing: 8) {
+                Text("Welcome!")
+                    .dtTypo(.h3Medium, color: .textPrimary)
 
-                    Text("Please enter your details for authorisation in the app")
-                        .dtTypo(.p2Regular, color: .textSecondary)
-                        .multilineTextAlignment(.center)
-                }
-                .padding(.bottom, 40)
+                Text("Please enter your details for authorisation in the app")
+                    .dtTypo(.p2Regular, color: .textSecondary)
+                    .multilineTextAlignment(.center)
+            }
+            .padding(.bottom, 40)
 
-                VStack(spacing: 12) {
-                    DtTextFieldView(
-                        text: $viewModel.email,
-                        placeholder: "Phone number or Email",
-                        imageName: "xmark",
-                        submitLabel: .continue
-                    ) {
-                        viewModel.email = .init()
-                    }
-                    .focused($focusedField, equals: .textField)
-                    .onSubmit {
-                        focusedField = .secureField
-                    }
-
-                    DtSecureFieldView(
-                        text: $viewModel.password,
-                        style: .secure,
-                        placeholder: "Password"
-                    )
-                    .focused($focusedField, equals: .secureField)
-                    .onSubmit {
-                        if !viewModel.isButtonDisabled {
-                            viewModel.authenticate()
-                        }
-                    }
-
-                    HStack {
-                        Spacer()
-
-                        Text("Forgot your password?")
-                            .dtTypo(.p3Medium, color: .textPrimaryLink)
-                            .onTapGesture {
-                                viewModel.forgotPassword()
-                            }
-                    }
-                }
-
-                Spacer()
-
-                DtButton(
-                    title: "Log in",
-                    style: viewModel.isButtonDisabled ? .secondary : .gradient
+            VStack(spacing: 12) {
+                DtTextFieldView(
+                    text: $viewModel.email,
+                    placeholder: "Phone number or Email",
+                    image: Image(systemName: "xmark"),
+                    submitLabel: .continue
                 ) {
+                    viewModel.email = .init()
+                }
+                .focused($focusedField, equals: .textField)
+                .onSubmit {
+                    focusedField = .secureField
+                }
+
+                DtSecureFieldView(
+                    text: $viewModel.password,
+                    style: .secure,
+                    placeholder: "Password"
+                )
+                .focused($focusedField, equals: .secureField)
+                .onSubmit {
                     if !viewModel.isButtonDisabled {
                         viewModel.authenticate()
                     }
                 }
 
+                HStack {
+                    Spacer()
+
+                    Button {
+                        viewModel.forgotPassword()
+                    } label: {
+                        Text("Forgot your password?")
+                            .dtTypo(.p3Medium, color: .textPrimaryLink)
+                    }
+                }
+            }
+
+            Spacer()
+
+            DtButton(
+                title: "Log in",
+                style: viewModel.isButtonDisabled ? .secondary : .gradient
+            ) {
+                if !viewModel.isButtonDisabled {
+                    viewModel.authenticate()
+                }
+            }
+
+            Button {
+                dismiss()
+            } label: {
                 Text("Choose another way")
                     .dtTypo(.p2Medium, color: .textPrimary)
                     .padding(.vertical)
-                    .onTapGesture {
-                        dismiss()
-                    }
             }
-            .padding(.horizontal)
-            .padding(.top, 8)
+        }
+        .padding(.horizontal)
+        .padding(.top, 8)
+    }
+
+    @ViewBuilder
+    private func checkState() -> some View {
+        switch viewModel.loginState {
         case .inProcess:
-            DtSpinnerView(sideSize: 56)
+            DtSpinnerView(size: 56)
                 .navigationBarBackButtonHidden()
-        case .success:
-            TempView()
-                .navigationBarBackButtonHidden()
-        case .error:
-            Text("")
-                .onAppear {
-                    showErrorAlert = true
+        default:
+            idleView
+                // Temporary(?) alert
+                .alert("Wrong Login or password. Please try again!", isPresented: $viewModel.isError) {
+                    Button("OK", action: {
+                        viewModel.loginState = .idle
+                        viewModel.isError = false
+                    })
                 }
         }
     }
@@ -128,7 +132,7 @@ struct LoginView: View {
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView()
+        LoginView(router: Router())
     }
 }
 
@@ -136,7 +140,7 @@ struct LoginView_Previews: PreviewProvider {
 struct DtTextFieldView: View {
     @Binding var text: String
     let placeholder: String
-    let imageName: String
+    let image: Image
     let isImageAlwaysShown: Bool
     let submitlabel: SubmitLabel
     let action: () -> Void
@@ -147,14 +151,14 @@ struct DtTextFieldView: View {
     init(
         text: Binding<String>,
         placeholder: String,
-        imageName: String,
+        image: Image,
         isImageAlwaysShown: Bool = false,
-        submitLabel: SubmitLabel,
+        submitLabel: SubmitLabel = .done,
         action: @escaping () -> Void
     ) {
         _text = text
         self.placeholder = placeholder
-        self.imageName = imageName
+        self.image = image
         self.isImageAlwaysShown = isImageAlwaysShown
         self.submitlabel = submitLabel
         self.action = action
@@ -170,7 +174,7 @@ struct DtTextFieldView: View {
             Button {
                 action()
             } label: {
-                Image(systemName: imageName)
+                image
             }
             .frame(width: 24, height: 24)
             .opacity(

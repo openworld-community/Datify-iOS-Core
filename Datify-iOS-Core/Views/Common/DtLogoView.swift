@@ -8,15 +8,16 @@
 import SwiftUI
 
 struct DtLogoView: View {
+    private let title: String = "Datify"
     var body: some View {
         HStack {
             Image("logoImage")
                 .resizable()
                 .frame(
-                    width: AppConstants.Visual.logoSideSize,
-                    height: AppConstants.Visual.logoSideSize
+                    width: 24,
+                    height: 24
                 )
-            Text("Datify")
+            Text(title)
                 .dtTypo(.h3Medium, color: .textPrimary)
         }
     }

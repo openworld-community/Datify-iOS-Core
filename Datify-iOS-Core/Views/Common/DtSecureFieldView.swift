@@ -32,11 +32,11 @@ struct DtSecureFieldView: View {
             DtTextFieldView(
                 text: $text,
                 placeholder: placeholder,
-                imageName: "eye",
-                isImageAlwaysShown: true,
-                submitLabel: .done) {
-                    style = .secure
-                }
+                image: Image(systemName: "eye"),
+                isImageAlwaysShown: true
+            ) {
+                style = .secure
+            }
         case .secure:
             HStack {
                 SecureField(placeholder, text: $text)

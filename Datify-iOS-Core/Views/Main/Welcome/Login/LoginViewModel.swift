@@ -9,16 +9,24 @@ import Foundation
 
 enum LoginState {
     case idle, inProcess, success, error
+    // func does not work to transfer data
+    // func isError() -> Bool { self == .error }
 }
 
 final class LoginViewModel: ObservableObject {
     @Published var loginState: LoginState = .idle
+    @Published var isError: Bool = false
     @Published var email: String = .init()
     @Published var password: String = .init()
-    @Published var isShowingSheet = false
+    @Published var forgotSheet: Bool = false
+    private weak var router: Router<AppRoute>?
 
     var isButtonDisabled: Bool {
         email.isEmpty || password.isEmpty
+    }
+
+    init(router: Router<AppRoute>?) {
+        self.router = router
     }
 
     func authenticate() {
@@ -26,16 +34,18 @@ final class LoginViewModel: ObservableObject {
 
         guard email.lowercased() == "a", password == "a" else {
             loginState = .error
+            isError = true
             return
         }
 
         self.loginState = .success
+        router?.push(.tabbar)
 
         email = .init()
         password = .init()
     }
 
     func forgotPassword() {
-        isShowingSheet = true
+        forgotSheet = true
     }
 }

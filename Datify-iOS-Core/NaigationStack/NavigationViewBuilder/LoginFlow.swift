@@ -9,12 +9,18 @@ import SwiftUI
 
 protocol LoginFlow {
     associatedtype Login: View
+    associatedtype Tabbar: View
 
     func createLoginView() -> Login
+    func createTabbarView() -> Tabbar
 }
 
 extension NavigationViewBuilder: LoginFlow {
     func createLoginView() -> some View {
-        LoginView()
+        LoginView(router: router)
+    }
+    func createTabbarView() -> some View {
+        TempView()
+            .navigationBarBackButtonHidden()
     }
 }

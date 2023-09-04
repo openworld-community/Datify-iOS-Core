@@ -11,6 +11,5 @@ enum AppConstants {
     enum Visual {
         static let cornerRadius: CGFloat = 16
         static let buttonHeight: CGFloat = 56
-        static let logoSideSize: CGFloat = 24
     }
 }

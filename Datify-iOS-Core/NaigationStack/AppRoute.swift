@@ -10,6 +10,7 @@ import Foundation
 enum AppRoute {
     case temp
     case login
+    case tabbar
     case registrationSex
     case registrationEmail
     case registrationLocation
