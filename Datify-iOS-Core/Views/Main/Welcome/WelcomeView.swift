@@ -10,8 +10,8 @@ import SwiftUI
 struct WelcomeView: View {
     // titles
     let appTitle: String = "Datify"
-    let mainText: String = "Find new acquaintance right"
-    let mainTextGradient: String = "now"
+    let mainText: String = "Find new acquaintance"
+    let mainTextGradient: String = "right now"
     let orTitle: String = "or"
     let alreadyHaveAnAccountTitle: String = "Already have an account?"
     // buttons
@@ -29,15 +29,13 @@ struct WelcomeView: View {
     }
 
     var body: some View {
-        ZStack {
-            VStack {
-                topLogoAndTitle
-                Spacer(minLength: frame120)
-                largeTitle
-                Spacer(minLength: frame120)
-                buttonsSection
-                alreadyHaveAnAccountSection
-            }
+        VStack {
+            topLogoAndTitle
+            Spacer(minLength: frame120)
+            largeTitle
+            Spacer(minLength: frame120)
+            buttonsSection
+            alreadyHaveAnAccountSection
         }
     }
 }
@@ -60,7 +58,7 @@ extension WelcomeView {
         }
         .padding(.top)
     }
-    
+
     private var largeTitle: some View {
         VStack(alignment: .center) {
             Text(mainText)
@@ -69,7 +67,6 @@ extension WelcomeView {
             Text(mainTextGradient)
                 .foregroundLinearGradient()
                 .dtTypo(.h1Medium, color: .textPrimary)
-
         }
         .padding()
     }
@@ -99,12 +96,10 @@ extension WelcomeView {
     }
 
     private var alreadyHaveAnAccountSection: some View {
-
         Button {
             DispatchQueue.main.async {
                 router.push(.login(data: "TempView"))
             }
-
         } label: {
             HStack {
                 Text(alreadyHaveAnAccountTitle)

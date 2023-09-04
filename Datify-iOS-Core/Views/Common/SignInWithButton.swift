@@ -9,8 +9,8 @@ import SwiftUI
 
 struct SignInWithButton: View {
 
-    let signInWithApple = "Sign in with Apple"
-    let signInWithGoogle = "Sign in with Google"
+    let signInWithApple: String = "Sign in with Apple"
+    let signInWithGoogle: String = "Sign in with Google"
     // numbers
     let frame15: CGFloat = 15
     let frame24: CGFloat = 24
