@@ -9,18 +9,14 @@ import SwiftUI
 
 struct WelcomeView: View {
     // titles
-    let appTitle: String = "Datify"
-    let mainText: String = "Find new acquaintance"
-    let mainTextGradient: String = "right now"
-    let orTitle: String = "or"
-    let alreadyHaveAnAccountTitle: String = "Already have an account?"
+    private let appTitle: String = "Datify"
+    private let mainText: String = "Find new acquaintance"
+    private let mainTextGradient: String = "right now"
+    private let orTitle: String = "or"
+    private let alreadyHaveAnAccountTitle: String = "Already have an account?"
     // buttons
-    let signUpButtonTitle: String = "Sign up"
-    let signInButtonTitle: String = "Sign in"
-    // numbers
-    let frame120: CGFloat = 120
-    let frame24: CGFloat = 24
-    let frame4: CGFloat = 4
+    private let signUpButtonTitle: String = "Sign up"
+    private let signInButtonTitle: String = "Sign in"
 
     private unowned let router: Router<AppRoute>
 
@@ -31,9 +27,9 @@ struct WelcomeView: View {
     var body: some View {
         VStack {
             topLogoAndTitle
-            Spacer(minLength: frame120)
+            Spacer()
             largeTitle
-            Spacer(minLength: frame120)
+            Spacer()
             buttonsSection
             alreadyHaveAnAccountSection
         }
@@ -48,10 +44,10 @@ struct WelcomView_Previews: PreviewProvider {
 
 extension WelcomeView {
     private var topLogoAndTitle: some View {
-        HStack(spacing: frame4) {
+        HStack(spacing: 4) {
             Image(DtImage.appLogo)
                 .resizable()
-                .frame(width: frame24, height: frame24)
+                .frame(width: 24, height: 24)
             Text(appTitle)
                 .dtTypo(.p1Medium, color: .textPrimary)
                 .fontWeight(.bold)
@@ -86,20 +82,17 @@ extension WelcomeView {
     }
 
     private var orLine: some View {
-        HStack {
-            Image(DtImage.vectorImage)
+        HStack(spacing: 4) {
+            DividerLine()
             Text(orTitle)
                 .dtTypo(.p2Regular, color: .textSecondary)
-            Image(DtImage.vectorImage)
-
+            DividerLine()
         }
     }
 
     private var alreadyHaveAnAccountSection: some View {
         Button {
-            DispatchQueue.main.async {
-                router.push(.login(data: "TempView"))
-            }
+            router.push(.login(data: "TempView"))
         } label: {
             HStack {
                 Text(alreadyHaveAnAccountTitle)

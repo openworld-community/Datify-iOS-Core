@@ -9,13 +9,8 @@ import SwiftUI
 
 struct SignInWithButton: View {
 
-    let signInWithApple: String = "Sign in with Apple"
-    let signInWithGoogle: String = "Sign in with Google"
-    // numbers
-    let frame15: CGFloat = 15
-    let frame24: CGFloat = 24
-    let frame21: CGFloat = 21
-    let frame1: CGFloat = 1
+    private let signInWithApple: String = "Sign in with Apple"
+    private let signInWithGoogle: String = "Sign in with Google"
 
     private let action: () async -> Void
 
@@ -24,7 +19,7 @@ struct SignInWithButton: View {
     }
 
     var body: some View {
-        VStack(spacing: frame15) {
+        VStack(spacing: 15) {
             customButton(isApple: false)
             customButton(isApple: true)
         }
@@ -50,12 +45,12 @@ extension SignInWithButton {
                     if isApple {
                         Image(systemName: DtImage.appleLogo)
                             .resizable()
-                            .frame(width: frame21, height: frame24)
+                            .frame(width: 21, height: 24)
                             .foregroundColor(Color.iconsPrimary)
                     } else {
                         Image(DtImage.googleLogo)
                             .resizable()
-                            .frame(width: frame24, height: frame24)
+                            .frame(width: 24, height: 24)
                     }
                 }
                 Text("\(isApple ? signInWithApple : signInWithGoogle)")
@@ -65,10 +60,10 @@ extension SignInWithButton {
         .padding()
         .frame(maxWidth: .infinity)
         .frame(height: AppConstants.Visual.buttonHeight)
-        .padding(.horizontal, frame15)
+        .padding(.horizontal, 15)
         .background(
             RoundedRectangle(cornerRadius: AppConstants.Visual.cornerRadius)
-                .stroke(Color.secondary, lineWidth: frame1)
+                .stroke(Color.secondary, lineWidth: 1)
         )
     }
 }
