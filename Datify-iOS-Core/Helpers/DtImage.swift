@@ -8,9 +8,7 @@
 import Foundation
 
 enum DtImage {
-    static let appLogo: String = "app-logo"
-    static let appLogoGradient: String = "app-logo-gradient"
+    static let appLogo: String = "icon"
     static let appleLogo = "apple.logo"
-    static let vectorImage: String = "vector"
-    static let googleLogo: String = "google-logo"
+    static let googleLogo: String = "google.logo"
 }
