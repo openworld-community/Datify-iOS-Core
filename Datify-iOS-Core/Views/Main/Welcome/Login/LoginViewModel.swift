@@ -9,8 +9,6 @@ import Foundation
 
 enum LoginState {
     case idle, inProcess, success, error
-    // func does not work to transfer data
-    // func isError() -> Bool { self == .error }
 }
 
 final class LoginViewModel: ObservableObject {

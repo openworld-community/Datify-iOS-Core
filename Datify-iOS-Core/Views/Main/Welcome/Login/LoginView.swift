@@ -92,12 +92,11 @@ struct LoginView: View {
 
             DtButton(
                 title: "Log in",
-                style: viewModel.isButtonDisabled ? .secondary : .gradient
+                style: .gradient
             ) {
-                if !viewModel.isButtonDisabled {
-                    viewModel.authenticate()
-                }
+                viewModel.authenticate()
             }
+            .disabled(viewModel.isButtonDisabled)
 
             Button {
                 dismiss()

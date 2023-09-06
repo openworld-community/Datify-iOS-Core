@@ -23,6 +23,7 @@ extension AppRoute: Hashable, Equatable {
         switch (lhs, rhs) {
         case (.temp, .temp): return true
         case (.login, .login): return true
+        case (.tabbar, .tabbar): return true
         case (.registrationSex, .registrationSex): return true
         case (.registrationEmail, .registrationEmail): return true
         case (.registrationLocation, .registrationLocation): return true
