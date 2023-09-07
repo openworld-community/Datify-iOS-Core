@@ -8,6 +8,16 @@
 import SwiftUI
 
 struct WelcomeView: View {
+    // titles
+    private let appTitle: String = "Datify"
+    private let mainText: String = "Find new acquaintance"
+    private let mainTextGradient: String = "right now"
+    private let orTitle: String = "or"
+    private let alreadyHaveAnAccountTitle: String = "Already have an account?"
+    // buttons
+    private let signUpButtonTitle: String = "Sign up"
+    private let signInButtonTitle: String = "Sign in"
+
     private unowned let router: Router<AppRoute>
 
     init(router: Router<AppRoute>) {
@@ -16,24 +26,80 @@ struct WelcomeView: View {
 
     var body: some View {
         VStack {
-            DtButton(title: "Login", style: .gradient) {
-                router.push(.login(data: "LoginView"))
-            }
-
-            DtButton(title: "Registration", style: .secondary) {
-                router.push(.registrationSex)
-            }
-
-            DtButton(title: "Temp", style: .primary) {
-                router.push(.temp)
-            }
+            topLogoAndTitle
+            Spacer()
+            largeTitle
+            Spacer()
+            buttonsSection
+            alreadyHaveAnAccountSection
         }
-        .padding()
     }
 }
 
 struct WelcomView_Previews: PreviewProvider {
     static var previews: some View {
         WelcomeView(router: Router())
+    }
+}
+
+extension WelcomeView {
+    private var topLogoAndTitle: some View {
+        HStack(spacing: 4) {
+            Image(DtImage.appLogo)
+                .resizable()
+                .frame(width: 24, height: 24)
+            Text(appTitle)
+                .dtTypo(.p1Medium, color: .textPrimary)
+                .fontWeight(.bold)
+        }
+        .padding(.top)
+    }
+
+    private var largeTitle: some View {
+        VStack(alignment: .center) {
+            Text(mainText)
+                .multilineTextAlignment(.center)
+                .dtTypo(.h1Medium, color: .textPrimary)
+            Text(mainTextGradient)
+                .foregroundLinearGradient()
+                .dtTypo(.h1Medium, color: .textPrimary)
+        }
+        .padding()
+    }
+
+    private var buttonsSection: some View {
+        VStack {
+            SignInWithButton {
+                router.push(.login(data: "TempView"))
+            }
+            .padding()
+            orLine
+            DtButton(title: signUpButtonTitle, style: .main) {
+                router.push(.login(data: "LoginView"))
+            }
+            .padding()
+        }
+    }
+
+    private var orLine: some View {
+        HStack(spacing: 4) {
+            DividerLine()
+            Text(orTitle)
+                .dtTypo(.p2Regular, color: .textSecondary)
+            DividerLine()
+        }
+    }
+
+    private var alreadyHaveAnAccountSection: some View {
+        Button {
+            router.push(.login(data: "TempView"))
+        } label: {
+            HStack {
+                Text(alreadyHaveAnAccountTitle)
+                    .dtTypo(.p2Regular, color: .textSecondary)
+                Text(signInButtonTitle)
+                    .dtTypo(.p2Regular, color: .textPrimaryLink)
+            }
+        }
     }
 }
