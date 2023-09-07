@@ -14,6 +14,7 @@ struct DtButton: View {
         case gradient
         case primary
         case secondary
+        case main
     }
 
     private let title: String
@@ -55,6 +56,9 @@ struct DtButton: View {
             case .secondary:
                 createBody(title: title, titleColor: .textTertiary)
                     .buttonBackground(color: .backgroundSecondary)
+            case .main:
+                createBody(title: title, titleColor: .accentsWhite)
+                    .buttonBackground(color: .accentsPrimary)
             }
         }
         .buttonStyle(.plain)

@@ -25,6 +25,9 @@
 		9808959C2A9F208B00F82F02 /* DtSecureFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9808959B2A9F208B00F82F02 /* DtSecureFieldView.swift */; };
 		980895BA2A9F4A5700F82F02 /* DtSpinnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980895B92A9F4A5700F82F02 /* DtSpinnerView.swift */; };
 		98F3B6D62A9E4F9D0097B5C0 /* DtLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F3B6D52A9E4F9D0097B5C0 /* DtLogoView.swift */; };
+		D050B1B12AA84AA0008EC0AB /* DividerLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D050B1B02AA84AA0008EC0AB /* DividerLine.swift */; };
+		D0C185302AA1D0E1000D71E5 /* SignInWithButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C1852F2AA1D0E1000D71E5 /* SignInWithButton.swift */; };
+		D0C8965A2AA217630084FA62 /* DtImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C896592AA217630084FA62 /* DtImage.swift */; };
 		D0DC465D2A92699D0097CFF3 /* DatifyiOSCoreApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DC465C2A92699D0097CFF3 /* DatifyiOSCoreApp.swift */; };
 		D0DC465F2A92699D0097CFF3 /* MainAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DC465E2A92699D0097CFF3 /* MainAppView.swift */; };
 		D0DC46612A92699F0097CFF3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0DC46602A92699F0097CFF3 /* Assets.xcassets */; };
@@ -72,6 +75,9 @@
 		9808959B2A9F208B00F82F02 /* DtSecureFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtSecureFieldView.swift; sourceTree = "<group>"; };
 		980895B92A9F4A5700F82F02 /* DtSpinnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtSpinnerView.swift; sourceTree = "<group>"; };
 		98F3B6D52A9E4F9D0097B5C0 /* DtLogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtLogoView.swift; sourceTree = "<group>"; };
+		D050B1B02AA84AA0008EC0AB /* DividerLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerLine.swift; sourceTree = "<group>"; };
+		D0C1852F2AA1D0E1000D71E5 /* SignInWithButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInWithButton.swift; sourceTree = "<group>"; };
+		D0C896592AA217630084FA62 /* DtImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtImage.swift; sourceTree = "<group>"; };
 		D0DC46592A92699D0097CFF3 /* Datify-iOS-Core.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Datify-iOS-Core.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0DC465C2A92699D0097CFF3 /* DatifyiOSCoreApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatifyiOSCoreApp.swift; sourceTree = "<group>"; };
 		D0DC465E2A92699D0097CFF3 /* MainAppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainAppView.swift; sourceTree = "<group>"; };
@@ -133,10 +139,12 @@
 			isa = PBXGroup;
 			children = (
 				4A4CE2E92A9B5FB80098FF80 /* DtButton.swift */,
+				D0C1852F2AA1D0E1000D71E5 /* SignInWithButton.swift */,
 				4A4CE2EE2A9B66DC0098FF80 /* TempView.swift */,
 				98F3B6D52A9E4F9D0097B5C0 /* DtLogoView.swift */,
 				9808959B2A9F208B00F82F02 /* DtSecureFieldView.swift */,
 				980895B92A9F4A5700F82F02 /* DtSpinnerView.swift */,
+				D050B1B02AA84AA0008EC0AB /* DividerLine.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -257,6 +265,7 @@
 			isa = PBXGroup;
 			children = (
 				4A4CE2EC2A9B60A60098FF80 /* AppConstants.swift */,
+				D0C896592AA217630084FA62 /* DtImage.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -459,7 +468,7 @@
 		4A4CE2FE2A9F0CA00098FF80 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			files = (
 			);
 			inputFileListPaths = (
@@ -486,8 +495,10 @@
 				980895BA2A9F4A5700F82F02 /* DtSpinnerView.swift in Sources */,
 				4A4CE2CA2A9B3E8C0098FF80 /* NavigationViewBuilder.swift in Sources */,
 				4A4CE2C82A9B3B620098FF80 /* Router.swift in Sources */,
+				D0C185302AA1D0E1000D71E5 /* SignInWithButton.swift in Sources */,
 				4A4CE2DC2A9B485B0098FF80 /* WelcomeView.swift in Sources */,
 				4A4CE2E82A9B58590098FF80 /* DtTypography.swift in Sources */,
+				D0C8965A2AA217630084FA62 /* DtImage.swift in Sources */,
 				D0DC465F2A92699D0097CFF3 /* MainAppView.swift in Sources */,
 				4A4CE2E32A9B53E70098FF80 /* Color+extension.swift in Sources */,
 				9808959C2A9F208B00F82F02 /* DtSecureFieldView.swift in Sources */,
@@ -500,6 +511,7 @@
 				4A4CE2EF2A9B66DC0098FF80 /* TempView.swift in Sources */,
 				4A4CE2C62A9B3A5F0098FF80 /* AppRoute.swift in Sources */,
 				4A4CE2DA2A9B47650098FF80 /* LoginViewModel.swift in Sources */,
+				D050B1B12AA84AA0008EC0AB /* DividerLine.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -653,8 +665,10 @@
 		D0DC467E2A92699F0097CFF3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "AppIconBlack AppIconGradient";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Datify-iOS-Core/Preview Content\"";
@@ -685,8 +699,10 @@
 		D0DC467F2A92699F0097CFF3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "AppIconBlack AppIconGradient";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Datify-iOS-Core/Preview Content\"";
