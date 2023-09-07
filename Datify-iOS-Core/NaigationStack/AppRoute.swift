@@ -9,7 +9,8 @@ import Foundation
 
 enum AppRoute {
     case temp
-    case login(data: String)
+    case login
+    case tabbar
     case registrationSex
     case registrationEmail
     case registrationLocation
@@ -22,6 +23,7 @@ extension AppRoute: Hashable, Equatable {
         switch (lhs, rhs) {
         case (.temp, .temp): return true
         case (.login, .login): return true
+        case (.tabbar, .tabbar): return true
         case (.registrationSex, .registrationSex): return true
         case (.registrationEmail, .registrationEmail): return true
         case (.registrationLocation, .registrationLocation): return true

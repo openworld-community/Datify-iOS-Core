@@ -70,12 +70,12 @@ extension WelcomeView {
     private var buttonsSection: some View {
         VStack {
             SignInWithButton {
-                router.push(.login(data: "TempView"))
+                router.push(.login)
             }
             .padding()
             orLine
             DtButton(title: signUpButtonTitle, style: .main) {
-                router.push(.login(data: "LoginView"))
+                router.push(.login)
             }
             .padding()
         }
@@ -92,7 +92,7 @@ extension WelcomeView {
 
     private var alreadyHaveAnAccountSection: some View {
         Button {
-            router.push(.login(data: "TempView"))
+            router.push(.login)
         } label: {
             HStack {
                 Text(alreadyHaveAnAccountTitle)

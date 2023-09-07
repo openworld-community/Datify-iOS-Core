@@ -8,7 +8,7 @@
 import SwiftUI
 
 final class NavigationViewBuilder {
-    private unowned let router: Router<AppRoute>
+    unowned let router: Router<AppRoute>
 
     init(router: Router<AppRoute>) {
         self.router = router

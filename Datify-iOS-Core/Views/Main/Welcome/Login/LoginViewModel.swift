@@ -7,10 +7,43 @@
 
 import Foundation
 
-final class LoginViewModel: ObservableObject {
-    @Published var data: String
+enum LoginState {
+    case idle, inProcess, success, error
+}
 
-    init(data: String) {
-        self.data = data
+final class LoginViewModel: ObservableObject {
+    @Published var loginState: LoginState = .idle
+    @Published var isError: Bool = false
+    @Published var email: String = .init()
+    @Published var password: String = .init()
+    @Published var forgotSheet: Bool = false
+    private weak var router: Router<AppRoute>?
+
+    var isButtonDisabled: Bool {
+        email.isEmpty || password.isEmpty
+    }
+
+    init(router: Router<AppRoute>?) {
+        self.router = router
+    }
+
+    func authenticate() {
+        loginState = .inProcess
+
+        guard email.lowercased() == "a", password == "a" else {
+            loginState = .error
+            isError = true
+            return
+        }
+
+        self.loginState = .success
+        router?.push(.tabbar)
+
+        email = .init()
+        password = .init()
+    }
+
+    func forgotPassword() {
+        forgotSheet = true
     }
 }
