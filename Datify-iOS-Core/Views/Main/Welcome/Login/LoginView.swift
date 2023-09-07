@@ -139,7 +139,7 @@ struct LoginView_Previews: PreviewProvider {
 struct DtTextFieldView: View {
     @Binding var text: String
     let placeholder: String
-    let image: Image
+    let image: Image?
     let isImageAlwaysShown: Bool
     let submitlabel: SubmitLabel
     let action: () -> Void
@@ -150,7 +150,7 @@ struct DtTextFieldView: View {
     init(
         text: Binding<String>,
         placeholder: String,
-        image: Image,
+        image: Image?,
         isImageAlwaysShown: Bool = false,
         submitLabel: SubmitLabel = .done,
         action: @escaping () -> Void
