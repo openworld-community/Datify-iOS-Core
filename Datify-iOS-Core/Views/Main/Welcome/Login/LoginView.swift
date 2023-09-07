@@ -53,7 +53,7 @@ struct LoginView: View {
             VStack(spacing: 12) {
                 DtTextFieldView(
                     text: $viewModel.email,
-                    placeholder: "Phone number or Email",
+                    placeholder: String(localized: "Phone number or Email"),
                     image: Image(systemName: "xmark"),
                     submitLabel: .continue
                 ) {
@@ -67,7 +67,7 @@ struct LoginView: View {
                 DtSecureFieldView(
                     text: $viewModel.password,
                     style: .secure,
-                    placeholder: "Password"
+                    placeholder: String(localized: "Password")
                 )
                 .focused($focusedField, equals: .secureField)
                 .onSubmit {
@@ -91,7 +91,7 @@ struct LoginView: View {
             Spacer()
 
             DtButton(
-                title: "Log in",
+                title: String(localized: "Sign in"),
                 style: .gradient
             ) {
                 viewModel.authenticate()
