@@ -26,6 +26,11 @@ struct LoginView: View {
 
     var body: some View {
         checkState()
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    DtLogoView()
+                }
+            }
             .sheet(isPresented: $viewModel.forgotSheet) {
                 TempView()
             }
@@ -36,8 +41,6 @@ struct LoginView: View {
 
     private var idleView: some View {
         VStack {
-            DtLogoView()
-
             Spacer()
 
             VStack(spacing: 8) {
@@ -189,6 +192,7 @@ struct DtTextFieldView: View {
         .overlay(RoundedRectangle(cornerRadius: AppConstants.Visual.cornerRadius)
             .stroke(Color.backgroundStroke, lineWidth: 1))
         .textInputAutocapitalization(.never)
+        .autocorrectionDisabled()
         .submitLabel(submitlabel)
     }
 }

@@ -37,9 +37,7 @@ final class LoginViewModel: ObservableObject {
         }
 
         self.loginState = .success
-//        router?.push(.tabbar)
-        // TODO: remove router?.push(.registrationEmail)
-        router?.push(.registrationEmail)
+        router?.push(.tabbar)
 
         email = .init()
         password = .init()

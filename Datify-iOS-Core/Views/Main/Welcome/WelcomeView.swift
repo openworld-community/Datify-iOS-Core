@@ -26,12 +26,16 @@ struct WelcomeView: View {
 
     var body: some View {
         VStack {
-            topLogoAndTitle
             Spacer()
             largeTitle
             Spacer()
             buttonsSection
             alreadyHaveAnAccountSection
+        }
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                DtLogoView()
+            }
         }
     }
 }
@@ -43,18 +47,6 @@ struct WelcomView_Previews: PreviewProvider {
 }
 
 extension WelcomeView {
-    private var topLogoAndTitle: some View {
-        HStack(spacing: 4) {
-            Image(DtImage.appLogo)
-                .resizable()
-                .frame(width: 24, height: 24)
-            Text(appTitle)
-                .dtTypo(.p1Medium, color: .textPrimary)
-                .fontWeight(.bold)
-        }
-        .padding(.top)
-    }
-
     private var largeTitle: some View {
         VStack(alignment: .center) {
             Text(mainText)
@@ -75,7 +67,7 @@ extension WelcomeView {
             .padding()
             orLine
             DtButton(title: signUpButtonTitle, style: .main) {
-                router.push(.login)
+                router.push(.registrationEmail)
             }
             .padding()
         }

@@ -20,8 +20,6 @@ struct RegEmailView: View {
 
     var body: some View {
         VStack {
-            DtLogoView()
-
             Spacer()
 
             VStack(spacing: 40) {
@@ -66,12 +64,19 @@ struct RegEmailView: View {
             .disabled(viewModel.isButtonDisabled)
         }
         .padding(.horizontal)
-        .padding(.vertical, 8)
+        .padding(.bottom, 8)
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                DtLogoView()
+            }
+        }
         .alert(
             String(localized: "Wrong format of email address. Please try again!"),
-            isPresented: $viewModel.isWrongFormat
-        ) {
-
+            isPresented: $viewModel.isWrongFormat,
+            actions: {}
+        )
+        .onTapGesture {
+            UIApplication.shared.dismissKeyboard()
         }
     }
 }
