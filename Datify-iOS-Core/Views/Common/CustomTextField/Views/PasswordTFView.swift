@@ -1,5 +1,5 @@
 //
-//  EmailTFView.swift
+//  PasswordTFView.swift
 //  Datify-iOS-Core
 //
 //  Created by Ildar Khabibullin on 02.09.2023.
@@ -7,15 +7,16 @@
 
 import SwiftUI
 
-struct EmailTFView: View {
+struct PasswordTFView: View {
     @Binding var input: String
 
     var body: some View {
-        let placeholder = ConstantsTF.emailPlaceholder.stringValue
+        let placeholder = ConstantsTF.passwordPlaceholder.stringValue
 
         TextField(placeholder, text: $input)
             .frame(height: AppConstants.Visual.buttonHeight)
-            .keyboardType(.emailAddress)
+            .padding(.leading, AppConstants.Visual.paddings)
+            .keyboardType(.default)
             .autocapitalization(.none)
             .background(Color.backgroundSecondary)
             .overlay(
@@ -23,7 +24,7 @@ struct EmailTFView: View {
                     .stroke(Color.backgroundStroke, lineWidth: 1)
                 )
             .cornerRadius(AppConstants.Visual.cornerRadius)
-            .multilineTextAlignment(.center)
+            .multilineTextAlignment(.leading)
             .font(dtTypo(.p2Regular, color: Color.textTertiary) as? Font)
     }
 }
