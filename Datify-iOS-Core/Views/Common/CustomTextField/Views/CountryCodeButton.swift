@@ -30,7 +30,7 @@ struct CountryCodeButton: View {
             }
         }
         .frame(height: AppConstants.Visual.buttonHeight)
-        .padding(.horizontal, AppConstants.Visual.paddings)
+        .padding(.horizontal)
         .background(Color.backgroundSecondary)
         .cornerRadius(AppConstants.Visual.cornerRadius)
         .overlay(

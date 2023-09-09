@@ -22,20 +22,20 @@
 		4A4CE2ED2A9B60A60098FF80 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CE2EC2A9B60A60098FF80 /* AppConstants.swift */; };
 		4A4CE2EF2A9B66DC0098FF80 /* TempView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CE2EE2A9B66DC0098FF80 /* TempView.swift */; };
 		4A4CE2F12A9B67B90098FF80 /* Text+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CE2F02A9B67B90098FF80 /* Text+extension.swift */; };
+		63203C712AAC6B2600F8803A /* DismissKeyboard+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63203C702AAC6B2600F8803A /* DismissKeyboard+extension.swift */; };
+		632A7F5E2AAC897B005DA819 /* DtCustomTFView+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632A7F5D2AAC897B005DA819 /* DtCustomTFView+extension.swift */; };
+		63A365A32AA04FFB00CBF5CD /* DtCustomTF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A365A22AA04FFB00CBF5CD /* DtCustomTF.swift */; };
+		63A729592AA3937500AC60E3 /* RegularTFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A729582AA3937500AC60E3 /* RegularTFView.swift */; };
+		63A7295D2AA395A200AC60E3 /* ConstantsTF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A7295C2AA395A200AC60E3 /* ConstantsTF.swift */; };
+		63A7295F2AA3A30E00AC60E3 /* SecureTFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A7295E2AA3A30E00AC60E3 /* SecureTFView.swift */; };
+		63A729672AA48CAA00AC60E3 /* Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A729662AA48CAA00AC60E3 /* Regex.swift */; };
+		63A729692AA4A94B00AC60E3 /* CountryCodeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A729682AA4A94B00AC60E3 /* CountryCodeButton.swift */; };
 		9808959C2A9F208B00F82F02 /* DtSecureFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9808959B2A9F208B00F82F02 /* DtSecureFieldView.swift */; };
 		980895BA2A9F4A5700F82F02 /* DtSpinnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980895B92A9F4A5700F82F02 /* DtSpinnerView.swift */; };
 		98F3B6D62A9E4F9D0097B5C0 /* DtLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F3B6D52A9E4F9D0097B5C0 /* DtLogoView.swift */; };
 		D050B1B12AA84AA0008EC0AB /* DividerLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D050B1B02AA84AA0008EC0AB /* DividerLine.swift */; };
 		D0C185302AA1D0E1000D71E5 /* SignInWithButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C1852F2AA1D0E1000D71E5 /* SignInWithButton.swift */; };
 		D0C8965A2AA217630084FA62 /* DtImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C896592AA217630084FA62 /* DtImage.swift */; };
-		63A365A32AA04FFB00CBF5CD /* CustomTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A365A22AA04FFB00CBF5CD /* CustomTextFieldView.swift */; };
-		63A365A32AA04FFB00CBF5CD /* DtCustomTF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A365A22AA04FFB00CBF5CD /* DtCustomTF.swift */; };
-		63A729592AA3937500AC60E3 /* RegularTFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A729582AA3937500AC60E3 /* RegularTFView.swift */; };
-		63A7295B2AA394E300AC60E3 /* PreviewCTF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A7295A2AA394E300AC60E3 /* PreviewCTF.swift */; };
-		63A7295D2AA395A200AC60E3 /* ConstantsTF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A7295C2AA395A200AC60E3 /* ConstantsTF.swift */; };
-		63A7295F2AA3A30E00AC60E3 /* SecureTFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A7295E2AA3A30E00AC60E3 /* SecureTFView.swift */; };
-		63A729672AA48CAA00AC60E3 /* Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A729662AA48CAA00AC60E3 /* Regex.swift */; };
-		63A729692AA4A94B00AC60E3 /* CountryCodeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A729682AA4A94B00AC60E3 /* CountryCodeButton.swift */; };
 		D0DC465D2A92699D0097CFF3 /* DatifyiOSCoreApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DC465C2A92699D0097CFF3 /* DatifyiOSCoreApp.swift */; };
 		D0DC465F2A92699D0097CFF3 /* MainAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DC465E2A92699D0097CFF3 /* MainAppView.swift */; };
 		D0DC46612A92699F0097CFF3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0DC46602A92699F0097CFF3 /* Assets.xcassets */; };
@@ -80,20 +80,20 @@
 		4A4CE2EC2A9B60A60098FF80 /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
 		4A4CE2EE2A9B66DC0098FF80 /* TempView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempView.swift; sourceTree = "<group>"; };
 		4A4CE2F02A9B67B90098FF80 /* Text+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Text+extension.swift"; sourceTree = "<group>"; };
+		63203C702AAC6B2600F8803A /* DismissKeyboard+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DismissKeyboard+extension.swift"; sourceTree = "<group>"; };
+		632A7F5D2AAC897B005DA819 /* DtCustomTFView+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DtCustomTFView+extension.swift"; sourceTree = "<group>"; };
+		63A365A22AA04FFB00CBF5CD /* DtCustomTF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtCustomTF.swift; sourceTree = "<group>"; };
+		63A729582AA3937500AC60E3 /* RegularTFView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegularTFView.swift; sourceTree = "<group>"; };
+		63A7295C2AA395A200AC60E3 /* ConstantsTF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantsTF.swift; sourceTree = "<group>"; };
+		63A7295E2AA3A30E00AC60E3 /* SecureTFView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureTFView.swift; sourceTree = "<group>"; };
+		63A729662AA48CAA00AC60E3 /* Regex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Regex.swift; sourceTree = "<group>"; };
+		63A729682AA4A94B00AC60E3 /* CountryCodeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCodeButton.swift; sourceTree = "<group>"; };
 		9808959B2A9F208B00F82F02 /* DtSecureFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtSecureFieldView.swift; sourceTree = "<group>"; };
 		980895B92A9F4A5700F82F02 /* DtSpinnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtSpinnerView.swift; sourceTree = "<group>"; };
 		98F3B6D52A9E4F9D0097B5C0 /* DtLogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtLogoView.swift; sourceTree = "<group>"; };
 		D050B1B02AA84AA0008EC0AB /* DividerLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerLine.swift; sourceTree = "<group>"; };
 		D0C1852F2AA1D0E1000D71E5 /* SignInWithButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInWithButton.swift; sourceTree = "<group>"; };
 		D0C896592AA217630084FA62 /* DtImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtImage.swift; sourceTree = "<group>"; };
-		63A365A22AA04FFB00CBF5CD /* CustomTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextFieldView.swift; sourceTree = "<group>"; };
-		63A365A22AA04FFB00CBF5CD /* DtCustomTF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtCustomTF.swift; sourceTree = "<group>"; };
-		63A729582AA3937500AC60E3 /* RegularTFView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegularTFView.swift; sourceTree = "<group>"; };
-		63A7295A2AA394E300AC60E3 /* PreviewCTF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewCTF.swift; sourceTree = "<group>"; };
-		63A7295C2AA395A200AC60E3 /* ConstantsTF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantsTF.swift; sourceTree = "<group>"; };
-		63A7295E2AA3A30E00AC60E3 /* SecureTFView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureTFView.swift; sourceTree = "<group>"; };
-		63A729662AA48CAA00AC60E3 /* Regex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Regex.swift; sourceTree = "<group>"; };
-		63A729682AA4A94B00AC60E3 /* CountryCodeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCodeButton.swift; sourceTree = "<group>"; };
 		D0DC46592A92699D0097CFF3 /* Datify-iOS-Core.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Datify-iOS-Core.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0DC465C2A92699D0097CFF3 /* DatifyiOSCoreApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatifyiOSCoreApp.swift; sourceTree = "<group>"; };
 		D0DC465E2A92699D0097CFF3 /* MainAppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainAppView.swift; sourceTree = "<group>"; };
@@ -264,6 +264,8 @@
 			children = (
 				4A4CE2E22A9B53E70098FF80 /* Color+extension.swift */,
 				4A4CE2F02A9B67B90098FF80 /* Text+extension.swift */,
+				63203C702AAC6B2600F8803A /* DismissKeyboard+extension.swift */,
+				632A7F5D2AAC897B005DA819 /* DtCustomTFView+extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -292,7 +294,6 @@
 			children = (
 				63A729572AA3935700AC60E3 /* Views */,
 				63A365A22AA04FFB00CBF5CD /* DtCustomTF.swift */,
-				63A7295A2AA394E300AC60E3 /* PreviewCTF.swift */,
 				63A7295C2AA395A200AC60E3 /* ConstantsTF.swift */,
 				63A729662AA48CAA00AC60E3 /* Regex.swift */,
 			);
@@ -530,16 +531,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				4A4CE2EA2A9B5FB80098FF80 /* DtButton.swift in Sources */,
-				63A7295B2AA394E300AC60E3 /* PreviewCTF.swift in Sources */,
 				4A4CE2D42A9B44280098FF80 /* RegistrationFlow.swift in Sources */,
 				980895BA2A9F4A5700F82F02 /* DtSpinnerView.swift in Sources */,
 				63A7295D2AA395A200AC60E3 /* ConstantsTF.swift in Sources */,
 				4A4CE2CA2A9B3E8C0098FF80 /* NavigationViewBuilder.swift in Sources */,
 				4A4CE2C82A9B3B620098FF80 /* Router.swift in Sources */,
 				D0C185302AA1D0E1000D71E5 /* SignInWithButton.swift in Sources */,
+				632A7F5E2AAC897B005DA819 /* DtCustomTFView+extension.swift in Sources */,
 				4A4CE2DC2A9B485B0098FF80 /* WelcomeView.swift in Sources */,
 				63A7295F2AA3A30E00AC60E3 /* SecureTFView.swift in Sources */,
 				4A4CE2E82A9B58590098FF80 /* DtTypography.swift in Sources */,
+				63203C712AAC6B2600F8803A /* DismissKeyboard+extension.swift in Sources */,
 				D0C8965A2AA217630084FA62 /* DtImage.swift in Sources */,
 				D0DC465F2A92699D0097CFF3 /* MainAppView.swift in Sources */,
 				63A729592AA3937500AC60E3 /* RegularTFView.swift in Sources */,

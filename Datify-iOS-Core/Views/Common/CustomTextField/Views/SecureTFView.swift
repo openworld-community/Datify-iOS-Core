@@ -8,16 +8,17 @@
 import SwiftUI
 
 struct SecureTextFieldView: View {
+    @State private var isPasswordVisible = false
+
+    let style: DtCustomTF.Style
     @Binding var input: String
     let placeholder: String
-    let placeholderColor: Color
-    let textAlignment: TextAlignment
     let keyboardType: UIKeyboardType
+    let submitLabel: SubmitLabel
+    let textAlignment: TextAlignment
     let width: CGFloat
     let height: CGFloat
-    var action: (() -> Void)?
-
-    @State private var isPasswordVisible = false
+    let action: () -> Void
 
     var body: some View {
         HStack {
@@ -37,20 +38,15 @@ struct SecureTextFieldView: View {
                 }
             }
         }
-        .dtTypo(.p2Regular, color: input.isEmpty ? placeholderColor : Color.textPrimary)
-        .multilineTextAlignment(textAlignment)
-        .keyboardType(keyboardType)
-        .autocapitalization(.none)
-        .frame(maxWidth: width, minHeight: height)
-        .padding(.horizontal, AppConstants.Visual.paddings)
-        .background(Color.backgroundSecondary)
-        .cornerRadius(AppConstants.Visual.cornerRadius)
-        .overlay(
-            RoundedRectangle(cornerRadius: AppConstants.Visual.cornerRadius)
-                .stroke(Color.backgroundStroke, lineWidth: 1)
-        )
-        .onSubmit {
-            action?()
-        }
+        .disableAutocorrection(true)
+        .modifier(DtCustomTFViewModifier(
+            style: style,
+            keyboardType: keyboardType,
+            submitLabel: submitLabel,
+            textAlignment: textAlignment,
+            width: width,
+            height: height,
+            action: action
+        ))
     }
 }

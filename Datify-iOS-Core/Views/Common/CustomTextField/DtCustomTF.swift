@@ -17,29 +17,66 @@ struct DtCustomTF: View {
         case phone
         case sms
         case text
+
+        var stringValue: String {
+            switch self {
+            case .phoneAndEmail: return String(localized: "Phone or Email")
+            case .email: return String(localized: "Email")
+            case .password: return String(localized: "Password")
+            case .phone: return "(000) 000-00-00"
+            case .sms: return "00 00 00"
+            case .text: return ""
+            }
+        }
+
+        var keyboardStyle: UIKeyboardType {
+            switch self {
+            case .email, .phoneAndEmail: return .emailAddress
+            case .phone, .sms: return .phonePad
+            default: return .default
+            }
+        }
+
+        var isSecureTextEntry: Bool {
+            return self == .password
+        }
+
+        var submitLabel: SubmitLabel {
+            switch self {
+            case .phone, .email, .phoneAndEmail: return .continue
+            case  .sms, .password, .text: return .done
+            }
+        }
+
+        var textAlignment: TextAlignment {
+            switch self {
+            case .email, .phoneAndEmail, .password: return .leading
+            case .phone, .sms, .text: return .center
+            }
+        }
     }
 
     @State private var isEditing = false
+    private let style: DtCustomTF.Style
     @Binding var input: String
     private let width: CGFloat
     private let height: CGFloat
-    private let style: DtCustomTF.Style
     private let textPlaceholder: String?
 
-    var action: (() -> Void)?
+    var action: () -> Void
 
     init(
+        style: DtCustomTF.Style,
         input: Binding<String>,
         width: CGFloat = .infinity,
         height: CGFloat = AppConstants.Visual.buttonHeight,
-        style: DtCustomTF.Style,
         textPlaceholder: String? = nil,
-        action: (() -> Void)?
+        action: @escaping () -> Void = UIApplication.shared.dismissKeyboard
     ) {
+        self.style = style
         self._input = input
         self.width = width
         self.height = height
-        self.style = style
         self.textPlaceholder = textPlaceholder
         self.action = action
     }
@@ -48,47 +85,54 @@ struct DtCustomTF: View {
         VStack {
             switch style {
             case .phoneAndEmail:
-                    createBody(
-                        configuration: TextFieldConfiguration(
-                            placeholder: ConstantsTF.phoneAndEmailPlaceholder.stringValue,
-                            placeholderColor: .textTertiary,
-                            textAlignment: .leading,
-                            keyboardType: .emailAddress,
-                            secure: false
-                        )
+                    RegularTextFieldView(
+                        style: style,
+                        input: $input,
+                        placeholder: style.stringValue,
+                        keyboardType: style.keyboardStyle,
+                        submitLabel: style.submitLabel,
+                        textAlignment: style.textAlignment,
+                        width: width,
+                        height: height,
+                        action: action
                     )
             case .email:
-                    createBody(
-                        configuration: TextFieldConfiguration(
-                            placeholder: ConstantsTF.emailPlaceholder.stringValue,
-                            placeholderColor: .textTertiary,
-                            textAlignment: .leading,
-                            keyboardType: .emailAddress,
-                            secure: false
-                        )
+                    RegularTextFieldView(
+                        style: style,
+                        input: $input,
+                        placeholder: style.stringValue,
+                        keyboardType: style.keyboardStyle,
+                        submitLabel: style.submitLabel,
+                        textAlignment: style.textAlignment,
+                        width: width,
+                        height: height,
+                        action: action
                     )
             case .password:
-                    createBody(
-                        configuration: TextFieldConfiguration(
-                            placeholder: ConstantsTF.passwordPlaceholder.stringValue,
-                            placeholderColor: .textTertiary,
-                            textAlignment: .leading,
-                            keyboardType: .default,
-                            secure: true
-
-                        )
+                    SecureTextFieldView(
+                        style: style,
+                        input: $input,
+                        placeholder: style.stringValue,
+                        keyboardType: style.keyboardStyle,
+                        submitLabel: style.submitLabel,
+                        textAlignment: style.textAlignment,
+                        width: width,
+                        height: height,
+                        action: action
                     )
             case .phone:
                     HStack {
                         CountryCodeButton()
-                        createBody(
-                            configuration: TextFieldConfiguration(
-                                placeholder: ConstantsTF.phonePlaceholder.stringValue,
-                                placeholderColor: .textTertiary,
-                                textAlignment: .center,
-                                keyboardType: .phonePad,
-                                secure: false
-                            )
+                        RegularTextFieldView(
+                            style: style,
+                            input: $input,
+                            placeholder: style.stringValue,
+                            keyboardType: style.keyboardStyle,
+                            submitLabel: style.submitLabel,
+                            textAlignment: style.textAlignment,
+                            width: width,
+                            height: height,
+                            action: action
                         )
                         .onChange(of: input) { newValue in
                             let digits = newValue.filter { $0.isNumber }
@@ -102,14 +146,16 @@ struct DtCustomTF: View {
                         }
                     }
             case .sms:
-                    createBody(
-                        configuration: TextFieldConfiguration(
-                            placeholder: ConstantsTF.smsPlaceholder.stringValue,
-                            placeholderColor: .textTertiary,
-                            textAlignment: .center,
-                            keyboardType: .phonePad,
-                            secure: true
-                        )
+                    RegularTextFieldView(
+                        style: style,
+                        input: $input,
+                        placeholder: style.stringValue,
+                        keyboardType: style.keyboardStyle,
+                        submitLabel: style.submitLabel,
+                        textAlignment: style.textAlignment,
+                        width: width,
+                        height: height,
+                        action: action
                     )
                     .onChange(of: input) { newValue in
                         let digits = newValue.filter { $0.isNumber }
@@ -120,43 +166,18 @@ struct DtCustomTF: View {
                         }
                     }
             case .text:
-                    createBody(
-                        configuration: TextFieldConfiguration(
-                            placeholder: textPlaceholder ?? "",
-                            placeholderColor: .textTertiary,
-                            textAlignment: .center,
-                            keyboardType: .default,
-                            secure: false
-                        )
+                    RegularTextFieldView(
+                        style: style,
+                        input: $input,
+                        placeholder: style.stringValue,
+                        keyboardType: style.keyboardStyle,
+                        submitLabel: style.submitLabel,
+                        textAlignment: style.textAlignment,
+                        width: width,
+                        height: height,
+                        action: action
                     )
             }
-        }
-    }
-
-    private func createBody(configuration: TextFieldConfiguration) -> some View {
-        if configuration.secure {
-            return (SecureTextFieldView(
-                input: $input,
-                placeholder: configuration.placeholder,
-                placeholderColor: configuration.placeholderColor,
-                textAlignment: configuration.textAlignment,
-                keyboardType: configuration.keyboardType,
-                width: width,
-                height: height,
-                action: action
-            )).eraseToAnyView()
-        } else {
-            return (RegularTextFieldView(
-                input: $input,
-                placeholder: configuration.placeholder,
-                placeholderColor: configuration.placeholderColor,
-                textAlignment: configuration.textAlignment,
-                keyboardType: configuration.keyboardType,
-                width: width,
-                height: height,
-                style: style,
-                action: action
-            )).eraseToAnyView()
         }
     }
 
@@ -165,32 +186,34 @@ struct DtCustomTF: View {
         var formattedPhone = ""
 
         for (index, digit) in digits.enumerated() {
-            if index == 0 {
-                formattedPhone += "(\(digit)"
-            } else if index == 3 {
-                formattedPhone += ") \(digit)"
-            } else if index == 6 {
-                formattedPhone += "-\(digit)"
-            } else if index == 8 {
-                formattedPhone += "-\(digit)"
-            } else {
-                formattedPhone += String(digit)
+            switch index {
+            case 0: formattedPhone += "(\(digit)"
+            case 3: formattedPhone += ") \(digit)"
+            case 6: formattedPhone += "-\(digit)"
+            case 8: formattedPhone += "-\(digit)"
+            default: formattedPhone += String(digit)
             }
         }
         input = formattedPhone
     }
 }
 
-struct TextFieldConfiguration {
-    let placeholder: String
-    let placeholderColor: Color
-    let textAlignment: TextAlignment
-    let keyboardType: UIKeyboardType
-    let secure: Bool
-}
+struct DtCustomTF_Previews: PreviewProvider {
 
-extension View {
-    func eraseToAnyView() -> AnyView {
-        return AnyView(self)
+    static var styles: [DtCustomTF.Style] = [.phoneAndEmail, .email, .password, .phone, .sms, .text]
+
+    static var previews: some View {
+        VStack {
+            ForEach(styles, id: \.self) { style in
+                DtCustomTF(
+                    style: style,
+                    input: .constant("email_just_change_here"),
+                    height: 52,
+                    textPlaceholder: style.stringValue
+                )
+                .previewLayout(.sizeThatFits)
+                .padding()
+            }
+        }
     }
 }
