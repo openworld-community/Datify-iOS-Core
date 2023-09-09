@@ -9,12 +9,14 @@ import SwiftUI
 
 struct DtButton: View {
     @Environment(\.colorScheme) private var colorScheme
-
+    var isActivated: Bool?
+    
     enum Style {
         case gradient
         case primary
         case secondary
         case main
+        case picker
     }
 
     private let title: String
@@ -28,12 +30,14 @@ struct DtButton: View {
         width: CGFloat = .infinity,
         height: CGFloat = AppConstants.Visual.buttonHeight,
         style: DtButton.Style,
+        isActivated: Bool? = nil,
         action: @escaping () async -> Void
     ) {
         self.title = title
         self.width = width
         self.height = height
         self.style = style
+        self.isActivated = isActivated
         self.action = action
     }
 
@@ -59,6 +63,9 @@ struct DtButton: View {
             case .main:
                 createBody(title: title, titleColor: .accentsWhite)
                     .buttonBackground(color: .accentsPrimary)
+            case .picker:
+                createBody(title: title, titleColor: isActivated ?? false ? .accentsWhite : .textPrimary)
+                    .buttonBackground(color: isActivated ?? false ? .accentsViolet : .iconsTertiary.opacity(0.7))
             }
         }
         .buttonStyle(.plain)

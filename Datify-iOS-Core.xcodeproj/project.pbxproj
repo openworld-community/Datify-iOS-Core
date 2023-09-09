@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		20FD09062AACC0030083F1A3 /* ChooseGenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20FD09052AACC0030083F1A3 /* ChooseGenderView.swift */; };
 		4A4CE2C62A9B3A5F0098FF80 /* AppRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CE2C52A9B3A5F0098FF80 /* AppRoute.swift */; };
 		4A4CE2C82A9B3B620098FF80 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CE2C72A9B3B620098FF80 /* Router.swift */; };
 		4A4CE2CA2A9B3E8C0098FF80 /* NavigationViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CE2C92A9B3E8C0098FF80 /* NavigationViewBuilder.swift */; };
@@ -55,6 +56,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		20FD09052AACC0030083F1A3 /* ChooseGenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseGenderView.swift; sourceTree = "<group>"; };
 		4A4CE2C52A9B3A5F0098FF80 /* AppRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRoute.swift; sourceTree = "<group>"; };
 		4A4CE2C72A9B3B620098FF80 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		4A4CE2C92A9B3E8C0098FF80 /* NavigationViewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewBuilder.swift; sourceTree = "<group>"; };
@@ -181,6 +183,7 @@
 		4A4CE2CD2A9B40E30098FF80 /* Registration */ = {
 			isa = PBXGroup;
 			children = (
+				20FD09052AACC0030083F1A3 /* ChooseGenderView.swift */,
 			);
 			path = Registration;
 			sourceTree = "<group>";
@@ -506,6 +509,7 @@
 				D0DC465D2A92699D0097CFF3 /* DatifyiOSCoreApp.swift in Sources */,
 				4A4CE2D62A9B44C20098FF80 /* LoginFlow.swift in Sources */,
 				4A4CE2D82A9B47060098FF80 /* LoginView.swift in Sources */,
+				20FD09062AACC0030083F1A3 /* ChooseGenderView.swift in Sources */,
 				4A4CE2ED2A9B60A60098FF80 /* AppConstants.swift in Sources */,
 				4A4CE2F12A9B67B90098FF80 /* Text+extension.swift in Sources */,
 				4A4CE2EF2A9B66DC0098FF80 /* TempView.swift in Sources */,
