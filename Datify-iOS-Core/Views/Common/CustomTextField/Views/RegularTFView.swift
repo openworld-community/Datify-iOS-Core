@@ -45,8 +45,3 @@ struct RegularTextFieldView: View {
         ))
     }
 }
-        .onSubmit {
-            action?()
-        }
-    }
-}

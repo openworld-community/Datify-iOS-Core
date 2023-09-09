@@ -50,7 +50,3 @@ struct SecureTextFieldView: View {
         ))
     }
 }
-            action?()
-        }
-    }
-}
