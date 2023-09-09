@@ -7,17 +7,19 @@
 
 import SwiftUI
 
-enum CountryCodePhoneTF: CaseIterable {
-    case russia
-    case usa
+<<<<<<< HEAD
+=======
+enum ConstantsTF {
 
-    var stringValue: String {
-        switch self {
-        case .russia: return "Ru +7"
-        case .usa: return "US +1"
-        }
-    }
-}
+    // PhoneEmailTF
+    case phoneAndEmailPlaceholder
+    // EmailTF
+    case emailPlaceholder
+    // PasswordTF
+    case passwordPlaceholder
+    // PhoneTF
+    case phonePlaceholder
+    // smsTF
     case smsPlaceholder
 
     var stringValue: String {
@@ -31,6 +33,7 @@ enum CountryCodePhoneTF: CaseIterable {
     }
 }
 
+>>>>>>> 532c1c9f32751950c26ac4590acdddf82926aa4f
 enum CountryCodePhoneTF: CaseIterable {
     case russia
     case usa

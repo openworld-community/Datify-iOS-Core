@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SecureTextFieldView: View {
+<<<<<<< HEAD
     @State private var isPasswordVisible = false
 
     let style: DtCustomTF.Style
@@ -19,6 +20,18 @@ struct SecureTextFieldView: View {
     let width: CGFloat
     let height: CGFloat
     let action: () -> Void
+=======
+    @Binding var input: String
+    let placeholder: String
+    let placeholderColor: Color
+    let textAlignment: TextAlignment
+    let keyboardType: UIKeyboardType
+    let width: CGFloat
+    let height: CGFloat
+    var action: (() -> Void)?
+
+    @State private var isPasswordVisible = false
+>>>>>>> 532c1c9f32751950c26ac4590acdddf82926aa4f
 
     var body: some View {
         HStack {
@@ -38,6 +51,7 @@ struct SecureTextFieldView: View {
                 }
             }
         }
+<<<<<<< HEAD
         .disableAutocorrection(true)
         .modifier(DtCustomTFViewModifier(
             style: style,
@@ -48,9 +62,22 @@ struct SecureTextFieldView: View {
             height: height,
             action: action
         ))
-    }
-}
+=======
+        .dtTypo(.p2Regular, color: input.isEmpty ? placeholderColor : Color.textPrimary)
+        .multilineTextAlignment(textAlignment)
+        .keyboardType(keyboardType)
+        .autocapitalization(.none)
+        .frame(maxWidth: width, minHeight: height)
+        .padding(.horizontal, AppConstants.Visual.paddings)
+        .background(Color.backgroundSecondary)
+        .cornerRadius(AppConstants.Visual.cornerRadius)
+        .overlay(
+            RoundedRectangle(cornerRadius: AppConstants.Visual.cornerRadius)
+                .stroke(Color.backgroundStroke, lineWidth: 1)
+        )
+        .onSubmit {
             action?()
         }
+>>>>>>> 532c1c9f32751950c26ac4590acdddf82926aa4f
     }
 }

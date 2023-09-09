@@ -10,6 +10,7 @@ import Foundation
 enum LoginState {
     case idle, inProcess, success, error
 }
+<<<<<<< HEAD
 
 final class LoginViewModel: ObservableObject {
     @Published var loginState: LoginState = .idle
@@ -47,3 +48,5 @@ final class LoginViewModel: ObservableObject {
         forgotSheet = true
     }
 }
+=======
+>>>>>>> 532c1c9f32751950c26ac4590acdddf82926aa4f

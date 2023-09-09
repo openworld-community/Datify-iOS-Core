@@ -2,17 +2,9 @@
   "images" : [
     {
       "filename" : "eyeShow.svg",
+<<<<<<< HEAD
       "idiom" : "universal"
-    }
-  ],
-  "info" : {
-    "author" : "xcode",
-    "version" : 1
-  },
-  "properties" : {
-    "preserves-vector-representation" : true
-  }
-}
+=======
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -23,10 +15,17 @@
     {
       "idiom" : "universal",
       "scale" : "3x"
+>>>>>>> 532c1c9f32751950c26ac4590acdddf82926aa4f
     }
   ],
   "info" : {
     "author" : "xcode",
     "version" : 1
+<<<<<<< HEAD
+  },
+  "properties" : {
+    "preserves-vector-representation" : true
+=======
+>>>>>>> 532c1c9f32751950c26ac4590acdddf82926aa4f
   }
 }

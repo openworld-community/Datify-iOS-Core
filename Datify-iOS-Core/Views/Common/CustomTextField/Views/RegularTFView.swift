@@ -1,5 +1,5 @@
 //
-//  EmailTFView.swift
+//  RegularTextFieldView.swift
 //  Datify-iOS-Core
 //
 //  Created by Ildar Khabibullin on 02.09.2023.
@@ -43,5 +43,10 @@ struct RegularTextFieldView: View {
             height: height,
             action: action
         ))
+    }
+}
+        .onSubmit {
+            action?()
+        }
     }
 }
