@@ -8,10 +8,22 @@
 import SwiftUI
 
 struct ContentViewCTF: View {
-    @State private var input = ""
+    @State private var inputPhoneEmail = ""
+    @State private var inputEmail = ""
+    @State private var inputPassword = ""
+    @State private var inputPhone = ""
+    @State private var inputSms = ""
+    @State private var inputName = ""
 
     var body: some View {
-        PreviewCTF(input: $input)
+        PreviewCTF(
+            inputPhoneEmail: $inputPhoneEmail,
+            inputEmail: $inputEmail,
+            inputPassword: $inputPassword,
+            inputPhone: $inputPhone,
+            inputSms: $inputSms,
+            inputName: $inputName
+        )
     }
 }
 
@@ -22,25 +34,40 @@ struct ContentViewCTF_Previews: PreviewProvider {
 }
 
 struct PreviewCTF: View {
-    @Binding var input: String
+    @Binding var inputPhoneEmail: String
+    @Binding var inputEmail: String
+    @Binding var inputPassword: String
+    @Binding var inputPhone: String
+    @Binding var inputSms: String
+    @Binding var inputName: String
 
     var body: some View {
         VStack {
             DtCustomTF(
-                input: $input,
+                input: $inputPhoneEmail,
+                style: .phoneAndEmail
+            )
+            DtCustomTF(
+                input: $inputEmail,
                 style: .email
             )
-            .padding(.horizontal, AppConstants.Visual.paddings)
             DtCustomTF(
-                input: $input,
+                input: $inputPassword,
+                style: .password
+            )
+            DtCustomTF(
+                input: $inputPhone,
                 style: .phone
             )
-            .padding(.horizontal, AppConstants.Visual.paddings)
             DtCustomTF(
-                input: $input,
-                style: .text
+                input: $inputSms,
+                style: .sms
             )
-            .padding(.horizontal, AppConstants.Visual.paddings)
+            DtCustomTF(
+                input: $inputName,
+                style: .text,
+                textPlaceholder: "Your Name"
+            )
         }
     }
 }
