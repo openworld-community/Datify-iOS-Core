@@ -1,13 +1,14 @@
 //
-//  ChooseGenderView.swift
+//  SelectGenderView.swift
 //  Datify-iOS-Core
 //
 //  Created by Илья on 09.09.2023.
-//
+// 
 
 import SwiftUI
 
-struct ChooseGenderView: View {
+struct SelectGenderView: View {
+    
     @State private var selectedGender = ""
     @State private var showTermsSheet = false
     @State private var showOtherOptionsSheet = false
@@ -30,13 +31,13 @@ struct ChooseGenderView: View {
     }
 }
 
-struct ChooseGenderView_Previews: PreviewProvider {
+struct SelectGenderView_Previews: PreviewProvider {
     static var previews: some View {
-        ChooseGenderView()
+        SelectGenderView()
     }
 }
 
-extension ChooseGenderView {
+extension SelectGenderView {
     
     //MARK: - Male and Female gender buttons
     private var genderButtons: some View {
