@@ -37,10 +37,6 @@ struct DtCustomTF: View {
             }
         }
 
-        var isSecureTextEntry: Bool {
-            return self == .password
-        }
-
         var submitLabel: SubmitLabel {
             switch self {
             case .phone, .email, .phoneAndEmail: return .continue
