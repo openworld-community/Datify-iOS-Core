@@ -9,14 +9,13 @@ import SwiftUI
 
 struct WelcomeView: View {
     // titles
-    private let appTitle: String = "Datify"
-    private let mainText: String = "Find new acquaintance"
-    private let mainTextGradient: String = "right now"
-    private let orTitle: String = "or"
-    private let alreadyHaveAnAccountTitle: String = "Already have an account?"
+    private let mainText = String(localized: "Find new acquaintance")
+    private let mainTextGradient = String(localized: "right now")
+    private let orTitle = String(localized: "or")
+    private let alreadyHaveAnAccountTitle = String(localized: "Already have an account?")
     // buttons
-    private let signUpButtonTitle: String = "Sign up"
-    private let signInButtonTitle: String = "Sign in"
+    private let signUpButtonTitle = String(localized: "Sign up")
+    private let signInButtonTitle = String(localized: "Sign in")
 
     private unowned let router: Router<AppRoute>
 
@@ -44,15 +43,8 @@ struct WelcomView_Previews: PreviewProvider {
 
 extension WelcomeView {
     private var topLogoAndTitle: some View {
-        HStack(spacing: 4) {
-            Image(DtImage.appLogo)
-                .resizable()
-                .frame(width: 24, height: 24)
-            Text(appTitle)
-                .dtTypo(.p1Medium, color: .textPrimary)
-                .fontWeight(.bold)
-        }
-        .padding(.top)
+        DtLogoView()
+            .padding(.top)
     }
 
     private var largeTitle: some View {
@@ -83,10 +75,10 @@ extension WelcomeView {
 
     private var orLine: some View {
         HStack(spacing: 4) {
-            DividerLine()
+            DtDividerLine()
             Text(orTitle)
                 .dtTypo(.p2Regular, color: .textSecondary)
-            DividerLine()
+            DtDividerLine()
         }
     }
 

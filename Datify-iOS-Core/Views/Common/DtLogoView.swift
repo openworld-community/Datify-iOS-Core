@@ -11,7 +11,7 @@ struct DtLogoView: View {
     private let title: String = "Datify"
     var body: some View {
         HStack {
-            Image("logoImage")
+            Image(DtImage.appLogo)
                 .resizable()
                 .frame(
                     width: 24,

@@ -1,5 +1,5 @@
 //
-//  DividerLine.swift
+//  DtDividerLine.swift
 //  Datify-iOS-Core
 //
 //  Created by Александр Прайд on 06.09.2023.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DividerLine: View {
+struct DtDividerLine: View {
     private let color: Color = .textSecondary
     private let width: CGFloat = 1
 
@@ -22,6 +22,6 @@ struct DividerLine: View {
 
 struct DividerLine_Previews: PreviewProvider {
     static var previews: some View {
-        DividerLine()
+        DtDividerLine()
     }
 }
