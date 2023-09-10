@@ -8,13 +8,9 @@
 import SwiftUI
 
 struct RegEmailView: View {
-    private unowned let router: Router<AppRoute>
     @StateObject private var viewModel: RegEmailViewModel
 
-    init(router: Router<AppRoute>,
-         viewModel: RegEmailViewModel = RegEmailViewModel(router: nil)
-    ) {
-        self.router = router
+    init(router: Router<AppRoute>) {
         _viewModel = StateObject(wrappedValue: RegEmailViewModel(router: router))
     }
 
@@ -35,14 +31,11 @@ struct RegEmailView: View {
                     DtTextFieldView(
                         text: $viewModel.email,
                         placeholder: String(localized: "Enter email"),
-                        image: nil,
-                        submitLabel: .continue,
-                        action: {})
-                    .onSubmit {
-                        if !viewModel.isButtonDisabled {
-                            viewModel.validateEmail()
+                        submitLabel: .continue) {
+                            if !viewModel.isButtonDisabled {
+                                viewModel.validateEmail()
+                            }
                         }
-                    }
 
                     Button {
                         // TODO: viewModel.router.push...
@@ -71,13 +64,11 @@ struct RegEmailView: View {
             }
         }
         .alert(
-            String(localized: "Wrong format of email address. Please try again!"),
+            "Wrong format of email address. Please try again!",
             isPresented: $viewModel.isWrongFormat,
             actions: {}
         )
-        .onTapGesture {
-            UIApplication.shared.dismissKeyboard()
-        }
+        .hideKeyboardTapOutside()
     }
 }
 

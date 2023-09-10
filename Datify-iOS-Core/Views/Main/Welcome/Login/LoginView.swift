@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct LoginView: View {
-    private unowned let router: Router<AppRoute>
     @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel: LoginViewModel
     @FocusState private var focusedField: FocusField?
@@ -17,10 +16,7 @@ struct LoginView: View {
         case textField, secureField
     }
 
-    init(router: Router<AppRoute>,
-         viewModel: LoginViewModel = LoginViewModel(router: nil)
-    ) {
-        self.router = router
+    init(router: Router<AppRoute>) {
         _viewModel = StateObject(wrappedValue: LoginViewModel(router: router))
     }
 
@@ -34,9 +30,7 @@ struct LoginView: View {
             .sheet(isPresented: $viewModel.forgotSheet) {
                 TempView()
             }
-            .onTapGesture {
-                focusedField = nil
-            }
+            .hideKeyboardTapOutside()
     }
 
     private var idleView: some View {
@@ -57,27 +51,26 @@ struct LoginView: View {
                 DtTextFieldView(
                     text: $viewModel.email,
                     placeholder: String(localized: "Phone number or Email"),
-                    image: Image(systemName: "xmark"),
-                    submitLabel: .continue
-                ) {
-                    viewModel.email = .init()
-                }
-                .focused($focusedField, equals: .textField)
-                .onSubmit {
-                    focusedField = .secureField
-                }
+                    submitLabel: .continue,
+                    additionalFunction: (
+                        image: Image(systemName: "xmark"),
+                        action: {
+                            viewModel.email = .init()
+                        })) {
+                            focusedField = .secureField
+                        }
 
                 DtSecureFieldView(
                     text: $viewModel.password,
                     style: .secure,
-                    placeholder: String(localized: "Password")
+                    placeholder: String(localized: "Password"),
+                    onSubmitAction: {
+                        if !viewModel.isButtonDisabled {
+                            viewModel.authenticate()
+                        }
+                    }
                 )
                 .focused($focusedField, equals: .secureField)
-                .onSubmit {
-                    if !viewModel.isButtonDisabled {
-                        viewModel.authenticate()
-                    }
-                }
 
                 HStack {
                     Spacer()
@@ -142,10 +135,10 @@ struct LoginView_Previews: PreviewProvider {
 struct DtTextFieldView: View {
     @Binding var text: String
     let placeholder: String
-    let image: Image?
     let isImageAlwaysShown: Bool
     let submitlabel: SubmitLabel
-    let action: () -> Void
+    let additionalFunction: (image: Image, action: () -> Void)?
+    let onSubmitAction: () -> Void
     private var isNotEmpty: Bool {
         text != ""
     }
@@ -153,17 +146,17 @@ struct DtTextFieldView: View {
     init(
         text: Binding<String>,
         placeholder: String,
-        image: Image?,
         isImageAlwaysShown: Bool = false,
         submitLabel: SubmitLabel = .done,
-        action: @escaping () -> Void
+        additionalFunction: (image: Image, action: () -> Void)? = nil,
+        onSubmitAction: @escaping () -> Void
     ) {
         _text = text
         self.placeholder = placeholder
-        self.image = image
         self.isImageAlwaysShown = isImageAlwaysShown
         self.submitlabel = submitLabel
-        self.action = action
+        self.additionalFunction = additionalFunction
+        self.onSubmitAction = onSubmitAction
     }
 
     var body: some View {
@@ -172,11 +165,14 @@ struct DtTextFieldView: View {
                 placeholder,
                 text: $text
             )
+            .onSubmit {
+                onSubmitAction()
+            }
 
             Button {
-                action()
+                additionalFunction?.action()
             } label: {
-                image
+                additionalFunction?.image
             }
             .frame(width: 24, height: 24)
             .opacity(

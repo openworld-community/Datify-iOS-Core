@@ -11,6 +11,7 @@ struct DtSecureFieldView: View {
     @Binding var text: String
     @State private var style: DtSecureFieldView.Style
     let placeholder: String
+    let onSubmitAction: () -> Void
 
     enum Style {
         case standart, secure
@@ -19,11 +20,13 @@ struct DtSecureFieldView: View {
     init(
         text: Binding<String>,
         style: DtSecureFieldView.Style,
-        placeholder: String
+        placeholder: String,
+        onSubmitAction: @escaping () -> Void
     ) {
         _text = text
         self.style = style
         self.placeholder = placeholder
+        self.onSubmitAction = onSubmitAction
     }
 
     var body: some View {
@@ -32,14 +35,20 @@ struct DtSecureFieldView: View {
             DtTextFieldView(
                 text: $text,
                 placeholder: placeholder,
-                image: Image(systemName: "eye"),
-                isImageAlwaysShown: true
-            ) {
-                style = .secure
-            }
+                isImageAlwaysShown: true,
+                additionalFunction: (
+                    image: Image(systemName: "eye"),
+                    action: {
+                        style = .secure
+                    }),
+                onSubmitAction: onSubmitAction
+            )
         case .secure:
             HStack {
                 SecureField(placeholder, text: $text)
+                    .onSubmit {
+                        onSubmitAction()
+                    }
 
                 Button {
                     style = .standart
@@ -70,6 +79,6 @@ struct DtSecureFieldView: View {
 
 struct DtSecureFieldView_Previews: PreviewProvider {
     static var previews: some View {
-        DtSecureFieldView(text: .constant(""), style: .standart, placeholder: "Password")
+        DtSecureFieldView(text: .constant(""), style: .standart, placeholder: "Password", onSubmitAction: {})
     }
 }
