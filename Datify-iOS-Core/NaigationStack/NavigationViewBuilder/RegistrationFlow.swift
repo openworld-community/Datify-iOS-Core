@@ -29,7 +29,7 @@ extension NavigationViewBuilder: RegistrationFlow {
         Text("RegEmail")
     }
     func createRegLocationView() -> some View {
-        Text("RegLocation")
+        LocationView(router: router, country: "", city: "")
     }
     func createRegRecordView() -> some View {
         Text("RegRecord")

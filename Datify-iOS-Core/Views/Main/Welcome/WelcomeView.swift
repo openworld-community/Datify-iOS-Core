@@ -75,7 +75,7 @@ extension WelcomeView {
             .padding()
             orLine
             DtButton(title: signUpButtonTitle, style: .main) {
-                router.push(.login)
+                router.push(.registrationLocation)
             }
             .padding()
         }
