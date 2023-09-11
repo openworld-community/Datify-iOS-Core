@@ -5,37 +5,43 @@
 //  Created by Ildar Khabibullin on 10.09.2023.
 //
 
-import CoreLocation
 import Combine
+import Foundation
 
-final class LocationViewModel: NSObject, ObservableObject {
-    private var locationManager = CLLocationManager()
-    @Published var currentLocation: CLLocation?
+final class LocationViewModel: ObservableObject {
+    @Published var country: String?
+    @Published var city: String?
+
+    private var locationManager = LocationManager()
     private weak var router: Router<AppRoute>?
     private var cancellables = Set<AnyCancellable>()
 
     init(router: Router<AppRoute>?) {
         self.router = router
-        super.init()
         setupLocationManager()
+
+        locationManager.$country
+            .assign(to: \.country, on: self)
+            .store(in: &cancellables)
+
+        locationManager.$city
+            .assign(to: \.city, on: self)
+            .store(in: &cancellables)
     }
 
-    private func setupLocationManager() {
+    func setupLocationManager() {
         locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.startUpdatingLocation()
+        locationManager.requestLocation()
     }
 }
 
-extension LocationViewModel: CLLocationManagerDelegate {
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.first {
-            currentLocation = location
-        }
-    }
+ extension LocationViewModel: LocationManagerDelegate {
+     func didUpdateLocation(_ location: LocationModel) {
+         self.country = location.country
+         self.city = location.city
+     }
 
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print(error.localizedDescription)
-    }
-}
+     func didFailWithError(_ error: Error) {
+         print("Error getting location: \(error.localizedDescription)")
+     }
+ }

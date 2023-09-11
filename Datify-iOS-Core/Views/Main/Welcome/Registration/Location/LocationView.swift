@@ -14,15 +14,26 @@ struct LocationView: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel: LocationViewModel
 
+    enum Label {
+        case country
+        case city
+        
+        var stringValuer: String {
+            switch Label {
+                case .country: return 
+            }
+        }
+    }
+    
     init(
         router: Router<AppRoute>,
-        country: String,
-        city: String,
+        country: String?,
+        city: String?,
         viewModel: LocationViewModel = LocationViewModel(router: nil)
     ) {
         self.router = router
-        self._country = State(initialValue: country)
-        self._city = State(initialValue: city)
+        self._country = State(initialValue: country ?? "Serbia")
+        self._city = State(initialValue: city ?? "Belgrade")
         _viewModel = StateObject(wrappedValue: LocationViewModel(router: router))
     }
 
@@ -38,10 +49,12 @@ struct LocationView: View {
 
             bottomButtons
         }
+
     }
 }
 
 struct LocationChooseButtonView: View {
+    
     @Binding var input: String
 
     var body: some View {
