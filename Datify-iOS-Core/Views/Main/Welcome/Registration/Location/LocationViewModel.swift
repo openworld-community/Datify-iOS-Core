@@ -9,8 +9,8 @@ import Combine
 import Foundation
 
 final class LocationViewModel: ObservableObject {
-    @Published var country: String?
-    @Published var city: String?
+    @Published var country: String = .init()
+    @Published var city: String = .init()
 
     private var locationManager = LocationManager()
     private weak var router: Router<AppRoute>?
@@ -21,11 +21,15 @@ final class LocationViewModel: ObservableObject {
         setupLocationManager()
 
         locationManager.$country
-            .assign(to: \.country, on: self)
+            .sink { [weak self] updatedCountry in
+                self?.country = updatedCountry ?? "Serbia"
+            }
             .store(in: &cancellables)
 
         locationManager.$city
-            .assign(to: \.city, on: self)
+            .sink { [weak self] updatedCity in
+                self?.city = updatedCity ?? "Belgrade"
+            }
             .store(in: &cancellables)
     }
 
@@ -37,8 +41,8 @@ final class LocationViewModel: ObservableObject {
 
  extension LocationViewModel: LocationManagerDelegate {
      func didUpdateLocation(_ location: LocationModel) {
-         self.country = location.country
-         self.city = location.city
+         self.country = location.country ?? "Serbian"
+         self.city = location.city ?? "Belgrade"
      }
 
      func didFailWithError(_ error: Error) {

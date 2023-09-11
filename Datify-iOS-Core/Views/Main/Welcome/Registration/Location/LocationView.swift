@@ -7,24 +7,28 @@
 
 import SwiftUI
 
-struct LocationView: View {
-    private unowned let router: Router<AppRoute>
-    @State private var country: String = .init()
-    @State private var city: String = .init()
-    @Environment(\.dismiss) private var dismiss
-    @StateObject private var viewModel: LocationViewModel
+enum LabelOfButton {
+    case country
+    case city
 
-    enum Label {
-        case country
-        case city
-        
-        var stringValuer: String {
-            switch Label {
-                case .country: return 
-            }
+    var stringValue: String {
+        switch self {
+        case .country: return String(localized: "Country: ")
+        case .city: return String(localized: "City: ")
         }
     }
-    
+}
+
+struct LocationView: View {
+    @Environment(\.dismiss) private var dismiss
+
+    @ObservedObject private var viewModel: LocationViewModel
+
+    @State private var country: String = .init()
+    @State private var city: String = .init()
+
+    private unowned let router: Router<AppRoute>
+
     init(
         router: Router<AppRoute>,
         country: String?,
@@ -34,7 +38,7 @@ struct LocationView: View {
         self.router = router
         self._country = State(initialValue: country ?? "Serbia")
         self._city = State(initialValue: city ?? "Belgrade")
-        _viewModel = StateObject(wrappedValue: LocationViewModel(router: router))
+        self.viewModel = viewModel
     }
 
     var body: some View {
@@ -43,8 +47,8 @@ struct LocationView: View {
             Spacer()
             titleLabel
 
-            LocationChooseButtonView(input: $country)
-            LocationChooseButtonView(input: $city)
+            LocationChooseButtonView(label: LabelOfButton.country.stringValue, input: $viewModel.country)
+            LocationChooseButtonView(label: LabelOfButton.city.stringValue, input: $viewModel.city)
             Spacer()
 
             bottomButtons
@@ -54,7 +58,7 @@ struct LocationView: View {
 }
 
 struct LocationChooseButtonView: View {
-    
+    let label: String
     @Binding var input: String
 
     var body: some View {
@@ -62,7 +66,7 @@ struct LocationChooseButtonView: View {
             print("Choose country tap")
         } label: {
             HStack {
-                Text("Country:")
+                Text(label)
                     .dtTypo(.p2Regular, color: .textSecondary)
                     .padding(.leading)
                 Text(input)

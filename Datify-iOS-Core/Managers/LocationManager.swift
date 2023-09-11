@@ -57,7 +57,6 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
                     let country = placemark.country
                     let city = placemark.locality
                     let coordinates = location.coordinate
-
                     let locationModel = LocationModel(country: country, city: city, coordinates: coordinates)
                     self.delegate?.didUpdateLocation(locationModel)
                 }

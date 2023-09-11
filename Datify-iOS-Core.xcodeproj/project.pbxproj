@@ -27,6 +27,7 @@
 		6360DAB92AAF87C10077B0EB /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6360DAB82AAF87C10077B0EB /* LocationManager.swift */; };
 		6360DABD2AAF87DA0077B0EB /* LocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6360DABB2AAF87DA0077B0EB /* LocationView.swift */; };
 		6360DABE2AAF87DA0077B0EB /* LocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6360DABC2AAF87DA0077B0EB /* LocationViewModel.swift */; };
+		6360DAC02AAF91F50077B0EB /* CountryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6360DABF2AAF91F50077B0EB /* CountryModel.swift */; };
 		63A365A32AA04FFB00CBF5CD /* DtCustomTF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A365A22AA04FFB00CBF5CD /* DtCustomTF.swift */; };
 		63A729592AA3937500AC60E3 /* RegularTFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A729582AA3937500AC60E3 /* RegularTFView.swift */; };
 		63A7295D2AA395A200AC60E3 /* ConstantsTF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A7295C2AA395A200AC60E3 /* ConstantsTF.swift */; };
@@ -86,6 +87,7 @@
 		6360DAB82AAF87C10077B0EB /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		6360DABB2AAF87DA0077B0EB /* LocationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationView.swift; sourceTree = "<group>"; };
 		6360DABC2AAF87DA0077B0EB /* LocationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationViewModel.swift; sourceTree = "<group>"; };
+		6360DABF2AAF91F50077B0EB /* CountryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryModel.swift; sourceTree = "<group>"; };
 		63A365A22AA04FFB00CBF5CD /* DtCustomTF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtCustomTF.swift; sourceTree = "<group>"; };
 		63A729582AA3937500AC60E3 /* RegularTFView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegularTFView.swift; sourceTree = "<group>"; };
 		63A7295C2AA395A200AC60E3 /* ConstantsTF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantsTF.swift; sourceTree = "<group>"; };
@@ -305,6 +307,7 @@
 			children = (
 				6360DABB2AAF87DA0077B0EB /* LocationView.swift */,
 				6360DABC2AAF87DA0077B0EB /* LocationViewModel.swift */,
+				6360DABF2AAF91F50077B0EB /* CountryModel.swift */,
 			);
 			path = Location;
 			sourceTree = "<group>";
@@ -354,11 +357,11 @@
 		D0DC465B2A92699D0097CFF3 /* Datify-iOS-Core */ = {
 			isa = PBXGroup;
 			children = (
-				6360DAB72AAF879F0077B0EB /* Managers */,
 				D0DC465C2A92699D0097CFF3 /* DatifyiOSCoreApp.swift */,
 				D0DC465E2A92699D0097CFF3 /* MainAppView.swift */,
 				4A4CE2DE2A9B4EEB0098FF80 /* Resources */,
 				4A4CE2C02A9B39FB0098FF80 /* NavigationStack */,
+				6360DAB72AAF879F0077B0EB /* Managers */,
 				4A4CE2C22A9B3A100098FF80 /* Views */,
 				4A4CE2EB2A9B60950098FF80 /* Helpers */,
 				4A4CE2E12A9B53D50098FF80 /* Extensions */,
@@ -574,6 +577,7 @@
 				98F3B6D62A9E4F9D0097B5C0 /* DtLogoView.swift in Sources */,
 				63A729692AA4A94B00AC60E3 /* CountryCodeButton.swift in Sources */,
 				D0DC465D2A92699D0097CFF3 /* DatifyiOSCoreApp.swift in Sources */,
+				6360DAC02AAF91F50077B0EB /* CountryModel.swift in Sources */,
 				4A4CE2D62A9B44C20098FF80 /* LoginFlow.swift in Sources */,
 				4A4CE2D82A9B47060098FF80 /* LoginView.swift in Sources */,
 				4A4CE2ED2A9B60A60098FF80 /* AppConstants.swift in Sources */,
@@ -748,6 +752,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = Datify;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -782,6 +787,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = Datify;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
