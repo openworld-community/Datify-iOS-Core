@@ -25,6 +25,7 @@
 		9808959C2A9F208B00F82F02 /* DtSecureFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9808959B2A9F208B00F82F02 /* DtSecureFieldView.swift */; };
 		980895BA2A9F4A5700F82F02 /* DtSpinnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980895B92A9F4A5700F82F02 /* DtSpinnerView.swift */; };
 		98553B0A2AAE4A43005C80B3 /* View+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98553B092AAE4A43005C80B3 /* View+extension.swift */; };
+		98553B0D2AAF1273005C80B3 /* String+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98553B0C2AAF1273005C80B3 /* String+extension.swift */; };
 		9898B2BD2AAA4967007CA714 /* RegEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9898B2BC2AAA4967007CA714 /* RegEmailView.swift */; };
 		9898B2BF2AAA49DE007CA714 /* RegEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9898B2BE2AAA49DE007CA714 /* RegEmailViewModel.swift */; };
 		9898B2C32AAAFE3A007CA714 /* UIApplication+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9898B2C22AAAFE3A007CA714 /* UIApplication+extension.swift */; };
@@ -77,8 +78,9 @@
 		9808959B2A9F208B00F82F02 /* DtSecureFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtSecureFieldView.swift; sourceTree = "<group>"; };
 		980895B92A9F4A5700F82F02 /* DtSpinnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtSpinnerView.swift; sourceTree = "<group>"; };
 		98553B092AAE4A43005C80B3 /* View+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+extension.swift"; sourceTree = "<group>"; };
-		9898B2BC2AAA4967007CA714 /* RegEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RegEmailView.swift; path = "Datify-iOS-Core/Views/Main/Welcome/RegEmailView.swift"; sourceTree = SOURCE_ROOT; };
-		9898B2BE2AAA49DE007CA714 /* RegEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RegEmailViewModel.swift; path = "Datify-iOS-Core/Views/Main/Welcome/RegEmailViewModel.swift"; sourceTree = SOURCE_ROOT; };
+		98553B0C2AAF1273005C80B3 /* String+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+extension.swift"; sourceTree = "<group>"; };
+		9898B2BC2AAA4967007CA714 /* RegEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RegEmailView.swift; path = "Datify-iOS-Core/Views/Main/Welcome/Registration/RegEmailView.swift"; sourceTree = SOURCE_ROOT; };
+		9898B2BE2AAA49DE007CA714 /* RegEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RegEmailViewModel.swift; path = "Datify-iOS-Core/Views/Main/Welcome/Registration/RegEmailViewModel.swift"; sourceTree = SOURCE_ROOT; };
 		9898B2C22AAAFE3A007CA714 /* UIApplication+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+extension.swift"; sourceTree = "<group>"; };
 		98F3B6D52A9E4F9D0097B5C0 /* DtLogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtLogoView.swift; sourceTree = "<group>"; };
 		D050B1B02AA84AA0008EC0AB /* DividerLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerLine.swift; sourceTree = "<group>"; };
@@ -167,9 +169,9 @@
 		4A4CE2CB2A9B3FFB0098FF80 /* Welcome */ = {
 			isa = PBXGroup;
 			children = (
+				98553B0B2AAF0CF3005C80B3 /* Registration */,
 				4A4CE2DB2A9B485B0098FF80 /* WelcomeView.swift */,
 				4A4CE2CC2A9B40DA0098FF80 /* Login */,
-				4A4CE2CD2A9B40E30098FF80 /* Registration */,
 				4A4CE2DD2A9B4CB70098FF80 /* FillProfile */,
 			);
 			path = Welcome;
@@ -182,15 +184,6 @@
 				4A4CE2D92A9B47650098FF80 /* LoginViewModel.swift */,
 			);
 			path = Login;
-			sourceTree = "<group>";
-		};
-		4A4CE2CD2A9B40E30098FF80 /* Registration */ = {
-			isa = PBXGroup;
-			children = (
-				9898B2BC2AAA4967007CA714 /* RegEmailView.swift */,
-				9898B2BE2AAA49DE007CA714 /* RegEmailViewModel.swift */,
-			);
-			path = Registration;
 			sourceTree = "<group>";
 		};
 		4A4CE2CE2A9B41920098FF80 /* Tabbar */ = {
@@ -257,6 +250,7 @@
 				4A4CE2F02A9B67B90098FF80 /* Text+extension.swift */,
 				9898B2C22AAAFE3A007CA714 /* UIApplication+extension.swift */,
 				98553B092AAE4A43005C80B3 /* View+extension.swift */,
+				98553B0C2AAF1273005C80B3 /* String+extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -276,6 +270,15 @@
 				D0C896592AA217630084FA62 /* DtImage.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		98553B0B2AAF0CF3005C80B3 /* Registration */ = {
+			isa = PBXGroup;
+			children = (
+				9898B2BC2AAA4967007CA714 /* RegEmailView.swift */,
+				9898B2BE2AAA49DE007CA714 /* RegEmailViewModel.swift */,
+			);
+			path = Registration;
 			sourceTree = "<group>";
 		};
 		D0DC46502A92699C0097CFF3 = {
@@ -515,6 +518,7 @@
 				9808959C2A9F208B00F82F02 /* DtSecureFieldView.swift in Sources */,
 				98F3B6D62A9E4F9D0097B5C0 /* DtLogoView.swift in Sources */,
 				D0DC465D2A92699D0097CFF3 /* DatifyiOSCoreApp.swift in Sources */,
+				98553B0D2AAF1273005C80B3 /* String+extension.swift in Sources */,
 				4A4CE2D62A9B44C20098FF80 /* LoginFlow.swift in Sources */,
 				98553B0A2AAE4A43005C80B3 /* View+extension.swift in Sources */,
 				4A4CE2D82A9B47060098FF80 /* LoginView.swift in Sources */,

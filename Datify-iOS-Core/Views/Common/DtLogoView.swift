@@ -18,7 +18,7 @@ struct DtLogoView: View {
                     height: 24
                 )
             Text(title)
-                .dtTypo(.h3Medium, color: .textPrimary)
+                .dtTypo(.h3Semibold, color: .textPrimary)
         }
     }
 }

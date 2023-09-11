@@ -53,7 +53,7 @@ struct LoginView: View {
                     placeholder: String(localized: "Phone number or Email"),
                     submitLabel: .continue,
                     additionalFunction: (
-                        image: Image(systemName: "xmark"),
+                        image: Image("xmark"),
                         action: {
                             viewModel.email = .init()
                         })) {
@@ -140,7 +140,7 @@ struct DtTextFieldView: View {
     let additionalFunction: (image: Image, action: () -> Void)?
     let onSubmitAction: () -> Void
     private var isNotEmpty: Bool {
-        text != ""
+        text.isNotEmpty
     }
 
     init(
@@ -173,8 +173,10 @@ struct DtTextFieldView: View {
                 additionalFunction?.action()
             } label: {
                 additionalFunction?.image
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 24, height: 24)
             }
-            .frame(width: 24, height: 24)
             .opacity(
                 isImageAlwaysShown ?
                 1 :

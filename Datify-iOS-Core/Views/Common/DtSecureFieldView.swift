@@ -37,7 +37,7 @@ struct DtSecureFieldView: View {
                 placeholder: placeholder,
                 isImageAlwaysShown: true,
                 additionalFunction: (
-                    image: Image(systemName: "eye"),
+                    image: Image("eye"),
                     action: {
                         style = .secure
                     }),
@@ -53,9 +53,11 @@ struct DtSecureFieldView: View {
                 Button {
                     style = .standart
                 } label: {
-                    Image(systemName: "eye.slash")
+                    Image("eye.slash")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 24, height: 24)
                 }
-                .frame(width: 24, height: 24)
             }
             .dtTypo(.p2Regular, color: .textPrimary)
             .padding()
