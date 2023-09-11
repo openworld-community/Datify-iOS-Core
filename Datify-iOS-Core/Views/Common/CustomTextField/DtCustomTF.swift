@@ -10,13 +10,13 @@ import SwiftUI
 struct DtCustomTF: View {
     @Environment(\.colorScheme) private var colorScheme
 
-    enum Style {
+    enum Style: Hashable {
         case phoneAndEmail
         case email
         case password
         case phone
         case sms
-        case text
+        case text(String, TextAlignment?)
 
         var stringValue: String {
             switch self {
@@ -25,7 +25,7 @@ struct DtCustomTF: View {
             case .password: return String(localized: "Password")
             case .phone: return "(000) 000-00-00"
             case .sms: return "00 00 00"
-            case .text: return ""
+            case .text(let text, _): return text
             }
         }
 
@@ -196,7 +196,7 @@ struct DtCustomTF: View {
 
 struct DtCustomTF_Previews: PreviewProvider {
 
-    static var styles: [DtCustomTF.Style] = [.phoneAndEmail, .email, .password, .phone, .sms, .text]
+    static var styles: [DtCustomTF.Style] = [.phoneAndEmail, .email, .password, .phone, .sms, .text("", .center)]
 
     static var previews: some View {
         VStack {
