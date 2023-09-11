@@ -69,8 +69,6 @@
 		4A4CE2DB2A9B485B0098FF80 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		4A4CE2DF2A9B4F800098FF80 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		4A4CE2E22A9B53E70098FF80 /* Color+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+extension.swift"; sourceTree = "<group>"; };
-		4A4CE2E52A9B57AC0098FF80 /* SF-Pro-Display-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Regular.otf"; sourceTree = "<group>"; };
-		4A4CE2E62A9B57CE0098FF80 /* SF-Pro-Display-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Medium.otf"; sourceTree = "<group>"; };
 		4A4CE2E72A9B58590098FF80 /* DtTypography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtTypography.swift; sourceTree = "<group>"; };
 		4A4CE2E92A9B5FB80098FF80 /* DtButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtButton.swift; sourceTree = "<group>"; };
 		4A4CE2EC2A9B60A60098FF80 /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
@@ -266,8 +264,6 @@
 		4A4CE2E42A9B57870098FF80 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				4A4CE2E52A9B57AC0098FF80 /* SF-Pro-Display-Regular.otf */,
-				4A4CE2E62A9B57CE0098FF80 /* SF-Pro-Display-Medium.otf */,
 				4A4CE2E72A9B58590098FF80 /* DtTypography.swift */,
 			);
 			path = Fonts;

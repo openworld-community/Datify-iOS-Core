@@ -7,11 +7,6 @@
 
 import SwiftUI
 
-private enum DtFont: String {
-    case regular = "SF-Pro-Display-Regular"
-    case medium = "SF-Pro-Display-Medium"
-}
-
 struct DtTypography: ViewModifier {
     enum Style {
         /// Header
@@ -21,6 +16,7 @@ struct DtTypography: ViewModifier {
         case h2Regular
         case h3Medium
         case h3Regular
+        case h3Semibold
 
         /// Paragraph
         case p1Medium
@@ -40,23 +36,24 @@ struct DtTypography: ViewModifier {
     // swiftlint:disable cyclomatic_complexity
     public func body(content: Content) -> some View {
         switch style {
-        case .h1Medium: return content.font(.custom(DtFont.medium.rawValue, size: 36))
-        case .h1Regular: return content.font(.custom(DtFont.regular.rawValue, size: 36))
-        case .h2Medium: return content.font(.custom(DtFont.medium.rawValue, size: 32))
-        case .h2Regular: return content.font(.custom(DtFont.regular.rawValue, size: 32))
-        case .h3Medium: return content.font(.custom(DtFont.medium.rawValue, size: 24))
-        case .h3Regular: return content.font(.custom(DtFont.regular.rawValue, size: 24))
+        case .h1Medium: return content.font(.system(size: 36, weight: .medium))
+        case .h1Regular: return content.font(.system(size: 36, weight: .regular))
+        case .h2Medium: return content.font(.system(size: 32, weight: .medium))
+        case .h2Regular: return content.font(.system(size: 32, weight: .regular))
+        case .h3Medium: return content.font(.system(size: 24, weight: .medium))
+        case .h3Regular: return content.font(.system(size: 24, weight: .regular))
+        case .h3Semibold: return content.font(.system(size: 24, weight: .semibold))
 
-        case .p1Medium: return content.font(.custom(DtFont.medium.rawValue, size: 20))
-        case .p1Regular: return content.font(.custom(DtFont.regular.rawValue, size: 20))
-        case .p2Medium: return content.font(.custom(DtFont.medium.rawValue, size: 17))
-        case .p2Regular: return content.font(.custom(DtFont.regular.rawValue, size: 17))
-        case .p3Medium: return content.font(.custom(DtFont.medium.rawValue, size: 14))
-        case .p3Regular: return content.font(.custom(DtFont.regular.rawValue, size: 14))
-        case .p4Medium: return content.font(.custom(DtFont.medium.rawValue, size: 12))
-        case .p4Regular: return content.font(.custom(DtFont.regular.rawValue, size: 12))
-        case .p5Medium: return content.font(.custom(DtFont.medium.rawValue, size: 10))
-        case .p5Regular: return content.font(.custom(DtFont.regular.rawValue, size: 10))
+        case .p1Medium: return content.font(.system(size: 20, weight: .medium))
+        case .p1Regular: return content.font(.system(size: 20, weight: .regular))
+        case .p2Medium: return content.font(.system(size: 17, weight: .medium))
+        case .p2Regular: return content.font(.system(size: 17, weight: .regular))
+        case .p3Medium: return content.font(.system(size: 14, weight: .medium))
+        case .p3Regular: return content.font(.system(size: 14, weight: .regular))
+        case .p4Medium: return content.font(.system(size: 12, weight: .medium))
+        case .p4Regular: return content.font(.system(size: 12, weight: .regular))
+        case .p5Medium: return content.font(.system(size: 10, weight: .medium))
+        case .p5Regular: return content.font(.system(size: 10, weight: .regular))
         }
     }
 }
