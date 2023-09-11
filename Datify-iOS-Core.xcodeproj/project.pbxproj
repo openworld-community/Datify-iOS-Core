@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2012EF642AAF479400B01688 /* DtBackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2012EF632AAF479400B01688 /* DtBackButton.swift */; };
+		2012EF662AAF719C00B01688 /* TermsAndConditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2012EF652AAF719C00B01688 /* TermsAndConditions.swift */; };
 		20FD09062AACC0030083F1A3 /* SelectGenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20FD09052AACC0030083F1A3 /* SelectGenderView.swift */; };
 		4A4CE2C62A9B3A5F0098FF80 /* AppRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CE2C52A9B3A5F0098FF80 /* AppRoute.swift */; };
 		4A4CE2C82A9B3B620098FF80 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CE2C72A9B3B620098FF80 /* Router.swift */; };
@@ -56,6 +58,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2012EF632AAF479400B01688 /* DtBackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtBackButton.swift; sourceTree = "<group>"; };
+		2012EF652AAF719C00B01688 /* TermsAndConditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsAndConditions.swift; sourceTree = "<group>"; };
 		20FD09052AACC0030083F1A3 /* SelectGenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGenderView.swift; sourceTree = "<group>"; };
 		4A4CE2C52A9B3A5F0098FF80 /* AppRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRoute.swift; sourceTree = "<group>"; };
 		4A4CE2C72A9B3B620098FF80 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
@@ -67,8 +71,6 @@
 		4A4CE2DB2A9B485B0098FF80 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		4A4CE2DF2A9B4F800098FF80 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		4A4CE2E22A9B53E70098FF80 /* Color+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+extension.swift"; sourceTree = "<group>"; };
-		4A4CE2E52A9B57AC0098FF80 /* SF-Pro-Display-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Regular.otf"; sourceTree = "<group>"; };
-		4A4CE2E62A9B57CE0098FF80 /* SF-Pro-Display-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Medium.otf"; sourceTree = "<group>"; };
 		4A4CE2E72A9B58590098FF80 /* DtTypography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtTypography.swift; sourceTree = "<group>"; };
 		4A4CE2E92A9B5FB80098FF80 /* DtButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtButton.swift; sourceTree = "<group>"; };
 		4A4CE2EC2A9B60A60098FF80 /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
@@ -141,12 +143,14 @@
 			isa = PBXGroup;
 			children = (
 				4A4CE2E92A9B5FB80098FF80 /* DtButton.swift */,
+				2012EF632AAF479400B01688 /* DtBackButton.swift */,
 				D0C1852F2AA1D0E1000D71E5 /* SignInWithButton.swift */,
 				4A4CE2EE2A9B66DC0098FF80 /* TempView.swift */,
 				98F3B6D52A9E4F9D0097B5C0 /* DtLogoView.swift */,
 				9808959B2A9F208B00F82F02 /* DtSecureFieldView.swift */,
 				980895B92A9F4A5700F82F02 /* DtSpinnerView.swift */,
 				D050B1B02AA84AA0008EC0AB /* DividerLine.swift */,
+				2012EF652AAF719C00B01688 /* TermsAndConditions.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -257,8 +261,6 @@
 		4A4CE2E42A9B57870098FF80 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				4A4CE2E52A9B57AC0098FF80 /* SF-Pro-Display-Regular.otf */,
-				4A4CE2E62A9B57CE0098FF80 /* SF-Pro-Display-Medium.otf */,
 				4A4CE2E72A9B58590098FF80 /* DtTypography.swift */,
 			);
 			path = Fonts;
@@ -509,8 +511,10 @@
 				D0DC465D2A92699D0097CFF3 /* DatifyiOSCoreApp.swift in Sources */,
 				4A4CE2D62A9B44C20098FF80 /* LoginFlow.swift in Sources */,
 				4A4CE2D82A9B47060098FF80 /* LoginView.swift in Sources */,
+				2012EF662AAF719C00B01688 /* TermsAndConditions.swift in Sources */,
 				20FD09062AACC0030083F1A3 /* SelectGenderView.swift in Sources */,
 				4A4CE2ED2A9B60A60098FF80 /* AppConstants.swift in Sources */,
+				2012EF642AAF479400B01688 /* DtBackButton.swift in Sources */,
 				4A4CE2F12A9B67B90098FF80 /* Text+extension.swift in Sources */,
 				4A4CE2EF2A9B66DC0098FF80 /* TempView.swift in Sources */,
 				4A4CE2C62A9B3A5F0098FF80 /* AppRoute.swift in Sources */,

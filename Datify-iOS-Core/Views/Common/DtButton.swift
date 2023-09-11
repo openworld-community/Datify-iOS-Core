@@ -9,8 +9,7 @@ import SwiftUI
 
 struct DtButton: View {
     @Environment(\.colorScheme) private var colorScheme
-    var isActivated: Bool?
-    
+
     enum Style {
         case gradient
         case primary
@@ -30,14 +29,12 @@ struct DtButton: View {
         width: CGFloat = .infinity,
         height: CGFloat = AppConstants.Visual.buttonHeight,
         style: DtButton.Style,
-        isActivated: Bool? = nil,
         action: @escaping () async -> Void
     ) {
         self.title = title
         self.width = width
         self.height = height
         self.style = style
-        self.isActivated = isActivated
         self.action = action
     }
 
@@ -64,8 +61,8 @@ struct DtButton: View {
                 createBody(title: title, titleColor: .accentsWhite)
                     .buttonBackground(color: .accentsPrimary)
             case .picker:
-                createBody(title: title, titleColor: isActivated ?? false ? .accentsWhite : .textPrimary)
-                    .buttonBackground(color: isActivated ?? false ? .accentsViolet : .iconsTertiary.opacity(0.7))
+                createBody(title: title, titleColor: .textPrimary)
+                    .buttonBackground(color: .backgroundSecondary)
             }
         }
         .buttonStyle(.plain)
@@ -101,6 +98,12 @@ private extension View {
 
 struct DtButton_Previews: PreviewProvider {
     static var previews: some View {
-        DtButton(title: "Button", style: .primary, action: {})
+        VStack {
+            DtButton(title: "main", style: .main, action: {})
+            DtButton(title: "primary", style: .primary, action: {})
+            DtButton(title: "gradient", style: .gradient, action: {})
+            DtButton(title: "secondary", style: .secondary, action: {})
+            DtButton(title: "picker", style: .picker, action: {})
+        }
     }
 }
