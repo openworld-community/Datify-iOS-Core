@@ -8,7 +8,6 @@
 import SwiftUI
 
 enum Gender: Equatable, CaseIterable, Hashable {
-
     case male
     case female
     case nonbinary
