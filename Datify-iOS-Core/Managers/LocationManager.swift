@@ -13,16 +13,17 @@ protocol LocationManagerDelegate: AnyObject {
 }
 
 struct LocationModel {
-    let country: String?
-    let city: String?
+    let country: Country?
+    let city: Country?
     let coordinates: CLLocationCoordinate2D
 }
 
 class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     private var locationManager = CLLocationManager()
     weak var delegate: LocationManagerDelegate?
-    @Published var country: String?
-    @Published var city: String?
+    @Published var country: Country?
+    @Published var city: Country?
+    @Published var location: LocationModel?
 
     override init() {
         super.init()
@@ -35,17 +36,17 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
             locationManager.requestLocation()
         }
 
-        func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-            if let location = locations.last {
-                self.reverseGeocodeLocation(location)
-            }
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.last {
+            self.reverseGeocodeLocation(location)
         }
+    }
 
-        func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-            delegate?.didFailWithError(error)
-        }
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        delegate?.didFailWithError(error)
+    }
 
-        private func reverseGeocodeLocation(_ location: CLLocation) {
+    private func reverseGeocodeLocation(_ location: CLLocation) {
             let geocoder = CLGeocoder()
             geocoder.reverseGeocodeLocation(location) { placemarks, error in
                 if let error = error {
@@ -57,7 +58,9 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
                     let country = placemark.country
                     let city = placemark.locality
                     let coordinates = location.coordinate
-                    let locationModel = LocationModel(country: country, city: city, coordinates: coordinates)
+                    let locationModel = LocationModel(country: self.country, city: self.city, coordinates: coordinates)
+                    self.location = locationModel
+                    print("\(country), \(city)")
                     self.delegate?.didUpdateLocation(locationModel)
                 }
             }
