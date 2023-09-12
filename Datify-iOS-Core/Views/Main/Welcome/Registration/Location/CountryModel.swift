@@ -7,7 +7,16 @@
 
 import Foundation
 
-class Country {
+class Country: Hashable, Equatable {
+    static func == (lhs: Country, rhs: Country) -> Bool {
+        return lhs.name == rhs.name && lhs.cities == rhs.cities
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(name)
+        hasher.combine(cities)
+    }
+
     let name: String
     var cities: [String]
 
@@ -16,18 +25,14 @@ class Country {
         self.cities = cities
     }
 
-    static var cities: [String: [String]] = [
-        "USA": ["New York", "Los Angeles", "Chicago"],
-        "Russia": ["Moscow", "Saint Petersburg", "Novosibirsk"],
-        "Serbia": ["Belgrade", "Novi Sad", "Niš"],
-        "Kazakhastan": ["Astana", "Almaty", "Shymkent"]
+    static var allCountries: [Country] = [
+        Country(name: "USA", cities: ["New York", "Los Angeles", "Chicago"]),
+        Country(name: "Russia", cities: ["Moscow", "Saint Petersburg", "Novosibirsk"]),
+        Country(name: "Serbia", cities: ["Belgrade", "Novi Sad", "Niš"]),
+        Country(name: "Kazakhstan", cities: ["Astana", "Almaty", "Shymkent"])
     ]
 
-    static func defaultCountry(name: String) -> Country {
-        if let cities = cities[name] {
-            return Country(name: name, cities: cities)
-        } else {
-            return Country(name: name, cities: [])
-        }
+    static func defaultCountry(name: String) -> Country? {
+        return allCountries.first { $0.name == name }
     }
 }
