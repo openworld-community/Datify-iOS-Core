@@ -36,22 +36,13 @@ enum Gender: Equatable, CaseIterable, Hashable {
 
     var title: String {
         switch self {
-        case .other(let value):
-            return value.localizedCapitalized
-        default:
-            return self.description.localizedCapitalized
-        }
-    }
-
-    var description: String {
-        switch self {
-        case .male: return "Male"
-        case .female: return "Female"
-        case .nonbinary: return "Non-binary"
-        case .transgender: return "Transgender"
-        case .bigender: return "Bigender"
-        case .genderless: return "Genderless"
-        case .other(let value): return value
+        case .male: return "Male".localize()
+        case .female: return "Female".localize()
+        case .nonbinary: return "Non-binary".localize()
+        case .transgender: return "Transgender".localize()
+        case .bigender: return "Bigender".localize()
+        case .genderless: return "Genderless".localize()
+        case .other(let value): return value.localize()
         }
     }
 }
@@ -69,8 +60,8 @@ struct SelectGenderView: View {
 
     @State private var sheet: Sheets?
     @State private var selectedGender: Gender?
-    @State private var otherOptionsTitle = "Other options"
-    private let selectGenderTitle = "Select gender"
+    @State private var otherOptionsTitle = "Other options".localize()
+    private let selectGenderTitle = "Select gender".localize()
 
     var body: some View {
         VStack(spacing: 20) {
@@ -87,9 +78,9 @@ struct SelectGenderView: View {
         .padding(.bottom)
         .onChange(of: selectedGender, perform: { newValue in
             switch newValue {
-            case .other(let value): otherOptionsTitle = "Other option: \(value)"
-            case .male, .female, nil: otherOptionsTitle = "Other options"
-            default: otherOptionsTitle = "Other option: \(selectedGender?.title ?? "")"
+            case .other(let value): otherOptionsTitle = "Other option: \(value)".localize()
+            case .male, .female, nil: otherOptionsTitle = "Other options".localize()
+            default: otherOptionsTitle = "Other option: \(selectedGender?.title ?? "")".localize()
             }
         })
         .sheet(item: $sheet) { sheet in
@@ -97,7 +88,7 @@ struct SelectGenderView: View {
             case .otherOptions:
                 OtherGendersSheet(selectedGender: $selectedGender, sheet: $sheet)
             case .termsAndConditions:
-                TermsAndConditions()
+                DtTermsAndConditions()
                     .padding(.top)
                     .presentationDetents([.fraction(0.99)])
             case .enterGenderTitle:
@@ -117,10 +108,10 @@ extension SelectGenderView {
     // MARK: - Male and Female gender buttons
     private var genderButtons: some View {
         HStack(spacing: 16) {
-            DtButton(title: "Male", style: selectedGender == .male ? .main : .picker) {
+            DtButton(title: Gender.male.title, style: selectedGender == .male ? .main : .picker) {
                 selectedGender = .male
             }
-            DtButton(title: "Female", style: selectedGender == .female ? .main : .picker) {
+            DtButton(title: Gender.female.title, style: selectedGender == .female ? .main : .picker) {
                 selectedGender = .female
             }
         }
@@ -138,12 +129,12 @@ extension SelectGenderView {
     // MARK: - Terms and conditions label and sheet
     private var termsAndConditionsLabel: some View {
         HStack(spacing: 0) {
-            Text("By registering, you accept the ")
+            Text("By registering, you accept the ".localize())
                 .dtTypo(.p4Regular, color: .textSecondary)
             Button {
                 sheet = .termsAndConditions
             } label: {
-                Text("terms and conditions")
+                Text("terms and conditions".localize())
                     .dtTypo(.p4Regular, color: .textPrimaryLink)
             }
         }
@@ -155,7 +146,7 @@ extension SelectGenderView {
             DtBackButton {
                 // TODO: - Back button action
             }
-            DtButton(title: "Proceed", style: .main) {
+            DtButton(title: "Proceed".localize(), style: .main) {
                 // TODO: - Proceed button action
             }
                 .disabled(selectedGender == nil)
@@ -165,7 +156,7 @@ extension SelectGenderView {
 }
 
 struct OtherGendersSheet: View {
-    @State var otherGender: Gender = .nonbinary
+    @State private var otherGender: Gender = .nonbinary
     @Binding var selectedGender: Gender?
     @Binding var sheet: SelectGenderView.Sheets?
     var body: some View {
@@ -176,12 +167,12 @@ struct OtherGendersSheet: View {
                         .dtTypo(.p1Regular, color: .textPrimary)
                 }
             }
-            DtButton(title: "Select gender", style: .primary) {
-                if otherGender == .other("Other...") {
-                    sheet = .enterGenderTitle
-                } else {
-                    selectedGender = otherGender
-                    sheet = nil
+            DtButton(title: "Select gender".localize(), style: .primary) {
+                switch otherGender {
+                    case .other(_): sheet = .enterGenderTitle
+                    default:
+                        selectedGender = otherGender
+                        sheet = nil
                 }
             }
             .padding(.horizontal)
@@ -198,9 +189,9 @@ struct EnterOtherGenderSheet: View {
     @Binding var sheet: SelectGenderView.Sheets?
     var body: some View {
         VStack {
-            Text("Enter gender from 3 to 15 characters long")
+            Text("Enter gender from 3 to 15 characters long".localize())
                 .dtTypo(.p2Regular, color: .textSecondary)
-            TextField("Enter gender", text: $otherGenderTitle)
+            TextField("Enter gender".localize(), text: $otherGenderTitle)
                 .dtTypo(.p2Medium, color: .textPrimary)
                 .frame(height: AppConstants.Visual.buttonHeight)
                 .padding(.leading)
@@ -208,18 +199,19 @@ struct EnterOtherGenderSheet: View {
                 .cornerRadius(AppConstants.Visual.cornerRadius)
             HStack {
                 DtBackButton(action: {sheet = .otherOptions})
-                DtButton(title: "Proceed", style: .main, action: {
-                    if otherGenderTitle.count < 3 || otherGenderTitle.count > 15 {
-
-                    } else {
+                DtButton(title: "Proceed".localize(), style: .main, action: {
+                    if genderTitleIsCorrect() {
                         selectedGender = .other(otherGenderTitle)
                         sheet = nil
                     }
-                }).disabled(otherGenderTitle.count < 3 || otherGenderTitle.count > 15)
+                }).disabled(!genderTitleIsCorrect())
             }
         }
         .padding(.horizontal)
         .presentationDetents([.height(200)])
         .presentationDragIndicator(.visible)
     }
+    private func genderTitleIsCorrect() -> Bool {
+            otherGenderTitle.count > 3 && otherGenderTitle.count < 15
+        }
 }

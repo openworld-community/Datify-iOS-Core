@@ -8,7 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		2012EF642AAF479400B01688 /* DtBackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2012EF632AAF479400B01688 /* DtBackButton.swift */; };
-		2012EF662AAF719C00B01688 /* TermsAndConditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2012EF652AAF719C00B01688 /* TermsAndConditions.swift */; };
+		2012EF662AAF719C00B01688 /* DtTermsAndConditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2012EF652AAF719C00B01688 /* DtTermsAndConditions.swift */; };
+		2076AF2E2AB080DB00AF5E11 /* String+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2076AF2D2AB080DB00AF5E11 /* String+extension.swift */; };
+		2076AF302AB085F400AF5E11 /* Image+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2076AF2F2AB085F400AF5E11 /* Image+extension.swift */; };
 		20FD09062AACC0030083F1A3 /* SelectGenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20FD09052AACC0030083F1A3 /* SelectGenderView.swift */; };
 		4A4CE2C62A9B3A5F0098FF80 /* AppRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CE2C52A9B3A5F0098FF80 /* AppRoute.swift */; };
 		4A4CE2C82A9B3B620098FF80 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CE2C72A9B3B620098FF80 /* Router.swift */; };
@@ -59,7 +61,9 @@
 
 /* Begin PBXFileReference section */
 		2012EF632AAF479400B01688 /* DtBackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtBackButton.swift; sourceTree = "<group>"; };
-		2012EF652AAF719C00B01688 /* TermsAndConditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsAndConditions.swift; sourceTree = "<group>"; };
+		2012EF652AAF719C00B01688 /* DtTermsAndConditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtTermsAndConditions.swift; sourceTree = "<group>"; };
+		2076AF2D2AB080DB00AF5E11 /* String+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+extension.swift"; sourceTree = "<group>"; };
+		2076AF2F2AB085F400AF5E11 /* Image+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+extension.swift"; sourceTree = "<group>"; };
 		20FD09052AACC0030083F1A3 /* SelectGenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGenderView.swift; sourceTree = "<group>"; };
 		4A4CE2C52A9B3A5F0098FF80 /* AppRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRoute.swift; sourceTree = "<group>"; };
 		4A4CE2C72A9B3B620098FF80 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
@@ -150,7 +154,7 @@
 				9808959B2A9F208B00F82F02 /* DtSecureFieldView.swift */,
 				980895B92A9F4A5700F82F02 /* DtSpinnerView.swift */,
 				D050B1B02AA84AA0008EC0AB /* DividerLine.swift */,
-				2012EF652AAF719C00B01688 /* TermsAndConditions.swift */,
+				2012EF652AAF719C00B01688 /* DtTermsAndConditions.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -253,7 +257,9 @@
 			isa = PBXGroup;
 			children = (
 				4A4CE2E22A9B53E70098FF80 /* Color+extension.swift */,
+				2076AF2F2AB085F400AF5E11 /* Image+extension.swift */,
 				4A4CE2F02A9B67B90098FF80 /* Text+extension.swift */,
+				2076AF2D2AB080DB00AF5E11 /* String+extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -497,6 +503,7 @@
 			files = (
 				4A4CE2EA2A9B5FB80098FF80 /* DtButton.swift in Sources */,
 				4A4CE2D42A9B44280098FF80 /* RegistrationFlow.swift in Sources */,
+				2076AF302AB085F400AF5E11 /* Image+extension.swift in Sources */,
 				980895BA2A9F4A5700F82F02 /* DtSpinnerView.swift in Sources */,
 				4A4CE2CA2A9B3E8C0098FF80 /* NavigationViewBuilder.swift in Sources */,
 				4A4CE2C82A9B3B620098FF80 /* Router.swift in Sources */,
@@ -507,11 +514,12 @@
 				D0DC465F2A92699D0097CFF3 /* MainAppView.swift in Sources */,
 				4A4CE2E32A9B53E70098FF80 /* Color+extension.swift in Sources */,
 				9808959C2A9F208B00F82F02 /* DtSecureFieldView.swift in Sources */,
+				2076AF2E2AB080DB00AF5E11 /* String+extension.swift in Sources */,
 				98F3B6D62A9E4F9D0097B5C0 /* DtLogoView.swift in Sources */,
 				D0DC465D2A92699D0097CFF3 /* DatifyiOSCoreApp.swift in Sources */,
 				4A4CE2D62A9B44C20098FF80 /* LoginFlow.swift in Sources */,
 				4A4CE2D82A9B47060098FF80 /* LoginView.swift in Sources */,
-				2012EF662AAF719C00B01688 /* TermsAndConditions.swift in Sources */,
+				2012EF662AAF719C00B01688 /* DtTermsAndConditions.swift in Sources */,
 				20FD09062AACC0030083F1A3 /* SelectGenderView.swift in Sources */,
 				4A4CE2ED2A9B60A60098FF80 /* AppConstants.swift in Sources */,
 				2012EF642AAF479400B01688 /* DtBackButton.swift in Sources */,

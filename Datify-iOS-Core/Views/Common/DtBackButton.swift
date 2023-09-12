@@ -27,8 +27,7 @@ struct DtBackButton: View {
             }
         } label: {
             Image(DtImage.backButton)
-                .resizable()
-                .scaledToFit()
+                .resizableFit()
                 .padding()
                 .frame(width: size,
                        height: size)

@@ -61,7 +61,7 @@ These Terms and Conditions are governed by and construed in accordance with the 
 Severability
 If any provision of these Terms and Conditions is found to be invalid or unenforceable, the remaining provisions shall remain in full force and effect.
 By using Datify, you acknowledge that you have read, understood, and agree to these Terms and Conditions.
-"""
+""".localize()
     }
     // swiftlint: enable all
 }

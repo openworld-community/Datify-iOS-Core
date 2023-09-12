@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TermsAndConditions: View {
+struct DtTermsAndConditions: View {
     var body: some View {
         ScrollView {
             VStack {
@@ -25,6 +25,6 @@ struct TermsAndConditions: View {
 
 struct TermsAndConditions_Previews: PreviewProvider {
     static var previews: some View {
-        TermsAndConditions()
+        DtTermsAndConditions()
     }
 }
