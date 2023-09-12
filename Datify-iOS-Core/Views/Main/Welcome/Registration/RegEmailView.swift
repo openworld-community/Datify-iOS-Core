@@ -28,10 +28,15 @@ struct RegEmailView: View {
                 }
 
                 VStack(spacing: 16) {
-                    DtTextFieldView(
-                        text: $viewModel.email,
+                    RegularTextFieldView(
+                        style: .email,
+                        input: $viewModel.email,
                         placeholder: String(localized: "Enter email"),
-                        submitLabel: .continue) {
+                        keyboardType: .emailAddress,
+                        submitLabel: .continue,
+                        textAlignment: .leading,
+                        width: .infinity,
+                        height: AppConstants.Visual.buttonHeight) {
                             if !viewModel.isButtonDisabled {
                                 viewModel.validateEmail()
                             }

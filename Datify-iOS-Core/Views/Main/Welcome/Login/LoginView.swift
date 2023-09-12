@@ -48,29 +48,32 @@ struct LoginView: View {
             .padding(.bottom, 40)
 
             VStack(spacing: 12) {
-                DtTextFieldView(
-                    text: $viewModel.email,
+                RegularTextFieldView(
+                    style: .phoneAndEmail,
+                    input: $viewModel.email,
                     placeholder: String(localized: "Phone number or Email"),
+                    keyboardType: .emailAddress,
                     submitLabel: .continue,
-                    additionalFunction: (
-                        image: Image("xmark"),
-                        action: {
-                            viewModel.email = .init()
-                        })) {
-                            focusedField = .secureField
-                        }
+                    textAlignment: .leading,
+                    width: .infinity,
+                    height: AppConstants.Visual.buttonHeight) {
+                        focusedField = .secureField
+                    }
 
-                DtSecureFieldView(
-                    text: $viewModel.password,
-                    style: .secure,
+                SecureTextFieldView(
+                    style: .password,
+                    input: $viewModel.password,
                     placeholder: String(localized: "Password"),
-                    onSubmitAction: {
+                    keyboardType: .default,
+                    submitLabel: .done,
+                    textAlignment: .leading,
+                    width: .infinity,
+                    height: AppConstants.Visual.buttonHeight) {
                         if !viewModel.isButtonDisabled {
                             viewModel.authenticate()
                         }
                     }
-                )
-                .focused($focusedField, equals: .secureField)
+                    .focused($focusedField, equals: .secureField)
 
                 HStack {
                     Spacer()
@@ -128,69 +131,5 @@ struct LoginView: View {
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
         LoginView(router: Router())
-    }
-}
-
-// TODO: replace with TextFieldView from task IOS-1
-struct DtTextFieldView: View {
-    @Binding var text: String
-    let placeholder: String
-    let isImageAlwaysShown: Bool
-    let submitlabel: SubmitLabel
-    let additionalFunction: (image: Image, action: () -> Void)?
-    let onSubmitAction: () -> Void
-    private var isNotEmpty: Bool {
-        text.isNotEmpty
-    }
-
-    init(
-        text: Binding<String>,
-        placeholder: String,
-        isImageAlwaysShown: Bool = false,
-        submitLabel: SubmitLabel = .done,
-        additionalFunction: (image: Image, action: () -> Void)? = nil,
-        onSubmitAction: @escaping () -> Void
-    ) {
-        _text = text
-        self.placeholder = placeholder
-        self.isImageAlwaysShown = isImageAlwaysShown
-        self.submitlabel = submitLabel
-        self.additionalFunction = additionalFunction
-        self.onSubmitAction = onSubmitAction
-    }
-
-    var body: some View {
-        HStack {
-            TextField(
-                placeholder,
-                text: $text
-            )
-            .onSubmit {
-                onSubmitAction()
-            }
-
-            Button {
-                additionalFunction?.action()
-            } label: {
-                additionalFunction?.image
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 24, height: 24)
-            }
-            .opacity(
-                isImageAlwaysShown ?
-                1 :
-                (isNotEmpty ? 1 : 0)
-            )
-        }
-        .dtTypo(.p2Regular, color: .textPrimary)
-        .padding()
-        .background(Color.backgroundSecondary)
-        .cornerRadius(AppConstants.Visual.cornerRadius)
-        .overlay(RoundedRectangle(cornerRadius: AppConstants.Visual.cornerRadius)
-            .stroke(Color.backgroundStroke, lineWidth: 1))
-        .textInputAutocapitalization(.never)
-        .autocorrectionDisabled()
-        .submitLabel(submitlabel)
     }
 }

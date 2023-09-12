@@ -30,7 +30,6 @@
 		63A7295F2AA3A30E00AC60E3 /* SecureTFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A7295E2AA3A30E00AC60E3 /* SecureTFView.swift */; };
 		63A729672AA48CAA00AC60E3 /* Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A729662AA48CAA00AC60E3 /* Regex.swift */; };
 		63A729692AA4A94B00AC60E3 /* CountryCodeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A729682AA4A94B00AC60E3 /* CountryCodeButton.swift */; };
-		9808959C2A9F208B00F82F02 /* DtSecureFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9808959B2A9F208B00F82F02 /* DtSecureFieldView.swift */; };
 		980895BA2A9F4A5700F82F02 /* DtSpinnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980895B92A9F4A5700F82F02 /* DtSpinnerView.swift */; };
 		98553B0A2AAE4A43005C80B3 /* View+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98553B092AAE4A43005C80B3 /* View+extension.swift */; };
 		98553B0D2AAF1273005C80B3 /* String+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98553B0C2AAF1273005C80B3 /* String+extension.swift */; };
@@ -92,7 +91,6 @@
 		63A7295E2AA3A30E00AC60E3 /* SecureTFView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureTFView.swift; sourceTree = "<group>"; };
 		63A729662AA48CAA00AC60E3 /* Regex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Regex.swift; sourceTree = "<group>"; };
 		63A729682AA4A94B00AC60E3 /* CountryCodeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCodeButton.swift; sourceTree = "<group>"; };
-		9808959B2A9F208B00F82F02 /* DtSecureFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtSecureFieldView.swift; sourceTree = "<group>"; };
 		980895B92A9F4A5700F82F02 /* DtSpinnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtSpinnerView.swift; sourceTree = "<group>"; };
 		98553B092AAE4A43005C80B3 /* View+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+extension.swift"; sourceTree = "<group>"; };
 		98553B0C2AAF1273005C80B3 /* String+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+extension.swift"; sourceTree = "<group>"; };
@@ -169,7 +167,6 @@
 				D0C1852F2AA1D0E1000D71E5 /* SignInWithButton.swift */,
 				4A4CE2EE2A9B66DC0098FF80 /* TempView.swift */,
 				98F3B6D52A9E4F9D0097B5C0 /* DtLogoView.swift */,
-				9808959B2A9F208B00F82F02 /* DtSecureFieldView.swift */,
 				980895B92A9F4A5700F82F02 /* DtSpinnerView.swift */,
 				D050B1B02AA84AA0008EC0AB /* DividerLine.swift */,
 			);
@@ -570,7 +567,6 @@
 				4A4CE2E32A9B53E70098FF80 /* Color+extension.swift in Sources */,
 				9898B2BD2AAA4967007CA714 /* RegEmailView.swift in Sources */,
 				9898B2BF2AAA49DE007CA714 /* RegEmailViewModel.swift in Sources */,
-				9808959C2A9F208B00F82F02 /* DtSecureFieldView.swift in Sources */,
 				98F3B6D62A9E4F9D0097B5C0 /* DtLogoView.swift in Sources */,
 				63A729692AA4A94B00AC60E3 /* CountryCodeButton.swift in Sources */,
 				D0DC465D2A92699D0097CFF3 /* DatifyiOSCoreApp.swift in Sources */,
