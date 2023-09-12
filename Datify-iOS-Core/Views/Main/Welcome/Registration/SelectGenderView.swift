@@ -129,12 +129,12 @@ extension SelectGenderView {
     // MARK: - Terms and conditions label and sheet
     private var termsAndConditionsLabel: some View {
         HStack(spacing: 0) {
-            Text("By registering, you accept the ".localize())
+            Text("By registering, you accept the ")
                 .dtTypo(.p4Regular, color: .textSecondary)
             Button {
                 sheet = .termsAndConditions
             } label: {
-                Text("terms and conditions".localize())
+                Text("terms and conditions")
                     .dtTypo(.p4Regular, color: .textPrimaryLink)
             }
         }
@@ -155,7 +155,7 @@ extension SelectGenderView {
     }
 }
 
-struct OtherGendersSheet: View {
+private struct OtherGendersSheet: View {
     @State private var otherGender: Gender = .nonbinary
     @Binding var selectedGender: Gender?
     @Binding var sheet: SelectGenderView.Sheets?
@@ -183,15 +183,15 @@ struct OtherGendersSheet: View {
     }
 }
 
-struct EnterOtherGenderSheet: View {
+private struct EnterOtherGenderSheet: View {
     @State private var otherGenderTitle = ""
     @Binding var selectedGender: Gender?
     @Binding var sheet: SelectGenderView.Sheets?
     var body: some View {
         VStack {
-            Text("Enter gender from 3 to 15 characters long".localize())
+            Text("Enter gender from 3 to 15 characters long")
                 .dtTypo(.p2Regular, color: .textSecondary)
-            TextField("Enter gender".localize(), text: $otherGenderTitle)
+            TextField("Enter gender", text: $otherGenderTitle)
                 .dtTypo(.p2Medium, color: .textPrimary)
                 .frame(height: AppConstants.Visual.buttonHeight)
                 .padding(.leading)
