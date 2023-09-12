@@ -36,8 +36,6 @@
 		9898B2BD2AAA4967007CA714 /* RegEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9898B2BC2AAA4967007CA714 /* RegEmailView.swift */; };
 		9898B2BF2AAA49DE007CA714 /* RegEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9898B2BE2AAA49DE007CA714 /* RegEmailViewModel.swift */; };
 		98F3B6D62A9E4F9D0097B5C0 /* DtLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F3B6D52A9E4F9D0097B5C0 /* DtLogoView.swift */; };
-		98F9F2052AB0C80300F7DAB8 /* RegEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F9F2042AB0C80300F7DAB8 /* RegEmailView.swift */; };
-		98F9F2072AB0C80A00F7DAB8 /* RegEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F9F2062AB0C80A00F7DAB8 /* RegEmailViewModel.swift */; };
 		D050B1B12AA84AA0008EC0AB /* DividerLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D050B1B02AA84AA0008EC0AB /* DividerLine.swift */; };
 		D0C185302AA1D0E1000D71E5 /* SignInWithButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C1852F2AA1D0E1000D71E5 /* SignInWithButton.swift */; };
 		D0C8965A2AA217630084FA62 /* DtImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C896592AA217630084FA62 /* DtImage.swift */; };
@@ -458,7 +456,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1400;
-				LastUpgradeCheck = 1400;
+				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					D0DC46582A92699D0097CFF3 = {
 						CreatedOnToolsVersion = 14.0.1;
@@ -570,9 +568,7 @@
 				98F3B6D62A9E4F9D0097B5C0 /* DtLogoView.swift in Sources */,
 				63A729692AA4A94B00AC60E3 /* CountryCodeButton.swift in Sources */,
 				D0DC465D2A92699D0097CFF3 /* DatifyiOSCoreApp.swift in Sources */,
-				98F9F2052AB0C80300F7DAB8 /* RegEmailView.swift in Sources */,
 				98553B0D2AAF1273005C80B3 /* String+extension.swift in Sources */,
-				98F9F2072AB0C80A00F7DAB8 /* RegEmailViewModel.swift in Sources */,
 				4A4CE2D62A9B44C20098FF80 /* LoginFlow.swift in Sources */,
 				98553B0A2AAE4A43005C80B3 /* View+extension.swift in Sources */,
 				4A4CE2D82A9B47060098FF80 /* LoginView.swift in Sources */,
