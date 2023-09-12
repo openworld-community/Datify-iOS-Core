@@ -350,10 +350,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D0DC467D2A92699F0097CFF3 /* Build configuration list for PBXNativeTarget "Datify-iOS-Core" */;
 			buildPhases = (
-				4A4CE2FE2A9F0CA00098FF80 /* ShellScript */,
 				D0DC46552A92699D0097CFF3 /* Sources */,
 				D0DC46562A92699D0097CFF3 /* Frameworks */,
 				D0DC46572A92699D0097CFF3 /* Resources */,
+				4A4CE2FE2A9F0CA00098FF80 /* ShellScript */,
 			);
 			buildRules = (
 			);
