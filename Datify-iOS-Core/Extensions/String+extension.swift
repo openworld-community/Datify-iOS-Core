@@ -8,6 +8,10 @@
 import Foundation
 
 extension String {
+    func localize() -> String {
+        String(localized: String.LocalizationValue(self))
+    }
+
     var isNotEmpty: Bool {
         !self.isEmpty
     }
