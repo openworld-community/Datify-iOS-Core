@@ -12,7 +12,6 @@ struct EnterNameView: View {
     @ObservedObject var viewModel: RegEmailViewModel
     var body: some View {
         VStack(spacing: 40) {
-            DtLogoView()
             Spacer()
             VStack(spacing: 8) {
                 Text("What is your name?")
@@ -32,6 +31,11 @@ struct EnterNameView: View {
                 .disabled(!nameIsValid())
             }
         }
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                DtLogoView()
+            }
+        }
         .padding(.horizontal)
         .padding(.bottom, 8)
     }
@@ -43,6 +47,8 @@ struct EnterNameView: View {
 
 struct EnterNameView_Previews: PreviewProvider {
     static var previews: some View {
-        EnterNameView(viewModel: RegEmailViewModel(router: Router()))
+        NavigationStack {
+            EnterNameView(viewModel: RegEmailViewModel(router: Router()))
+        }
     }
 }

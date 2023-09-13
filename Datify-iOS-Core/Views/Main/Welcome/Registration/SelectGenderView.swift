@@ -65,7 +65,6 @@ struct SelectGenderView: View {
 
     var body: some View {
         VStack(spacing: 20) {
-            DtLogoView()
             Spacer()
             Text(selectGenderTitle)
                 .dtTypo(.h2Regular, color: .textPrimary)
@@ -74,6 +73,11 @@ struct SelectGenderView: View {
             Spacer()
             termsAndConditionsLabel
             backProceedButtons
+        }
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                DtLogoView()
+            }
         }
         .padding(.bottom)
         .onChange(of: selectedGender, perform: { newValue in
@@ -100,7 +104,10 @@ struct SelectGenderView: View {
 
 struct SelectGenderView_Previews: PreviewProvider {
     static var previews: some View {
-        SelectGenderView()
+
+        NavigationStack {
+            SelectGenderView()
+        }
     }
 }
 
