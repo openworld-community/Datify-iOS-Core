@@ -191,17 +191,12 @@ private struct EnterOtherGenderSheet: View {
         VStack {
             Text("Enter gender from 3 to 15 characters long")
                 .dtTypo(.p2Regular, color: .textSecondary)
-            TextField("Enter gender", text: $otherGenderTitle)
-                .dtTypo(.p2Medium, color: .textPrimary)
-                .frame(height: AppConstants.Visual.buttonHeight)
-                .padding(.leading)
-                .background(Color.backgroundSecondary)
-                .cornerRadius(AppConstants.Visual.cornerRadius)
+            DtCustomTF(style: .text("Enter gender".localize(), .leading), input: $otherGenderTitle)
             HStack {
                 DtBackButton(action: {sheet = .otherOptions})
                 DtButton(title: "Proceed".localize(), style: .main, action: {
                     if genderTitleIsCorrect() {
-                        selectedGender = .other(otherGenderTitle)
+                        selectedGender = .other(otherGenderTitle.capitalized)
                         sheet = nil
                     }
                 }).disabled(!genderTitleIsCorrect())
@@ -213,6 +208,6 @@ private struct EnterOtherGenderSheet: View {
     }
 
     private func genderTitleIsCorrect() -> Bool {
-            otherGenderTitle.count > 3 && otherGenderTitle.count < 15
+            otherGenderTitle.count >= 3 && otherGenderTitle.count < 15
         }
 }

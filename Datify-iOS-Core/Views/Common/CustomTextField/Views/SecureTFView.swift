@@ -32,7 +32,7 @@ struct SecureTextFieldView: View {
                 Button(action: {
                     isPasswordVisible.toggle()
                 }) {
-                    Image(isPasswordVisible ? "eyeShow" : "eyeHide")
+                    Image(isPasswordVisible ? DtImage.eyeShow : DtImage.eyeHide)
                         .foregroundColor(.textPrimary)
                         .frame(width: 24, height: 24)
                 }
