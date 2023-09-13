@@ -169,10 +169,10 @@ private struct OtherGendersSheet: View {
             }
             DtButton(title: "Select gender".localize(), style: .primary) {
                 switch otherGender {
-                    case .other(_): sheet = .enterGenderTitle
-                    default:
-                        selectedGender = otherGender
-                        sheet = nil
+                case .other: sheet = .enterGenderTitle
+                default:
+                    selectedGender = otherGender
+                    sheet = nil
                 }
             }
             .padding(.horizontal)
@@ -211,6 +211,7 @@ private struct EnterOtherGenderSheet: View {
         .presentationDetents([.height(200)])
         .presentationDragIndicator(.visible)
     }
+
     private func genderTitleIsCorrect() -> Bool {
             otherGenderTitle.count > 3 && otherGenderTitle.count < 15
         }
