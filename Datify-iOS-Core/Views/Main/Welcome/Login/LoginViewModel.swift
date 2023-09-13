@@ -17,13 +17,13 @@ final class LoginViewModel: ObservableObject {
     @Published var email: String = .init()
     @Published var password: String = .init()
     @Published var forgotSheet: Bool = false
-    private weak var router: Router<AppRoute>?
+    unowned let router: Router<AppRoute>
 
     var isButtonDisabled: Bool {
         email.isEmpty || password.isEmpty
     }
 
-    init(router: Router<AppRoute>?) {
+    init(router: Router<AppRoute>) {
         self.router = router
     }
 
@@ -37,7 +37,7 @@ final class LoginViewModel: ObservableObject {
         }
 
         self.loginState = .success
-        router?.push(.tabbar)
+        router.push(.tabbar)
 
         email = .init()
         password = .init()
