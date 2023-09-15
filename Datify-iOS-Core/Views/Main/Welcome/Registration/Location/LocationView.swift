@@ -11,10 +11,16 @@ enum LabelOfButton {
     case country
     case city
 
-    var stringValue: String {
+    var stringValue: [String] {
         switch self {
-            case .country: return String(localized: "Country: ")
-            case .city: return String(localized: "City: ")
+        case .country: return [
+            String(localized: "Country: "),
+            String(localized: "country")
+        ]
+        case .city: return [
+            String(localized: "City: "),
+            String(localized: "city")
+        ]
         }
     }
 }
@@ -22,17 +28,18 @@ enum LabelOfButton {
 struct LocationView: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel: LocationViewModel
-    private unowned let router: Router<AppRoute>
 
     @State private var selectedCountry: Country?
-    @State private var selectedCity: Country?
+    @State private var cities: [String] = .init()
+    @State private var isLoading = true
 
     let countries: [Country] = Country.allCountries
+
+    unowned let router: Router<AppRoute>
 
     init(
         router: Router<AppRoute>,
         viewModel: LocationViewModel
-
     ) {
         self.router = router
         _viewModel = StateObject(wrappedValue: viewModel)
@@ -45,81 +52,104 @@ struct LocationView: View {
             titleLabel
 
             LocationChooseButtonView(
+                selectedCountry: $viewModel.selectedCountry,
                 label: LabelOfButton.country.stringValue,
-                countries: countries,
-                selectedCountry: $selectedCountry
+                countries: countries
             )
+            .onChange(of: viewModel.selectedCountry) { newCountry in
+                switch (newCountry, viewModel.location?.city) {
+                case (let newCountry?, let gpsCity?):
+                    if newCountry.name == viewModel.location?.country?.name {
+                        viewModel.selectedCity = gpsCity
+                    } else {
+                        viewModel.selectedCity = cities.first.map { Country(name: $0, cities: []) }
+                    }
+                default:
+                        cities = []
+                }
+            }
 
-//            if let selectzedCountry = selectedCountry {
-                LocationChooseButtonView(
-                    label: LabelOfButton.city.stringValue,
-                    countries: selectedCountry?.cities.map { Country(name: $0, cities: []) } ?? [],
-                    selectedCountry: $selectedCity
-                )
-//            }
+            LocationChooseButtonView(
+                selectedCountry: $viewModel.selectedCity,
+                label: LabelOfButton.city.stringValue,
+                countries: viewModel.selectedCountry?.cities.map { Country(name: $0, cities: []) } ?? []
+            )
 
             Spacer()
 
             bottomButtons
         }
         .onAppear {
-            viewModel.locationManager.requestLocation()
-            print("selectedCountry: \(viewModel.selectedCountry)")
-            print("selectedCity: \(viewModel.selectedCity)")
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                isLoading = false
+            }
+            viewModel.setupLocationManager()
+        }
+        .overlay(
+            Group {
+                if isLoading {
+                    ZStack {
+                        Color(.white)
+                            .opacity(0.3)
+                            .ignoresSafeArea()
+                        DtSpinnerView(size: 30)
 
-        }
-        .onReceive(viewModel.locationManager.$location) { location in
-            // Обновление выбранных страны и города после получения местоположения
-            print(selectedCountry)
-            print(selectedCity)
-            selectedCountry = location?.country
-            selectedCity = location?.city
-        }
+                    }
+                }
+            }
+        )
     }
 }
 
 struct LocationChooseButtonView: View {
-    let label: String
-    let countries: [Country]
     @Binding var selectedCountry: Country?
-    @State private var isPickerVisible = false
+    @State private var isPopoverVisible = false
+    @State private var selectedCountryIndex: Int?
+
+    let label: [String]
+    let countries: [Country]
 
     var body: some View {
         VStack {
             Button(action: {
-                withAnimation {
-                    selectedCountry = nil
-                }
-                print("tapped ")
+                isPopoverVisible.toggle()
             }) {
                 HStack {
-                    Text(label)
-                    Text(selectedCountry?.name ?? "Serbia")
-                        .foregroundColor(selectedCountry == nil ? .gray : .black)
+                    Text(label.first ?? "")
+                        .dtTypo(.p2Regular, color: .textSecondary)
+                    Text((selectedCountry?.name ?? countries.first?.name) ?? "Loading...")
+                        .dtTypo(.p2Regular, color: .textPrimary)
                     Spacer()
                     Image(systemName: "chevron.down")
                         .frame(width: 24, height: 24)
-                        .foregroundColor(.textSecondary)
+                        .foregroundColor(.secondary)
                 }
                 .padding()
-                .frame(height: 50)
+                .frame(height: AppConstants.Visual.buttonHeight)
                 .background(
-                    RoundedRectangle(cornerRadius: 10)
-                                .foregroundColor(.white)
-                                .shadow(radius: 3)
+                    RoundedRectangle(
+                        cornerRadius: AppConstants.Visual.cornerRadius
+                    )
+                    .foregroundColor(.backgroundSecondary)
                 )
             }
             .padding(.horizontal)
-
-            if selectedCountry != nil {
-                Picker("", selection: $selectedCountry) {
-                    ForEach(countries, id: \.self) { country in
-                        Text(country.name).tag(country)
+            .popover(isPresented: $isPopoverVisible, arrowEdge: .bottom) {
+                Text("Choose your \(label.last ?? "")")
+                    .dtTypo(.p2Regular, color: .textPrimary)
+                    .padding(.top, 20)
+                List {
+                    ForEach(countries.indices, id: \.self) { index in
+                        Button(action: {
+                            selectedCountry = countries[index]
+                            selectedCountryIndex = index
+                            isPopoverVisible.toggle()
+                        }) {
+                            Text(countries[index].name)
+                                .dtTypo(.p2Regular, color: .textPrimary)
+                        }
                     }
-                }
-                .pickerStyle(WheelPickerStyle())
-                .labelsHidden()
-                .padding()
+                }.background(Color.white)
             }
         }
     }
@@ -149,11 +179,20 @@ extension LocationView {
             }
             .frame(width: 56, height: AppConstants.Visual.buttonHeight)
             .background(RoundedRectangle(cornerRadius: AppConstants.Visual.cornerRadius)
-                            .foregroundColor(.backgroundSecondary))
+                .foregroundColor(.backgroundSecondary))
 
             DtButton(title: "Next", style: .main) {
                 print("next tapped")
             }
         }.padding(.horizontal)
+    }
+}
+
+struct LocationView_Previews: PreviewProvider {
+    static var previews: some View {
+        LocationView(
+            router: Router<AppRoute>(),
+            viewModel: LocationViewModel(router: Router<AppRoute>())
+        )
     }
 }

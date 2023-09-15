@@ -17,8 +17,7 @@ protocol LoginFlow {
 
 extension NavigationViewBuilder: LoginFlow {
     func createLoginView() -> some View {
-        let viewModel = LocationViewModel(router: Router<AppRoute>()) // Создайте экземпляр Router, если необходимо
-        return LocationView(router: Router<AppRoute>(), viewModel: viewModel)
+        LoginView(router: router)
     }
     func createTabbarView() -> some View {
         TempView()

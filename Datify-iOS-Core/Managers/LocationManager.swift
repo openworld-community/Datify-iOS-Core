@@ -19,11 +19,13 @@ struct LocationModel {
 }
 
 class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
-    private var locationManager = CLLocationManager()
-    weak var delegate: LocationManagerDelegate?
     @Published var country: Country?
     @Published var city: Country?
     @Published var location: LocationModel?
+
+    weak var delegate: LocationManagerDelegate?
+
+    private var locationManager = CLLocationManager()
 
     override init() {
         super.init()
@@ -31,10 +33,10 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     }
 
     func requestLocation() {
-            locationManager.requestWhenInUseAuthorization()
-            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-            locationManager.requestLocation()
-        }
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+        locationManager.requestLocation()
+    }
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.last {
@@ -47,22 +49,28 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     }
 
     private func reverseGeocodeLocation(_ location: CLLocation) {
-            let geocoder = CLGeocoder()
-            geocoder.reverseGeocodeLocation(location) { placemarks, error in
-                if let error = error {
-                    self.delegate?.didFailWithError(error)
-                    return
-                }
+        let geocoder = CLGeocoder()
 
-                if let placemark = placemarks?.first {
-                    let country = placemark.country
-                    let city = placemark.locality
-                    let coordinates = location.coordinate
-                    let locationModel = LocationModel(country: self.country, city: self.city, coordinates: coordinates)
-                    self.location = locationModel
-                    print("\(country), \(city)")
-                    self.delegate?.didUpdateLocation(locationModel)
-                }
+        let locale = Locale(identifier: "en_US")
+
+        geocoder.reverseGeocodeLocation(location, preferredLocale: locale) { placemarks, error in
+            if let error = error {
+                self.delegate?.didFailWithError(error)
+                return
+            }
+
+            if let placemark = placemarks?.first {
+                let country = placemark.country
+                let city = placemark.locality
+                let coordinates = location.coordinate
+
+                self.country = Country(name: country ?? "", cities: [])
+                self.city = Country(name: city ?? "", cities: [])
+                let locationModel = LocationModel(country: self.country, city: self.city, coordinates: coordinates)
+                self.location = locationModel
+                self.delegate?.didUpdateLocation(locationModel)
             }
         }
+    }
+
 }

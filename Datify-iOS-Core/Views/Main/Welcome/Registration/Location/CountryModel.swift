@@ -26,7 +26,7 @@ class Country: Hashable, Equatable {
     }
 
     static var allCountries: [Country] = [
-        Country(name: "USA", cities: ["New York", "Los Angeles", "Chicago"]),
+        Country(name: "United States", cities: ["New York", "Los Angeles", "Chicago"]),
         Country(name: "Russia", cities: ["Moscow", "Saint Petersburg", "Novosibirsk"]),
         Country(name: "Serbia", cities: ["Belgrade", "Novi Sad", "Niš"]),
         Country(name: "Kazakhstan", cities: ["Astana", "Almaty", "Shymkent"])

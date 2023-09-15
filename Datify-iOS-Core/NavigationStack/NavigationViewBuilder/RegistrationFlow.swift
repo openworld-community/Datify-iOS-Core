@@ -29,9 +29,8 @@ extension NavigationViewBuilder: RegistrationFlow {
         Text("RegEmail")
     }
     func createRegLocationView() -> some View {
-        let viewModel = LocationViewModel(router: Router<AppRoute>())
-              return LocationView(router: Router<AppRoute>(), viewModel: viewModel)
-          }
+        Text("RegLocation")
+    }
     func createRegRecordView() -> some View {
         Text("RegRecord")
     }
