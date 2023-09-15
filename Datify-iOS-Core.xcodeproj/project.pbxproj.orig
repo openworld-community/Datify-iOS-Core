@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2012EF642AAF479400B01688 /* DtBackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2012EF632AAF479400B01688 /* DtBackButton.swift */; };
+		2012EF662AAF719C00B01688 /* DtTermsAndConditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2012EF652AAF719C00B01688 /* DtTermsAndConditions.swift */; };
+		2076AF2E2AB080DB00AF5E11 /* String+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2076AF2D2AB080DB00AF5E11 /* String+extension.swift */; };
+		2076AF302AB085F400AF5E11 /* Image+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2076AF2F2AB085F400AF5E11 /* Image+extension.swift */; };
+		20BF9D932AB1BE85008B3CEB /* SelectGenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20BF9D922AB1BE85008B3CEB /* SelectGenderView.swift */; };
 		4A4CE2C62A9B3A5F0098FF80 /* AppRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CE2C52A9B3A5F0098FF80 /* AppRoute.swift */; };
 		4A4CE2C82A9B3B620098FF80 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CE2C72A9B3B620098FF80 /* Router.swift */; };
 		4A4CE2CA2A9B3E8C0098FF80 /* NavigationViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CE2C92A9B3E8C0098FF80 /* NavigationViewBuilder.swift */; };
@@ -34,8 +39,10 @@
 		63A7295F2AA3A30E00AC60E3 /* SecureTFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A7295E2AA3A30E00AC60E3 /* SecureTFView.swift */; };
 		63A729672AA48CAA00AC60E3 /* Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A729662AA48CAA00AC60E3 /* Regex.swift */; };
 		63A729692AA4A94B00AC60E3 /* CountryCodeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A729682AA4A94B00AC60E3 /* CountryCodeButton.swift */; };
-		9808959C2A9F208B00F82F02 /* DtSecureFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9808959B2A9F208B00F82F02 /* DtSecureFieldView.swift */; };
 		980895BA2A9F4A5700F82F02 /* DtSpinnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980895B92A9F4A5700F82F02 /* DtSpinnerView.swift */; };
+		98553B0A2AAE4A43005C80B3 /* View+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98553B092AAE4A43005C80B3 /* View+extension.swift */; };
+		9898B2BD2AAA4967007CA714 /* RegEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9898B2BC2AAA4967007CA714 /* RegEmailView.swift */; };
+		9898B2BF2AAA49DE007CA714 /* RegEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9898B2BE2AAA49DE007CA714 /* RegEmailViewModel.swift */; };
 		98F3B6D62A9E4F9D0097B5C0 /* DtLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F3B6D52A9E4F9D0097B5C0 /* DtLogoView.swift */; };
 		D050B1B12AA84AA0008EC0AB /* DividerLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D050B1B02AA84AA0008EC0AB /* DividerLine.swift */; };
 		D0C185302AA1D0E1000D71E5 /* SignInWithButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C1852F2AA1D0E1000D71E5 /* SignInWithButton.swift */; };
@@ -67,6 +74,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2012EF632AAF479400B01688 /* DtBackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtBackButton.swift; sourceTree = "<group>"; };
+		2012EF652AAF719C00B01688 /* DtTermsAndConditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtTermsAndConditions.swift; sourceTree = "<group>"; };
+		2076AF2D2AB080DB00AF5E11 /* String+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+extension.swift"; sourceTree = "<group>"; };
+		2076AF2F2AB085F400AF5E11 /* Image+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+extension.swift"; sourceTree = "<group>"; };
+		20BF9D922AB1BE85008B3CEB /* SelectGenderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectGenderView.swift; sourceTree = "<group>"; };
 		4A4CE2C52A9B3A5F0098FF80 /* AppRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRoute.swift; sourceTree = "<group>"; };
 		4A4CE2C72A9B3B620098FF80 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		4A4CE2C92A9B3E8C0098FF80 /* NavigationViewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewBuilder.swift; sourceTree = "<group>"; };
@@ -94,9 +106,13 @@
 		63A7295E2AA3A30E00AC60E3 /* SecureTFView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureTFView.swift; sourceTree = "<group>"; };
 		63A729662AA48CAA00AC60E3 /* Regex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Regex.swift; sourceTree = "<group>"; };
 		63A729682AA4A94B00AC60E3 /* CountryCodeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCodeButton.swift; sourceTree = "<group>"; };
-		9808959B2A9F208B00F82F02 /* DtSecureFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtSecureFieldView.swift; sourceTree = "<group>"; };
 		980895B92A9F4A5700F82F02 /* DtSpinnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtSpinnerView.swift; sourceTree = "<group>"; };
+		98553B092AAE4A43005C80B3 /* View+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+extension.swift"; sourceTree = "<group>"; };
+		9898B2BC2AAA4967007CA714 /* RegEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RegEmailView.swift; path = "Datify-iOS-Core/Views/Main/Welcome/Registration/RegEmailView.swift"; sourceTree = SOURCE_ROOT; };
+		9898B2BE2AAA49DE007CA714 /* RegEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RegEmailViewModel.swift; path = "Datify-iOS-Core/Views/Main/Welcome/Registration/RegEmailViewModel.swift"; sourceTree = SOURCE_ROOT; };
 		98F3B6D52A9E4F9D0097B5C0 /* DtLogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtLogoView.swift; sourceTree = "<group>"; };
+		98F9F2042AB0C80300F7DAB8 /* RegEmailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegEmailView.swift; sourceTree = "<group>"; };
+		98F9F2062AB0C80A00F7DAB8 /* RegEmailViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegEmailViewModel.swift; sourceTree = "<group>"; };
 		D050B1B02AA84AA0008EC0AB /* DividerLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerLine.swift; sourceTree = "<group>"; };
 		D0C1852F2AA1D0E1000D71E5 /* SignInWithButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInWithButton.swift; sourceTree = "<group>"; };
 		D0C896592AA217630084FA62 /* DtImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtImage.swift; sourceTree = "<group>"; };
@@ -160,14 +176,15 @@
 		4A4CE2C32A9B3A1E0098FF80 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				63A365A12AA04FD800CBF5CD /* CustomTextField */,
+				98553B0B2AAF0CF3005C80B3 /* CustomTextField */,
 				4A4CE2E92A9B5FB80098FF80 /* DtButton.swift */,
+				2012EF632AAF479400B01688 /* DtBackButton.swift */,
 				D0C1852F2AA1D0E1000D71E5 /* SignInWithButton.swift */,
 				4A4CE2EE2A9B66DC0098FF80 /* TempView.swift */,
 				98F3B6D52A9E4F9D0097B5C0 /* DtLogoView.swift */,
-				9808959B2A9F208B00F82F02 /* DtSecureFieldView.swift */,
 				980895B92A9F4A5700F82F02 /* DtSpinnerView.swift */,
 				D050B1B02AA84AA0008EC0AB /* DividerLine.swift */,
+				2012EF652AAF719C00B01688 /* DtTermsAndConditions.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -184,9 +201,9 @@
 		4A4CE2CB2A9B3FFB0098FF80 /* Welcome */ = {
 			isa = PBXGroup;
 			children = (
+				98F9F2032AB0C67300F7DAB8 /* Registration */,
 				4A4CE2DB2A9B485B0098FF80 /* WelcomeView.swift */,
 				4A4CE2CC2A9B40DA0098FF80 /* Login */,
-				4A4CE2CD2A9B40E30098FF80 /* Registration */,
 				4A4CE2DD2A9B4CB70098FF80 /* FillProfile */,
 			);
 			path = Welcome;
@@ -201,6 +218,7 @@
 			path = Login;
 			sourceTree = "<group>";
 		};
+<<<<<<< HEAD
 		4A4CE2CD2A9B40E30098FF80 /* Registration */ = {
 			isa = PBXGroup;
 			children = (
@@ -209,6 +227,8 @@
 			path = Registration;
 			sourceTree = "<group>";
 		};
+=======
+>>>>>>> b55e6cdf10def46cfe0736869d141120fe4ab52b
 		4A4CE2CE2A9B41920098FF80 /* Tabbar */ = {
 			isa = PBXGroup;
 			children = (
@@ -270,7 +290,10 @@
 			isa = PBXGroup;
 			children = (
 				4A4CE2E22A9B53E70098FF80 /* Color+extension.swift */,
+				2076AF2F2AB085F400AF5E11 /* Image+extension.swift */,
 				4A4CE2F02A9B67B90098FF80 /* Text+extension.swift */,
+				2076AF2D2AB080DB00AF5E11 /* String+extension.swift */,
+				98553B092AAE4A43005C80B3 /* View+extension.swift */,
 				63203C702AAC6B2600F8803A /* UIApplication+extension.swift */,
 				632A7F5D2AAC897B005DA819 /* DtCustomTFView+extension.swift */,
 			);
@@ -294,10 +317,18 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
-		6360DABA2AAF87C90077B0EB /* Location */ = {
+<<<<<<< HEAD
+		6360DAB72AAF879F0077B0EB /* Managers */ = {
 			isa = PBXGroup;
 			children = (
 				6360DAB82AAF87C10077B0EB /* LocationManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		6360DABA2AAF87C90077B0EB /* Location */ = {
+			isa = PBXGroup;
+			children = (
 				6360DABB2AAF87DA0077B0EB /* LocationView.swift */,
 				6360DABC2AAF87DA0077B0EB /* LocationViewModel.swift */,
 				6360DABF2AAF91F50077B0EB /* CountryModel.swift */,
@@ -316,6 +347,8 @@
 			path = CustomTextField;
 			sourceTree = "<group>";
 		};
+=======
+>>>>>>> b55e6cdf10def46cfe0736869d141120fe4ab52b
 		63A729572AA3935700AC60E3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -326,6 +359,36 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		98553B0B2AAF0CF3005C80B3 /* CustomTextField */ = {
+			isa = PBXGroup;
+			children = (
+				63A729572AA3935700AC60E3 /* Views */,
+				63A365A22AA04FFB00CBF5CD /* DtCustomTF.swift */,
+				63A7295C2AA395A200AC60E3 /* ConstantsTF.swift */,
+				63A729662AA48CAA00AC60E3 /* Regex.swift */,
+			);
+			path = CustomTextField;
+			sourceTree = "<group>";
+		};
+		98F9F2022AB0C64800F7DAB8 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				9898B2BC2AAA4967007CA714 /* RegEmailView.swift */,
+				9898B2BE2AAA49DE007CA714 /* RegEmailViewModel.swift */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		98F9F2032AB0C67300F7DAB8 /* Registration */ = {
+			isa = PBXGroup;
+			children = (
+				98F9F2062AB0C80A00F7DAB8 /* RegEmailViewModel.swift */,
+				98F9F2042AB0C80300F7DAB8 /* RegEmailView.swift */,
+				20BF9D922AB1BE85008B3CEB /* SelectGenderView.swift */,
+			);
+			path = Registration;
+			sourceTree = "<group>";
+		};
 		D0DC46502A92699C0097CFF3 = {
 			isa = PBXGroup;
 			children = (
@@ -334,6 +397,7 @@
 				D0DC466C2A92699F0097CFF3 /* Datify-iOS-CoreTests */,
 				D0DC46762A92699F0097CFF3 /* Datify-iOS-CoreUITests */,
 				D0DC465A2A92699D0097CFF3 /* Products */,
+				98F9F2022AB0C64800F7DAB8 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -354,6 +418,7 @@
 				D0DC465E2A92699D0097CFF3 /* MainAppView.swift */,
 				4A4CE2DE2A9B4EEB0098FF80 /* Resources */,
 				4A4CE2C02A9B39FB0098FF80 /* NavigationStack */,
+				6360DAB72AAF879F0077B0EB /* Managers */,
 				4A4CE2C22A9B3A100098FF80 /* Views */,
 				4A4CE2EB2A9B60950098FF80 /* Helpers */,
 				4A4CE2E12A9B53D50098FF80 /* Extensions */,
@@ -395,10 +460,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D0DC467D2A92699F0097CFF3 /* Build configuration list for PBXNativeTarget "Datify-iOS-Core" */;
 			buildPhases = (
-				4A4CE2FE2A9F0CA00098FF80 /* ShellScript */,
 				D0DC46552A92699D0097CFF3 /* Sources */,
 				D0DC46562A92699D0097CFF3 /* Frameworks */,
 				D0DC46572A92699D0097CFF3 /* Resources */,
+				4A4CE2FE2A9F0CA00098FF80 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -455,7 +520,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1400;
-				LastUpgradeCheck = 1400;
+				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					D0DC46582A92699D0097CFF3 = {
 						CreatedOnToolsVersion = 14.0.1;
@@ -549,6 +614,7 @@
 				4A4CE2EA2A9B5FB80098FF80 /* DtButton.swift in Sources */,
 				6360DABD2AAF87DA0077B0EB /* LocationView.swift in Sources */,
 				4A4CE2D42A9B44280098FF80 /* RegistrationFlow.swift in Sources */,
+				2076AF302AB085F400AF5E11 /* Image+extension.swift in Sources */,
 				980895BA2A9F4A5700F82F02 /* DtSpinnerView.swift in Sources */,
 				63A7295D2AA395A200AC60E3 /* ConstantsTF.swift in Sources */,
 				4A4CE2CA2A9B3E8C0098FF80 /* NavigationViewBuilder.swift in Sources */,
@@ -564,15 +630,21 @@
 				D0DC465F2A92699D0097CFF3 /* MainAppView.swift in Sources */,
 				6360DABE2AAF87DA0077B0EB /* LocationViewModel.swift in Sources */,
 				63A729592AA3937500AC60E3 /* RegularTFView.swift in Sources */,
+				20BF9D932AB1BE85008B3CEB /* SelectGenderView.swift in Sources */,
 				4A4CE2E32A9B53E70098FF80 /* Color+extension.swift in Sources */,
-				9808959C2A9F208B00F82F02 /* DtSecureFieldView.swift in Sources */,
+				2076AF2E2AB080DB00AF5E11 /* String+extension.swift in Sources */,
+				9898B2BD2AAA4967007CA714 /* RegEmailView.swift in Sources */,
+				9898B2BF2AAA49DE007CA714 /* RegEmailViewModel.swift in Sources */,
 				98F3B6D62A9E4F9D0097B5C0 /* DtLogoView.swift in Sources */,
 				63A729692AA4A94B00AC60E3 /* CountryCodeButton.swift in Sources */,
 				D0DC465D2A92699D0097CFF3 /* DatifyiOSCoreApp.swift in Sources */,
 				6360DAC02AAF91F50077B0EB /* CountryModel.swift in Sources */,
 				4A4CE2D62A9B44C20098FF80 /* LoginFlow.swift in Sources */,
+				98553B0A2AAE4A43005C80B3 /* View+extension.swift in Sources */,
 				4A4CE2D82A9B47060098FF80 /* LoginView.swift in Sources */,
+				2012EF662AAF719C00B01688 /* DtTermsAndConditions.swift in Sources */,
 				4A4CE2ED2A9B60A60098FF80 /* AppConstants.swift in Sources */,
+				2012EF642AAF479400B01688 /* DtBackButton.swift in Sources */,
 				4A4CE2F12A9B67B90098FF80 /* Text+extension.swift in Sources */,
 				4A4CE2EF2A9B66DC0098FF80 /* TempView.swift in Sources */,
 				63A365A32AA04FFB00CBF5CD /* DtCustomTF.swift in Sources */,
