@@ -75,7 +75,7 @@ struct SelectGenderView: View {
             termsAndConditionsLabel
             backProceedButtons
         }
-        .padding(.bottom)
+        .padding(.bottom, 24)
         .onChange(of: selectedGender, perform: { newValue in
             switch newValue {
             case .other(let value): otherOptionsTitle = "Other option: \(value)".localize()
@@ -142,7 +142,7 @@ extension SelectGenderView {
 
     // MARK: - Bottom buttons, back arrow and proceed
     private var backProceedButtons: some View {
-        HStack(spacing: 10) {
+        HStack(spacing: 8) {
             DtBackButton {
                 // TODO: - Back button action
             }

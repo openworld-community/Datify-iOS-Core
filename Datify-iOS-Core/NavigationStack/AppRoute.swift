@@ -13,6 +13,7 @@ enum AppRoute {
     case tabbar
     case registrationSex
     case registrationEmail
+    case registrationPhoto
     case registrationLocation
     case registrationRecord
     case registrationFinish
@@ -26,6 +27,7 @@ extension AppRoute: Hashable, Equatable {
         case (.tabbar, .tabbar): return true
         case (.registrationSex, .registrationSex): return true
         case (.registrationEmail, .registrationEmail): return true
+        case (.registrationPhoto, .registrationPhoto): return true
         case (.registrationLocation, .registrationLocation): return true
         case (.registrationRecord, .registrationRecord): return true
         case (.registrationFinish, .registrationFinish): return true

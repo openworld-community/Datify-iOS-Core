@@ -26,6 +26,8 @@ struct MainAppView: View {
         case .tabbar: navViewBuilder.createTabbarView()
         case .registrationSex: navViewBuilder.createRegSexView()
         case .registrationEmail: navViewBuilder.createRegEmailView()
+        case .registrationPhoto:
+            navViewBuilder.createRegPhotoView()
         case .registrationLocation: navViewBuilder.createRegLocationView()
         case .registrationRecord: navViewBuilder.createRegRecordView()
         case .registrationFinish: navViewBuilder.createRegFinishView()
