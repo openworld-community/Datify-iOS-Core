@@ -9,7 +9,6 @@ import SwiftUI
 
 struct EnterNameView: View {
     @State private var name: String = .init()
-    @ObservedObject var viewModel: RegEmailViewModel
     var body: some View {
         VStack(spacing: 40) {
             Spacer()
@@ -26,7 +25,12 @@ struct EnterNameView: View {
                     // TODO: - Back button action
                 }
                 DtButton(title: "Proceed".localize(), style: .main) {
-                    // TODO: - Proceed button action
+                    if nameIsValid() && name == name.trimWhitespaceCapit() {
+                        // TODO: - Proceed button action
+                    } else {
+                        // Преобразует введеное имя убирая повторяющиеся пробелы и пробелы в конце, все слова пишет с большой буквы
+                        name = name.trimWhitespaceCapit()
+                    }
                 }
                 .disabled(!nameIsValid())
             }
@@ -36,19 +40,23 @@ struct EnterNameView: View {
                 DtLogoView()
             }
         }
+        .onChange(of: name, perform: { newValue in
+            name = newValue.trimLeadingSpaces()
+        })
         .padding(.horizontal)
         .padding(.bottom, 8)
+
     }
 
     private func nameIsValid () -> Bool {
-        name.count > 1 && name.count < 16
+        name.count > 0 && name.count < 30
     }
 }
 
 struct EnterNameView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            EnterNameView(viewModel: RegEmailViewModel(router: Router()))
+            EnterNameView()
         }
     }
 }
