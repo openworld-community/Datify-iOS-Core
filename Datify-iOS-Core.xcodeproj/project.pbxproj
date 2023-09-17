@@ -7,8 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2002C9F62AB465540043B51E /* DtCustomPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2002C9F52AB465540043B51E /* DtCustomPicker.swift */; };
 		2012EF642AAF479400B01688 /* DtBackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2012EF632AAF479400B01688 /* DtBackButton.swift */; };
 		2012EF662AAF719C00B01688 /* DtTermsAndConditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2012EF652AAF719C00B01688 /* DtTermsAndConditions.swift */; };
+		201878B32AB2F8B20029C66C /* EnterBirthdayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 201878B22AB2F8B20029C66C /* EnterBirthdayView.swift */; };
+		2020736A2AB378B200CBBE42 /* DtCustomDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202073692AB378B200CBBE42 /* DtCustomDatePicker.swift */; };
+		2020736C2AB37EA900CBBE42 /* CustomPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2020736B2AB37EA900CBBE42 /* CustomPicker.swift */; };
 		2076AF2E2AB080DB00AF5E11 /* String+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2076AF2D2AB080DB00AF5E11 /* String+extension.swift */; };
 		2076AF302AB085F400AF5E11 /* Image+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2076AF2F2AB085F400AF5E11 /* Image+extension.swift */; };
 		20BF9D932AB1BE85008B3CEB /* SelectGenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20BF9D922AB1BE85008B3CEB /* SelectGenderView.swift */; };
@@ -71,8 +75,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2002C9F52AB465540043B51E /* DtCustomPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtCustomPicker.swift; sourceTree = "<group>"; };
 		2012EF632AAF479400B01688 /* DtBackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtBackButton.swift; sourceTree = "<group>"; };
 		2012EF652AAF719C00B01688 /* DtTermsAndConditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtTermsAndConditions.swift; sourceTree = "<group>"; };
+		201878B22AB2F8B20029C66C /* EnterBirthdayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterBirthdayView.swift; sourceTree = "<group>"; };
+		202073692AB378B200CBBE42 /* DtCustomDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtCustomDatePicker.swift; sourceTree = "<group>"; };
+		2020736B2AB37EA900CBBE42 /* CustomPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPicker.swift; sourceTree = "<group>"; };
 		2076AF2D2AB080DB00AF5E11 /* String+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+extension.swift"; sourceTree = "<group>"; };
 		2076AF2F2AB085F400AF5E11 /* Image+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+extension.swift"; sourceTree = "<group>"; };
 		20BF9D922AB1BE85008B3CEB /* SelectGenderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectGenderView.swift; sourceTree = "<group>"; };
@@ -178,6 +186,9 @@
 				980895B92A9F4A5700F82F02 /* DtSpinnerView.swift */,
 				D050B1B02AA84AA0008EC0AB /* DividerLine.swift */,
 				2012EF652AAF719C00B01688 /* DtTermsAndConditions.swift */,
+				202073692AB378B200CBBE42 /* DtCustomDatePicker.swift */,
+				2002C9F52AB465540043B51E /* DtCustomPicker.swift */,
+				2020736B2AB37EA900CBBE42 /* CustomPicker.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -335,6 +346,7 @@
 				20C081042AB1E1B200BB2910 /* RegEmailView.swift */,
 				20BF9D922AB1BE85008B3CEB /* SelectGenderView.swift */,
 				20C081062AB1E1D400BB2910 /* EnterNameView.swift */,
+				201878B22AB2F8B20029C66C /* EnterBirthdayView.swift */,
 			);
 			path = Registration;
 			sourceTree = "<group>";
@@ -562,15 +574,18 @@
 			files = (
 				4A4CE2EA2A9B5FB80098FF80 /* DtButton.swift in Sources */,
 				4A4CE2D42A9B44280098FF80 /* RegistrationFlow.swift in Sources */,
+				2020736A2AB378B200CBBE42 /* DtCustomDatePicker.swift in Sources */,
 				2076AF302AB085F400AF5E11 /* Image+extension.swift in Sources */,
 				980895BA2A9F4A5700F82F02 /* DtSpinnerView.swift in Sources */,
 				63A7295D2AA395A200AC60E3 /* ConstantsTF.swift in Sources */,
 				4A4CE2CA2A9B3E8C0098FF80 /* NavigationViewBuilder.swift in Sources */,
 				4A4CE2C82A9B3B620098FF80 /* Router.swift in Sources */,
 				D0C185302AA1D0E1000D71E5 /* SignInWithButton.swift in Sources */,
+				2020736C2AB37EA900CBBE42 /* CustomPicker.swift in Sources */,
 				632A7F5E2AAC897B005DA819 /* DtCustomTFView+extension.swift in Sources */,
 				4A4CE2DC2A9B485B0098FF80 /* WelcomeView.swift in Sources */,
 				63A7295F2AA3A30E00AC60E3 /* SecureTFView.swift in Sources */,
+				201878B32AB2F8B20029C66C /* EnterBirthdayView.swift in Sources */,
 				4A4CE2E82A9B58590098FF80 /* DtTypography.swift in Sources */,
 				63203C712AAC6B2600F8803A /* UIApplication+extension.swift in Sources */,
 				D0C8965A2AA217630084FA62 /* DtImage.swift in Sources */,
@@ -593,6 +608,7 @@
 				2012EF642AAF479400B01688 /* DtBackButton.swift in Sources */,
 				4A4CE2F12A9B67B90098FF80 /* Text+extension.swift in Sources */,
 				4A4CE2EF2A9B66DC0098FF80 /* TempView.swift in Sources */,
+				2002C9F62AB465540043B51E /* DtCustomPicker.swift in Sources */,
 				63A365A32AA04FFB00CBF5CD /* DtCustomTF.swift in Sources */,
 				4A4CE2C62A9B3A5F0098FF80 /* AppRoute.swift in Sources */,
 				4A4CE2DA2A9B47650098FF80 /* LoginViewModel.swift in Sources */,
