@@ -11,6 +11,7 @@
 		2012EF662AAF719C00B01688 /* DtTermsAndConditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2012EF652AAF719C00B01688 /* DtTermsAndConditions.swift */; };
 		2076AF2E2AB080DB00AF5E11 /* String+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2076AF2D2AB080DB00AF5E11 /* String+extension.swift */; };
 		2076AF302AB085F400AF5E11 /* Image+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2076AF2F2AB085F400AF5E11 /* Image+extension.swift */; };
+		208A426D2AB9061000E90C94 /* RegFinalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208A426C2AB9061000E90C94 /* RegFinalView.swift */; };
 		20BF9D932AB1BE85008B3CEB /* RegSelectGenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20BF9D922AB1BE85008B3CEB /* RegSelectGenderView.swift */; };
 		20C081052AB1E1B200BB2910 /* RegEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C081042AB1E1B200BB2910 /* RegEmailView.swift */; };
 		20C081072AB1E1D400BB2910 /* RegEnterNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C081062AB1E1D400BB2910 /* RegEnterNameView.swift */; };
@@ -75,6 +76,7 @@
 		2012EF652AAF719C00B01688 /* DtTermsAndConditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtTermsAndConditions.swift; sourceTree = "<group>"; };
 		2076AF2D2AB080DB00AF5E11 /* String+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+extension.swift"; sourceTree = "<group>"; };
 		2076AF2F2AB085F400AF5E11 /* Image+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+extension.swift"; sourceTree = "<group>"; };
+		208A426C2AB9061000E90C94 /* RegFinalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegFinalView.swift; sourceTree = "<group>"; };
 		20BF9D922AB1BE85008B3CEB /* RegSelectGenderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegSelectGenderView.swift; sourceTree = "<group>"; };
 		20C081042AB1E1B200BB2910 /* RegEmailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegEmailView.swift; sourceTree = "<group>"; };
 		20C081062AB1E1D400BB2910 /* RegEnterNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegEnterNameView.swift; sourceTree = "<group>"; };
@@ -335,6 +337,7 @@
 				20C081042AB1E1B200BB2910 /* RegEmailView.swift */,
 				20BF9D922AB1BE85008B3CEB /* RegSelectGenderView.swift */,
 				20C081062AB1E1D400BB2910 /* RegEnterNameView.swift */,
+				208A426C2AB9061000E90C94 /* RegFinalView.swift */,
 			);
 			path = Registration;
 			sourceTree = "<group>";
@@ -578,6 +581,7 @@
 				63A729592AA3937500AC60E3 /* RegularTFView.swift in Sources */,
 				20BF9D932AB1BE85008B3CEB /* RegSelectGenderView.swift in Sources */,
 				4A4CE2E32A9B53E70098FF80 /* Color+extension.swift in Sources */,
+				208A426D2AB9061000E90C94 /* RegFinalView.swift in Sources */,
 				2076AF2E2AB080DB00AF5E11 /* String+extension.swift in Sources */,
 				9898B2BF2AAA49DE007CA714 /* RegEmailViewModel.swift in Sources */,
 				98F3B6D62A9E4F9D0097B5C0 /* DtLogoView.swift in Sources */,
