@@ -9,8 +9,8 @@ import SwiftUI
 import PhotosUI
 
 struct RegPhotoView: View {
+    @Environment(\.colorScheme) var colorScheme
     @StateObject private var viewModel: RegPhotoViewModel
-    @StateObject private var photoPickerViewModel: PhotoPickerViewModel = .init()
 
     init(router: Router<AppRoute>) {
         _viewModel = StateObject(wrappedValue: RegPhotoViewModel(router: router))
@@ -18,12 +18,8 @@ struct RegPhotoView: View {
 
     var body: some View {
         VStack {
-            Spacer()
-            MainSection(photoPickerViewModel: photoPickerViewModel)
-            Spacer()
-            ButtonsSection(
-                photoPickerViewModel: photoPickerViewModel,
-                viewModel: viewModel)
+            mainSection
+            buttonsSection
         }
         .padding(.bottom, 24)
         .navigationBarBackButtonHidden()
@@ -41,83 +37,64 @@ struct RegPhotoView_Previews: PreviewProvider {
     }
 }
 
-private struct MainSection: View {
-    @ObservedObject var photoPickerViewModel: PhotoPickerViewModel
+private extension RegPhotoView {
+    var mainSection: some View {
+        GeometryReader { geo in
+            VStack(spacing: 40) {
+                VStack {
+                    Text("Select photos")
+                        .dtTypo(.h3Medium, color: .textPrimary)
+                    Text("These photos will appear on your profile")
+                        .dtTypo(.p2Regular, color: .textSecondary)
+                }
 
-    var body: some View {
-        VStack(spacing: 40) {
-            VStack {
-                Text("Select photos")
-                    .dtTypo(.h3Medium, color: .textPrimary)
-                Text("These photos will appear on your profile")
-                    .dtTypo(.p2Regular, color: .textSecondary)
-            }
-            PhotoSection(photoPickerViewModel: photoPickerViewModel)
-        }
-    }
-}
-
-private struct PhotoSection: View {
-    @ObservedObject var photoPickerViewModel: PhotoPickerViewModel
-
-    var body: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            LazyHGrid(rows: [GridItem(.fixed(218))]) {
-                ForEach(0..<3) { index in
-                    PhotosPicker(
-                        selection: $photoPickerViewModel.imageSelections[index],
-                        matching: .images
-                    ) {
-                        VStack {
-                            if let image = photoPickerViewModel.selectedImages[index] {
-                                image
-                                    .resizableFill()
-                            } else {
-                                DtPhotoPlaceholderView()
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack {
+                        ForEach(0..<3) { index in
+                            if index < viewModel.selectedImages.count {
+                                PhotosPicker(
+                                    selection: $viewModel.imageSelections[index],
+                                    matching: .images
+                                ) {
+                                    VStack {
+                                        if let image = viewModel.selectedImages[index] {
+                                            image
+                                                .resizableFill()
+                                        } else {
+                                            photoPlaceholderView
+                                        }
+                                    }
+                                    .frame(width: geo.size.width * 0.4, height: geo.size.width * 0.764)
+                                    .cornerRadius(AppConstants.Visual.cornerRadius)
+                                }
                             }
                         }
-                        .frame(width: 157, height: 218)
-                        .cornerRadius(AppConstants.Visual.cornerRadius)
                     }
-                    .onChange(of: photoPickerViewModel.imageSelections[index]) { imageSelection in
-                        photoPickerViewModel.setImage(
-                            from: imageSelection,
-                            to: index
-                        )
-                    }
+                    .padding(.horizontal)
                 }
             }
-            .padding()
+            .frame(width: geo.size.width, height: geo.size.height)
         }
     }
-}
 
-private struct DtPhotoPlaceholderView: View {
-    @Environment(\.colorScheme) var colorScheme
-
-    var body: some View {
+    var photoPlaceholderView: some View {
         ZStack {
             Color.backgroundSecondary
             Circle()
                 .fill(
                     colorScheme == .light ?
                     Color.backgroundPrimary :
-                    Color.backgroundSecondary
+                        Color.backgroundSecondary
                 )
                 .frame(width: 40)
-            // Should I download "plus" image from Figma?
-            Image(systemName: "plus")
+            Image("plus")
+                .resizableFit()
                 .frame(width: 18, height: 18)
                 .foregroundColor(.textPrimaryLink)
         }
     }
-}
 
-private struct ButtonsSection: View {
-    @ObservedObject var photoPickerViewModel: PhotoPickerViewModel
-    @ObservedObject var viewModel: RegPhotoViewModel
-
-    var body: some View {
+    var buttonsSection: some View {
         HStack(spacing: 8) {
             DtBackButton {
                 viewModel.router.pop()
@@ -127,7 +104,7 @@ private struct ButtonsSection: View {
                 style: .main) {
                     // TODO: viewModel func photo processing and sending
                 }
-                .disabled(photoPickerViewModel.isSelectionEmpty)
+                .disabled(viewModel.isButtonDisabled)
         }
         .padding(.horizontal)
     }
