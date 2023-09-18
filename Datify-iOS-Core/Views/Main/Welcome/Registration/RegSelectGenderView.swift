@@ -47,7 +47,7 @@ enum Gender: Equatable, CaseIterable, Hashable {
     }
 }
 
-struct SelectGenderView: View {
+struct RegSelectGenderView: View {
     enum Sheets: Identifiable {
         case otherOptions
         case termsAndConditions
@@ -102,16 +102,16 @@ struct SelectGenderView: View {
     }
 }
 
-struct SelectGenderView_Previews: PreviewProvider {
+struct RegSelectGenderView_Previews: PreviewProvider {
     static var previews: some View {
 
         NavigationStack {
-            SelectGenderView()
+            RegSelectGenderView()
         }
     }
 }
 
-extension SelectGenderView {
+extension RegSelectGenderView {
     // MARK: - Male and Female gender buttons
     private var genderButtons: some View {
         HStack(spacing: 16) {
@@ -165,7 +165,7 @@ extension SelectGenderView {
 private struct OtherGendersSheet: View {
     @State private var otherGender: Gender = .nonbinary
     @Binding var selectedGender: Gender?
-    @Binding var sheet: SelectGenderView.Sheets?
+    @Binding var sheet: RegSelectGenderView.Sheets?
     var body: some View {
         VStack(spacing: 0) {
             Picker("", selection: $otherGender) {
@@ -193,7 +193,7 @@ private struct OtherGendersSheet: View {
 private struct EnterOtherGenderSheet: View {
     @State private var otherGenderTitle = ""
     @Binding var selectedGender: Gender?
-    @Binding var sheet: SelectGenderView.Sheets?
+    @Binding var sheet: RegSelectGenderView.Sheets?
     var body: some View {
         VStack {
             Text("Enter gender from 3 to 15 characters long")

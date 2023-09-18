@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct EnterNameView: View {
+struct RegEnterNameView: View {
     @State private var name: String = .init()
     var body: some View {
         VStack(spacing: 40) {
@@ -53,10 +53,10 @@ struct EnterNameView: View {
     }
 }
 
-struct EnterNameView_Previews: PreviewProvider {
+struct RegEnterNameView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            EnterNameView()
+            RegEnterNameView()
         }
     }
 }
