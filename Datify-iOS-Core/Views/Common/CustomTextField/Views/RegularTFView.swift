@@ -28,7 +28,7 @@ struct RegularTextFieldView: View {
                         input = ""
                     }
                 }) {
-                    Image("xmark")
+                    Image(DtImage.xmark)
                         .foregroundColor(.textPrimary)
                 }
                 .transition(.opacity)

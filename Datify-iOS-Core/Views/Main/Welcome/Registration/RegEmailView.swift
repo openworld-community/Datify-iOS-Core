@@ -28,19 +28,11 @@ struct RegEmailView: View {
                 }
 
                 VStack(spacing: 16) {
-                    RegularTextFieldView(
-                        style: .email,
-                        input: $viewModel.email,
-                        placeholder: String(localized: "Enter email"),
-                        keyboardType: .emailAddress,
-                        submitLabel: .continue,
-                        textAlignment: .leading,
-                        width: .infinity,
-                        height: AppConstants.Visual.buttonHeight) {
-                            if !viewModel.isButtonDisabled {
-                                viewModel.validateEmail()
-                            }
+                    DtCustomTF(style: .email, input: $viewModel.email) {
+                        if !viewModel.isButtonDisabled {
+                            viewModel.validateEmail()
                         }
+                    }
 
                     Button {
                         // TODO: viewModel.router.push...
