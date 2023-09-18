@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct EnterBirthdayView: View {
+struct RegBirthdayView: View {
     @State private var selectedDate: Date
     @State private var showAlert: Bool = false
 
@@ -53,10 +53,10 @@ struct EnterBirthdayView: View {
     }
 }
 
-struct EnterBirthdayView_Previews: PreviewProvider {
+struct RegBirthdayView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            EnterBirthdayView()
+            RegBirthdayView()
         }
     }
 }
