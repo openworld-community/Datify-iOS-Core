@@ -7,47 +7,41 @@
 
 import SwiftUI
 
-struct DtCustomPicker<T>: View where T: Hashable, T: CustomStringConvertible {
-    @Binding var selectedItem: T
-    private var items: [T]
-    private var pickerText: (T) -> Text
-
-    init(
-        selectedItem: Binding<T>,
-        items: ClosedRange<T>,
-        pickerText: @escaping (T) -> Text
-    ) where T == Int {
-        self._selectedItem = selectedItem
-        self.items = Array(items)
-        self.pickerText = pickerText
-    }
+struct DtCustomPicker<Item, Content>: View where Item: Hashable, Content: View {
+    @Binding var selectedItem: Item
+    var items: [Item]
+    var content: (Item) -> Content
 
     var body: some View {
-        Picker("", selection: $selectedItem) {
-            ForEach(items, id: \.self) { item in
-                pickerText(item)
-                    .dtTypo(.p2Regular, color: .textPrimary)
+        ZStack {
+            Color.backgroundSecondary
+            RoundedRectangle(cornerRadius: 8)
+                .foregroundColor(.backgroundPrimary)
+                .padding(.horizontal, 9)
+                .frame(height: 32)
+
+            Picker("", selection: $selectedItem) {
+                ForEach(items, id: \.self) { item in
+                    content(item)
+                        .tag(item)
+                        .dtTypo(.p2Regular, color: .textPrimary)
+                }
             }
+            .pickerStyle(WheelPickerStyle())
+            .contrast(1.4)
+            .blendMode(.hardLight)
         }
-        .pickerStyle(WheelPickerStyle())
-        .frame(height: 150)
-        .background(
-            ZStack {
-                Color.backgroundSecondary
-                RoundedRectangle(cornerRadius: 8)
-                    .foregroundColor(.backgroundPrimary)
-                    .padding(.horizontal, 9)
-                    .frame(height: 32)
-            }
-        )
         .cornerRadius(10)
+        .frame(height: 150)
     }
 }
 
 struct DtCustomPicker_Previews: PreviewProvider {
     static var previews: some View {
-        DtCustomPicker(selectedItem: .constant(1), items: 1...50) { int in
-            Text("\(int)")
+        VStack {
+            DtCustomPicker(selectedItem: .constant(1), items: Array(1...5)) { item in
+                Text("\(item)")
+            }
         }
     }
 }

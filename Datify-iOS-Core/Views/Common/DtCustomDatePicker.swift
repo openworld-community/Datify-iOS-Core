@@ -7,12 +7,55 @@
 
 import SwiftUI
 
+enum Months: Int, CaseIterable {
+    case january = 1, february, march, april, may, june, july, august, september, october, november, december
+
+    var description: String {
+        switch self {
+        case .january:
+            return "January".localize()
+        case .february:
+            return "February".localize()
+        case .march:
+            return "March".localize()
+        case .april:
+            return "April".localize()
+        case .may:
+            return "May".localize()
+        case .june:
+            return "June".localize()
+        case .july:
+            return "July".localize()
+        case .august:
+            return "August".localize()
+        case .september:
+            return "September".localize()
+        case .october:
+            return "October".localize()
+        case .november:
+            return "November".localize()
+        case .december:
+            return "December".localize()
+        }
+    }
+
+    func arrayOfIndices(maxMonth: Int) -> [Months] {
+        guard maxMonth <= 12 else {return []}
+        var newArray: [Months] = .init()
+        for index in 1...maxMonth {
+            newArray.append(Months(rawValue: index)!)
+        }
+        return newArray
+    }
+}
+
 struct DtCustomDatePicker: View {
     @Binding var selectedDate: Date
+    private var minimumAge: Int
 
-    @State private var selectedMonthIndex = 0
-    @State private var day = 1
-    @State private var year = 1990
+    @State private var selectedMonth = Months.january
+    @State private var selectedDay = 1
+    @State private var selectedYear = 1990
 
     private let months = ["January".localize(), "February".localize(),
                           "March".localize(), "April".localize(),
@@ -23,7 +66,7 @@ struct DtCustomDatePicker: View {
 
     private var maxMonthForCurrentYear: Int {
         let currentYear = Calendar.current.component(.year, from: Date())
-        return (year == currentYear - 16) ? Calendar.current.component(.month, from: Date()) : 12
+        return (selectedYear == currentYear - minimumAge) ? Calendar.current.component(.month, from: Date()) : 12
     }
 
     private var maxDayForSelectedMonth: Int {
@@ -31,11 +74,11 @@ struct DtCustomDatePicker: View {
             let currentYear = Calendar.current.component(.year, from: Date())
             let currentMonth = Calendar.current.component(.month, from: Date())
 
-            if year == currentYear - 16 && selectedMonthIndex == (currentMonth - 1) {
+        if selectedYear == currentYear - minimumAge && selectedMonth.rawValue == currentMonth {
                 return Calendar.current.component(.day, from: Date())
             }
 
-            let components = DateComponents(year: year, month: selectedMonthIndex + 1)
+        let components = DateComponents(year: selectedYear, month: selectedMonth.rawValue)
             if let date = calendar.date(from: components),
                let range = calendar.range(of: .day, in: .month, for: date) {
                 return range.count
@@ -43,36 +86,36 @@ struct DtCustomDatePicker: View {
             return 1
         }
 
-    init(selectedDate: Binding<Date>) {
+    init(selectedDate: Binding<Date>, minAge: Int = 16) {
         self._selectedDate = selectedDate
-        let currentYear = Calendar.current.component(.year, from: Date())
-        if year < 1920 || year > currentYear {
-            self.year = currentYear
-        }
+        self.minimumAge = minAge
     }
 
     var body: some View {
         HStack {
-            DtCustomPicker(selectedItem: $day,
-                           items: 1...maxDayForSelectedMonth) { day in Text("\(day)")}
-            DtCustomPicker(selectedItem: $selectedMonthIndex,
-                           items: 0...maxMonthForCurrentYear-1) {index in Text(months[index])}
-            DtCustomPicker(selectedItem: $year,
-                           items: 1920...Calendar.current.component(.year, from: Date())-16) {year in Text("\(year.description)")}
-
+            DtCustomPicker(selectedItem: $selectedDay, items: Array(1...maxDayForSelectedMonth)) { day in
+                Text("\(day)")
+            }
+            DtCustomPicker(selectedItem: $selectedMonth, items: selectedMonth.arrayOfIndices(maxMonth: maxMonthForCurrentYear)) { month in
+                Text(month.description)
+            }
+            DtCustomPicker(selectedItem: $selectedYear, items: Array(1920...Calendar.current.component(.year, from: Date())-16)) { year in
+                Text("\(year.description)")
+            }
         }
-        .onChange(of: day) { _ in
+
+        .onChange(of: selectedDay) { _ in
             updateSelectedDate()
         }
-        .onChange(of: selectedMonthIndex) { _ in
-            if day > maxDayForSelectedMonth {
-                day = maxDayForSelectedMonth
+        .onChange(of: selectedMonth) { _ in
+            if selectedDay > maxDayForSelectedMonth {
+                selectedDay = maxDayForSelectedMonth
             }
             updateSelectedDate()
         }
-        .onChange(of: year) { _ in
-            if day > maxDayForSelectedMonth {
-                day = maxDayForSelectedMonth
+        .onChange(of: selectedYear) { _ in
+            if selectedDay > maxDayForSelectedMonth {
+                selectedDay = maxDayForSelectedMonth
             }
             updateSelectedDate()
         }
@@ -81,7 +124,7 @@ struct DtCustomDatePicker: View {
 
     private func updateSelectedDate() {
         let calendar = Calendar.current
-        let dateComponents = DateComponents(year: year, month: selectedMonthIndex + 1, day: day)
+        let dateComponents = DateComponents(year: selectedYear, month: selectedMonth.rawValue, day: selectedDay)
         if let date = calendar.date(from: dateComponents) {
             selectedDate = date
         }

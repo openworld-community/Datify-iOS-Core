@@ -35,11 +35,13 @@ struct EnterBirthdayView: View {
                     // TODO: - Back button action
                 }
                 DtButton(title: "Proceed".localize(), style: .main) {
-                    if isUser16OrOlder(birthdate: selectedDate) {
-                        // TODO: - Proceed button action
-                    } else {
-                        showAlert.toggle()
-                    }
+                    // TODO: - Proceed button action
+                    // По хорошему надо проверить подтянув текущую дату с бэка, чтобы пользователь не мог просто изменить дату на телефоне и обойти ограничение по возрасту
+                }
+            }
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    DtLogoView()
                 }
             }
             .padding(.horizontal)
@@ -49,25 +51,12 @@ struct EnterBirthdayView: View {
             Alert(title: Text("You must be at least 16 years old to register"))
         })
     }
-
-    private func isUser16OrOlder(birthdate: Date) -> Bool {
-        // Get the current calendar and date components
-        let calendar = Calendar.current
-        let currentDate = Date()
-
-        // Calculate the user's age
-        let ageComponents = calendar.dateComponents([.year], from: birthdate, to: currentDate)
-        if let userAge = ageComponents.year {
-            return userAge >= 16
-        }
-
-        // If unable to calculate age, return false
-        return false
-    }
 }
 
 struct EnterBirthdayView_Previews: PreviewProvider {
     static var previews: some View {
-        EnterBirthdayView()
+        NavigationStack {
+            EnterBirthdayView()
+        }
     }
 }
