@@ -8,30 +8,49 @@
 import SwiftUI
 
 struct RegFinalView: View {
+    private var title1 = "Your profile is created,".localize()
+    private var title2 = "congratulations!".localize()
+
     var body: some View {
         GeometryReader { geometry in
             VStack(spacing: 24) {
                 Spacer()
                 VStack {
-                    Text("Your profile is created,")
-                        .dtTypo(geometry.size.width > 375 ? .h1Medium : .h2Medium, color: .textPrimary)
-                    Text("congratulations!")
+                    Text(title1)
+                        .minimumScaleFactor(0.5)
+                    Text(title2)
                         .foregroundLinearGradient()
-                        .dtTypo(geometry.size.width > 375 ? .h1Medium : .h2Medium, color: .textPrimary)
+                        .scaleEffect(scaleOfTitle(screenWidth: geometry.size.width, title: title1))
                 }
+                .lineLimit(1)
+                .dtTypo(.h1Medium, color: .textPrimary)
+
                 secondaryText
                 Spacer()
                 bottomButtons
-                    .padding(.horizontal)
                     .padding(.bottom, 8)
             }
             .multilineTextAlignment(.center)
+            .padding(.horizontal)
+
         }
+
         .toolbar {
             ToolbarItem(placement: .principal) {
                 DtLogoView()
             }
         }
+    }
+
+    private func scaleOfTitle(screenWidth: CGFloat, title: String) -> CGFloat {
+        let titleSize = title.getSize(fontSize: 36, fontWeight: .medium)
+        var scale = screenWidth/(titleSize + 40)
+        if scale > 1 {
+            scale = 1
+        } else if scale < 0.5 {
+            scale = 0.5
+        }
+        return scale
     }
 }
 
@@ -47,7 +66,6 @@ extension RegFinalView {
     var secondaryText: some View {
         Text("Fill out your profile and tell us more about yourself now or go straight to the search")
             .dtTypo(.p2Regular, color: .textSecondary)
-            .padding(.horizontal)
     }
 
     var bottomButtons: some View {
@@ -55,12 +73,8 @@ extension RegFinalView {
             DtButton(title: "Fill out your profile".localize(), style: .main) {
                 // TODO: - Fill profile button action
             }
-            Button {
+            DtButton(title: "I'll fill it out later".localize(), style: .other) {
                 // TODO: - Later button action
-            } label: {
-                Text("I'll fill it out later")
-                    .dtTypo(.p2Medium, color: .textPrimary)
-                    .frame(maxWidth: .infinity, minHeight: AppConstants.Visual.buttonHeight)
             }
         }
     }
