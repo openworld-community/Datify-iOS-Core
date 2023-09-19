@@ -15,6 +15,7 @@ struct DtButton: View {
         case primary
         case secondary
         case main
+        case picker
     }
 
     private let title: String
@@ -59,6 +60,9 @@ struct DtButton: View {
             case .main:
                 createBody(title: title, titleColor: .accentsWhite)
                     .buttonBackground(color: .accentsPrimary)
+            case .picker:
+                createBody(title: title, titleColor: .textPrimary)
+                    .buttonBackground(color: .backgroundSecondary)
             }
         }
         .buttonStyle(.plain)
@@ -94,6 +98,12 @@ private extension View {
 
 struct DtButton_Previews: PreviewProvider {
     static var previews: some View {
-        DtButton(title: "Button", style: .primary, action: {})
+        VStack {
+            DtButton(title: "main", style: .main, action: {})
+            DtButton(title: "primary", style: .primary, action: {})
+            DtButton(title: "gradient", style: .gradient, action: {})
+            DtButton(title: "secondary", style: .secondary, action: {})
+            DtButton(title: "picker", style: .picker, action: {})
+        }
     }
 }

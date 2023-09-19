@@ -11,14 +11,14 @@ struct DtLogoView: View {
     private let title: String = "Datify"
     var body: some View {
         HStack {
-            Image("logoImage")
+            Image("logoImageBrand")
                 .resizable()
                 .frame(
                     width: 24,
                     height: 24
                 )
             Text(title)
-                .dtTypo(.h3Medium, color: .textPrimary)
+                .dtTypo(.h3Semibold, color: .textPrimary)
         }
     }
 }
