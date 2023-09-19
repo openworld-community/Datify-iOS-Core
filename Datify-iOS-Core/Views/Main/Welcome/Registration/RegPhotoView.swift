@@ -9,7 +9,7 @@ import SwiftUI
 import PhotosUI
 
 struct RegPhotoView: View {
-    @Environment(\.colorScheme) var colorScheme
+    @Environment(\.colorScheme) private var colorScheme
     @StateObject private var viewModel: RegPhotoViewModel
 
     init(router: Router<AppRoute>) {
@@ -64,7 +64,8 @@ private extension RegPhotoView {
                                             photoPlaceholderView
                                         }
                                     }
-                                    .frame(width: geo.size.width * 0.4, height: geo.size.width * 0.764)
+                                    .aspectRatio(160/210, contentMode: .fit)
+                                    .frame(width: geo.size.width * 0.4)
                                     .cornerRadius(AppConstants.Visual.cornerRadius)
                                 }
                             }
