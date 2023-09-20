@@ -26,9 +26,7 @@ extension NavigationViewBuilder: RegistrationFlow {
         Text("RegSex")
     }
     func createRegEmailView() -> some View {
-//        RegEmailView(router: router)
-        Text("EmailView")
-
+        RegEmailView(router: router)
     }
     func createRegLocationView() -> some View {
         Text("RegLocation")
