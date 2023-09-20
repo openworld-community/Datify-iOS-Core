@@ -98,10 +98,10 @@ struct LocationChooseButtonView: View {
                 HStack {
                     Text(label.first ?? "")
                         .dtTypo(.p2Regular, color: .textSecondary)
-                    Text((selectedCountry?.name ?? countries.first?.name) ?? "Loading...")
+                    Text((selectedCountry?.name ?? countries.first?.name) ?? String(localized: "Loading..."))
                         .dtTypo(.p2Regular, color: .textPrimary)
                     Spacer()
-                    Image(systemName: "chevron.down")
+                    Image("iconArrowBottom")
                         .frame(width: 24, height: 24)
                         .foregroundColor(.secondary)
                 }
@@ -116,7 +116,7 @@ struct LocationChooseButtonView: View {
             }
             .padding(.horizontal)
             .popover(isPresented: $isPopoverVisible, arrowEdge: .bottom) {
-                Text("Choose your \(label.last ?? "")")
+                Text(String(localized: "Choose your \(label.last ?? "")"))
                     .dtTypo(.p2Regular, color: .textPrimary)
                     .padding(.top, 20)
                 List {
@@ -159,15 +159,13 @@ extension LocationView {
             } label: {
                 Image("arrowLeft")
                     .resizableFit()
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
                     .frame(width: 24, height: 24)
             }
             .frame(width: 56, height: AppConstants.Visual.buttonHeight)
             .background(RoundedRectangle(cornerRadius: AppConstants.Visual.cornerRadius)
                 .foregroundColor(.backgroundSecondary))
 
-            DtButton(title: "Next", style: .main) {
+            DtButton( title: String(localized: "Next"), style: .main) {
                 // TODO: Next button
                 print("next tapped")
             }
