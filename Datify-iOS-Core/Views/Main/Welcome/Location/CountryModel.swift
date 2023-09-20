@@ -7,15 +7,7 @@
 
 import Foundation
 
-class Country: Hashable, Equatable {
-    static func == (lhs: Country, rhs: Country) -> Bool {
-        return lhs.name == rhs.name && lhs.cities == rhs.cities
-    }
-
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(name)
-        hasher.combine(cities)
-    }
+struct Country: Hashable, Equatable {
 
     let name: String
     var cities: [String]
@@ -26,10 +18,34 @@ class Country: Hashable, Equatable {
     }
 
     static var allCountries: [Country] = [
-        Country(name: "United States", cities: ["New York", "Los Angeles", "Chicago"]),
-        Country(name: "Russia", cities: ["Moscow", "Saint Petersburg", "Novosibirsk"]),
-        Country(name: "Serbia", cities: ["Belgrade", "Novi Sad", "Niš"]),
-        Country(name: "Kazakhstan", cities: ["Astana", "Almaty", "Shymkent"])
+        Country(
+            name: String(localized: "United States"),
+            cities: [
+                String(localized: "New York"),
+                String(localized: "Los Angeles"),
+                String(localized: "Chicago")
+            ]),
+        Country(
+            name: String(localized: "Russia"),
+            cities: [
+                String(localized: "Moscow"),
+                String(localized: "Saint Petersburg"),
+                String(localized: "Novosibirsk")
+            ]),
+        Country(
+            name: String(localized: "Serbia"),
+            cities: [
+                String(localized: "Belgrade"),
+                String(localized: "Novi Sad"),
+                String(localized: "Niš")
+            ]),
+        Country(
+            name: String(localized: "Kazakhstan"),
+            cities: [
+                String(localized: "Astana"),
+                String(localized: "Almaty"),
+                String(localized: "Shymkent")
+            ])
     ]
 
     static func defaultCountry(name: String) -> Country? {

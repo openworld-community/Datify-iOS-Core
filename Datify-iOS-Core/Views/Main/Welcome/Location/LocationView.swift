@@ -27,23 +27,12 @@ enum LabelOfButton {
 
 struct LocationView: View {
     @Environment(\.dismiss) private var dismiss
-    @StateObject private var viewModel: LocationViewModel
+    @StateObject var viewModel: LocationViewModel
 
-    @State private var selectedCountry: Country?
     @State private var cities: [String] = .init()
     @State private var isLoading = true
 
     let countries: [Country] = Country.allCountries
-
-    unowned let router: Router<AppRoute>
-
-    init(
-        router: Router<AppRoute>,
-        viewModel: LocationViewModel
-    ) {
-        self.router = router
-        _viewModel = StateObject(wrappedValue: viewModel)
-    }
 
     var body: some View {
         VStack {
@@ -68,18 +57,16 @@ struct LocationView: View {
                         cities = []
                 }
             }
-
             LocationChooseButtonView(
                 selectedCountry: $viewModel.selectedCity,
                 label: LabelOfButton.city.stringValue,
                 countries: viewModel.selectedCountry?.cities.map { Country(name: $0, cities: []) } ?? []
             )
-
             Spacer()
-
             bottomButtons
         }
         .onAppear {
+            // TODO: when screen has appeared
             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                 isLoading = false
             }
@@ -88,13 +75,7 @@ struct LocationView: View {
         .overlay(
             Group {
                 if isLoading {
-                    ZStack {
-                        Color(.white)
-                            .opacity(0.3)
-                            .ignoresSafeArea()
-                        DtSpinnerView(size: 30)
-
-                    }
+                    DtSpinnerView(size: 30)
                 }
             }
         )
@@ -158,11 +139,14 @@ struct LocationChooseButtonView: View {
 extension LocationView {
     private var titleLabel: some View {
         VStack(spacing: 8) {
-            Text("Where are you located?")
+            Text(String(localized: "Where are you located?"))
                 .dtTypo(.h3Medium, color: .textPrimary)
-            Text(" Choose your city of residence; this will help us find people around you more accurately")
+            Text(String(
+                localized: "Choose your city of residence; this will help us find people around you more accurately"
+            ))
                 .dtTypo(.p2Regular, color: .textSecondary)
                 .multilineTextAlignment(.center)
+                .padding(.horizontal)
         }
         .padding(.bottom, 40)
     }
@@ -170,9 +154,11 @@ extension LocationView {
     private var bottomButtons: some View {
         HStack {
             Button {
+                // TODO: Back button
                 print("back")
             } label: {
                 Image("arrowLeft")
+                    .resizableFit()
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 24, height: 24)
@@ -182,17 +168,17 @@ extension LocationView {
                 .foregroundColor(.backgroundSecondary))
 
             DtButton(title: "Next", style: .main) {
+                // TODO: Next button
                 print("next tapped")
             }
-        }.padding(.horizontal)
+        }
+        .padding(.horizontal)
+        .padding(.bottom)
     }
 }
 
 struct LocationView_Previews: PreviewProvider {
     static var previews: some View {
-        LocationView(
-            router: Router<AppRoute>(),
-            viewModel: LocationViewModel(router: Router<AppRoute>())
-        )
+        LocationView(viewModel: LocationViewModel(router: Router()))
     }
 }

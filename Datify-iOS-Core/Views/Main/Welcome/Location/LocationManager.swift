@@ -13,14 +13,12 @@ protocol LocationManagerDelegate: AnyObject {
 }
 
 struct LocationModel {
-    let country: Country?
-    let city: Country?
-    let coordinates: CLLocationCoordinate2D
+    var country: Country?
+    var city: Country?
+    var coordinates: CLLocationCoordinate2D
 }
 
-class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
-    @Published var country: Country?
-    @Published var city: Country?
+class LocationManager: NSObject, ObservableObject {
     @Published var location: LocationModel?
 
     weak var delegate: LocationManagerDelegate?
@@ -38,22 +36,10 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         locationManager.requestLocation()
     }
 
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.last {
-            self.reverseGeocodeLocation(location)
-        }
-    }
-
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        delegate?.didFailWithError(error)
-    }
-
     private func reverseGeocodeLocation(_ location: CLLocation) {
         let geocoder = CLGeocoder()
 
-        let locale = Locale(identifier: "en_US")
-
-        geocoder.reverseGeocodeLocation(location, preferredLocale: locale) { placemarks, error in
+        geocoder.reverseGeocodeLocation(location) { placemarks, error in
             if let error = error {
                 self.delegate?.didFailWithError(error)
                 return
@@ -64,13 +50,29 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
                 let city = placemark.locality
                 let coordinates = location.coordinate
 
-                self.country = Country(name: country ?? "", cities: [])
-                self.city = Country(name: city ?? "", cities: [])
-                let locationModel = LocationModel(country: self.country, city: self.city, coordinates: coordinates)
+                self.location?.country = Country(name: country ?? "", cities: [])
+                self.location?.city = Country(name: city ?? "", cities: [])
+                let locationModel = LocationModel(
+                    country: self.location?.country,
+                    city: self.location?.city,
+                    coordinates: coordinates
+                )
                 self.location = locationModel
                 self.delegate?.didUpdateLocation(locationModel)
             }
         }
     }
 
+}
+
+extension LocationManager: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.last {
+            self.reverseGeocodeLocation(location)
+        }
+    }
+
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        delegate?.didFailWithError(error)
+    }
 }

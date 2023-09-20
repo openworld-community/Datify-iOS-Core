@@ -30,7 +30,7 @@ struct LoginView: View {
             .sheet(isPresented: $viewModel.forgotSheet) {
                 TempView()
             }
-            .hideKeyboardTapOutside()
+//            .hideKeyboardTapOutside()
     }
 
     private var idleView: some View {
