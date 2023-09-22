@@ -47,7 +47,8 @@ struct DtCustomTF: View {
         var textAlignment: TextAlignment {
             switch self {
             case .email, .phoneAndEmail, .password: return .leading
-            case .phone, .sms, .text: return .center
+            case .phone, .sms: return .center
+            case .text(_, let alignment): return alignment ?? .center
             }
         }
     }

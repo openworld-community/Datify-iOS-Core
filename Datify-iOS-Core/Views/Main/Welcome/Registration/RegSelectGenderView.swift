@@ -47,7 +47,7 @@ enum Gender: Equatable, CaseIterable, Hashable {
     }
 }
 
-struct SelectGenderView: View {
+struct RegSelectGenderView: View {
     enum Sheets: Identifiable {
         case otherOptions
         case termsAndConditions
@@ -65,7 +65,6 @@ struct SelectGenderView: View {
 
     var body: some View {
         VStack(spacing: 20) {
-            DtLogoView()
             Spacer()
             Text(selectGenderTitle)
                 .dtTypo(.h2Regular, color: .textPrimary)
@@ -76,6 +75,12 @@ struct SelectGenderView: View {
             backProceedButtons
         }
         .padding(.bottom, 24)
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                DtLogoView()
+            }
+        }
+        .padding(.bottom)
         .onChange(of: selectedGender, perform: { newValue in
             switch newValue {
             case .other(let value): otherOptionsTitle = "Other option: \(value)".localize()
@@ -98,13 +103,16 @@ struct SelectGenderView: View {
     }
 }
 
-struct SelectGenderView_Previews: PreviewProvider {
+struct RegSelectGenderView_Previews: PreviewProvider {
     static var previews: some View {
-        SelectGenderView()
+
+        NavigationStack {
+            RegSelectGenderView()
+        }
     }
 }
 
-extension SelectGenderView {
+extension RegSelectGenderView {
     // MARK: - Male and Female gender buttons
     private var genderButtons: some View {
         HStack(spacing: 16) {
@@ -158,7 +166,7 @@ extension SelectGenderView {
 private struct OtherGendersSheet: View {
     @State private var otherGender: Gender = .nonbinary
     @Binding var selectedGender: Gender?
-    @Binding var sheet: SelectGenderView.Sheets?
+    @Binding var sheet: RegSelectGenderView.Sheets?
     var body: some View {
         VStack(spacing: 0) {
             Picker("", selection: $otherGender) {
@@ -186,22 +194,17 @@ private struct OtherGendersSheet: View {
 private struct EnterOtherGenderSheet: View {
     @State private var otherGenderTitle = ""
     @Binding var selectedGender: Gender?
-    @Binding var sheet: SelectGenderView.Sheets?
+    @Binding var sheet: RegSelectGenderView.Sheets?
     var body: some View {
         VStack {
             Text("Enter gender from 3 to 15 characters long")
                 .dtTypo(.p2Regular, color: .textSecondary)
-            TextField("Enter gender", text: $otherGenderTitle)
-                .dtTypo(.p2Medium, color: .textPrimary)
-                .frame(height: AppConstants.Visual.buttonHeight)
-                .padding(.leading)
-                .background(Color.backgroundSecondary)
-                .cornerRadius(AppConstants.Visual.cornerRadius)
+            DtCustomTF(style: .text("Enter gender".localize(), .leading), input: $otherGenderTitle)
             HStack {
                 DtBackButton(action: {sheet = .otherOptions})
                 DtButton(title: "Proceed".localize(), style: .main, action: {
                     if genderTitleIsCorrect() {
-                        selectedGender = .other(otherGenderTitle)
+                        selectedGender = .other(otherGenderTitle.capitalized)
                         sheet = nil
                     }
                 }).disabled(!genderTitleIsCorrect())
@@ -213,6 +216,6 @@ private struct EnterOtherGenderSheet: View {
     }
 
     private func genderTitleIsCorrect() -> Bool {
-            otherGenderTitle.count > 3 && otherGenderTitle.count < 15
+            otherGenderTitle.count >= 3 && otherGenderTitle.count < 15
         }
 }
