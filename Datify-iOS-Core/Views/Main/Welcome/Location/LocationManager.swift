@@ -5,74 +5,81 @@
 //  Created by Ildar Khabibullin on 10.09.2023.
 //
 
+import Combine
 import CoreLocation
 
-protocol LocationManagerDelegate: AnyObject {
-    func didUpdateLocation(_ location: LocationModel)
-    func didFailWithError(_ error: Error)
-}
-
-struct LocationModel {
-    var country: Country?
-    var city: Country?
-    var coordinates: CLLocationCoordinate2D
+struct LocationModel: Equatable {
+    var selectedCountry: Country?
+    var selectedCity: Country?
+    var selectedCoordinates: CLLocationCoordinate2D
 }
 
 class LocationManager: NSObject, ObservableObject {
     @Published var location: LocationModel?
-
-    weak var delegate: LocationManagerDelegate?
+    @Published var error: Error?
 
     private var locationManager = CLLocationManager()
+    private var cancellables = Set<AnyCancellable>()
 
     override init() {
         super.init()
         self.locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
     }
 
     func requestLocation() {
         locationManager.requestWhenInUseAuthorization()
-        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+        locationManager.delegate = self
         locationManager.requestLocation()
     }
 
     private func reverseGeocodeLocation(_ location: CLLocation) {
         let geocoder = CLGeocoder()
 
-        geocoder.reverseGeocodeLocation(location) { placemarks, error in
+        geocoder.reverseGeocodeLocation(location) { [weak self] placemarks, error in
             if let error = error {
-                self.delegate?.didFailWithError(error)
+                self?.error = error
                 return
             }
-
             if let placemark = placemarks?.first {
-                let country = placemark.country
-                let city = placemark.locality
+                let countryName = placemark.country ?? ""
+                let cityName = placemark.locality ?? ""
                 let coordinates = location.coordinate
 
-                self.location?.country = Country(name: country ?? "", cities: [])
-                self.location?.city = Country(name: city ?? "", cities: [])
+                let selectedCountry = Country(name: countryName, cities: [])
+                let selectedCity = Country(name: cityName, cities: [])
+
                 let locationModel = LocationModel(
-                    country: self.location?.country,
-                    city: self.location?.city,
-                    coordinates: coordinates
+                    selectedCountry: selectedCountry,
+                    selectedCity: selectedCity,
+                    selectedCoordinates: coordinates
                 )
-                self.location = locationModel
-                self.delegate?.didUpdateLocation(locationModel)
+                self?.location = locationModel
             }
         }
     }
-
 }
 
 extension LocationManager: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.last {
-            self.reverseGeocodeLocation(location)
+            reverseGeocodeLocation(location)
         }
     }
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        delegate?.didFailWithError(error)
+        if let clError = error as? CLError, clError.code == .locationUnknown {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) {
+                self.requestLocation()
+            }
+        }
+        self.error = error
+    }
+}
+
+extension LocationModel {
+    static func == (lhs: LocationModel, rhs: LocationModel) -> Bool {
+        return lhs.selectedCountry == rhs.selectedCountry &&
+               lhs.selectedCity == rhs.selectedCity
     }
 }

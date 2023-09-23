@@ -9,9 +9,8 @@ import Combine
 import Foundation
 
 final class LocationViewModel: ObservableObject {
-    @Published var selectedCountry: Country?
-    @Published var selectedCity: Country?
     @Published var location: LocationModel?
+    @Published var error: Error?
 
     var locationManager = LocationManager()
 
@@ -19,29 +18,28 @@ final class LocationViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
 
     init(
-        router: Router<AppRoute>,
-        locationManager: LocationManager = LocationManager()
+        router: Router<AppRoute>
     ) {
         self.router = router
-        self.locationManager = locationManager
+        setupLocationManager()
+        setupSubscribers()
     }
 
     func setupLocationManager() {
-        locationManager.delegate = self
         locationManager.requestLocation()
     }
-}
 
-extension LocationViewModel: LocationManagerDelegate {
-    func didUpdateLocation(_ location: LocationModel) {
-        DispatchQueue.main.async { // Обновляем UI в главном потоке
-            self.location = location
-            self.selectedCountry = location.country
-            self.selectedCity = location.city
-        }
-    }
+    private func setupSubscribers() {
+        locationManager.$location
+            .sink { [weak self] newLocation in
+                self?.location = newLocation
+            }
+            .store(in: &cancellables)
 
-    func didFailWithError(_ error: Error) {
-        print("Error getting location: \(error.localizedDescription)")
+        locationManager.$error
+            .sink { [weak self] newError in
+                self?.error = newError
+            }
+            .store(in: &cancellables)
     }
 }

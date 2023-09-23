@@ -9,7 +9,7 @@ import Foundation
 
 struct Country: Hashable, Equatable {
 
-    let name: String
+    var name: String
     var cities: [String]
 
     init(name: String, cities: [String]) {
@@ -18,6 +18,13 @@ struct Country: Hashable, Equatable {
     }
 
     static var allCountries: [Country] = [
+        Country(
+            name: String(localized: "Serbia"),
+            cities: [
+                String(localized: "Belgrade"),
+                String(localized: "Novi Sad"),
+                String(localized: "Niš")
+            ]),
         Country(
             name: String(localized: "United States"),
             cities: [
@@ -33,13 +40,6 @@ struct Country: Hashable, Equatable {
                 String(localized: "Novosibirsk")
             ]),
         Country(
-            name: String(localized: "Serbia"),
-            cities: [
-                String(localized: "Belgrade"),
-                String(localized: "Novi Sad"),
-                String(localized: "Niš")
-            ]),
-        Country(
             name: String(localized: "Kazakhstan"),
             cities: [
                 String(localized: "Astana"),
@@ -47,8 +47,4 @@ struct Country: Hashable, Equatable {
                 String(localized: "Shymkent")
             ])
     ]
-
-    static func defaultCountry(name: String) -> Country? {
-        return allCountries.first { $0.name == name }
-    }
 }
