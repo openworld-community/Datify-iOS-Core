@@ -42,14 +42,14 @@ struct LocationView: View {
         }
         .onChange(of: viewModel.location) { newLocation in
             print("location: \(newLocation)")
-            if let countryName = newLocation?.selectedCountryAndCity?.name,
-               let cityName = newLocation?.selectedCountryAndCity?.selectedCity {
+            if let countryName = newLocation?.selectedCountry?.name,
+               let cityName = newLocation?.selectedCountry?.selectedCity {
                 print("Selected Country: \(countryName)")
                 print("Selected City: \(cityName)")
                 print("$selectedCountryAndCity: \($selectedCountryAndCity)")
 
-                selectedCountryAndCity = newLocation?.selectedCountryAndCity
-                selectedCountryAndCity?.selectedCity = newLocation?.selectedCountryAndCity?.selectedCity
+                selectedCountryAndCity = newLocation?.selectedCountry
+                selectedCountryAndCity?.selectedCity = newLocation?.selectedCountry?.selectedCity
 
             }
         }
@@ -121,9 +121,9 @@ struct LocationView: View {
                     List {
                         ForEach(Country.allCountries, id: \.self) { country in
                             Button(action: {
-                                viewModel.location?.selectedCountryAndCity = country
-                                viewModel.location?.selectedCountryAndCity?.selectedCity = country.cities.first
-                                print("viewModel.location?.selectedCountryAndCity: \(viewModel.location?.selectedCountryAndCity)")
+                                viewModel.location?.selectedCountry = country
+                                viewModel.location?.selectedCountry?.selectedCity = country.cities.first
+                                print("viewModel.location?.selectedCountryAndCity: \(viewModel.location?.selectedCountry)")
                                 isPopoverVisible.toggle()
                             }) {
                                 Text(country.name)
@@ -133,11 +133,11 @@ struct LocationView: View {
                     }.background(.secondary)
                 } else {
                     List {
-                        if let location = viewModel.location?.selectedCountryAndCity {
+                        if let location = viewModel.location?.selectedCountry {
                             ForEach(location.cities, id: \.self) { city in
                                 Button(action: {
-                                    viewModel.location?.selectedCountryAndCity?.selectedCity = city
-                                    
+                                    viewModel.location?.selectedCountry?.selectedCity = city
+
                                     print("city: \(city)")
                                     isPopoverVisible.toggle()
                                 }) {

@@ -9,7 +9,7 @@ import Combine
 import CoreLocation
 
 struct LocationModel: Equatable {
-    var selectedCountryAndCity: Country?
+    var selectedCountry: Country?
     var selectedCoordinates: CLLocationCoordinate2D
 }
 
@@ -48,7 +48,7 @@ class LocationManager: NSObject, ObservableObject {
                 let selectedCountry = Country(name: countryName, cities: [cityName], selectedCity: cityName)
 
                 let locationModel = LocationModel(
-                    selectedCountryAndCity: selectedCountry,
+                    selectedCountry: selectedCountry,
 //                    selectedCity: cityName,
                     selectedCoordinates: coordinates
                 )
@@ -77,6 +77,6 @@ extension LocationManager: CLLocationManagerDelegate {
 
 extension LocationModel {
     static func == (lhs: LocationModel, rhs: LocationModel) -> Bool {
-        return lhs.selectedCountryAndCity == rhs.selectedCountryAndCity
+        return lhs.selectedCountry == rhs.selectedCountry
     }
 }
