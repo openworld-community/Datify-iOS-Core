@@ -41,13 +41,16 @@ struct LocationView: View {
             viewModel.setupLocationManager()
         }
         .onChange(of: viewModel.location) { newLocation in
+            print("location: \(newLocation)")
             if let countryName = newLocation?.selectedCountryAndCity?.name,
-               let cityName = newLocation?.selectedCountryAndCity?.cities.first {
+               let cityName = newLocation?.selectedCountryAndCity?.selectedCity {
                 print("Selected Country: \(countryName)")
                 print("Selected City: \(cityName)")
                 print("$selectedCountryAndCity: \($selectedCountryAndCity)")
 
                 selectedCountryAndCity = newLocation?.selectedCountryAndCity
+                selectedCountryAndCity?.selectedCity = newLocation?.selectedCountryAndCity?.selectedCity
+
             }
         }
         .overlay(
@@ -85,9 +88,15 @@ struct LocationView: View {
                     if isCountrySelection {
                         Text(location?.name ?? String(localized: "Loading..."))
                             .dtTypo(.p2Regular, color: .textPrimary)
+                            .onAppear {
+                                print("location?.name: \(location?.name)")
+                            }
                     } else {
-                        Text(location?.cities.first ?? String(localized: "Loading..."))
+                        Text(location?.selectedCity ?? String(localized: "Loading..."))
                             .dtTypo(.p2Regular, color: .textPrimary)
+                            .onAppear {
+                                print("location?.name: \(location?.name)")
+                            }
                     }
                     Spacer()
                     Image("iconArrowBottom")
@@ -113,6 +122,8 @@ struct LocationView: View {
                         ForEach(Country.allCountries, id: \.self) { country in
                             Button(action: {
                                 viewModel.location?.selectedCountryAndCity = country
+                                viewModel.location?.selectedCountryAndCity?.selectedCity = country.cities.first
+                                print("viewModel.location?.selectedCountryAndCity: \(viewModel.location?.selectedCountryAndCity)")
                                 isPopoverVisible.toggle()
                             }) {
                                 Text(country.name)
@@ -125,11 +136,8 @@ struct LocationView: View {
                         if let location = viewModel.location?.selectedCountryAndCity {
                             ForEach(location.cities, id: \.self) { city in
                                 Button(action: {
-                                    print("1viewModel.location?.selectedCity: \(viewModel.location?.selectedCountryAndCity?.cities)")
-
-                                    viewModel.location?.selectedCountryAndCity?.cities = [city]
-                                    print("viewModel.location?.selectedCity: \(viewModel.location?.selectedCountryAndCity?.cities)")
-
+                                    viewModel.location?.selectedCountryAndCity?.selectedCity = city
+                                    
                                     print("city: \(city)")
                                     isPopoverVisible.toggle()
                                 }) {

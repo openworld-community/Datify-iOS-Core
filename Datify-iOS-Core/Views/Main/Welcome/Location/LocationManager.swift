@@ -10,7 +10,6 @@ import CoreLocation
 
 struct LocationModel: Equatable {
     var selectedCountryAndCity: Country?
-//    var selectedCity: Country?
     var selectedCoordinates: CLLocationCoordinate2D
 }
 
@@ -46,10 +45,11 @@ class LocationManager: NSObject, ObservableObject {
                 let cityName = placemark.locality ?? ""
                 let coordinates = location.coordinate
 
-                let selectedCountry = Country(name: countryName, cities: [cityName])
+                let selectedCountry = Country(name: countryName, cities: [cityName], selectedCity: cityName)
 
                 let locationModel = LocationModel(
                     selectedCountryAndCity: selectedCountry,
+//                    selectedCity: cityName,
                     selectedCoordinates: coordinates
                 )
                 self?.location = locationModel
