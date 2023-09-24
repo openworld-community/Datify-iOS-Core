@@ -13,6 +13,7 @@ struct LocationView: View {
 
     @State private var isLoading = true
     @State private var selectedCountry: Country?
+    @State private var locationHasBeenSet = false
 
     var body: some View {
         VStack {
@@ -25,16 +26,19 @@ struct LocationView: View {
         }
         .onAppear {
             // TODO: when screen has appeared
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+            Task {
+                try await Task.sleep(nanoseconds: UInt64(0.8))
                 isLoading = false
+                viewModel.setupLocationManager()
             }
-            viewModel.setupLocationManager()
         }
         .onChange(of: viewModel.location) { newLocation in
-            if let countryName = newLocation?.selectedCountry,
-               let cityName = newLocation?.selectedCountry?.selectedCity {
-                selectedCountry = countryName
-                selectedCountry?.selectedCity = cityName
+            if newLocation?.selectedCountry?.selectedCity != nil {
+                if let countryName = newLocation?.selectedCountry,
+                   let cityName = newLocation?.selectedCountry?.selectedCity {
+                    selectedCountry = countryName
+                    selectedCountry?.selectedCity = cityName
+                }
             }
         }
         .onChange(of: viewModel.isLoading) { isLoading in
@@ -73,12 +77,12 @@ struct LocationChooseButtonView: View {
     let label: String
     var viewModel: LocationViewModel
     @State var isCountrySelection: Bool
+    @State private var selectedLocation: String?
 
     var body: some View {
-        VStack {
-            Button(action: {
-                isPopoverVisible.toggle()
-            }) {
+        NavigationLink(
+            destination: locationList,
+            label: {
                 HStack {
                     Text("\(label.capitalized):")
                         .dtTypo(.p2Regular, color: .textSecondary)
@@ -90,7 +94,7 @@ struct LocationChooseButtonView: View {
                         .frame(width: 24, height: 24)
                         .foregroundColor(.secondary)
                 }
-                .padding()
+                .padding(.horizontal)
                 .frame(height: AppConstants.Visual.buttonHeight)
                 .background(
                     RoundedRectangle(
@@ -99,14 +103,8 @@ struct LocationChooseButtonView: View {
                     .foregroundColor(.backgroundSecondary)
                 )
             }
-            .padding(.horizontal)
-            .popover(isPresented: $isPopoverVisible, arrowEdge: .bottom) {
-                Text(String(localized: "Choose your \(label)"))
-                    .dtTypo(.p2Regular, color: .textPrimary)
-                    .padding(.top, 20)
-                locationList
-            }
-        }
+        )
+        .padding(.horizontal)
     }
 
     private var locationValue: String {
@@ -118,37 +116,54 @@ struct LocationChooseButtonView: View {
     }
 
     private var locationList: some View {
-        if isCountrySelection {
-            return AnyView(
-                List {
-                    ForEach(Country.allCountries, id: \.self) { country in
-                        locationListItem(name: country.name) {
-                            viewModel.selectCountry(country)
-                            isPopoverVisible.toggle()
-                        }
-                    }
-                }.background(.secondary)
-            )
-        } else {
-            return AnyView(
-                List {
-                    if let location = viewModel.location?.selectedCountry {
-                        ForEach(location.cities, id: \.self) { city in
-                            locationListItem(name: city) {
-                                viewModel.selectCity(city)
+            if isCountrySelection {
+                return AnyView(
+                    List {
+                        ForEach(Country.allCountries, id: \.self) { country in
+                            locationListItem(name: country.name) {
+                                selectedLocation = country.name
+                                viewModel.selectCountry(country)
                                 isPopoverVisible.toggle()
                             }
                         }
                     }
-                }
-            )
-        }
+                    .background(.secondary)
+                    .navigationBarTitle(String(localized: "Choose your \(label)"))
+                    .navigationBarTitleDisplayMode(.inline)
+                )
+            } else {
+                return AnyView(
+                    List {
+                        if let location = viewModel.location?.selectedCountry {
+                            ForEach(location.cities, id: \.self) { city in
+                                locationListItem(name: city) {
+                                    selectedLocation = city
+                                    viewModel.selectCity(city)
+                                    isPopoverVisible.toggle()
+                                }
+                            }
+                        }
+                    }
+                    .navigationBarTitle(String(localized: "Choose your \(label)"))
+                    .navigationBarTitleDisplayMode(.inline)
+                )
+            }
     }
 
     private func locationListItem(name: String, action: @escaping () -> Void) -> some View {
-        Button(action: action) {
-            Text(name)
-                .dtTypo(.p2Regular, color: .textPrimary)
+        Button {
+            // TODO: action
+        } label: {
+            HStack {
+                Text(name)
+                    .dtTypo(.p2Regular, color: .textPrimary)
+                Spacer()
+                Image(systemName: selectedLocation == name
+                      ? "checkmark.circle.fill"
+                      : "checkmark.circle"
+                )
+                .foregroundColor(.green)
+            }
         }
     }
 }
@@ -173,7 +188,6 @@ extension LocationView {
             DtBackButton {
                 // TODO: Back button
             }
-
             DtButton( title: String(localized: "Next"), style: .main) {
                 // TODO: Next button
                 print("next tapped")

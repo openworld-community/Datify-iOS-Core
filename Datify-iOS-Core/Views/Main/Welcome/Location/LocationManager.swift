@@ -59,31 +59,39 @@ class LocationManager: NSObject, ObservableObject {
             }
         }
     }
-
 }
 
 extension LocationManager: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.last {
-            reverseGeocodeLocation(location)
-
-            DispatchQueue.main.async {
-                self.isLoading = false
-            }
+        Task {
+            handleLocationUpdate(locations)
         }
     }
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        Task {
+            await handleLocationError(error)
+        }
+    }
+
+    private func handleLocationUpdate(_ locations: [CLLocation]) {
+        if let location = locations.last {
+            reverseGeocodeLocation(location)
+            isLoading = false
+        }
+    }
+
+    private func handleLocationError(_ error: Error) async {
         if let clError = error as? CLError, clError.code == .locationUnknown {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) {
-                self.requestLocation()
+            do {
+                try await Task.sleep(nanoseconds: 10 * 1_000_000_000)
+            } catch {
+                print(String(localized: "Error: \(error.localizedDescription)"))
             }
+            requestLocation()
         }
 
-        DispatchQueue.main.async {
-            self.isLoading = false
-        }
-
+        isLoading = false
         self.error = error
     }
 }
