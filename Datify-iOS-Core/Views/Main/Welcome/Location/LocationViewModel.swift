@@ -11,6 +11,7 @@ import Foundation
 final class LocationViewModel: ObservableObject {
     @Published var location: LocationModel?
     @Published var error: Error?
+    @Published var isLoading: Bool = false
 
     var locationManager = LocationManager()
 
@@ -26,6 +27,7 @@ final class LocationViewModel: ObservableObject {
     }
 
     func setupLocationManager() {
+        self.isLoading = true
         locationManager.requestLocation()
     }
     private func setupSubscribers() {
@@ -40,5 +42,14 @@ final class LocationViewModel: ObservableObject {
                 self?.error = newError
             }
             .store(in: &cancellables)
+    }
+
+    func selectCountry(_ country: Country) {
+        location?.selectedCountry = country
+        location?.selectedCountry?.selectedCity = country.cities.first
+    }
+
+    func selectCity(_ city: String) {
+        location?.selectedCountry?.selectedCity = city
     }
 }

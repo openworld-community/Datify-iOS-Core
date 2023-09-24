@@ -16,6 +16,7 @@ struct LocationModel: Equatable {
 class LocationManager: NSObject, ObservableObject {
     @Published var location: LocationModel?
     @Published var error: Error?
+    @Published var isLoading: Bool = false
 
     private var locationManager = CLLocationManager()
     private var cancellables = Set<AnyCancellable>()
@@ -33,35 +34,42 @@ class LocationManager: NSObject, ObservableObject {
     }
 
     private func reverseGeocodeLocation(_ location: CLLocation) {
-        let geocoder = CLGeocoder()
+        Task {
+            do {
+                let placemarks = try await CLGeocoder().reverseGeocodeLocation(location)
+                if let placemark = placemarks.first {
+                    let countryName = placemark.country ?? ""
+                    let cityName = placemark.locality ?? ""
+                    let coordinates = location.coordinate
 
-        geocoder.reverseGeocodeLocation(location) { [weak self] placemarks, error in
-            if let error = error {
-                self?.error = error
-                return
-            }
-            if let placemark = placemarks?.first {
-                let countryName = placemark.country ?? ""
-                let cityName = placemark.locality ?? ""
-                let coordinates = location.coordinate
+                    let selectedCountry = Country(name: countryName, cities: [cityName], selectedCity: cityName)
 
-                let selectedCountry = Country(name: countryName, cities: [cityName], selectedCity: cityName)
-
-                let locationModel = LocationModel(
-                    selectedCountry: selectedCountry,
-//                    selectedCity: cityName,
-                    selectedCoordinates: coordinates
-                )
-                self?.location = locationModel
+                    await MainActor.run {
+                        self.location = LocationModel(
+                            selectedCountry: selectedCountry,
+                            selectedCoordinates: coordinates
+                        )
+                    }
+                }
+            } catch {
+                // TODO: Handle error
+                await MainActor.run {
+                    self.error = error
+                }
             }
         }
     }
+
 }
 
 extension LocationManager: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.last {
             reverseGeocodeLocation(location)
+
+            DispatchQueue.main.async {
+                self.isLoading = false
+            }
         }
     }
 
@@ -71,6 +79,11 @@ extension LocationManager: CLLocationManagerDelegate {
                 self.requestLocation()
             }
         }
+
+        DispatchQueue.main.async {
+            self.isLoading = false
+        }
+
         self.error = error
     }
 }
