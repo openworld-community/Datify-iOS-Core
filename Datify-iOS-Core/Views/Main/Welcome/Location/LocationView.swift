@@ -12,22 +12,21 @@ struct LocationView: View {
     @StateObject var viewModel: LocationViewModel
 
     @State private var isLoading = true
-    @State private var selectedCountry: Country?
-    @State private var selectedCity: Country?
+    @State private var selectedCountryAndCity: Country?
 
     var body: some View {
         VStack {
             Spacer()
             titleLabel
             LocationChooseButtonView(
-                location: $selectedCountry,
-                label: "Country:",
+                location: $selectedCountryAndCity,
+                label: "country",
                 viewModel: viewModel,
                 isCountrySelection: true
             )
             LocationChooseButtonView(
-                location: $selectedCity,
-                label: "City:",
+                location: $selectedCountryAndCity,
+                label: "city",
                 viewModel: viewModel,
                 isCountrySelection: false
             )
@@ -42,15 +41,13 @@ struct LocationView: View {
             viewModel.setupLocationManager()
         }
         .onChange(of: viewModel.location) { newLocation in
-            if let countryName = newLocation?.selectedCountry?.name,
-               let cityName = newLocation?.selectedCity?.name {
+            if let countryName = newLocation?.selectedCountryAndCity?.name,
+               let cityName = newLocation?.selectedCountryAndCity?.cities.first {
                 print("Selected Country: \(countryName)")
                 print("Selected City: \(cityName)")
-                print("$selectedCountry: \($selectedCountry)")
-                print("$selectedCity: \($selectedCity)")
+                print("$selectedCountryAndCity: \($selectedCountryAndCity)")
 
-                selectedCountry = newLocation?.selectedCountry
-                selectedCity = newLocation?.selectedCity
+                selectedCountryAndCity = newLocation?.selectedCountryAndCity
             }
         }
         .overlay(
@@ -60,10 +57,15 @@ struct LocationView: View {
                 }
             }
         )
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                DtLogoView()
+            }
+        }
     }
 }
 
-struct LocationChooseButtonView: View {
+ struct LocationChooseButtonView: View {
     @Binding var location: Country?
     @State private var isPopoverVisible = false
 
@@ -77,23 +79,15 @@ struct LocationChooseButtonView: View {
                 isPopoverVisible.toggle()
             }) {
                 HStack {
-                    Text(label)
+                    Text("\(label.capitalized):")
                         .dtTypo(.p2Regular, color: .textSecondary)
+                        .textInputAutocapitalization(.sentences)
                     if isCountrySelection {
                         Text(location?.name ?? String(localized: "Loading..."))
                             .dtTypo(.p2Regular, color: .textPrimary)
-                            .onAppear {
-                                print("isCountrySelection == true: \(viewModel.location?.selectedCountry?.name)")
-                                print("isCountrySelection == true: \(location?.name)")
-
-                            }
                     } else {
                         Text(location?.cities.first ?? String(localized: "Loading..."))
                             .dtTypo(.p2Regular, color: .textPrimary)
-                            .onAppear {
-                                print("isCountrySelection == false: \(viewModel.location?.selectedCity?.cities.first)")
-                                print("isCountrySelection == false: \(location?.name)")
-                            }
                     }
                     Spacer()
                     Image("iconArrowBottom")
@@ -118,22 +112,25 @@ struct LocationChooseButtonView: View {
                     List {
                         ForEach(Country.allCountries, id: \.self) { country in
                             Button(action: {
-                                viewModel.location?.selectedCountry = country
-                                viewModel.location?.selectedCity = country
+                                viewModel.location?.selectedCountryAndCity = country
                                 isPopoverVisible.toggle()
                             }) {
                                 Text(country.name)
                                     .dtTypo(.p2Regular, color: .textPrimary)
                             }
                         }
-                    }.background(Color.white)
+                    }.background(.secondary)
                 } else {
                     List {
-                        if let location = viewModel.location?.selectedCountry {
+                        if let location = viewModel.location?.selectedCountryAndCity {
                             ForEach(location.cities, id: \.self) { city in
                                 Button(action: {
-                                    viewModel.location?.selectedCity?.name = city
-                                    print("city::::::\(city)")
+                                    print("1viewModel.location?.selectedCity: \(viewModel.location?.selectedCountryAndCity?.cities)")
+
+                                    viewModel.location?.selectedCountryAndCity?.cities = [city]
+                                    print("viewModel.location?.selectedCity: \(viewModel.location?.selectedCountryAndCity?.cities)")
+
+                                    print("city: \(city)")
                                     isPopoverVisible.toggle()
                                 }) {
                                     Text(city)
@@ -146,7 +143,7 @@ struct LocationChooseButtonView: View {
             }
         }
     }
-}
+ }
 
 extension LocationView {
     private var titleLabel: some View {

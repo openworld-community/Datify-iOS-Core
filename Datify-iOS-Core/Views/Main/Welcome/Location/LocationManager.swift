@@ -9,8 +9,8 @@ import Combine
 import CoreLocation
 
 struct LocationModel: Equatable {
-    var selectedCountry: Country?
-    var selectedCity: Country?
+    var selectedCountryAndCity: Country?
+//    var selectedCity: Country?
     var selectedCoordinates: CLLocationCoordinate2D
 }
 
@@ -46,12 +46,10 @@ class LocationManager: NSObject, ObservableObject {
                 let cityName = placemark.locality ?? ""
                 let coordinates = location.coordinate
 
-                let selectedCountry = Country(name: countryName, cities: [])
-                let selectedCity = Country(name: countryName, cities: [cityName])
+                let selectedCountry = Country(name: countryName, cities: [cityName])
 
                 let locationModel = LocationModel(
-                    selectedCountry: selectedCountry,
-                    selectedCity: selectedCity,
+                    selectedCountryAndCity: selectedCountry,
                     selectedCoordinates: coordinates
                 )
                 self?.location = locationModel
@@ -79,7 +77,6 @@ extension LocationManager: CLLocationManagerDelegate {
 
 extension LocationModel {
     static func == (lhs: LocationModel, rhs: LocationModel) -> Bool {
-        return lhs.selectedCountry == rhs.selectedCountry &&
-               lhs.selectedCity == rhs.selectedCity
+        return lhs.selectedCountryAndCity == rhs.selectedCountryAndCity
     }
 }

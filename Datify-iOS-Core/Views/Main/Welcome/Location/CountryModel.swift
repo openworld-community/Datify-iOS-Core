@@ -11,6 +11,7 @@ struct Country: Hashable, Equatable {
 
     var name: String
     var cities: [String]
+    var selectedCity: String?
 
     init(name: String, cities: [String]) {
         self.name = name

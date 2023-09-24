@@ -28,7 +28,6 @@ final class LocationViewModel: ObservableObject {
     func setupLocationManager() {
         locationManager.requestLocation()
     }
-
     private func setupSubscribers() {
         locationManager.$location
             .sink { [weak self] newLocation in
