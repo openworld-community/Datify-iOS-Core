@@ -47,7 +47,7 @@ class LocationManager: NSObject, ObservableObject {
                 let coordinates = location.coordinate
 
                 let selectedCountry = Country(name: countryName, cities: [])
-                let selectedCity = Country(name: cityName, cities: [])
+                let selectedCity = Country(name: countryName, cities: [cityName])
 
                 let locationModel = LocationModel(
                     selectedCountry: selectedCountry,

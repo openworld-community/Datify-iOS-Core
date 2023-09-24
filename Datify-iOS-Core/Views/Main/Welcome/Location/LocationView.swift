@@ -79,8 +79,22 @@ struct LocationChooseButtonView: View {
                 HStack {
                     Text(label)
                         .dtTypo(.p2Regular, color: .textSecondary)
-                    Text((location?.name) ?? String(localized: "Loading..."))
-                        .dtTypo(.p2Regular, color: .textPrimary)
+                    if isCountrySelection {
+                        Text(location?.name ?? String(localized: "Loading..."))
+                            .dtTypo(.p2Regular, color: .textPrimary)
+                            .onAppear {
+                                print("isCountrySelection == true: \(viewModel.location?.selectedCountry?.name)")
+                                print("isCountrySelection == true: \(location?.name)")
+
+                            }
+                    } else {
+                        Text(location?.cities.first ?? String(localized: "Loading..."))
+                            .dtTypo(.p2Regular, color: .textPrimary)
+                            .onAppear {
+                                print("isCountrySelection == false: \(viewModel.location?.selectedCity?.cities.first)")
+                                print("isCountrySelection == false: \(location?.name)")
+                            }
+                    }
                     Spacer()
                     Image("iconArrowBottom")
                         .frame(width: 24, height: 24)
@@ -105,6 +119,7 @@ struct LocationChooseButtonView: View {
                         ForEach(Country.allCountries, id: \.self) { country in
                             Button(action: {
                                 viewModel.location?.selectedCountry = country
+                                viewModel.location?.selectedCity = country
                                 isPopoverVisible.toggle()
                             }) {
                                 Text(country.name)
@@ -150,17 +165,9 @@ extension LocationView {
 
     private var bottomButtons: some View {
         HStack {
-            Button {
+            DtBackButton {
                 // TODO: Back button
-                print("back")
-            } label: {
-                Image("arrowLeft")
-                    .resizableFit()
-                    .frame(width: 24, height: 24)
             }
-            .frame(width: 56, height: AppConstants.Visual.buttonHeight)
-            .background(RoundedRectangle(cornerRadius: AppConstants.Visual.cornerRadius)
-                .foregroundColor(.backgroundSecondary))
 
             DtButton( title: String(localized: "Next"), style: .main) {
                 // TODO: Next button
