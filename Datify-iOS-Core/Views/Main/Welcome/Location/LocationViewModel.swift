@@ -12,11 +12,18 @@ final class LocationViewModel: ObservableObject {
     @Published var location: LocationModel?
     @Published var error: Error?
     @Published var isLoading: Bool = false
+    @Published var locationSetByGeo: Bool = false
 
     var locationManager = LocationManager()
 
     private weak var router: Router<AppRoute>?
     private var cancellables = Set<AnyCancellable>()
+
+    private var locationPublisher: AnyPublisher<LocationModel?, Never> {
+        $location
+            .debounce(for: 0.5, scheduler: DispatchQueue.main)
+            .eraseToAnyPublisher()
+    }
 
     init(
         router: Router<AppRoute>
@@ -24,6 +31,9 @@ final class LocationViewModel: ObservableObject {
         self.router = router
         setupLocationManager()
         setupSubscribers()
+        if !locationSetByGeo {
+            locationManager.requestLocation()
+        }
     }
 
     func setupLocationManager() {
@@ -32,12 +42,14 @@ final class LocationViewModel: ObservableObject {
     }
     private func setupSubscribers() {
         locationManager.$location
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] newLocation in
                 self?.location = newLocation
             }
             .store(in: &cancellables)
 
         locationManager.$error
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] newError in
                 self?.error = newError
             }
@@ -51,5 +63,16 @@ final class LocationViewModel: ObservableObject {
 
     func selectCity(_ city: String) {
         location?.selectedCountry?.selectedCity = city
+    }
+
+    private func handleLocationChange(_ newLocation: LocationModel?) {
+        if !isLoading, !locationSetByGeo {
+            if let countryName = newLocation?.selectedCountry,
+               let cityName = newLocation?.selectedCountry?.selectedCity {
+                selectCountry(countryName)
+                selectCity(cityName)
+                locationSetByGeo = true
+            }
+        }
     }
 }

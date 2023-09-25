@@ -10,10 +10,7 @@ import SwiftUI
 struct LocationView: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject var viewModel: LocationViewModel
-
     @State private var isLoading = true
-    @State private var selectedCountry: Country?
-    @State private var locationHasBeenSet = false
 
     var body: some View {
         VStack {
@@ -29,21 +26,6 @@ struct LocationView: View {
             Task {
                 try await Task.sleep(nanoseconds: UInt64(0.8))
                 isLoading = false
-                viewModel.setupLocationManager()
-            }
-        }
-        .onChange(of: viewModel.location) { newLocation in
-            if newLocation?.selectedCountry?.selectedCity != nil {
-                if let countryName = newLocation?.selectedCountry,
-                   let cityName = newLocation?.selectedCountry?.selectedCity {
-                    selectedCountry = countryName
-                    selectedCountry?.selectedCity = cityName
-                }
-            }
-        }
-        .onChange(of: viewModel.isLoading) { isLoading in
-            if !isLoading {
-                self.isLoading = false
             }
         }
         .overlay(
@@ -62,7 +44,7 @@ struct LocationView: View {
 
     private func locationChooseButton(label: String, isCountrySelection: Bool) -> some View {
         LocationChooseButtonView(
-            location: $selectedCountry,
+            location: $viewModel.location,
             label: label,
             viewModel: viewModel,
             isCountrySelection: isCountrySelection
@@ -71,7 +53,7 @@ struct LocationView: View {
 }
 
 struct LocationChooseButtonView: View {
-    @Binding var location: Country?
+    @Binding var location: LocationModel?
     @State private var isPopoverVisible = false
 
     let label: String
@@ -109,9 +91,9 @@ struct LocationChooseButtonView: View {
 
     private var locationValue: String {
         if isCountrySelection {
-            return location?.name ?? String(localized: "Loading...")
+            return location?.selectedCountry?.name ?? String(localized: "Loading...")
         } else {
-            return location?.selectedCity ?? String(localized: "Loading...")
+            return location?.selectedCountry?.selectedCity ?? String(localized: "Loading...")
         }
     }
 
@@ -120,10 +102,22 @@ struct LocationChooseButtonView: View {
                 return AnyView(
                     List {
                         ForEach(Country.allCountries, id: \.self) { country in
-                            locationListItem(name: country.name) {
+                            Button {
                                 selectedLocation = country.name
+                                print("selectedLocation \(selectedLocation)")
                                 viewModel.selectCountry(country)
-                                isPopoverVisible.toggle()
+                            } label: {
+                                HStack {
+                                    Text(country.name)
+                                        .dtTypo(.p2Regular, color: .textPrimary)
+                                    Spacer()
+                                    if selectedLocation == country.name {
+                                        Image(systemName: "checkmark.circle.fill")
+                                            .foregroundColor(.accentsBlue)
+                                    } else {
+                                        Spacer()
+                                    }
+                                }
                             }
                         }
                     }
@@ -136,10 +130,21 @@ struct LocationChooseButtonView: View {
                     List {
                         if let location = viewModel.location?.selectedCountry {
                             ForEach(location.cities, id: \.self) { city in
-                                locationListItem(name: city) {
+                                Button {
                                     selectedLocation = city
                                     viewModel.selectCity(city)
-                                    isPopoverVisible.toggle()
+                                } label: {
+                                    HStack {
+                                        Text(city)
+                                            .dtTypo(.p2Regular, color: .textPrimary)
+                                        Spacer()
+                                        if selectedLocation == city {
+                                            Image(systemName: "checkmark.circle.fill")
+                                                .foregroundColor(.accentsBlue)
+                                        } else {
+                                            Spacer()
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -148,23 +153,6 @@ struct LocationChooseButtonView: View {
                     .navigationBarTitleDisplayMode(.inline)
                 )
             }
-    }
-
-    private func locationListItem(name: String, action: @escaping () -> Void) -> some View {
-        Button {
-            // TODO: action
-        } label: {
-            HStack {
-                Text(name)
-                    .dtTypo(.p2Regular, color: .textPrimary)
-                Spacer()
-                Image(systemName: selectedLocation == name
-                      ? "checkmark.circle.fill"
-                      : "checkmark.circle"
-                )
-                .foregroundColor(.green)
-            }
-        }
     }
 }
 
