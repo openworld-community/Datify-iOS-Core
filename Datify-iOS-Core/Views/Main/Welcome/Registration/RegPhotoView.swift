@@ -28,6 +28,30 @@ struct RegPhotoView: View {
                 DtLogoView()
             }
         }
+        .fullScreenCover(
+            isPresented: $viewModel.showPhotoPicker) {
+                // TODO: action when dismiss
+            } content: {
+                DtPhotoPicker(isPickerShown: $viewModel.showPhotoPicker, selectedImages: $viewModel.selectedImages)
+            }
+        .alert(
+            Text(
+                viewModel.photoLibraryAuthStatus == .denied ?
+                "Access to the photo library is denied." :
+                "Something is wrong."),
+            isPresented: $viewModel.showAlert) {
+            if viewModel.photoLibraryAuthStatus == .denied {
+                Button("OK") {
+                    goToAppSettings()
+                }
+                Button("Cancel", role: .cancel, action: {})
+            }
+            } message: {
+            Text(
+                viewModel.photoLibraryAuthStatus == .denied ?
+                "Open Settings for editing?" :
+                "Unable to show photo library")
+            }
     }
 }
 
@@ -50,27 +74,47 @@ private extension RegPhotoView {
 
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
-                        ForEach(0..<3) { index in
-                            if index < viewModel.selectedImages.count {
-                                PhotosPicker(
-                                    selection: $viewModel.imageSelections[index],
-                                    matching: .images
-                                ) {
-                                    VStack {
-                                        if let image = viewModel.selectedImages[index] {
-                                            image
-                                                .resizableFill()
-                                        } else {
-                                            photoPlaceholderView
-                                        }
-                                    }
-                                    .aspectRatio(160/210, contentMode: .fit)
-                                    .frame(width: geo.size.width * 0.4)
-                                    .cornerRadius(AppConstants.Visual.cornerRadius)
+                        ForEach(0..<5) { index in
+                            VStack {
+                                if index < viewModel.selectedImages.count,
+                                    let uiImage = UIImage(data: viewModel.selectedImages[index]) {
+                                    Image(uiImage: uiImage)
+                                        .resizableFill()
+                                } else {
+                                    photoPlaceholderView
                                 }
                             }
-                        }
+//                                VStack {
+//                                    if let uiImage = viewModel.selectedImages[index] {
+//                                        Image(uiImage: uiImage)
+//                                            .resizableFill()
+//                                    } else {
+//                                        photoPlaceholderView
+//                                    }
+//                                }
+                                .aspectRatio(160/210, contentMode: .fit)
+                                .frame(width: geo.size.width * 0.4)
+                                .cornerRadius(AppConstants.Visual.cornerRadius)
+                                .onTapGesture {
+                                    PHPhotoLibrary.requestAuthorization(
+                                        for: .readWrite) { status in
+                                            switch status {
+                                            case .authorized, .limited:
+                                                Task {
+                                                    viewModel.showPhotoPicker = true
+                                                }
+                                            case .restricted, .denied:
+                                                Task {
+                                                    viewModel.showAlert = true
+                                                }
+                                            default:
+                                                break
+                                            }
+                                        }
+                                }
+//                        }
                     }
+                }
                     .padding(.horizontal)
                 }
             }
@@ -108,5 +152,15 @@ private extension RegPhotoView {
                 .disabled(viewModel.isButtonDisabled)
         }
         .padding(.horizontal)
+    }
+
+    func goToAppSettings() {
+        guard let url = URL(string: UIApplication.openSettingsURLString),
+              UIApplication.shared.canOpenURL(url) else {
+            // should this line be here?
+            assertionFailure("Not able to open App privacy settings")
+            return
+        }
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
 }

@@ -62,7 +62,8 @@ extension WelcomeView {
     private var buttonsSection: some View {
         VStack {
             SignInWithButton {
-                router.push(.login)
+            // TODO: change rout
+              router.push(.registrationPhoto)
             }
             .padding()
             orLine
