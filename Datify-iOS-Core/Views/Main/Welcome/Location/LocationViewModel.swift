@@ -11,7 +11,6 @@ import Foundation
 final class LocationViewModel: ObservableObject {
     @Published var location: LocationModel?
     @Published var error: Error?
-    @Published var isLoading: Bool = false
     @Published var locationSetByGeo: Bool = false
 
     var locationManager = LocationManager()
@@ -37,7 +36,7 @@ final class LocationViewModel: ObservableObject {
     }
 
     func setupLocationManager() {
-        self.isLoading = true
+        locationManager.isLoading = true
         locationManager.requestLocation()
     }
     private func setupSubscribers() {
@@ -66,7 +65,7 @@ final class LocationViewModel: ObservableObject {
     }
 
     private func handleLocationChange(_ newLocation: LocationModel?) {
-        if !isLoading, !locationSetByGeo {
+        if !locationManager.isLoading, !locationSetByGeo {
             if let countryName = newLocation?.selectedCountry,
                let cityName = newLocation?.selectedCountry?.selectedCity {
                 selectCountry(countryName)

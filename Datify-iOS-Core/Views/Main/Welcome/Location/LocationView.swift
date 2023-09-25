@@ -10,14 +10,13 @@ import SwiftUI
 struct LocationView: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject var viewModel: LocationViewModel
-    @State private var isLoading = true
 
     var body: some View {
         VStack {
             Spacer()
             titleLabel
-            locationChooseButton(label: "Country", isCountrySelection: true)
-            locationChooseButton(label: "City", isCountrySelection: false)
+            locationChooseButton(label: String(localized: "Country"), isCountrySelection: true)
+            locationChooseButton(label: String(localized: "City"), isCountrySelection: false)
             Spacer()
             bottomButtons
         }
@@ -25,12 +24,12 @@ struct LocationView: View {
             // TODO: when screen has appeared
             Task {
                 try await Task.sleep(nanoseconds: UInt64(0.8))
-                isLoading = false
+                viewModel.locationManager.isLoading = false
             }
         }
         .overlay(
             Group {
-                if isLoading {
+                if viewModel.locationManager.isLoading {
                     DtSpinnerView(size: 56)
                 }
             }
@@ -104,7 +103,6 @@ struct LocationChooseButtonView: View {
                         ForEach(Country.allCountries, id: \.self) { country in
                             Button {
                                 selectedLocation = country.name
-                                print("selectedLocation \(selectedLocation)")
                                 viewModel.selectCountry(country)
                             } label: {
                                 HStack {
@@ -178,7 +176,6 @@ extension LocationView {
             }
             DtButton( title: String(localized: "Next"), style: .main) {
                 // TODO: Next button
-                print("next tapped")
             }
         }
         .padding(.horizontal)
