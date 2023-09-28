@@ -14,4 +14,5 @@ enum DtImage {
     static let xmark = "xmark"
     static let eyeHide = "eyeHide"
     static let eyeShow = "eyeShow"
+    static let arrowBottom = "iconArrowBottom"
 }

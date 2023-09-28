@@ -9,22 +9,33 @@ import SwiftUI
 
 struct LocationView: View {
     @Environment(\.dismiss) private var dismiss
-    @StateObject var viewModel: LocationViewModel
+    @StateObject private var viewModel: LocationViewModel
+
+    init(router: Router<AppRoute>) {
+        _viewModel = StateObject(wrappedValue: LocationViewModel(router: router))
+    }
 
     var body: some View {
         VStack {
             Spacer()
             titleLabel
-            locationChooseButton(label: String(localized: "Country"), isCountrySelection: true)
-            locationChooseButton(label: String(localized: "City"), isCountrySelection: false)
+            locationChooseButton(label: "Country".localize(), isCountrySelection: true)
+            locationChooseButton(label: "City".localize(), isCountrySelection: false)
             Spacer()
             bottomButtons
         }
         .onAppear {
-            // TODO: when screen has appeared
+            // TODO: when screen has appeared. 
+            // Upload data to CountryModel from server via API
+            // Find geolocation in data in CountryModel
             Task {
                 try await Task.sleep(nanoseconds: UInt64(0.8))
                 viewModel.locationManager.isLoading = false
+            }
+        }
+        .onReceive(viewModel.$error) { error in
+            if let error = error {
+                viewModel.showErrorAlert(message: error.localizedDescription)
             }
         }
         .overlay(
@@ -71,7 +82,7 @@ struct LocationChooseButtonView: View {
                     Text(locationValue)
                         .dtTypo(.p2Regular, color: .textPrimary)
                     Spacer()
-                    Image("iconArrowBottom")
+                    Image(DtImage.arrowBottom)
                         .frame(width: 24, height: 24)
                         .foregroundColor(.secondary)
                 }
@@ -90,78 +101,73 @@ struct LocationChooseButtonView: View {
 
     private var locationValue: String {
         if isCountrySelection {
-            return location?.selectedCountry?.name ?? String(localized: "Loading...")
+            return location?.selectedCountry?.name ?? "Loading...".localize()
         } else {
-            return location?.selectedCountry?.selectedCity ?? String(localized: "Loading...")
+            return location?.selectedCountry?.selectedCity ?? "Loading...".localize()
         }
     }
 
-    private var locationList: some View {
-            if isCountrySelection {
-                return AnyView(
-                    List {
-                        ForEach(Country.allCountries, id: \.self) { country in
-                            Button {
-                                selectedLocation = country.name
-                                viewModel.selectCountry(country)
-                            } label: {
-                                HStack {
-                                    Text(country.name)
-                                        .dtTypo(.p2Regular, color: .textPrimary)
-                                    Spacer()
-                                    if selectedLocation == country.name {
-                                        Image(systemName: "checkmark.circle.fill")
-                                            .foregroundColor(.accentsBlue)
-                                    } else {
-                                        Spacer()
-                                    }
-                                }
+    @ViewBuilder
+    private func locationList() -> some View {
+        if isCountrySelection {
+            List {
+                ForEach(Country.allCountries, id: \.self) { country in
+                    Button {
+                        selectedLocation = country.name
+                        viewModel.selectCountry(country)
+                    } label: {
+                        HStack {
+                            Text(country.name)
+                                .dtTypo(.p2Regular, color: .textPrimary)
+                            Spacer()
+                            if selectedLocation == country.name {
+                                Image(systemName: "checkmark.circle.fill")
+                                    .foregroundColor(.accentsBlue)
+                            } else {
+                                Spacer()
                             }
                         }
                     }
-                    .background(.secondary)
-                    .navigationBarTitle(String(localized: "Choose your \(label)"))
-                    .navigationBarTitleDisplayMode(.inline)
-                )
-            } else {
-                return AnyView(
-                    List {
-                        if let location = viewModel.location?.selectedCountry {
-                            ForEach(location.cities, id: \.self) { city in
-                                Button {
-                                    selectedLocation = city
-                                    viewModel.selectCity(city)
-                                } label: {
-                                    HStack {
-                                        Text(city)
-                                            .dtTypo(.p2Regular, color: .textPrimary)
-                                        Spacer()
-                                        if selectedLocation == city {
-                                            Image(systemName: "checkmark.circle.fill")
-                                                .foregroundColor(.accentsBlue)
-                                        } else {
-                                            Spacer()
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    .navigationBarTitle(String(localized: "Choose your \(label)"))
-                    .navigationBarTitleDisplayMode(.inline)
-                )
+                }
             }
+            .background(.secondary)
+            .navigationBarTitle("Choose your \(label)".localize())
+            .navigationBarTitleDisplayMode(.inline)
+        } else {
+            List {
+                if let location = viewModel.location?.selectedCountry {
+                    ForEach(location.cities, id: \.self) { city in
+                        Button {
+                            selectedLocation = city
+                            viewModel.selectCity(city)
+                        } label: {
+                            HStack {
+                                Text(city)
+                                    .dtTypo(.p2Regular, color: .textPrimary)
+                                Spacer()
+                                if selectedLocation == city {
+                                    Image(systemName: "checkmark.circle.fill")
+                                        .foregroundColor(.accentsBlue)
+                                } else {
+                                    Spacer()
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            .navigationBarTitle("Choose your \(label)".localize())
+            .navigationBarTitleDisplayMode(.inline)
+        }
     }
 }
 
 extension LocationView {
     private var titleLabel: some View {
         VStack(spacing: 8) {
-            Text(String(localized: "Where are you located?"))
+            Text("Where are you located?".localize())
                 .dtTypo(.h3Medium, color: .textPrimary)
-            Text(String(
-                localized: "Choose your city of residence; this will help us find people around you more accurately"
-            ))
+            Text("Choose your city of residence; this will help us find people around you more accurately".localize())
                 .dtTypo(.p2Regular, color: .textSecondary)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal)
@@ -174,7 +180,7 @@ extension LocationView {
             DtBackButton {
                 // TODO: Back button
             }
-            DtButton( title: String(localized: "Next"), style: .main) {
+            DtButton(title: "Next".localize(), style: .main) {
                 // TODO: Next button
             }
         }
@@ -183,8 +189,8 @@ extension LocationView {
     }
 }
 
-struct LocationView_Previews: PreviewProvider {
-    static var previews: some View {
-        LocationView(viewModel: LocationViewModel(router: Router()))
-    }
-}
+// struct LocationView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        LocationView(viewModel: LocationViewModel(router: Router()))
+//    }
+// }

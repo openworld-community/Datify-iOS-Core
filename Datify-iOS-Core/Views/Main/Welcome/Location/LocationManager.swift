@@ -53,6 +53,7 @@ class LocationManager: NSObject, ObservableObject {
                 }
             } catch {
                 // TODO: Handle error
+                print("Error: \(error.localizedDescription)")
                 await MainActor.run {
                     self.error = error
                 }
@@ -86,7 +87,7 @@ extension LocationManager: CLLocationManagerDelegate {
             do {
                 try await Task.sleep(nanoseconds: 10 * 1_000_000_000)
             } catch {
-                print(String(localized: "Error: \(error.localizedDescription)"))
+                print("Error: \(error.localizedDescription)")
             }
             requestLocation()
         }

@@ -14,7 +14,7 @@ enum AppConstants {
     }
     // swiftlint: disable all
     enum Text {
-        static let termsAndConditions = String(localized: """
+        static let termsAndConditions = """
 Welcome to Datify, a dating application developed by Berkana Tech Solutions. Please read these Terms and Conditions carefully before using Datify. By accessing or using Datify, you agree to be bound by these Terms and Conditions. If you do not agree with any part of these Terms and Conditions, you must not use Datify.
 
 Acceptance of Terms
@@ -61,7 +61,7 @@ These Terms and Conditions are governed by and construed in accordance with the 
 Severability
 If any provision of these Terms and Conditions is found to be invalid or unenforceable, the remaining provisions shall remain in full force and effect.
 By using Datify, you acknowledge that you have read, understood, and agree to these Terms and Conditions.
-""")
+""".localize()
     }
     // swiftlint: enable all
 }

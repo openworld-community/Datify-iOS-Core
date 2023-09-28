@@ -36,6 +36,8 @@
 		638D1E882ABAB45C0001CED4 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638D1E842ABAB45C0001CED4 /* LocationManager.swift */; };
 		638D1E892ABAB45C0001CED4 /* CountryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638D1E852ABAB45C0001CED4 /* CountryModel.swift */; };
 		63A365A32AA04FFB00CBF5CD /* DtCustomTF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A365A22AA04FFB00CBF5CD /* DtCustomTF.swift */; };
+		63A5B8B32AC5EC9000DEB54A /* LocationFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A5B8B22AC5EC9000DEB54A /* LocationFlow.swift */; };
+		63A5B8B52AC5F0BA00DEB54A /* CountryAndCityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A5B8B42AC5F0BA00DEB54A /* CountryAndCityView.swift */; };
 		63A729592AA3937500AC60E3 /* RegularTFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A729582AA3937500AC60E3 /* RegularTFView.swift */; };
 		63A7295D2AA395A200AC60E3 /* ConstantsTF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A7295C2AA395A200AC60E3 /* ConstantsTF.swift */; };
 		63A7295F2AA3A30E00AC60E3 /* SecureTFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A7295E2AA3A30E00AC60E3 /* SecureTFView.swift */; };
@@ -104,6 +106,8 @@
 		638D1E842ABAB45C0001CED4 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		638D1E852ABAB45C0001CED4 /* CountryModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryModel.swift; sourceTree = "<group>"; };
 		63A365A22AA04FFB00CBF5CD /* DtCustomTF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtCustomTF.swift; sourceTree = "<group>"; };
+		63A5B8B22AC5EC9000DEB54A /* LocationFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationFlow.swift; sourceTree = "<group>"; };
+		63A5B8B42AC5F0BA00DEB54A /* CountryAndCityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryAndCityView.swift; sourceTree = "<group>"; };
 		63A729582AA3937500AC60E3 /* RegularTFView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegularTFView.swift; sourceTree = "<group>"; };
 		63A7295C2AA395A200AC60E3 /* ConstantsTF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantsTF.swift; sourceTree = "<group>"; };
 		63A7295E2AA3A30E00AC60E3 /* SecureTFView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureTFView.swift; sourceTree = "<group>"; };
@@ -257,6 +261,7 @@
 				4A4CE2C92A9B3E8C0098FF80 /* NavigationViewBuilder.swift */,
 				4A4CE2D52A9B44C20098FF80 /* LoginFlow.swift */,
 				4A4CE2D32A9B44280098FF80 /* RegistrationFlow.swift */,
+				63A5B8B22AC5EC9000DEB54A /* LocationFlow.swift */,
 			);
 			path = NavigationViewBuilder;
 			sourceTree = "<group>";
@@ -315,6 +320,7 @@
 				638D1E842ABAB45C0001CED4 /* LocationManager.swift */,
 				638D1E822ABAB45C0001CED4 /* LocationView.swift */,
 				638D1E832ABAB45C0001CED4 /* LocationViewModel.swift */,
+				63A5B8B42AC5F0BA00DEB54A /* CountryAndCityView.swift */,
 			);
 			path = Location;
 			sourceTree = "<group>";
@@ -590,6 +596,7 @@
 				D0C185302AA1D0E1000D71E5 /* SignInWithButton.swift in Sources */,
 				632A7F5E2AAC897B005DA819 /* DtCustomTFView+extension.swift in Sources */,
 				4A4CE2DC2A9B485B0098FF80 /* WelcomeView.swift in Sources */,
+				63A5B8B52AC5F0BA00DEB54A /* CountryAndCityView.swift in Sources */,
 				63A7295F2AA3A30E00AC60E3 /* SecureTFView.swift in Sources */,
 				4A4CE2E82A9B58590098FF80 /* DtTypography.swift in Sources */,
 				63203C712AAC6B2600F8803A /* UIApplication+extension.swift in Sources */,
@@ -600,6 +607,7 @@
 				63A729592AA3937500AC60E3 /* RegularTFView.swift in Sources */,
 				20BF9D932AB1BE85008B3CEB /* RegSelectGenderView.swift in Sources */,
 				4A4CE2E32A9B53E70098FF80 /* Color+extension.swift in Sources */,
+				63A5B8B32AC5EC9000DEB54A /* LocationFlow.swift in Sources */,
 				2076AF2E2AB080DB00AF5E11 /* String+extension.swift in Sources */,
 				9898B2BF2AAA49DE007CA714 /* RegEmailViewModel.swift in Sources */,
 				98F3B6D62A9E4F9D0097B5C0 /* DtLogoView.swift in Sources */,
@@ -786,7 +794,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = Datify;
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Our geolocation-based dating app helps you find suitable partners both in your local area and beyond. We utilize geopositioning to generate more precise and personalized recommendations, taking your location into consideration.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -821,7 +829,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = Datify;
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Our geolocation-based dating app helps you find suitable partners both in your local area and beyond. We utilize geopositioning to generate more precise and personalized recommendations, taking your location into consideration.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
