@@ -39,6 +39,7 @@
 		63A729692AA4A94B00AC60E3 /* CountryCodeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A729682AA4A94B00AC60E3 /* CountryCodeButton.swift */; };
 		980895BA2A9F4A5700F82F02 /* DtSpinnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980895B92A9F4A5700F82F02 /* DtSpinnerView.swift */; };
 		98553B0A2AAE4A43005C80B3 /* View+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98553B092AAE4A43005C80B3 /* View+extension.swift */; };
+		9888E7862AC4747400F5B86F /* DtLimitedPhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9888E7852AC4747400F5B86F /* DtLimitedPhotoPicker.swift */; };
 		9898B2BF2AAA49DE007CA714 /* RegEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9898B2BE2AAA49DE007CA714 /* RegEmailViewModel.swift */; };
 		98E38EB42AB351A0007FC35A /* RegPhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E38EB32AB351A0007FC35A /* RegPhotoView.swift */; };
 		98E38EB62AB358F8007FC35A /* RegPhotoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E38EB52AB358F8007FC35A /* RegPhotoViewModel.swift */; };
@@ -105,6 +106,8 @@
 		63A729682AA4A94B00AC60E3 /* CountryCodeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCodeButton.swift; sourceTree = "<group>"; };
 		980895B92A9F4A5700F82F02 /* DtSpinnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtSpinnerView.swift; sourceTree = "<group>"; };
 		98553B092AAE4A43005C80B3 /* View+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+extension.swift"; sourceTree = "<group>"; };
+		9888E7852AC4747400F5B86F /* DtLimitedPhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtLimitedPhotoPicker.swift; sourceTree = "<group>"; };
+		9888E7872AC55E3600F5B86F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		9898B2BE2AAA49DE007CA714 /* RegEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RegEmailViewModel.swift; path = "Datify-iOS-Core/Views/Main/Welcome/Registration/RegEmailViewModel.swift"; sourceTree = SOURCE_ROOT; };
 		98E38EB32AB351A0007FC35A /* RegPhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegPhotoView.swift; sourceTree = "<group>"; };
 		98E38EB52AB358F8007FC35A /* RegPhotoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegPhotoViewModel.swift; sourceTree = "<group>"; };
@@ -182,6 +185,7 @@
 				980895B92A9F4A5700F82F02 /* DtSpinnerView.swift */,
 				D050B1B02AA84AA0008EC0AB /* DividerLine.swift */,
 				2012EF652AAF719C00B01688 /* DtTermsAndConditions.swift */,
+				9888E7852AC4747400F5B86F /* DtLimitedPhotoPicker.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -370,6 +374,7 @@
 		D0DC465B2A92699D0097CFF3 /* Datify-iOS-Core */ = {
 			isa = PBXGroup;
 			children = (
+				9888E7872AC55E3600F5B86F /* Info.plist */,
 				D0DC465C2A92699D0097CFF3 /* DatifyiOSCoreApp.swift */,
 				D0DC465E2A92699D0097CFF3 /* MainAppView.swift */,
 				4A4CE2DE2A9B4EEB0098FF80 /* Resources */,
@@ -606,6 +611,7 @@
 				4A4CE2DA2A9B47650098FF80 /* LoginViewModel.swift in Sources */,
 				D050B1B12AA84AA0008EC0AB /* DividerLine.swift in Sources */,
 				63A729672AA48CAA00AC60E3 /* Regex.swift in Sources */,
+				9888E7862AC4747400F5B86F /* DtLimitedPhotoPicker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -769,7 +775,9 @@
 				DEVELOPMENT_TEAM = 2S52Q5VDX5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Datify-iOS-Core/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Datify;
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -803,7 +811,9 @@
 				DEVELOPMENT_TEAM = 2S52Q5VDX5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Datify-iOS-Core/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Datify;
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

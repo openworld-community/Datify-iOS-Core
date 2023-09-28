@@ -17,16 +17,48 @@ struct RegPhotoView: View {
     }
 
     var body: some View {
-        VStack {
-            mainSection
-            buttonsSection
+        ZStack {
+            VStack {
+                mainSection
+                buttonsSection
+            }
+            if viewModel.showSpinner {
+                DtSpinnerView(size: 50)
+            }
         }
         .padding(.bottom, 24)
         .navigationBarBackButtonHidden()
+        .onAppear {
+            viewModel.checkPhotoAuthStatus()
+        }
         .toolbar {
             ToolbarItem(placement: .principal) {
                 DtLogoView()
             }
+        }
+        .alert(
+            viewModel.photoAuthStatus == .denied ? "Access denied" : "Something wrong",
+            isPresented: $viewModel.isAlertShowing
+        ) {
+            if viewModel.photoAuthStatus == .denied {
+                Button("OK") {
+                    viewModel.goToAppSettings()
+                }
+                Button("Cancel", role: .cancel, action: {})
+            }
+        } message: {
+            if viewModel.photoAuthStatus == .denied {
+                Text("Open Settings for editing?")
+            } else {
+                Text("Unable to show photo library")
+            }
+        }
+        .sheet(isPresented: $viewModel.showLimitedPicker) {
+            DtLimitedPhotoPicker(
+                isShowing: $viewModel.showLimitedPicker,
+                image: $viewModel.selectedImages[viewModel.photoIndex],
+                viewModel: viewModel
+            )
         }
     }
 }
@@ -50,24 +82,45 @@ private extension RegPhotoView {
 
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
-                        ForEach(0..<3) { index in
+                        ForEach(0..<5) { index in
                             if index < viewModel.selectedImages.count {
-                                PhotosPicker(
-                                    selection: $viewModel.imageSelections[index],
-                                    matching: .images
-                                ) {
-                                    VStack {
-                                        if let image = viewModel.selectedImages[index] {
-                                            image
-                                                .resizableFill()
-                                        } else {
-                                            photoPlaceholderView
+                                Group {
+                                    if viewModel.photoAuthStatus == .authorized {
+                                        PhotosPicker(
+                                            selection: $viewModel.imageSelections[index],
+                                            matching: .images
+                                        ) {
+                                            Group {
+                                                if let image = viewModel.selectedImages[index] {
+                                                    image
+                                                        .resizableFill()
+                                                } else {
+                                                    photoPlaceholderView
+                                                }
+                                            }
+                                        }
+                                    } else {
+                                        Group {
+                                            if let image = viewModel.selectedImages[index] {
+                                                image
+                                                    .resizableFill()
+                                            } else {
+                                                photoPlaceholderView
+                                            }
+                                        }
+                                        .onTapGesture {
+                                            if viewModel.photoAuthStatus == .limited {
+                                                viewModel.photoIndex = index
+                                                viewModel.showLimitedPicker = true
+                                            } else {
+                                                viewModel.isAlertShowing = true
+                                            }
                                         }
                                     }
-                                    .aspectRatio(160/210, contentMode: .fit)
-                                    .frame(width: geo.size.width * 0.4)
-                                    .cornerRadius(AppConstants.Visual.cornerRadius)
                                 }
+                                .aspectRatio(160/210, contentMode: .fit)
+                                .frame(width: geo.size.width * 0.4)
+                                .cornerRadius(AppConstants.Visual.cornerRadius)
                             }
                         }
                     }
