@@ -1,0 +1,3 @@
+[submodule "Datify-mobile-shared"]
+	path = Datify-mobile-shared
+	url = https://github.com/openworld-community/Datify-mobile-shared.git

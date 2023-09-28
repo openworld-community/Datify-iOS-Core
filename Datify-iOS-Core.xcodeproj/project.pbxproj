@@ -106,6 +106,7 @@
 		9898B2BE2AAA49DE007CA714 /* RegEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RegEmailViewModel.swift; path = "Datify-iOS-Core/Views/Main/Welcome/Registration/RegEmailViewModel.swift"; sourceTree = SOURCE_ROOT; };
 		98F3B6D52A9E4F9D0097B5C0 /* DtLogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtLogoView.swift; sourceTree = "<group>"; };
 		98F9F2062AB0C80A00F7DAB8 /* RegEmailViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegEmailViewModel.swift; sourceTree = "<group>"; };
+		B9D98C0D2AC425F400F0F4B8 /* Datifysharedcore */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Datifysharedcore; path = ../Datifysharedcore; sourceTree = "<group>"; };
 		D050B1B02AA84AA0008EC0AB /* DividerLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerLine.swift; sourceTree = "<group>"; };
 		D0C1852F2AA1D0E1000D71E5 /* SignInWithButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInWithButton.swift; sourceTree = "<group>"; };
 		D0C896592AA217630084FA62 /* DtImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtImage.swift; sourceTree = "<group>"; };
@@ -342,6 +343,7 @@
 		D0DC46502A92699C0097CFF3 = {
 			isa = PBXGroup;
 			children = (
+				B9D98C0D2AC425F400F0F4B8 /* Datifysharedcore */,
 				D0DC46862A926C650097CFF3 /* README.md */,
 				D0DC465B2A92699D0097CFF3 /* Datify-iOS-Core */,
 				D0DC466C2A92699F0097CFF3 /* Datify-iOS-CoreTests */,
@@ -409,6 +411,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D0DC467D2A92699F0097CFF3 /* Build configuration list for PBXNativeTarget "Datify-iOS-Core" */;
 			buildPhases = (
+				B9D98C0C2AC422F700F0F4B8 /* Run Script */,
 				D0DC46552A92699D0097CFF3 /* Sources */,
 				D0DC46562A92699D0097CFF3 /* Frameworks */,
 				D0DC46572A92699D0097CFF3 /* Resources */,
@@ -552,6 +555,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if [[ \"$(uname -m)\" == arm64 ]]; then\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nfi\n\nif which swiftlint > /dev/null; then\n  swiftlint --fix && swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+		B9D98C0C2AC422F700F0F4B8 /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd \"$SRCROOT/Datify-mobile-shared\"\n./gradlew :shared:embedAndSignAppleFrameworkForXcode \n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -760,6 +781,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Datify-iOS-Core/Preview Content\"";
 				DEVELOPMENT_TEAM = 2S52Q5VDX5;
 				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/Datify-mobile-shared/shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = Datify;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -771,6 +793,11 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					shared,
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.a.pride.Datify-iOS-Core";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -794,6 +821,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Datify-iOS-Core/Preview Content\"";
 				DEVELOPMENT_TEAM = 2S52Q5VDX5;
 				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/Datify-mobile-shared/shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = Datify;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -805,6 +833,11 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					shared,
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.a.pride.Datify-iOS-Core";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
