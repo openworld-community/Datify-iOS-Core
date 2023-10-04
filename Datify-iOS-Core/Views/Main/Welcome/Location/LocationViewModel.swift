@@ -14,7 +14,7 @@ final class LocationViewModel: ObservableObject {
     @Published var locationSetByGeo: Bool = false
     @Published var showAlert = false
     @Published var alertMessage = ""
-//    @Published var isCountrySelection: Bool = 
+    @Published var isCountrySelection: Bool = true
     @Published var selectedLocation: String?
 
     var locationManager = LocationManager()

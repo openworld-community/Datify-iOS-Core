@@ -8,14 +8,9 @@
 import SwiftUI
 
 struct CountryAndCityView: View {
-//    @Binding var location: LocationModel?
-//    @State private var isPopoverVisible = false
-//
-//    let label: String
-//    var viewModel: LocationViewModel
+
     @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel: LocationViewModel
-//    @Binding var isCountrySelection: Bool
 
     init(router: Router<AppRoute>) {
         _viewModel = StateObject(wrappedValue: LocationViewModel(router: router))
@@ -25,20 +20,20 @@ struct CountryAndCityView: View {
         locationList()
             .onAppear {
                 print("locationList")
-                print("viewModel.isCountrySelection2: \(viewModel.isCountrySelection)")
 //                viewModel.isCountrySelection = true
             }
     }
 
     @ViewBuilder
     private func locationList() -> some View {
-        if viewModel.isCountrySelection ?? true {
+        if viewModel.isCountrySelection {
             List {
                 ForEach(Country.allCountries, id: \.self) { country in
                     Button {
                         print("selectedLocation: \(country.name)")
                         viewModel.selectedLocation = country.name
                         viewModel.selectCountry(country)
+                        viewModel.isCountrySelection = true
                     } label: {
                         HStack {
                             Text(country.name)
@@ -62,6 +57,7 @@ struct CountryAndCityView: View {
                         Button {
                             viewModel.selectedLocation = city
                             viewModel.selectCity(city)
+                            viewModel.isCountrySelection = false
                         } label: {
                             HStack {
                                 Text(city)

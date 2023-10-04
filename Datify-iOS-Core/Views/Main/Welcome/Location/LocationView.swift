@@ -163,7 +163,6 @@ struct LocationChooseButtonView: View {
         Button {
             viewModel.isCountrySelection = isCountrySelection
             viewModel.chooseCountryAndCity()
-            print("viewModel.isCountrySelection: \(viewModel.isCountrySelection )")
         } label: {
             HStack {
                 Text("\(label.capitalized):")
