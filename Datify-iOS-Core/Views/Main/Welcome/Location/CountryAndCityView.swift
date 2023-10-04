@@ -12,19 +12,31 @@ struct CountryAndCityView: View {
 //    @State private var isPopoverVisible = false
 //
 //    let label: String
-    var viewModel: LocationViewModel
-//    @State var isCountrySelection: Bool
+//    var viewModel: LocationViewModel
+    @Environment(\.dismiss) private var dismiss
+    @StateObject private var viewModel: LocationViewModel
+//    @Binding var isCountrySelection: Bool
+
+    init(router: Router<AppRoute>) {
+        _viewModel = StateObject(wrappedValue: LocationViewModel(router: router))
+    }
 
     var body: some View {
         locationList()
+            .onAppear {
+                print("locationList")
+                print("viewModel.isCountrySelection2: \(viewModel.isCountrySelection)")
+//                viewModel.isCountrySelection = true
+            }
     }
 
     @ViewBuilder
     private func locationList() -> some View {
-        if viewModel.isCountrySelection ?? false {
+        if viewModel.isCountrySelection ?? true {
             List {
                 ForEach(Country.allCountries, id: \.self) { country in
                     Button {
+                        print("selectedLocation: \(country.name)")
                         viewModel.selectedLocation = country.name
                         viewModel.selectCountry(country)
                     } label: {

@@ -14,12 +14,11 @@ final class LocationViewModel: ObservableObject {
     @Published var locationSetByGeo: Bool = false
     @Published var showAlert = false
     @Published var alertMessage = ""
-    @Published var isCountrySelection: Bool = false
+//    @Published var isCountrySelection: Bool = 
     @Published var selectedLocation: String?
 
     var locationManager = LocationManager()
 
-//    private weak var router: Router<AppRoute>?
     unowned let router: Router<AppRoute>
 
     private var cancellables = Set<AnyCancellable>()
@@ -87,6 +86,6 @@ final class LocationViewModel: ObservableObject {
     }
 
     func chooseCountryAndCity() {
-//        router.push(.r)
+        router.push(.countryAndCity)
     }
 }

@@ -29,8 +29,8 @@ struct MainAppView: View {
         case .registrationLocation: navViewBuilder.createRegLocationView()
         case .registrationRecord: navViewBuilder.createRegRecordView()
         case .registrationFinish: navViewBuilder.createRegFinishView()
-        case .location: navViewBuilder.createLocationView()
-        case .countryAndCity: navViewBuilder.createChooseCountryAndCityView()
+        case .location: navViewBuilder.createRegLocationView()
+        case .countryAndCity: navViewBuilder.createRegLocationCountryAndCityView()
         }
     }
 }
