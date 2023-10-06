@@ -10,6 +10,8 @@ import SwiftUI
 struct LocationView: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel: LocationViewModel
+    @State private var isAlertPresented = false
+    @State private var alertMessage = ""
 
     init(router: Router<AppRoute>) {
         _viewModel = StateObject(wrappedValue: LocationViewModel(router: router))
@@ -24,18 +26,22 @@ struct LocationView: View {
             Spacer()
             bottomButtons
         }
-        .onAppear {
-            // TODO: when screen has appeared. 
-            // Upload data to CountryModel from server via API
-            // Find geolocation in data in CountryModel
-            Task {
-                try await Task.sleep(nanoseconds: UInt64(0.8))
-                viewModel.locationManager.isLoading = false
+        .onReceive(viewModel.$errorMessage) { errorMessage in
+            if let errorMessage = errorMessage {
+                alertMessage = errorMessage
+                isAlertPresented = true
             }
         }
-        .onReceive(viewModel.$error) { error in
-            if let error = error {
-                viewModel.showErrorAlert(message: error.localizedDescription)
+        .task {
+            // TODO: when screen has appeared.
+            // Upload data to CountryModel from server via API
+            // Find geolocation in data in CountryModel
+            do {
+                try await Task.sleep(nanoseconds: UInt64(0.8))
+                viewModel.locationManager.isLoading = false
+            } catch {
+                alertMessage = "An error occurred: \(error.localizedDescription)"
+                viewModel.error = error
             }
         }
         .overlay(
@@ -49,6 +55,16 @@ struct LocationView: View {
             ToolbarItem(placement: .principal) {
                 DtLogoView()
             }
+        }
+        .navigationBarBackButtonHidden(true)
+        .alert(isPresented: $isAlertPresented) {
+            Alert(
+                title: Text("Error"),
+                message: Text(alertMessage),
+                dismissButton: .default(Text("OK")) {
+                    isAlertPresented = false
+                }
+            )
         }
     }
 
@@ -76,11 +92,10 @@ struct LocationChooseButtonView: View {
             HStack {
                 Text("\(label.capitalized):")
                     .dtTypo(.p2Regular, color: .textSecondary)
-                    .textInputAutocapitalization(.sentences)
                 Text(locationValue)
                     .dtTypo(.p2Regular, color: .textPrimary)
                 Spacer()
-                Image(DtImage.arrowBottom)
+                Image(DtImage.arrowRight)
                     .frame(width: 24, height: 24)
                     .foregroundColor(.secondary)
             }
@@ -108,9 +123,9 @@ struct LocationChooseButtonView: View {
 extension LocationView {
     private var titleLabel: some View {
         VStack(spacing: 8) {
-            Text("Where are you located?".localize())
+            Text("Where are you located?")
                 .dtTypo(.h3Medium, color: .textPrimary)
-            Text("Choose your city of residence; this will help us find people around you more accurately".localize())
+            Text("Choose your city of residence, this will help us find people around you more accurately")
                 .dtTypo(.p2Regular, color: .textSecondary)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal)
@@ -122,6 +137,7 @@ extension LocationView {
         HStack {
             DtBackButton {
                 // TODO: Back button
+                viewModel.back()
             }
             DtButton(title: "Next".localize(), style: .main) {
                 // TODO: Next button

@@ -9,9 +9,9 @@ import SwiftUI
 
 struct CountryAndCityView: View {
     @Environment(\.dismiss) private var dismiss
-    @ObservedObject var viewModel: LocationViewModel
+    @ObservedObject private var viewModel: LocationViewModel
 
-    var isCountrySelection: Bool
+    private var isCountrySelection: Bool
     var onLocationSelection: ((String) -> Void)?
 
     init(viewModel: LocationViewModel, isCountrySelection: Bool) {
@@ -71,9 +71,5 @@ struct CountryAndCityView: View {
                 }
             }
         }
-    }
-
-    private func selectLocation(_ location: String) {
-        onLocationSelection?(location)
     }
 }

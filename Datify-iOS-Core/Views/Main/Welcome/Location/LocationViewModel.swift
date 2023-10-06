@@ -10,12 +10,11 @@ import Foundation
 
 final class LocationViewModel: ObservableObject {
     @Published var location: LocationModel?
-    @Published var error: Error?
     @Published var locationSetByGeo: Bool = false
     @Published var showAlert = false
-    @Published var alertMessage = ""
     @Published var isCountrySelection: Bool?
     @Published var selectedLocation: String?
+    @Published var errorMessage: String?
 
     var locationManager = LocationManager()
 
@@ -27,6 +26,15 @@ final class LocationViewModel: ObservableObject {
         $location
             .debounce(for: 0.5, scheduler: DispatchQueue.main)
             .eraseToAnyPublisher()
+    }
+
+    var error: Error? {
+        didSet {
+            if let error = error {
+                errorMessage = error.localizedDescription
+                showAlert = true
+            }
+        }
     }
 
     init(
@@ -80,12 +88,11 @@ final class LocationViewModel: ObservableObject {
         }
     }
 
-    func showErrorAlert(message: String) {
-        alertMessage = message
-        showAlert = true
-    }
-
     func chooseCountryAndCity(isCountrySelection: Bool) {
         router.push(.countryAndCity(isCountrySelection: isCountrySelection, viewModel: self))
+    }
+
+    func back() {
+        router.pop()
     }
 }
