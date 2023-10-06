@@ -97,10 +97,8 @@ struct LocationChooseButtonView: View {
 
     private var locationValue: String {
         if isCountrySelection {
-            print("viewModel.location?.selectedCountry?.name: \(viewModel.location?.selectedCountry?.name)")
             return viewModel.location?.selectedCountry?.name ?? "Loading...".localize()
         } else {
-            print("viewModel.location?.selectedCountry?.selectedCity: \(viewModel.location?.selectedCountry?.selectedCity)")
             return viewModel.location?.selectedCountry?.selectedCity ?? "Loading...".localize()
         }
     }
@@ -132,9 +130,3 @@ extension LocationView {
         .padding(.bottom)
     }
 }
-
-// struct LocationView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        LocationView(viewModel: LocationViewModel(router: Router()))
-//    }
-// }

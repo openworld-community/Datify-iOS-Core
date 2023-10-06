@@ -18,7 +18,9 @@ protocol RegistrationFlow {
     func createRegSexView() -> RegSex
     func createRegEmailView() -> RegEmail
     func createRegLocationView() -> RegLocation
-    func createRegLocationCountryAndCityView(isCountrySelection: Bool) -> RegLocationCountryAndCity
+    func createRegLocationCountryAndCityView(
+        viewModel: LocationViewModel,
+        isCountrySelection: Bool) -> RegLocationCountryAndCity
     func createRegRecordView() -> RegRecord
     func createRegFinishView() -> RegFinish
 }
@@ -33,9 +35,8 @@ extension NavigationViewBuilder: RegistrationFlow {
     func createRegLocationView() -> some View {
         LocationView(router: router)
     }
-    func createRegLocationCountryAndCityView(isCountrySelection: Bool) -> some View {
-
-        CountryAndCityView(viewModel: LocationViewModel(router: router), isCountrySelection: isCountrySelection)
+    func createRegLocationCountryAndCityView(viewModel: LocationViewModel, isCountrySelection: Bool) -> some View {
+        CountryAndCityView(viewModel: viewModel, isCountrySelection: isCountrySelection)
     }
     func createRegRecordView() -> some View {
         Text("RegRecord")

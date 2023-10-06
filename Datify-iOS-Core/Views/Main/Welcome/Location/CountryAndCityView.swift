@@ -12,6 +12,7 @@ struct CountryAndCityView: View {
     @ObservedObject var viewModel: LocationViewModel
 
     var isCountrySelection: Bool
+    var onLocationSelection: ((String) -> Void)?
 
     init(viewModel: LocationViewModel, isCountrySelection: Bool) {
         self.viewModel = viewModel
@@ -20,9 +21,6 @@ struct CountryAndCityView: View {
 
     var body: some View {
         locationList()
-            .onAppear {
-                print("locationList")
-            }
     }
 
     @ViewBuilder
@@ -31,9 +29,6 @@ struct CountryAndCityView: View {
             List {
                 ForEach(Country.allCountries, id: \.self) { country in
                     Button {
-                        print("selectedLocation: \(country.name)")
-                        viewModel.selectedLocation = country.name
-                        viewModel.location?.selectedCountry?.name = country.name
                         viewModel.selectCountry(country)
                         viewModel.isCountrySelection = true
                     } label: {
@@ -57,8 +52,6 @@ struct CountryAndCityView: View {
                 if let location = viewModel.location?.selectedCountry {
                     ForEach(location.cities, id: \.self) { city in
                         Button {
-                            viewModel.selectedLocation = city
-                            viewModel.location?.selectedCountry?.selectedCity = city
                             viewModel.selectCity(city)
                             viewModel.isCountrySelection = false
                         } label: {
@@ -78,5 +71,9 @@ struct CountryAndCityView: View {
                 }
             }
         }
+    }
+
+    private func selectLocation(_ location: String) {
+        onLocationSelection?(location)
     }
 }
