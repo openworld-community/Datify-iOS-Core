@@ -93,6 +93,7 @@ struct LocationChooseButtonView: View {
                 .foregroundColor(.backgroundSecondary)
             )
         }
+        .padding(.horizontal)
     }
 
     private var locationValue: String {
