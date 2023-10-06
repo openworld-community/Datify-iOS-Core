@@ -30,7 +30,7 @@ struct MainAppView: View {
         case .registrationRecord: navViewBuilder.createRegRecordView()
         case .registrationFinish: navViewBuilder.createRegFinishView()
         case .location: navViewBuilder.createRegLocationView()
-        case .countryAndCity: navViewBuilder.createRegLocationCountryAndCityView()
+case .countryAndCity: navViewBuilder.createRegLocationCountryAndCityView(isCountrySelection: true)
         }
     }
 }

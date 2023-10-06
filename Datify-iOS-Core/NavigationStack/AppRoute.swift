@@ -17,7 +17,7 @@ enum AppRoute {
     case registrationRecord
     case registrationFinish
     case location
-    case countryAndCity
+    case countryAndCity(isCountrySelection: Bool, viewModel: LocationViewModel)
 }
 
 extension AppRoute: Hashable, Equatable {

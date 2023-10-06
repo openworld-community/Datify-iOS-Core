@@ -66,103 +66,12 @@ struct LocationChooseButtonView: View {
     @Binding var location: LocationModel?
 
     let label: String
-    @State var viewModel: LocationViewModel
+    @ObservedObject var viewModel: LocationViewModel
     @State var isCountrySelection: Bool
-
-//    var body: some View {
-//        NavigationLink(
-//            destination: locationList,
-//            label: {
-//                HStack {
-//                    Text("\(label.capitalized):")
-//                        .dtTypo(.p2Regular, color: .textSecondary)
-//                        .textInputAutocapitalization(.sentences)
-//                    Text(locationValue)
-//                        .dtTypo(.p2Regular, color: .textPrimary)
-//                    Spacer()
-//                    Image(DtImage.arrowBottom)
-//                        .frame(width: 24, height: 24)
-//                        .foregroundColor(.secondary)
-//                }
-//                .padding(.horizontal)
-//                .frame(height: AppConstants.Visual.buttonHeight)
-//                .background(
-//                    RoundedRectangle(
-//                        cornerRadius: AppConstants.Visual.cornerRadius
-//                    )
-//                    .foregroundColor(.backgroundSecondary)
-//                )
-//            }
-//        )
-//        .padding(.horizontal)
-//    }
-//
-//    private var locationValue: String {
-//        if isCountrySelection {
-//            return location?.selectedCountry?.name ?? "Loading...".localize()
-//        } else {
-//            return location?.selectedCountry?.selectedCity ?? "Loading...".localize()
-//        }
-//    }
-//
-//    @ViewBuilder
-//    private func locationList() -> some View {
-//        if isCountrySelection {
-//            List {
-//                ForEach(Country.allCountries, id: \.self) { country in
-//                    Button {
-//                        selectedLocation = country.name
-//                        viewModel.selectCountry(country)
-//                    } label: {
-//                        HStack {
-//                            Text(country.name)
-//                                .dtTypo(.p2Regular, color: .textPrimary)
-//                            Spacer()
-//                            if selectedLocation == country.name {
-//                                Image(systemName: "checkmark.circle.fill")
-//                                    .foregroundColor(.accentsBlue)
-//                            } else {
-//                                Spacer()
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//            .background(.secondary)
-//            .navigationBarTitle("Choose your \(label)".localize())
-//            .navigationBarTitleDisplayMode(.inline)
-//        } else {
-//            List {
-//                if let location = viewModel.location?.selectedCountry {
-//                    ForEach(location.cities, id: \.self) { city in
-//                        Button {
-//                            selectedLocation = city
-//                            viewModel.selectCity(city)
-//                        } label: {
-//                            HStack {
-//                                Text(city)
-//                                    .dtTypo(.p2Regular, color: .textPrimary)
-//                                Spacer()
-//                                if selectedLocation == city {
-//                                    Image(systemName: "checkmark.circle.fill")
-//                                        .foregroundColor(.accentsBlue)
-//                                } else {
-//                                    Spacer()
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//            .navigationBarTitle("Choose your \(label)".localize())
-//            .navigationBarTitleDisplayMode(.inline)
-//        }
-//    }
 
     var body: some View {
         Button {
-            viewModel.isCountrySelection = isCountrySelection
-            viewModel.chooseCountryAndCity()
+            viewModel.chooseCountryAndCity(isCountrySelection: isCountrySelection)
         } label: {
             HStack {
                 Text("\(label.capitalized):")
@@ -188,9 +97,11 @@ struct LocationChooseButtonView: View {
 
     private var locationValue: String {
         if isCountrySelection {
-            return location?.selectedCountry?.name ?? "Loading...".localize()
+            print("viewModel.location?.selectedCountry?.name: \(viewModel.location?.selectedCountry?.name)")
+            return viewModel.location?.selectedCountry?.name ?? "Loading...".localize()
         } else {
-            return location?.selectedCountry?.selectedCity ?? "Loading...".localize()
+            print("viewModel.location?.selectedCountry?.selectedCity: \(viewModel.location?.selectedCountry?.selectedCity)")
+            return viewModel.location?.selectedCountry?.selectedCity ?? "Loading...".localize()
         }
     }
 }

@@ -14,7 +14,7 @@ final class LocationViewModel: ObservableObject {
     @Published var locationSetByGeo: Bool = false
     @Published var showAlert = false
     @Published var alertMessage = ""
-    @Published var isCountrySelection: Bool = true
+    @Published var isCountrySelection: Bool?
     @Published var selectedLocation: String?
 
     var locationManager = LocationManager()
@@ -38,6 +38,7 @@ final class LocationViewModel: ObservableObject {
         if !locationSetByGeo {
             locationManager.requestLocation()
         }
+        print("selectedLocation1: \(selectedLocation)")
     }
 
     func setupLocationManager() {
@@ -62,7 +63,9 @@ final class LocationViewModel: ObservableObject {
 
     func selectCountry(_ country: Country) {
         location?.selectedCountry = country
+        print("location?.selectedCountry: \(location?.selectedCountry)")
         location?.selectedCountry?.selectedCity = country.cities.first
+        print("location?.selectedCountry?.selectedCity: \(location?.selectedCountry?.selectedCity)")
     }
 
     func selectCity(_ city: String) {
@@ -85,7 +88,8 @@ final class LocationViewModel: ObservableObject {
         showAlert = true
     }
 
-    func chooseCountryAndCity() {
-        router.push(.countryAndCity)
+    func chooseCountryAndCity(isCountrySelection: Bool) {
+
+        router.push(.countryAndCity(isCountrySelection: isCountrySelection, viewModel: self))
     }
 }
