@@ -88,4 +88,8 @@ final class LocationViewModel: ObservableObject {
     func chooseCountryAndCity(isCountrySelection: Bool) {
         router.push(.countryAndCity(isCountrySelection: isCountrySelection, viewModel: self))
     }
+
+    func back() {
+        router.pop()
+    }
 }

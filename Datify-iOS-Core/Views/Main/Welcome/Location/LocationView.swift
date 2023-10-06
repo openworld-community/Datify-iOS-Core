@@ -50,6 +50,7 @@ struct LocationView: View {
                 DtLogoView()
             }
         }
+        .navigationBarBackButtonHidden(true)
     }
 
     private func locationChooseButton(label: String, isCountrySelection: Bool) -> some View {
@@ -80,7 +81,7 @@ struct LocationChooseButtonView: View {
                 Text(locationValue)
                     .dtTypo(.p2Regular, color: .textPrimary)
                 Spacer()
-                Image(DtImage.arrowBottom)
+                Image(DtImage.arrowRight)
                     .frame(width: 24, height: 24)
                     .foregroundColor(.secondary)
             }
@@ -110,7 +111,7 @@ extension LocationView {
         VStack(spacing: 8) {
             Text("Where are you located?".localize())
                 .dtTypo(.h3Medium, color: .textPrimary)
-            Text("Choose your city of residence; this will help us find people around you more accurately".localize())
+            Text("Choose your city of residence, this will help us find people around you more accurately".localize())
                 .dtTypo(.p2Regular, color: .textSecondary)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal)
@@ -122,6 +123,8 @@ extension LocationView {
         HStack {
             DtBackButton {
                 // TODO: Back button
+                viewModel.back()
+
             }
             DtButton(title: "Next".localize(), style: .main) {
                 // TODO: Next button
