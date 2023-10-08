@@ -14,4 +14,7 @@ enum DtImage {
     static let xmark = "xmark"
     static let eyeHide = "eyeHide"
     static let eyeShow = "eyeShow"
+    static let tabbarDating = "tabbarDating"
+    static let tabbarChat = "tabbarChat"
+    static let tabbarMenu = "tabbarMenu"
 }
