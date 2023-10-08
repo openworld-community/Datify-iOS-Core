@@ -558,7 +558,7 @@
 		};
 		B9D98C0C2AC422F700F0F4B8 /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 8;
+			buildActionMask = 12;
 			files = (
 			);
 			inputFileListPaths = (
@@ -570,7 +570,7 @@
 			);
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "cd \"$SRCROOT/Datify-mobile-shared\"\n./gradlew :shared:embedAndSignAppleFrameworkForXcode \n";
 		};

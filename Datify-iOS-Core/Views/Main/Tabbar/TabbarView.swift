@@ -5,15 +5,15 @@
 //  Created by Ildar Khabibullin on 07.10.2023.
 //
 
-//import SwiftUI
+// import SwiftUI
 //
-//enum Tab {
+// enum Tab {
 //    case dating
 //    case chat
 //    case menu
-//}
+// }
 //
-//struct TabbarView: View {
+// struct TabbarView: View {
 //    @State private var selectedTab: Tab = .dating
 //
 //    var body: some View {
@@ -37,4 +37,4 @@
 //                .tag(Tab.menu)
 //        }
 //    }
-//}
+// }
