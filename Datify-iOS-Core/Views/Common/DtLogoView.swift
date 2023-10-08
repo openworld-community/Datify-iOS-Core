@@ -9,16 +9,38 @@ import SwiftUI
 
 struct DtLogoView: View {
     private let title: String = "Datify"
+    private let blackAndWhiteColor: Bool
+    private let fontTextColor: Color
+
+    init() {
+        self.blackAndWhiteColor = false
+        self.fontTextColor = .textTertiary
+    }
+
+    init(blackAndWhiteColor: Bool, fontTextColor: Color) {
+        self.blackAndWhiteColor = blackAndWhiteColor
+        self.fontTextColor = fontTextColor
+    }
+
     var body: some View {
         HStack {
-            Image("logoImageBrand")
-                .resizable()
-                .frame(
-                    width: 24,
-                    height: 24
-                )
+            if !blackAndWhiteColor {
+                Image("logoImageBrand")
+                    .resizable()
+                    .frame(
+                        width: 24,
+                        height: 24
+                    )
+            } else {
+                Image("logoImageBrandBW")
+                    .resizable()
+                    .frame(
+                        width: 24,
+                        height: 24
+                    )
+            }
             Text(title)
-                .dtTypo(.h3Semibold, color: .textPrimary)
+                .dtTypo(.h3Semibold, color: fontTextColor)
         }
     }
 }

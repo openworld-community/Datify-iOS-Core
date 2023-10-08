@@ -14,4 +14,14 @@ enum DtImage {
     static let xmark = "xmark"
     static let eyeHide = "eyeHide"
     static let eyeShow = "eyeShow"
+
+    // MARK: Main Icons
+    static let mainLocation = "mainLocation"
+    static let mainLabel = "mainLabel"
+    static let mainPlay = "mainPlay"
+    static let mainProfile = "mainProfile"
+    static let mainBookmark = "mainBookmark"
+    static let mainHeart = "mainHeart"
+    static let mainFilter = "mainFilter"
+    static let mainNotifications = "mainNotifications"
 }

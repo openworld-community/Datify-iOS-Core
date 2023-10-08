@@ -29,6 +29,7 @@
 		4A4CE2ED2A9B60A60098FF80 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CE2EC2A9B60A60098FF80 /* AppConstants.swift */; };
 		4A4CE2EF2A9B66DC0098FF80 /* TempView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CE2EE2A9B66DC0098FF80 /* TempView.swift */; };
 		4A4CE2F12A9B67B90098FF80 /* Text+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CE2F02A9B67B90098FF80 /* Text+extension.swift */; };
+		631EA17C2AD2EDCA009F211B /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631EA17B2AD2EDCA009F211B /* MainView.swift */; };
 		63203C712AAC6B2600F8803A /* UIApplication+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63203C702AAC6B2600F8803A /* UIApplication+extension.swift */; };
 		632A7F5E2AAC897B005DA819 /* DtCustomTFView+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632A7F5D2AAC897B005DA819 /* DtCustomTFView+extension.swift */; };
 		63A365A32AA04FFB00CBF5CD /* DtCustomTF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A365A22AA04FFB00CBF5CD /* DtCustomTF.swift */; };
@@ -93,6 +94,7 @@
 		4A4CE2EC2A9B60A60098FF80 /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
 		4A4CE2EE2A9B66DC0098FF80 /* TempView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempView.swift; sourceTree = "<group>"; };
 		4A4CE2F02A9B67B90098FF80 /* Text+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Text+extension.swift"; sourceTree = "<group>"; };
+		631EA17B2AD2EDCA009F211B /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		63203C702AAC6B2600F8803A /* UIApplication+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+extension.swift"; sourceTree = "<group>"; };
 		632A7F5D2AAC897B005DA819 /* DtCustomTFView+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DtCustomTFView+extension.swift"; sourceTree = "<group>"; };
 		63A365A22AA04FFB00CBF5CD /* DtCustomTF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtCustomTF.swift; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 		4A4CE2C42A9B3A290098FF80 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				631EA17A2AD2EDBA009F211B /* Main */,
 				4A4CE2CB2A9B3FFB0098FF80 /* Welcome */,
 				4A4CE2CE2A9B41920098FF80 /* Tabbar */,
 			);
@@ -298,6 +301,14 @@
 				D0C896592AA217630084FA62 /* DtImage.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		631EA17A2AD2EDBA009F211B /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				631EA17B2AD2EDCA009F211B /* MainView.swift */,
+			);
+			path = Main;
 			sourceTree = "<group>";
 		};
 		63A729572AA3935700AC60E3 /* Views */ = {
@@ -582,6 +593,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4A4CE2EA2A9B5FB80098FF80 /* DtButton.swift in Sources */,
+				631EA17C2AD2EDCA009F211B /* MainView.swift in Sources */,
 				4A4CE2D42A9B44280098FF80 /* RegistrationFlow.swift in Sources */,
 				2076AF302AB085F400AF5E11 /* Image+extension.swift in Sources */,
 				980895BA2A9F4A5700F82F02 /* DtSpinnerView.swift in Sources */,
