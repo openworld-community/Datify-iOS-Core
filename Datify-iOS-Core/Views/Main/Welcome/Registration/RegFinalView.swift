@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct RegFinalView: View {
-    private var title1 = "Your profile is created,".localize()
-    private var title2 = "congratulations!".localize()
+    private var title1: String = "Your profile is created,".localize()
+    private var title2: String = "congratulations!".localize()
 
     var body: some View {
         GeometryReader { geometry in
@@ -62,7 +62,7 @@ struct RegFinalView_Previews: PreviewProvider {
     }
 }
 
-extension RegFinalView {
+private extension RegFinalView {
     var secondaryText: some View {
         Text("Fill out your profile and tell us more about yourself now or go straight to the search")
             .dtTypo(.p2Regular, color: .textSecondary)
