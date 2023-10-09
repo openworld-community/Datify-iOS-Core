@@ -21,13 +21,16 @@ struct DtSelectorButton: View {
     var body: some View {
         Button {
             // Не уверен что нужно withAnimation, но мне так больше нравится)
-            withAnimation {action()}
+            withAnimation(.spring()) { action() }
+//            withAnimation { action() }
         } label: {
             HStack {
                 Text(title)
                     .dtTypo(.p2Regular, color: .textPrimary)
                 Spacer()
-                Image(isSelected ? DtImage.selectedCircle : DtImage.unselectedCircle)
+                Circle().stroke(isSelected ? Color.accentsPrimary : Color.backgroundStroke, lineWidth: isSelected ? 6 : 1)
+                    .frame(width: 24)
+
             }
             .padding(.horizontal)
             .frame(maxWidth: .infinity, minHeight: AppConstants.Visual.buttonHeight)
@@ -39,6 +42,9 @@ struct DtSelectorButton: View {
 
 struct DtSelectorButton_Previews: PreviewProvider {
     static var previews: some View {
-        DtSelectorButton(isSelected: true, title: "Selector button") {}
+        VStack {
+            DtSelectorButton(isSelected: true, title: "Selector button") {}
+            DtSelectorButton(isSelected: false, title: "Selector button") {}
+        }
     }
 }

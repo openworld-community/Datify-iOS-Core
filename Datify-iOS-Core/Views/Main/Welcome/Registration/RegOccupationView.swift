@@ -32,7 +32,7 @@ struct RegOccupationView: View {
             titleSegment
             selectorSegment
             Spacer()
-            HStack(spacing: 10) {
+            HStack(spacing: 8) {
                 DtBackButton {
                     // TODO: - Back button action
                 }
@@ -60,7 +60,7 @@ struct RegOccupationView_Previews: PreviewProvider {
     }
 }
 
-extension RegOccupationView {
+private extension RegOccupationView {
     var titleSegment: some View {
         VStack(spacing: 8) {
             Text("What do you want to do?")
