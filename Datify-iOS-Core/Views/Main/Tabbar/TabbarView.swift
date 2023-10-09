@@ -7,31 +7,44 @@
 
 import SwiftUI
 
-struct TabbarView: View {
-    unowned let viewBuilder: NavigationViewBuilder
-    @StateObject private var model: TabbarViewModel
+struct TabbarView<Content: View>: View {
+    @StateObject private var viewModel: TabbarViewModel
+    @Binding private var selectedTab: TabItem
+    let content: (TabItem) -> Content
 
-    init(viewBuilder: NavigationViewBuilder, model: @autoclosure @escaping () -> TabbarViewModel) {
-        self.viewBuilder = viewBuilder
-        _model = StateObject(wrappedValue: model())
+    init(router: Router<AppRoute>, selectedTab: Binding<TabItem>, content: @escaping (TabItem) -> Content) {
+        _viewModel = StateObject(wrappedValue: TabbarViewModel(router: router, selectedTab: selectedTab.wrappedValue))
+        _selectedTab = selectedTab
+        self.content = content
     }
 
     var body: some View {
-        TrTabbar(tabsData: TabItem.allCases, selectedTab: $model.selectedTab, model: model) { item in
+        TrTabbar(tabsData: TabItem.allCases, selectedTab: $selectedTab, model: viewModel) { item in
             createTabView(tab: item)
-//            NavigationView {
-//            }
         }
-//        .id(model.refreshID)
-//        .navigationBarBackButtonHidden(true)
     }
 
     @ViewBuilder
     func createTabView(tab: TabItem) -> some View {
         switch tab {
-        case .dating: viewBuilder.createLoginView()
-        case .chat: viewBuilder.createTempView()
-        case .menu: viewBuilder.createRegSexView()
+        case .dating: DatingView(router: Router())
+        case .chat: ChatView(router: Router())
+        case .menu: MenuView(router: Router())
+        }
+    }
+}
+
+struct TabbarView_Previews: PreviewProvider {
+    static let router: Router<AppRoute> = .init()
+    static var selectedTab: TabItem = .chat
+
+    static var previews: some View {
+        TabbarView(router: router, selectedTab: .constant(selectedTab)) { tabItem in
+            switch tabItem {
+            case .dating: AnyView(DatingView(router: Router()))
+            case .chat: AnyView(ChatView(router: Router()))
+            case .menu: AnyView(MenuView(router: Router()))
+            }
         }
     }
 }

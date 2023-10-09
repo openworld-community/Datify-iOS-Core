@@ -10,13 +10,29 @@ import SwiftUI
 struct MainAppView: View {
     @StateObject var router: Router<AppRoute>
     let navViewBuilder: NavigationViewBuilder
+    @State private var selectedTab: TabItem = .dating
 
     var body: some View {
         NavigationStack(path: $router.paths) {
             navViewBuilder.createWelcomeView()
                 .navigationDestination(for: AppRoute.self, destination: buildViews)
+            TabbarView(router: router, selectedTab: $selectedTab) { tab in
+                createTabView(tab: tab)
+            }
         }
     }
+
+    @ViewBuilder
+        func createTabView(tab: TabItem) -> some View {
+            switch tab {
+            case .dating:
+                DatingView(router: router)
+            case .chat:
+                ChatView(router: router)
+            case .menu:
+                MenuView(router: router)
+            }
+        }
 
     @ViewBuilder
     private func buildViews(view: AppRoute) -> some View {
@@ -29,6 +45,9 @@ struct MainAppView: View {
         case .registrationLocation: navViewBuilder.createRegLocationView()
         case .registrationRecord: navViewBuilder.createRegRecordView()
         case .registrationFinish: navViewBuilder.createRegFinishView()
+        case .dating: navViewBuilder.createDatingView()
+        case .chat: navViewBuilder.createChatView()
+        case .menu: navViewBuilder.createMenuView()
         }
     }
 }

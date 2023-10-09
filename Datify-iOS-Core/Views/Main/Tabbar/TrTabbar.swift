@@ -16,8 +16,9 @@ struct TrTabbar<Content: View>: View {
 
     var body: some View {
         GeometryReader { geometry in
-            ZStack(alignment: Alignment.bottom) {
+            VStack {
                 tabView(selectedTab)
+                Spacer()
                 HStack(alignment: .center) {
                     ForEach(tabsData, id: \.self) { datum in
                         ZStack(alignment: .topTrailing) {
@@ -27,6 +28,9 @@ struct TrTabbar<Content: View>: View {
                                 itemWidth: geometry.size.width / CGFloat(tabsData.count),
                                 badgeCount: 10
                             )
+                        }
+                        .onAppear {
+                            print("onAppear: \(selectedTab)")
                         }
                     }
                 }
@@ -44,9 +48,8 @@ private struct TrTabItem: View {
 
     var body: some View {
         Button {
-            withAnimation {
                 selectedTab = tabItem
-            }
+                print("Button tabItem: \(tabItem)")
         } label: {
             VStack(alignment: .center, spacing: 2.0) {
                 ZStack {
@@ -87,7 +90,7 @@ struct TrTabbar_Previews: PreviewProvider {
             TrTabbar(
                 tabsData: tabs,
                 selectedTab: selectedTab,
-                model: TabbarViewModel(selectedTab: .chat)
+                model: TabbarViewModel(router: Router(), selectedTab: .chat)
             ) { item in
                 Text(item.title())
             }

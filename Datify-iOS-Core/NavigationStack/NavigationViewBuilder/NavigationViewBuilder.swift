@@ -23,5 +23,4 @@ final class NavigationViewBuilder {
     func createTempView() -> some View {
         TempView()
     }
-
 }
