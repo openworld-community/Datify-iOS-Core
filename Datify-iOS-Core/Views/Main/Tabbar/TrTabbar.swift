@@ -19,20 +19,24 @@ struct TrTabbar<Content: View>: View {
             VStack {
                 tabView(selectedTab)
                 Spacer()
-                HStack(alignment: .center) {
-                    ForEach(tabsData, id: \.self) { datum in
-                        ZStack(alignment: .topTrailing) {
-                            TrTabItem(
-                                tabItem: datum,
-                                selectedTab: $selectedTab,
-                                itemWidth: geometry.size.width / CGFloat(tabsData.count),
-                                badgeCount: 0
-                            )
+                ZStack(alignment: .bottom) {
+                    HStack(alignment: .center) {
+                        ForEach(tabsData, id: \.self) { datum in
+                            ZStack(alignment: .center) {
+                                TrTabItem(
+                                    tabItem: datum,
+                                    selectedTab: $selectedTab,
+                                    itemWidth: geometry.size.width / CGFloat(tabsData.count),
+                                    badgeCount: 0
+                                )
+                            }
                         }
                     }
+//                    .frame(height: 72)
+                    .padding(.top)
                 }
+                .background(Color.customBlack)
             }
-            .background(Color.customBlack)
         }
     }
 }

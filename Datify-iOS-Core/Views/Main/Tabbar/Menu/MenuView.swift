@@ -16,8 +16,11 @@ struct MenuView: View {
     }
 
     var body: some View {
-        Text("MenuView")
-            .dtTypo(.h1Medium, color: .customWhite)
+        ZStack {
+
+            Text("MenuView")
+                .dtTypo(.h1Medium, color: .customBlack)
+        }
     }
 }
 
