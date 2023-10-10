@@ -20,6 +20,7 @@ struct TabbarView: View {
         TrTabbar(tabsData: TabItem.allCases, selectedTab: $selectedTab, model: viewModel) { item in
             createTabView(tab: item)
         }
+        .background(Color.black)
     }
 
     @ViewBuilder

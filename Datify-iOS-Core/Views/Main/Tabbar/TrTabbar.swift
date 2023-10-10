@@ -28,6 +28,7 @@ struct TrTabbar<Content: View>: View {
                                 itemWidth: geometry.size.width / CGFloat(tabsData.count),
                                 badgeCount: 0
                             )
+                            .preferredColorScheme(.dark)
                         }
                     }
                 }
@@ -53,7 +54,7 @@ private struct TrTabItem: View {
                         .resizable()
                         .renderingMode(.template)
                         .frame(width: 24, height: 24)
-                        .foregroundStyle(selectedTab == tabItem ? Color.textPrimary : Color.textTertiary)
+                        .foregroundStyle(selectedTab == tabItem ? Color.iconsPrimary : Color.iconsTertiary)
 
                     Text("\(badgeCount > 99 ? "99+" : "\(badgeCount)")")
                         .dtTypo(.p5Regular, color: .black)
