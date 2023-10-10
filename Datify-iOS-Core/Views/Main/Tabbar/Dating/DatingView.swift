@@ -18,6 +18,7 @@ struct DatingView: View {
     var body: some View {
 
         Text("DatingView")
+            .dtTypo(.h1Medium, color: .customWhite)
     }
 }
 

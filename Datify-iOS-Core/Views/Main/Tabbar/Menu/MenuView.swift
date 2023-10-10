@@ -17,6 +17,7 @@ struct MenuView: View {
 
     var body: some View {
         Text("MenuView")
+            .dtTypo(.h1Medium, color: .customWhite)
     }
 }
 

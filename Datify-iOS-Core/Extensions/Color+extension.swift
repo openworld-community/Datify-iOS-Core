@@ -67,3 +67,9 @@ extension Color {
         )
     }
 }
+
+extension Color {
+    static let customBlack = Color.black
+    static let customWhite = Color.white
+    static let customGray = Color(red: 114/255, green: 114/255, blue: 114/255)
+}

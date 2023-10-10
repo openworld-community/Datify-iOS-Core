@@ -16,7 +16,12 @@ struct ChatView: View {
     }
 
     var body: some View {
-        Text("ChatView")
+        ZStack {
+            Color.white // Устанавливаем белый цвет фона для корневого контейнера
+                .ignoresSafeArea()
+            Text("ChatView")
+                .dtTypo(.h1Medium, color: .customBlack)
+        }
     }
 }
 

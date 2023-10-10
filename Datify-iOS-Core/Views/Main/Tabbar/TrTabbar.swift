@@ -28,11 +28,11 @@ struct TrTabbar<Content: View>: View {
                                 itemWidth: geometry.size.width / CGFloat(tabsData.count),
                                 badgeCount: 0
                             )
-                            .preferredColorScheme(.dark)
                         }
                     }
                 }
             }
+            .background(Color.customBlack)
         }
     }
 }
@@ -54,7 +54,7 @@ private struct TrTabItem: View {
                         .resizable()
                         .renderingMode(.template)
                         .frame(width: 24, height: 24)
-                        .foregroundStyle(selectedTab == tabItem ? Color.iconsPrimary : Color.iconsTertiary)
+                        .foregroundStyle(selectedTab == tabItem ? Color.customWhite : Color.customGray)
 
                     Text("\(badgeCount > 99 ? "99+" : "\(badgeCount)")")
                         .dtTypo(.p5Regular, color: .black)
@@ -68,8 +68,8 @@ private struct TrTabItem: View {
                         .offset(x: 19.0, y: -8.0)
                 }
                 Text(tabItem.title())
-                    .dtTypo(.p5Medium, color: (selectedTab == tabItem ? .textPrimary : .textTertiary))
-                    .foregroundStyle(selectedTab == tabItem ? Color.textPrimary : Color.textTertiary)
+                    .dtTypo(.p5Medium, color: (selectedTab == tabItem ? Color.customWhite : Color.customGray))
+                    .foregroundStyle(selectedTab == tabItem ? Color.customWhite : Color.customGray)
             }
             .frame(width: itemWidth)
         }
