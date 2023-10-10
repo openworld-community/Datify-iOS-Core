@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 enum LoginState {
     case idle, inProcess, success, error
@@ -37,6 +38,7 @@ final class LoginViewModel: ObservableObject {
         }
 
         self.loginState = .success
+
         router.push(.tabbar)
 
         email = .init()

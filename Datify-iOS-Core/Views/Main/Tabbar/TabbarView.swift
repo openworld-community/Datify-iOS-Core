@@ -7,16 +7,14 @@
 
 import SwiftUI
 
-struct TabbarView<Content: View>: View {
+struct TabbarView: View {
     @StateObject private var viewModel: TabbarViewModel
-    @Binding private var selectedTab: TabItem
-    let content: (TabItem) -> Content
+    @State private var selectedTab: TabItem
 
-    init(router: Router<AppRoute>, selectedTab: Binding<TabItem>, content: @escaping (TabItem) -> Content) {
-        _viewModel = StateObject(wrappedValue: TabbarViewModel(router: router, selectedTab: selectedTab.wrappedValue))
-        _selectedTab = selectedTab
-        self.content = content
-    }
+      init(router: Router<AppRoute>, selectedTab: TabItem = .dating) {
+          _viewModel = StateObject(wrappedValue: TabbarViewModel(router: router, selectedTab: selectedTab))
+          _selectedTab = State(initialValue: selectedTab)
+      }
 
     var body: some View {
         TrTabbar(tabsData: TabItem.allCases, selectedTab: $selectedTab, model: viewModel) { item in
@@ -27,24 +25,12 @@ struct TabbarView<Content: View>: View {
     @ViewBuilder
     func createTabView(tab: TabItem) -> some View {
         switch tab {
-        case .dating: DatingView(router: Router())
-        case .chat: ChatView(router: Router())
-        case .menu: MenuView(router: Router())
-        }
-    }
-}
-
-struct TabbarView_Previews: PreviewProvider {
-    static let router: Router<AppRoute> = .init()
-    static var selectedTab: TabItem = .chat
-
-    static var previews: some View {
-        TabbarView(router: router, selectedTab: .constant(selectedTab)) { tabItem in
-            switch tabItem {
-            case .dating: AnyView(DatingView(router: Router()))
-            case .chat: AnyView(ChatView(router: Router()))
-            case .menu: AnyView(MenuView(router: Router()))
-            }
+        case .dating:
+            DatingView(router: viewModel.router)
+        case .chat:
+            ChatView(router: viewModel.router)
+        case .menu:
+            MenuView(router: viewModel.router)
         }
     }
 }

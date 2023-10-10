@@ -26,11 +26,8 @@ struct TrTabbar<Content: View>: View {
                                 tabItem: datum,
                                 selectedTab: $selectedTab,
                                 itemWidth: geometry.size.width / CGFloat(tabsData.count),
-                                badgeCount: 10
+                                badgeCount: 0
                             )
-                        }
-                        .onAppear {
-                            print("onAppear: \(selectedTab)")
                         }
                     }
                 }
@@ -49,7 +46,6 @@ private struct TrTabItem: View {
     var body: some View {
         Button {
                 selectedTab = tabItem
-                print("Button tabItem: \(tabItem)")
         } label: {
             VStack(alignment: .center, spacing: 2.0) {
                 ZStack {

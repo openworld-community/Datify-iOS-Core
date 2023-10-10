@@ -17,21 +17,4 @@ final class TabbarViewModel: ObservableObject {
         self.router = router
         self.selectedTab = selectedTab
     }
-
-    func showView(selectedTab: TabItem) {
-        switch selectedTab {
-        case .dating:
-            router.push(.dating)
-                print("Navigating to DatingView")
-
-        case .chat:
-            router.push(.chat)
-                print("Navigating to ChatView")
-
-            case .menu:
-            router.push(.menu)
-                print("Navigating to MenuView")
-
-        }
-    }
 }

@@ -16,23 +16,9 @@ struct MainAppView: View {
         NavigationStack(path: $router.paths) {
             navViewBuilder.createWelcomeView()
                 .navigationDestination(for: AppRoute.self, destination: buildViews)
-            TabbarView(router: router, selectedTab: $selectedTab) { tab in
-                createTabView(tab: tab)
-            }
+
         }
     }
-
-    @ViewBuilder
-        func createTabView(tab: TabItem) -> some View {
-            switch tab {
-            case .dating:
-                DatingView(router: router)
-            case .chat:
-                ChatView(router: router)
-            case .menu:
-                MenuView(router: router)
-            }
-        }
 
     @ViewBuilder
     private func buildViews(view: AppRoute) -> some View {

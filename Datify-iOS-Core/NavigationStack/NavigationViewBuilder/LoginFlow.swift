@@ -21,7 +21,6 @@ extension NavigationViewBuilder: LoginFlow {
 
     }
     func createTabbarView() -> some View {
-        TempView()
-            .navigationBarBackButtonHidden()
+        TabbarView(router: router)
     }
 }
