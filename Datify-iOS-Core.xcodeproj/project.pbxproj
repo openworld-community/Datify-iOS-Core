@@ -25,6 +25,11 @@
 		9808959C2A9F208B00F82F02 /* DtSecureFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9808959B2A9F208B00F82F02 /* DtSecureFieldView.swift */; };
 		980895BA2A9F4A5700F82F02 /* DtSpinnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980895B92A9F4A5700F82F02 /* DtSpinnerView.swift */; };
 		98F3B6D62A9E4F9D0097B5C0 /* DtLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F3B6D52A9E4F9D0097B5C0 /* DtLogoView.swift */; };
+		D042EE1E2AD6FAAD008D0FF8 /* AudioPreviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D042EE1D2AD6FAAD008D0FF8 /* AudioPreviewModel.swift */; };
+		D042EE202AD6FAC4008D0FF8 /* Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D042EE1F2AD6FAC4008D0FF8 /* Extentions.swift */; };
+		D042EE222AD6FAE0008D0FF8 /* AudioService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D042EE212AD6FAE0008D0FF8 /* AudioService.swift */; };
+		D042EE242AD6FB1E008D0FF8 /* AudioBarViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D042EE232AD6FB1E008D0FF8 /* AudioBarViewViewModel.swift */; };
+		D042EE282AD6FB9F008D0FF8 /* AudioBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D042EE272AD6FB9F008D0FF8 /* AudioBarView.swift */; };
 		D050B1B12AA84AA0008EC0AB /* DtDividerLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D050B1B02AA84AA0008EC0AB /* DtDividerLine.swift */; };
 		D0C185302AA1D0E1000D71E5 /* SignInWithButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C1852F2AA1D0E1000D71E5 /* SignInWithButton.swift */; };
 		D0C8965A2AA217630084FA62 /* DtImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C896592AA217630084FA62 /* DtImage.swift */; };
@@ -35,6 +40,8 @@
 		D0DC466E2A92699F0097CFF3 /* DatifyIOSCoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DC466D2A92699F0097CFF3 /* DatifyIOSCoreTests.swift */; };
 		D0DC46782A92699F0097CFF3 /* DatifyIOSCoreUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DC46772A92699F0097CFF3 /* DatifyIOSCoreUITests.swift */; };
 		D0DC467A2A92699F0097CFF3 /* DatifyIOSCoreUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DC46792A92699F0097CFF3 /* DatifyIOSCoreUITestsLaunchTests.swift */; };
+		D0F2E1562ACDC94000FBA661 /* AudioRecordViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F2E1552ACDC94000FBA661 /* AudioRecordViewViewModel.swift */; };
+		D0F2E1582ACDC9AF00FBA661 /* AudioRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F2E1572ACDC9AF00FBA661 /* AudioRecordView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +82,11 @@
 		9808959B2A9F208B00F82F02 /* DtSecureFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtSecureFieldView.swift; sourceTree = "<group>"; };
 		980895B92A9F4A5700F82F02 /* DtSpinnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtSpinnerView.swift; sourceTree = "<group>"; };
 		98F3B6D52A9E4F9D0097B5C0 /* DtLogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtLogoView.swift; sourceTree = "<group>"; };
+		D042EE1D2AD6FAAD008D0FF8 /* AudioPreviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPreviewModel.swift; sourceTree = "<group>"; };
+		D042EE1F2AD6FAC4008D0FF8 /* Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extentions.swift; sourceTree = "<group>"; };
+		D042EE212AD6FAE0008D0FF8 /* AudioService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioService.swift; sourceTree = "<group>"; };
+		D042EE232AD6FB1E008D0FF8 /* AudioBarViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioBarViewViewModel.swift; sourceTree = "<group>"; };
+		D042EE272AD6FB9F008D0FF8 /* AudioBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioBarView.swift; sourceTree = "<group>"; };
 		D050B1B02AA84AA0008EC0AB /* DtDividerLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtDividerLine.swift; sourceTree = "<group>"; };
 		D0C1852F2AA1D0E1000D71E5 /* SignInWithButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInWithButton.swift; sourceTree = "<group>"; };
 		D0C896592AA217630084FA62 /* DtImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtImage.swift; sourceTree = "<group>"; };
@@ -89,6 +101,8 @@
 		D0DC46772A92699F0097CFF3 /* DatifyIOSCoreUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatifyIOSCoreUITests.swift; sourceTree = "<group>"; };
 		D0DC46792A92699F0097CFF3 /* DatifyIOSCoreUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatifyIOSCoreUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		D0DC46862A926C650097CFF3 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		D0F2E1552ACDC94000FBA661 /* AudioRecordViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecordViewViewModel.swift; sourceTree = "<group>"; };
+		D0F2E1572ACDC9AF00FBA661 /* AudioRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecordView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +176,7 @@
 			isa = PBXGroup;
 			children = (
 				4A4CE2DB2A9B485B0098FF80 /* WelcomeView.swift */,
+				D0F2E1542ACDC8FC00FBA661 /* Audio */,
 				4A4CE2CC2A9B40DA0098FF80 /* Login */,
 				4A4CE2CD2A9B40E30098FF80 /* Registration */,
 				4A4CE2DD2A9B4CB70098FF80 /* FillProfile */,
@@ -270,6 +285,27 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
+		D042EE192AD6F8E6008D0FF8 /* WithSlider */ = {
+			isa = PBXGroup;
+			children = (
+				D0F2E1552ACDC94000FBA661 /* AudioRecordViewViewModel.swift */,
+				D0F2E1572ACDC9AF00FBA661 /* AudioRecordView.swift */,
+			);
+			path = WithSlider;
+			sourceTree = "<group>";
+		};
+		D042EE1C2AD6FA5F008D0FF8 /* WithBar */ = {
+			isa = PBXGroup;
+			children = (
+				D042EE1D2AD6FAAD008D0FF8 /* AudioPreviewModel.swift */,
+				D042EE1F2AD6FAC4008D0FF8 /* Extentions.swift */,
+				D042EE212AD6FAE0008D0FF8 /* AudioService.swift */,
+				D042EE232AD6FB1E008D0FF8 /* AudioBarViewViewModel.swift */,
+				D042EE272AD6FB9F008D0FF8 /* AudioBarView.swift */,
+			);
+			path = WithBar;
+			sourceTree = "<group>";
+		};
 		D0DC46502A92699C0097CFF3 = {
 			isa = PBXGroup;
 			children = (
@@ -330,6 +366,15 @@
 				D0DC46792A92699F0097CFF3 /* DatifyIOSCoreUITestsLaunchTests.swift */,
 			);
 			path = "Datify-iOS-CoreUITests";
+			sourceTree = "<group>";
+		};
+		D0F2E1542ACDC8FC00FBA661 /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				D042EE1C2AD6FA5F008D0FF8 /* WithBar */,
+				D042EE192AD6F8E6008D0FF8 /* WithSlider */,
+			);
+			path = Audio;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -501,17 +546,24 @@
 				D0C8965A2AA217630084FA62 /* DtImage.swift in Sources */,
 				D0DC465F2A92699D0097CFF3 /* MainAppView.swift in Sources */,
 				4A4CE2E32A9B53E70098FF80 /* Color+extension.swift in Sources */,
+				D0F2E1562ACDC94000FBA661 /* AudioRecordViewViewModel.swift in Sources */,
+				D042EE242AD6FB1E008D0FF8 /* AudioBarViewViewModel.swift in Sources */,
+				D042EE222AD6FAE0008D0FF8 /* AudioService.swift in Sources */,
 				9808959C2A9F208B00F82F02 /* DtSecureFieldView.swift in Sources */,
 				98F3B6D62A9E4F9D0097B5C0 /* DtLogoView.swift in Sources */,
 				D0DC465D2A92699D0097CFF3 /* DatifyiOSCoreApp.swift in Sources */,
+				D042EE282AD6FB9F008D0FF8 /* AudioBarView.swift in Sources */,
 				4A4CE2D62A9B44C20098FF80 /* LoginFlow.swift in Sources */,
 				4A4CE2D82A9B47060098FF80 /* LoginView.swift in Sources */,
 				4A4CE2ED2A9B60A60098FF80 /* AppConstants.swift in Sources */,
 				4A4CE2F12A9B67B90098FF80 /* Text+extension.swift in Sources */,
 				4A4CE2EF2A9B66DC0098FF80 /* TempView.swift in Sources */,
+				D0F2E1582ACDC9AF00FBA661 /* AudioRecordView.swift in Sources */,
 				4A4CE2C62A9B3A5F0098FF80 /* AppRoute.swift in Sources */,
 				4A4CE2DA2A9B47650098FF80 /* LoginViewModel.swift in Sources */,
 				D050B1B12AA84AA0008EC0AB /* DtDividerLine.swift in Sources */,
+				D042EE1E2AD6FAAD008D0FF8 /* AudioPreviewModel.swift in Sources */,
+				D042EE202AD6FAC4008D0FF8 /* Extentions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -676,6 +728,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = Datify;
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Need You'r mic!";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -710,6 +763,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = Datify;
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Need You'r mic!";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
