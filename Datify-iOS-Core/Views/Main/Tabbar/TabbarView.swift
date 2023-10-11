@@ -10,14 +10,16 @@ import SwiftUI
 struct TabbarView: View {
     @StateObject private var viewModel: TabbarViewModel
     @State private var selectedTab: TabItem
+    unowned let viewBuilder: NavigationViewBuilder
 
-      init(router: Router<AppRoute>, selectedTab: TabItem = .dating) {
-          _viewModel = StateObject(wrappedValue: TabbarViewModel(router: router, selectedTab: selectedTab))
-          _selectedTab = State(initialValue: selectedTab)
-      }
+    init(viewBuilder: NavigationViewBuilder, selectedTab: TabItem = .dating) {
+        self.viewBuilder = viewBuilder
+        _viewModel = StateObject(wrappedValue: TabbarViewModel(selectedTab: selectedTab))
+        _selectedTab = State(initialValue: selectedTab)
+    }
 
     var body: some View {
-        TrTabbar(tabsData: TabItem.allCases, selectedTab: $selectedTab, model: viewModel) { item in
+        DtTabbar(tabsData: TabItem.allCases, selectedTab: $selectedTab, viewModel: viewModel) { item in
             createTabView(tab: item)
         }
     }
@@ -25,12 +27,9 @@ struct TabbarView: View {
     @ViewBuilder
     func createTabView(tab: TabItem) -> some View {
         switch tab {
-        case .dating:
-            DatingView(router: viewModel.router)
-        case .chat:
-            ChatView(router: viewModel.router)
-        case .menu:
-            MenuView(router: viewModel.router)
+        case .dating: viewBuilder.createDatingView()
+        case .chat: viewBuilder.createChatView()
+        case .menu: viewBuilder.createMenuView()
         }
     }
 }

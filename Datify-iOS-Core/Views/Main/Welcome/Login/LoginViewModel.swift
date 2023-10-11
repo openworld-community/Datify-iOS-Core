@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SwiftUI
 
 enum LoginState {
     case idle, inProcess, success, error

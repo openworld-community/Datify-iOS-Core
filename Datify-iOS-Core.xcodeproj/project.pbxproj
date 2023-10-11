@@ -31,7 +31,7 @@
 		4A4CE2F12A9B67B90098FF80 /* Text+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CE2F02A9B67B90098FF80 /* Text+extension.swift */; };
 		63203C712AAC6B2600F8803A /* UIApplication+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63203C702AAC6B2600F8803A /* UIApplication+extension.swift */; };
 		632A7F5E2AAC897B005DA819 /* DtCustomTFView+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632A7F5D2AAC897B005DA819 /* DtCustomTFView+extension.swift */; };
-		633489782AD2AE3C00CA4BE1 /* TrTabbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633489772AD2AE3C00CA4BE1 /* TrTabbar.swift */; };
+		633489782AD2AE3C00CA4BE1 /* DtTabbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633489772AD2AE3C00CA4BE1 /* DtTabbar.swift */; };
 		639CC2622AD3A24D00317289 /* TabbarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639CC2612AD3A24D00317289 /* TabbarViewModel.swift */; };
 		639CC2642AD3A2AF00317289 /* TabItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639CC2632AD3A2AF00317289 /* TabItem.swift */; };
 		639CC2662AD3A36100317289 /* TabbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639CC2652AD3A36100317289 /* TabbarView.swift */; };
@@ -106,7 +106,7 @@
 		4A4CE2F02A9B67B90098FF80 /* Text+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Text+extension.swift"; sourceTree = "<group>"; };
 		63203C702AAC6B2600F8803A /* UIApplication+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+extension.swift"; sourceTree = "<group>"; };
 		632A7F5D2AAC897B005DA819 /* DtCustomTFView+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DtCustomTFView+extension.swift"; sourceTree = "<group>"; };
-		633489772AD2AE3C00CA4BE1 /* TrTabbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrTabbar.swift; sourceTree = "<group>"; };
+		633489772AD2AE3C00CA4BE1 /* DtTabbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DtTabbar.swift; sourceTree = "<group>"; };
 		639CC2612AD3A24D00317289 /* TabbarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarViewModel.swift; sourceTree = "<group>"; };
 		639CC2632AD3A2AF00317289 /* TabItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabItem.swift; sourceTree = "<group>"; };
 		639CC2652AD3A36100317289 /* TabbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarView.swift; sourceTree = "<group>"; };
@@ -240,7 +240,7 @@
 				639CC2672AD448E800317289 /* Dating */,
 				639CC2692AD448F600317289 /* Chat */,
 				639CC26A2AD448FB00317289 /* Menu */,
-				633489772AD2AE3C00CA4BE1 /* TrTabbar.swift */,
+				633489772AD2AE3C00CA4BE1 /* DtTabbar.swift */,
 				639CC2612AD3A24D00317289 /* TabbarViewModel.swift */,
 				639CC2632AD3A2AF00317289 /* TabItem.swift */,
 				639CC2652AD3A36100317289 /* TabbarView.swift */,
@@ -630,7 +630,7 @@
 				4A4CE2DC2A9B485B0098FF80 /* WelcomeView.swift in Sources */,
 				63A7295F2AA3A30E00AC60E3 /* SecureTFView.swift in Sources */,
 				4A4CE2E82A9B58590098FF80 /* DtTypography.swift in Sources */,
-				633489782AD2AE3C00CA4BE1 /* TrTabbar.swift in Sources */,
+				633489782AD2AE3C00CA4BE1 /* DtTabbar.swift in Sources */,
 				63203C712AAC6B2600F8803A /* UIApplication+extension.swift in Sources */,
 				D0C8965A2AA217630084FA62 /* DtImage.swift in Sources */,
 				D0DC465F2A92699D0097CFF3 /* MainAppView.swift in Sources */,

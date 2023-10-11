@@ -25,15 +25,12 @@ struct MainAppView: View {
         switch view {
         case .temp: navViewBuilder.createTempView()
         case .login: navViewBuilder.createLoginView()
-        case .tabbar: navViewBuilder.createTabbarView()
+        case .tabbar: navViewBuilder.createTabbarView(viewBuilder: navViewBuilder)
         case .registrationSex: navViewBuilder.createRegSexView()
         case .registrationEmail: navViewBuilder.createRegEmailView()
         case .registrationLocation: navViewBuilder.createRegLocationView()
         case .registrationRecord: navViewBuilder.createRegRecordView()
         case .registrationFinish: navViewBuilder.createRegFinishView()
-        case .dating: navViewBuilder.createDatingView()
-        case .chat: navViewBuilder.createChatView()
-        case .menu: navViewBuilder.createMenuView()
         }
     }
 }

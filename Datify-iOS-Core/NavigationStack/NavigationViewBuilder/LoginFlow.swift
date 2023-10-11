@@ -12,7 +12,7 @@ protocol LoginFlow {
     associatedtype Tabbar: View
 
     func createLoginView() -> Login
-    func createTabbarView() -> Tabbar
+    func createTabbarView(viewBuilder: NavigationViewBuilder) -> Tabbar
 }
 
 extension NavigationViewBuilder: LoginFlow {
@@ -20,7 +20,7 @@ extension NavigationViewBuilder: LoginFlow {
         LoginView(router: router)
 
     }
-    func createTabbarView() -> some View {
-        TabbarView(router: router)
+    func createTabbarView(viewBuilder: NavigationViewBuilder) -> some View {
+        TabbarView(viewBuilder: viewBuilder)
     }
 }

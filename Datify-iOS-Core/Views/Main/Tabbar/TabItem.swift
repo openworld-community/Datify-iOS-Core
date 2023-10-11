@@ -38,7 +38,6 @@ enum TabItem: String, CaseIterable {
 
 extension TabItem: Identifiable {
     var id: String { rawValue }
-//    static let tabbarIds: Locators.TapBarTags = .init()
 
     init(id: TabItem.ID) {
         self = TabItem(rawValue: id) ?? .dating

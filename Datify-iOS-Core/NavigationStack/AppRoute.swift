@@ -17,10 +17,6 @@ enum AppRoute {
     case registrationLocation
     case registrationRecord
     case registrationFinish
-
-    case dating
-    case chat
-    case menu
 }
 
 extension AppRoute: Hashable, Equatable {
@@ -34,10 +30,6 @@ extension AppRoute: Hashable, Equatable {
         case (.registrationLocation, .registrationLocation): return true
         case (.registrationRecord, .registrationRecord): return true
         case (.registrationFinish, .registrationFinish): return true
-
-        case (.dating, .dating): return true
-        case (.chat, .chat): return true
-        case (.menu, .menu): return true
 
         default: return false
         }
