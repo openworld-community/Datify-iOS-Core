@@ -29,6 +29,12 @@ struct MainAppView: View {
         case .registrationLocation: navViewBuilder.createRegLocationView()
         case .registrationRecord: navViewBuilder.createRegRecordView()
         case .registrationFinish: navViewBuilder.createRegFinishView()
+        case .location: navViewBuilder.createRegLocationView()
+        case .countryAndCity(let isCountrySelection, let viewModel):
+                navViewBuilder.createRegLocationCountryAndCityView(
+                    viewModel: viewModel,
+                    isCountrySelection: isCountrySelection
+                )
         }
     }
 }
