@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 extension String {
     func localize() -> String {
@@ -40,4 +41,12 @@ extension String {
     func trimWhitespaceCapit() -> String {
         return self.trimWhitespace().capitalized
     }
+
+    func getSize(fontSize: CGFloat = 16, fontWeight: UIFont.Weight) -> CGFloat {
+        let font = UIFont.systemFont(ofSize: fontSize, weight: fontWeight)
+        let attributes = [NSAttributedString.Key.font: font]
+        let size = (self as NSString).size(withAttributes: attributes)
+        return size.width
+    }
+
 }
