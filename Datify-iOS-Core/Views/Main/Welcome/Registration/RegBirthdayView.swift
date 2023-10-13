@@ -8,16 +8,10 @@
 import SwiftUI
 
 struct RegBirthdayView: View {
-    @State private var selectedDate: Date
+    @State private var selectedDate: Date = Calendar
+        .current
+        .date(byAdding: .year, value: -16, to: Date()) ?? Date()
     @State private var showAlert: Bool = false
-
-    init() {
-        var dateComponents = DateComponents()
-        dateComponents.year = 1990
-        dateComponents.month = 1
-        dateComponents.day = 1
-        _selectedDate = State(wrappedValue: Calendar.current.date(from: dateComponents) ?? Date())
-    }
 
     var body: some View {
         VStack(spacing: 40) {

@@ -9,8 +9,8 @@ import SwiftUI
 
 struct DtCustomPicker<Item, Content>: View where Item: Hashable, Content: View {
     @Binding var selectedItem: Item
-    var items: [Item]
-    var content: (Item) -> Content
+    let items: [Item]
+    let content: (Item) -> Content
 
     var body: some View {
         ZStack {

@@ -28,7 +28,9 @@ struct DtSelectorButton: View {
                 Text(title)
                     .dtTypo(.p2Regular, color: .textPrimary)
                 Spacer()
-                Circle().stroke(isSelected ? Color.accentsPrimary : Color.backgroundStroke, lineWidth: isSelected ? 6 : 1)
+                Circle()
+                    .stroke(isSelected ? Color.accentsPrimary : Color.backgroundStroke,
+                            lineWidth: isSelected ? 6 : 1)
                     .frame(width: 24)
 
             }
