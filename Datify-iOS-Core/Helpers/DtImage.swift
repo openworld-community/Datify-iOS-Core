@@ -18,6 +18,10 @@ enum DtImage {
     // MARK: Main Icons
     static let mainLocation = "mainLocation"
     static let mainLabel = "mainLabel"
+    static let tabbarDating = "tabbarDating"
+    static let arrowRight = "iconArrowRight"
+    static let tabbarChat = "tabbarChat"
+    static let tabbarMenu = "tabbarMenu"
     static let mainPlay = "mainPlay"
     static let mainProfile = "mainProfile"
     static let mainBookmark = "mainBookmark"
