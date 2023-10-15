@@ -10,11 +10,13 @@ import SwiftUI
 struct MainAppView: View {
     @StateObject var router: Router<AppRoute>
     let navViewBuilder: NavigationViewBuilder
+    @State private var selectedTab: TabItem = .dating
 
     var body: some View {
         NavigationStack(path: $router.paths) {
             navViewBuilder.createWelcomeView()
                 .navigationDestination(for: AppRoute.self, destination: buildViews)
+
         }
     }
 

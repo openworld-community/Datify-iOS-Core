@@ -37,6 +37,7 @@ final class LoginViewModel: ObservableObject {
         }
 
         self.loginState = .success
+
         router.push(.tabbar)
 
         email = .init()
