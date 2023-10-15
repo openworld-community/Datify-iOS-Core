@@ -23,4 +23,8 @@ final class NavigationViewBuilder {
     func createTempView() -> some View {
         TempView()
     }
+    /// Tabbar
+    func createTabbarView() -> some View {
+        TabbarView(viewBuilder: self)
+    }
 }
