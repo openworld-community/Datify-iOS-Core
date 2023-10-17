@@ -11,6 +11,14 @@ struct DtCustomPicker<Item, Content>: View where Item: Hashable, Content: View {
     @Binding var selectedItem: Item
     let items: [Item]
     let content: (Item) -> Content
+    let height: CGFloat
+
+    init(selectedItem: Binding<Item>, items: [Item], height: CGFloat = 150, content: @escaping (Item) -> Content) {
+        _selectedItem = selectedItem
+        self.items = items
+        self.content = content
+        self.height = height
+    }
 
     var body: some View {
         ZStack {
@@ -32,7 +40,7 @@ struct DtCustomPicker<Item, Content>: View where Item: Hashable, Content: View {
             .blendMode(.hardLight)
         }
         .cornerRadius(10)
-        .frame(height: 150)
+        .frame(height: height)
     }
 }
 

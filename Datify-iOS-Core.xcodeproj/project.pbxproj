@@ -20,6 +20,10 @@
 		20BF9D932AB1BE85008B3CEB /* RegSelectGenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20BF9D922AB1BE85008B3CEB /* RegSelectGenderView.swift */; };
 		20C081052AB1E1B200BB2910 /* RegEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C081042AB1E1B200BB2910 /* RegEmailView.swift */; };
 		20C081072AB1E1D400BB2910 /* RegEnterNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C081062AB1E1D400BB2910 /* RegEnterNameView.swift */; };
+		20E518332ADDF63100A0463A /* DtDistanceSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E518322ADDF63100A0463A /* DtDistanceSlider.swift */; };
+		20FD2D2D2ADDCCF90051C894 /* DtSegmentedPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20FD2D2C2ADDCCF90051C894 /* DtSegmentedPicker.swift */; };
+		20FD2D2F2ADDCD060051C894 /* DtCheckBoxButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20FD2D2E2ADDCD060051C894 /* DtCheckBoxButton.swift */; };
+		20FD2D312ADDCEAA0051C894 /* DatingFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20FD2D302ADDCEAA0051C894 /* DatingFilterView.swift */; };
 		4A4CE2C62A9B3A5F0098FF80 /* AppRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CE2C52A9B3A5F0098FF80 /* AppRoute.swift */; };
 		4A4CE2C82A9B3B620098FF80 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CE2C72A9B3B620098FF80 /* Router.swift */; };
 		4A4CE2CA2A9B3E8C0098FF80 /* NavigationViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CE2C92A9B3E8C0098FF80 /* NavigationViewBuilder.swift */; };
@@ -106,6 +110,10 @@
 		20BF9D922AB1BE85008B3CEB /* RegSelectGenderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegSelectGenderView.swift; sourceTree = "<group>"; };
 		20C081042AB1E1B200BB2910 /* RegEmailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegEmailView.swift; sourceTree = "<group>"; };
 		20C081062AB1E1D400BB2910 /* RegEnterNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegEnterNameView.swift; sourceTree = "<group>"; };
+		20E518322ADDF63100A0463A /* DtDistanceSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtDistanceSlider.swift; sourceTree = "<group>"; };
+		20FD2D2C2ADDCCF90051C894 /* DtSegmentedPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DtSegmentedPicker.swift; sourceTree = "<group>"; };
+		20FD2D2E2ADDCD060051C894 /* DtCheckBoxButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DtCheckBoxButton.swift; sourceTree = "<group>"; };
+		20FD2D302ADDCEAA0051C894 /* DatingFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatingFilterView.swift; sourceTree = "<group>"; };
 		4A4CE2C52A9B3A5F0098FF80 /* AppRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRoute.swift; sourceTree = "<group>"; };
 		4A4CE2C72A9B3B620098FF80 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		4A4CE2C92A9B3E8C0098FF80 /* NavigationViewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewBuilder.swift; sourceTree = "<group>"; };
@@ -218,6 +226,8 @@
 				4A4CE2E92A9B5FB80098FF80 /* DtButton.swift */,
 				2012EF632AAF479400B01688 /* DtBackButton.swift */,
 				208D05512AB903790071E1B7 /* DtSelectorButton.swift */,
+				20FD2D2E2ADDCD060051C894 /* DtCheckBoxButton.swift */,
+				20E518322ADDF63100A0463A /* DtDistanceSlider.swift */,
 				D0C1852F2AA1D0E1000D71E5 /* SignInWithButton.swift */,
 				4A4CE2EE2A9B66DC0098FF80 /* TempView.swift */,
 				98F3B6D52A9E4F9D0097B5C0 /* DtLogoView.swift */,
@@ -226,6 +236,7 @@
 				2012EF652AAF719C00B01688 /* DtTermsAndConditions.swift */,
 				202073692AB378B200CBBE42 /* DtCustomDatePicker.swift */,
 				2002C9F52AB465540043B51E /* DtCustomPicker.swift */,
+				20FD2D2C2ADDCCF90051C894 /* DtSegmentedPicker.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -279,6 +290,7 @@
 			children = (
 				634EF7322ADC48220061E13A /* DatingView.swift */,
 				634EF7332ADC48220061E13A /* DatingViewModel.swift */,
+				20FD2D302ADDCEAA0051C894 /* DatingFilterView.swift */,
 			);
 			path = Dating;
 			sourceTree = "<group>";
@@ -646,7 +658,8 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd \"$SRCROOT/Datify-mobile-shared\"\n./gradlew :shared:embedAndSignAppleFrameworkForXcode \n";
+			shellScript = "
+";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -660,6 +673,7 @@
 				2020736A2AB378B200CBBE42 /* DtCustomDatePicker.swift in Sources */,
 				2076AF302AB085F400AF5E11 /* Image+extension.swift in Sources */,
 				980895BA2A9F4A5700F82F02 /* DtSpinnerView.swift in Sources */,
+				20E518332ADDF63100A0463A /* DtDistanceSlider.swift in Sources */,
 				63A7295D2AA395A200AC60E3 /* ConstantsTF.swift in Sources */,
 				208D05502AB8F5EB0071E1B7 /* RegOccupationView.swift in Sources */,
 				4A4CE2CA2A9B3E8C0098FF80 /* NavigationViewBuilder.swift in Sources */,
@@ -687,6 +701,7 @@
 				4A4CE2E32A9B53E70098FF80 /* Color+extension.swift in Sources */,
 				208A426D2AB9061000E90C94 /* RegFinalView.swift in Sources */,
 				2076AF2E2AB080DB00AF5E11 /* String+extension.swift in Sources */,
+				20FD2D312ADDCEAA0051C894 /* DatingFilterView.swift in Sources */,
 				9898B2BF2AAA49DE007CA714 /* RegEmailViewModel.swift in Sources */,
 				98F3B6D62A9E4F9D0097B5C0 /* DtLogoView.swift in Sources */,
 				634EF73B2ADC51EB0061E13A /* MainFlow.swift in Sources */,
@@ -700,7 +715,9 @@
 				634EF7342ADC48220061E13A /* DatingView.swift in Sources */,
 				4A4CE2D62A9B44C20098FF80 /* LoginFlow.swift in Sources */,
 				20C081072AB1E1D400BB2910 /* RegEnterNameView.swift in Sources */,
+				20FD2D2F2ADDCD060051C894 /* DtCheckBoxButton.swift in Sources */,
 				20C081052AB1E1B200BB2910 /* RegEmailView.swift in Sources */,
+				20FD2D2D2ADDCCF90051C894 /* DtSegmentedPicker.swift in Sources */,
 				98553B0A2AAE4A43005C80B3 /* View+extension.swift in Sources */,
 				4A4CE2D82A9B47060098FF80 /* LoginView.swift in Sources */,
 				2012EF662AAF719C00B01688 /* DtTermsAndConditions.swift in Sources */,
