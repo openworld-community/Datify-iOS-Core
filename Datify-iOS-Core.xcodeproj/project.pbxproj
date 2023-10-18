@@ -670,8 +670,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "
-";
+			shellScript = "cd \"$SRCROOT/Datify-mobile-shared\"\n./gradlew :shared:embedAndSignAppleFrameworkForXcode \n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
