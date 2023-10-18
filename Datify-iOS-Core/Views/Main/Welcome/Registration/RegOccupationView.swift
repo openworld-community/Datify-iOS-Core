@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum Occupation: CaseIterable, Equatable {
+enum Occupation: CaseIterable, Equatable, Codable {
 
     case goOnDates, communication, findLove
 

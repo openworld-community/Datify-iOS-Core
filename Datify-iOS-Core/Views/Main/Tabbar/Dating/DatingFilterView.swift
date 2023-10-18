@@ -8,88 +8,128 @@
 import SwiftUI
 
 struct DatingFilterView: View {
-    @State var gender: String = "Female"
-    @State var selectedOccupation: Set<Occupation> = [.findLove]
-    @State var minAge: Int = 16
-    @State var maxAge: Int = 99
-    @State var distance: Int = 5
+    @StateObject var viewModel: DatingFilterViewModel
+    @Environment(\.dismiss) var dismiss
+    @Binding var sheetIsDisplayed: Bool
+
+    init(userFilterModel: FilterModel, filterDataService: Binding<FilterDataService>, sheetIsDisplayed: Binding<Bool>) {
+        _viewModel = StateObject(
+            wrappedValue:
+                DatingFilterViewModel(userFilterModel: userFilterModel,
+                                      filterDataService: filterDataService)
+        )
+        self._sheetIsDisplayed = sheetIsDisplayed
+    }
+
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 24) {
-                VStack(alignment: .leading) {
-                    Text("Filters")
-                        .dtTypo(.h3Medium, color: .textPrimary)
-                    DtSegmentedPicker(selectedItem: $gender, items: ["Male", "Female", "All"]) { item in
-                        Text(item).tag(item)
-                    }
-                }
-
-                VStack(alignment: .leading) {
-                    Text("Search purpose:")
-                        .dtTypo(.p2Medium, color: .primary)
-                    VStack(spacing: 12) {
-                        ForEach(Occupation.allCases, id: \.self) { occupation in
-                            DtCheckBoxButton(
-                                isSelected: selectedOccupation.contains(occupation),
-                                title: occupation.title
-                            ) {
-                                if selectedOccupation.contains(occupation) {
-                                    selectedOccupation.remove(occupation)
-                                } else {
-                                    selectedOccupation.insert(occupation)
-                                }
-                            }
-                        }
-                    }
-                }
-                VStack(alignment: .leading) {
-                    Text("Location:")
-                        .dtTypo(.p2Medium, color: .primary)
-                    DtButton(title: "Location", style: .secondary) {}
-                }
-                VStack(alignment: .leading) {
-                    Text("Search distance:")
-                        .dtTypo(.p2Medium, color: .primary)
-                    DtDistanceSlider(selectedDistance: $distance)
-                }
-                VStack(alignment: .leading) {
-                    HStack {
-                        Text("Minimum age:")
-                            .dtTypo(.p2Medium, color: .primary)
-                        Spacer()
-                        Text("Maximum age:")
-                            .dtTypo(.p2Medium, color: .primary)
-                            .offset(x: 6)
-                        Spacer()
-                    }
-                    HStack {
-                        DtCustomPicker(selectedItem: $minAge, items: Array(16...99), height: 96) { age in
-                            Text("\(age)").tag(age)
-                        }
-                        DtCustomPicker(selectedItem: $maxAge, items: Array(16...99), height: 96) { age in
-                            Text("\(age)").tag(age)
-                        }
-                    }
-
-                }
-
+                headerSection
+                sexFilter
+                purposeFilter
+                locationFilter
+                distanceFilter
+                ageFilter
             }
             .padding(.horizontal)
         }
-        DtButton(title: "Meow", style: .primary) {
-
+        .padding(.top)
+        DtButton(title: "Apply changes".localize(), style: .primary) {
+            viewModel.updateFilterModel()
+            animatedDismiss()
         }
+        .disabled(viewModel.purpose.isEmpty)
         .padding(.horizontal)
         .padding(.vertical, 8)
+        .interactiveDismissDisabled(true)
     }
 
-    func removeOccupation(element: Occupation) {
-        if let index = selectedOccupation.firstIndex(where: {$0 == element}) {
-            selectedOccupation.remove(at: index)
+}
+
+private extension DatingFilterView {
+    private func animatedDismiss() {
+        withAnimation(.linear(duration: 0.2)) {
+            sheetIsDisplayed.toggle()
+        }
+    }
+
+    private var headerSection: some View {
+        HStack {
+            Text("Filters")
+                .dtTypo(.h3Medium, color: .textPrimary)
+            Spacer()
+            DtXMarkButton {
+                animatedDismiss()
+            }
+        }
+    }
+    private var sexFilter: some View {
+        VStack(alignment: .leading) {
+
+            DtSegmentedPicker(selectedItem: $viewModel.sex, items: Sex.allCases) { item in
+                Text(item.title()).tag(item)
+            }
+        }
+    }
+    private var purposeFilter: some View {
+        VStack(alignment: .leading) {
+            Text("Search purpose:")
+                .dtTypo(.p2Medium, color: .primary)
+            VStack(spacing: 12) {
+                ForEach(Occupation.allCases, id: \.self) { occupation in
+                    DtCheckBoxButton(
+                        isSelected: viewModel.purpose.contains(occupation),
+                        title: occupation.title
+                    ) {
+                        if viewModel.purpose.contains(occupation) {
+                            viewModel.purpose.remove(occupation)
+                        } else {
+                            viewModel.purpose.insert(occupation)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    private var locationFilter: some View {
+        VStack(alignment: .leading) {
+            Text("Location:")
+                .dtTypo(.p2Medium, color: .primary)
+            // TODO: Location section
+            // TEMPORARY PLACEHOLDER
+            DtButton(title: "Location", style: .secondary) {}
+        }
+    }
+    private var distanceFilter: some View {
+        VStack(alignment: .leading) {
+            Text("Search distance:")
+                .dtTypo(.p2Medium, color: .primary)
+            DtDistanceSlider(selectedDistance: $viewModel.distance)
+        }
+    }
+    private var ageFilter: some View {
+        VStack(alignment: .leading) {
+            HStack {
+                Text("Minimum age:")
+                    .dtTypo(.p2Medium, color: .primary)
+                Spacer()
+                Text("Maximum age:")
+                    .dtTypo(.p2Medium, color: .primary)
+                    .offset(x: 6)
+                Spacer()
+            }
+            HStack {
+                DtCustomPicker(selectedItem: $viewModel.minimumAge, items: Array(16...99), height: 96) { age in
+                    Text("\(age)").tag(age)
+                }
+                DtCustomPicker(selectedItem: $viewModel.maximumAge, items: Array(16...99), height: 96) { age in
+                    Text("\(age)").tag(age)
+                }
+            }
         }
     }
 }
 
 #Preview {
-    DatingFilterView()
+    DatingView(router: Router())
 }

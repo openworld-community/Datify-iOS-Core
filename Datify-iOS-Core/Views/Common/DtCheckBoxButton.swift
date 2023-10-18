@@ -32,7 +32,7 @@ struct DtCheckBoxButton: View {
                         RoundedRectangle(cornerRadius: 6)
                             .foregroundStyle(Color.accentsViolet)
                             .frame(width: 24, height: 24)
-                        Image("checkMark")
+                        Image(DtImage.checkmark)
                     }
                 } else {
                     RoundedRectangle(cornerRadius: 6)
