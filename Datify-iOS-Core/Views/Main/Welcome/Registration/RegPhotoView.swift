@@ -17,24 +17,19 @@ struct RegPhotoView: View {
     }
 
     var body: some View {
-        ZStack {
-            VStack {
-                mainSection
-                buttonsSection
-            }
-            if viewModel.showSpinner {
-                DtSpinnerView(size: 50)
-            }
+        VStack {
+            mainSection
+            buttonsSection
         }
         .padding(.bottom, 24)
         .navigationBarBackButtonHidden()
-        .onAppear {
-            viewModel.checkPhotoAuthStatus()
-        }
         .toolbar {
             ToolbarItem(placement: .principal) {
                 DtLogoView()
             }
+        }
+        .onAppear {
+            viewModel.checkPhotoAuthStatus()
         }
         .alert(
             viewModel.photoAuthStatus == .denied ? "Access denied" : "Something wrong",
@@ -53,12 +48,18 @@ struct RegPhotoView: View {
                 Text("Unable to show photo library")
             }
         }
-        .sheet(isPresented: $viewModel.showLimitedPicker) {
+        .fullScreenCover(isPresented: $viewModel.showLimitedPicker) {
             DtLimitedPhotoPicker(
                 isShowing: $viewModel.showLimitedPicker,
-                image: $viewModel.selectedImages[viewModel.photoIndex],
-                viewModel: viewModel
-            )
+                uiImage: $viewModel.selectedImage,
+                viewModel: viewModel)
+        }
+        .fullScreenCover(isPresented: $viewModel.showCropView) {
+            DtCropView(inputUIImage: viewModel.selectedImage) { croppedImage in
+                if let croppedImage {
+                    viewModel.selectedImages[viewModel.photoIndex] = Image(uiImage: croppedImage)
+                }
+            }
         }
     }
 }
@@ -79,7 +80,6 @@ private extension RegPhotoView {
                     Text("These photos will appear on your profile")
                         .dtTypo(.p2Regular, color: .textSecondary)
                 }
-
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
                         ForEach(0..<5) { index in
@@ -92,8 +92,25 @@ private extension RegPhotoView {
                                         ) {
                                             Group {
                                                 if let image = viewModel.selectedImages[index] {
-                                                    image
-                                                        .resizableFill()
+                                                    ZStack {
+                                                        image.resizableFill()
+                                                            Button {
+                                                                viewModel.selectedImages[index] = nil
+                                                                viewModel.imageSelections[index] = nil
+                                                            } label: {
+                                                                ZStack {
+                                                                    Circle()
+                                                                        .foregroundStyle(Color.backgroundPrimary)
+                                                                        .frame(width: 32, height: 32)
+                                                                    Image(systemName: "xmark")
+                                                                        .resizable()
+                                                                        .frame(width: 10, height: 10)
+                                                                        .foregroundStyle(Color.iconsSecondary)
+                                                                }
+                                                            }
+                                                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
+                                                            .padding(8)
+                                                    }
                                                 } else {
                                                     photoPlaceholderView
                                                 }
@@ -102,8 +119,25 @@ private extension RegPhotoView {
                                     } else {
                                         Group {
                                             if let image = viewModel.selectedImages[index] {
-                                                image
-                                                    .resizableFill()
+                                                ZStack {
+                                                    image.resizableFill()
+                                                        Button {
+                                                            viewModel.selectedImages[index] = nil
+                                                            viewModel.imageSelections[index] = nil
+                                                        } label: {
+                                                            ZStack {
+                                                                Circle()
+                                                                    .foregroundStyle(Color.backgroundPrimary)
+                                                                    .frame(width: 32, height: 32)
+                                                                Image(systemName: "xmark")
+                                                                    .resizable()
+                                                                    .frame(width: 10, height: 10)
+                                                                    .foregroundStyle(Color.iconsSecondary)
+                                                            }
+                                                        }
+                                                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
+                                                        .padding(8)
+                                                }
                                             } else {
                                                 photoPlaceholderView
                                             }
@@ -118,9 +152,13 @@ private extension RegPhotoView {
                                         }
                                     }
                                 }
+                                .onChange(of: viewModel.selectedImage) { _ in
+                                    viewModel.showCropView = true
+                                }
                                 .aspectRatio(160/210, contentMode: .fit)
                                 .frame(width: geo.size.width * 0.4)
                                 .cornerRadius(AppConstants.Visual.cornerRadius)
+                                .contentShape(Rectangle())
                             }
                         }
                     }
@@ -144,7 +182,6 @@ private extension RegPhotoView {
             Image("plus")
                 .resizableFit()
                 .frame(width: 18, height: 18)
-                .foregroundColor(.textPrimaryLink)
         }
     }
 

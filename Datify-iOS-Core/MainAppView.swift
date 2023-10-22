@@ -13,8 +13,7 @@ struct MainAppView: View {
 
     var body: some View {
         NavigationStack(path: $router.paths) {
-//            navViewBuilder.createWelcomeView()
-            navViewBuilder.createRegPhotoView()
+            navViewBuilder.createWelcomeView()
                 .navigationDestination(for: AppRoute.self, destination: buildViews)
         }
     }

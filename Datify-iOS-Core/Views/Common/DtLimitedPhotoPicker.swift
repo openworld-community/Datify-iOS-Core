@@ -10,7 +10,7 @@ import Photos
 
 struct DtLimitedPhotoPicker: View {
     @Binding var isShowing: Bool
-    @Binding var image: Image?
+    @Binding var uiImage: UIImage?
     @State private var isShowingDialog: Bool = false
     let viewModel: RegPhotoViewModel
 
@@ -18,16 +18,18 @@ struct DtLimitedPhotoPicker: View {
         NavigationView {
             ScrollView(showsIndicators: false) {
                 LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 1), count: 3), spacing: 1) {
-                    ForEach(getImages(), id: \.self) { uiImage in
+                    ForEach(getImagesData(), id: \.self) { imageData in
                         GeometryReader { geo in
-                            Image(uiImage: uiImage)
-                                .resizable()
-                                .scaledToFill()
-                                .frame(height: geo.size.width)
-                                .onTapGesture {
-                                    image = Image(uiImage: uiImage)
-                                    isShowing = false
-                                }
+                            if let imageData {
+                                Image(uiImage: UIImage(data: imageData) ?? UIImage())
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(height: geo.size.width)
+                                    .onTapGesture {
+                                        isShowing = false
+                                        uiImage = UIImage(data: imageData)
+                                    }
+                            }
                         }
                         .clipped()
                         .scaledToFit()
@@ -69,12 +71,12 @@ struct DtLimitedPhotoPicker: View {
 }
 
 private extension DtLimitedPhotoPicker {
-    func getImages() -> [UIImage] {
-        let manager = PHImageManager.default()
-        let options = PHImageRequestOptions()
-        let phFetchResult = PHAsset.fetchAssets(with: nil)
-        var assets = [PHAsset]()
-        var images = [UIImage]()
+    func getImagesData() -> [Data?] {
+        let manager: PHImageManager = .default()
+        let options: PHImageRequestOptions = .init()
+        let phFetchResult: PHFetchResult<PHAsset> = PHAsset.fetchAssets(with: nil)
+        var assets: [PHAsset] = .init()
+        var imagesData: [Data?] = .init()
         options.isSynchronous = true
 
         phFetchResult.enumerateObjects { asset, _, _ in
@@ -82,27 +84,13 @@ private extension DtLimitedPhotoPicker {
         }
 
         for asset in assets {
-            manager.requestImage(
+            manager.requestImageDataAndOrientation(
                 for: asset,
-                targetSize: PHImageManagerMaximumSize,
-                contentMode: .aspectFit,
-                options: options) { uiImage, _ in
-                    if let image = uiImage {
-                        images.append(image)
-                    }
+                options: options) { data, _, _, _ in
+                    imagesData.append(data)
                 }
         }
 
-        return images
-    }
-}
-
-struct DtLimitedPhotoPicker_Previews: PreviewProvider {
-    static var previews: some View {
-        DtLimitedPhotoPicker(
-            isShowing: .constant(true),
-            image: .constant(Image(uiImage: UIImage())),
-            viewModel: RegPhotoViewModel(router: Router())
-        )
+        return imagesData
     }
 }

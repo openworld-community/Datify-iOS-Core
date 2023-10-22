@@ -11,35 +11,36 @@ import PhotosUI
 @MainActor
 final class RegPhotoViewModel: ObservableObject {
     @Published var selectedImages: [Image?] = Array(repeating: nil, count: 5)
+    @Published var selectedImage: UIImage?
     @Published var imageSelections: [PhotosPickerItem?] = Array(repeating: nil, count: 5) {
         didSet {
             let isChangedArray = zip(imageSelections, oldValue).map({ $0 != $1 })
             guard let changedIndex = isChangedArray.firstIndex(where: { $0 }) else { return }
-            setImage(from: imageSelections[changedIndex], to: changedIndex)
+            photoIndex = changedIndex
+            setImage(from: imageSelections[changedIndex])
         }
     }
     @Published var isAlertShowing: Bool = false
     @Published var showLimitedPicker: Bool = false
     @Published var showSpinner: Bool = false
+    @Published var showCropView: Bool = false
     @Published var photoAuthStatus: PHAuthorizationStatus = PHPhotoLibrary.authorizationStatus(for: .readWrite)
     var photoIndex: Int = 0
+    var isButtonDisabled: Bool {
+        selectedImages.compactMap({ $0 }).count < 2
+    }
     unowned let router: Router<AppRoute>
 
     init(router: Router<AppRoute>) {
         self.router = router
     }
 
-    var isButtonDisabled: Bool {
-        imageSelections.compactMap({ $0 }).count < 2
-    }
-
-    func setImage(from selection: PhotosPickerItem?, to index: Int) {
+    func setImage(from selection: PhotosPickerItem?) {
         Task {
-            if index < selectedImages.count,
-               let selection,
+            if let selection,
                let data = try? await selection.loadTransferable(type: Data.self),
-               let uiImage = UIImage(data: data) {
-                selectedImages[index] = Image(uiImage: uiImage)
+               let uiImage = UIImage(data: data ) {
+                selectedImage = uiImage
             }
         }
     }
@@ -51,7 +52,6 @@ final class RegPhotoViewModel: ObservableObject {
     }
 
     func checkPhotoAuthStatus() {
-        showSpinner = true
         PHPhotoLibrary.requestAuthorization(for: .readWrite) { status in
             switch status {
             case .restricted, .denied:
@@ -68,9 +68,6 @@ final class RegPhotoViewModel: ObservableObject {
                 }
             default:
                 break
-            }
-            Task {
-                self.showSpinner = false
             }
         }
     }
