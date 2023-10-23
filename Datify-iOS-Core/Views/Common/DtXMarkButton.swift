@@ -8,23 +8,19 @@
 import SwiftUI
 
 struct DtXMarkButton: View {
-    private let dismiss: DismissAction?
+    @Environment(\.dismiss) private var dismiss
+//    private let dismiss: DismissAction?
     private let action: () async -> Void
-    init(dismiss: DismissAction) {
-        self.dismiss = dismiss
-        self.action = {}
-    }
-    init(action: @escaping () async -> Void) {
-        self.dismiss = nil
+
+    init(action: @escaping () async -> Void = {}) {
         self.action = action
     }
 
     var body: some View {
         Button {
             Task {
-                if let dismiss = dismiss {
-                    dismiss()
-                } else { await action() }
+                await action()
+                dismiss()
             }
         } label: {
             ZStack {

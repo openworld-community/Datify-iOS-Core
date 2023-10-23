@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct DatingFilterView: View {
-    @StateObject var viewModel: DatingFilterViewModel
-    @Environment(\.dismiss) var dismiss
+    @StateObject private var viewModel: DatingFilterViewModel
     @Binding var sheetIsDisplayed: Bool
 
     init(userFilterModel: FilterModel, filterDataService: Binding<FilterDataService>, sheetIsDisplayed: Binding<Bool>) {
@@ -22,50 +21,55 @@ struct DatingFilterView: View {
     }
 
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 24) {
-                headerSection
-                sexFilter
-                purposeFilter
-                locationFilter
-                distanceFilter
-                ageFilter
+        NavigationStack {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 24) {
+                    sexFilter
+                    purposeFilter
+                    locationFilter
+                    distanceFilter
+                    ageFilter
+                }
+                .padding(.horizontal)
             }
+            .toolbar {
+                toolbarSection
+            }
+            DtButton(title: "Apply changes".localize(), style: .primary) {
+                viewModel.updateFilterModel()
+                animatedDismiss()
+            }
+            .disabled(viewModel.purpose.isEmpty)
             .padding(.horizontal)
+            .padding(.vertical, 8)
+            .interactiveDismissDisabled(true)
         }
-        .padding(.top)
-        DtButton(title: "Apply changes".localize(), style: .primary) {
-            viewModel.updateFilterModel()
-            animatedDismiss()
-        }
-        .disabled(viewModel.purpose.isEmpty)
-        .padding(.horizontal)
-        .padding(.vertical, 8)
-        .interactiveDismissDisabled(true)
     }
-
 }
 
 private extension DatingFilterView {
     private func animatedDismiss() {
-        withAnimation(.linear(duration: 0.2)) {
+        withAnimation(.linear(duration: 0.3)) {
             sheetIsDisplayed.toggle()
         }
     }
 
-    private var headerSection: some View {
-        HStack {
-            Text("Filters")
-                .dtTypo(.h3Medium, color: .textPrimary)
-            Spacer()
-            DtXMarkButton {
-                animatedDismiss()
+    private var toolbarSection: some ToolbarContent {
+        Group {
+            ToolbarItem(placement: .topBarTrailing) {
+                DtXMarkButton {
+                    animatedDismiss()
+                }
+            }
+            ToolbarItem(placement: .topBarLeading) {
+                Text("Filters")
+                    .dtTypo(.h3Medium, color: .textPrimary)
             }
         }
+
     }
     private var sexFilter: some View {
         VStack(alignment: .leading) {
-
             DtSegmentedPicker(selectedItem: $viewModel.sex, items: Sex.allCases) { item in
                 Text(item.title()).tag(item)
             }
@@ -104,7 +108,9 @@ private extension DatingFilterView {
         VStack(alignment: .leading) {
             Text("Search distance:")
                 .dtTypo(.p2Medium, color: .primary)
-            DtDistanceSlider(selectedDistance: $viewModel.distance)
+            DtStepSliderSegment(selectedItem: $viewModel.distance,
+                                items: Distances.allCases,
+                                labels: Distances.allLabels)
         }
     }
     private var ageFilter: some View {
@@ -119,10 +125,14 @@ private extension DatingFilterView {
                 Spacer()
             }
             HStack {
-                DtCustomPicker(selectedItem: $viewModel.minimumAge, items: Array(16...99), height: 96) { age in
+                DtCustomPicker(selectedItem: $viewModel.minimumAge,
+                               items: Array(16...viewModel.maximumAge),
+                               height: 96) { age in
                     Text("\(age)").tag(age)
                 }
-                DtCustomPicker(selectedItem: $viewModel.maximumAge, items: Array(16...99), height: 96) { age in
+                DtCustomPicker(selectedItem: $viewModel.maximumAge,
+                               items: Array(viewModel.minimumAge...99),
+                               height: 96) { age in
                     Text("\(age)").tag(age)
                 }
             }

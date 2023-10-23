@@ -18,7 +18,7 @@ final class FilterDataService {
         purpose: [.communication],
         minimumAge: 16,
         maximumAge: 99,
-        distance: 5
+        distance: .optionOne
     )
 
     init() {

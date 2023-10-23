@@ -48,6 +48,9 @@ struct DtCheckBoxButton: View {
     }
 }
 
-// #Preview {
-//    DtCheckBoxButton()
-// }
+ #Preview {
+     VStack {
+         DtCheckBoxButton(isSelected: true, title: "Selected") {}
+         DtCheckBoxButton(isSelected: false, title: "Not selected") {}
+     }
+ }

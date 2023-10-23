@@ -10,7 +10,7 @@ import SwiftUI
 final class DatingFilterViewModel: ObservableObject {
     @Published var sex: Sex
     @Published var purpose: Set<Occupation>
-    @Published var distance: Int
+    @Published var distance: Distances
     @Published var minimumAge: Int
     @Published var maximumAge: Int
     @Binding private var filterDataService: FilterDataService
