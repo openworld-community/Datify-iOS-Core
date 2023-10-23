@@ -17,9 +17,25 @@ struct RegPhotoView: View {
     }
 
     var body: some View {
-        VStack {
-            mainSection
-            buttonsSection
+        ZStack {
+            VStack {
+                mainSection
+                buttonsSection
+            }
+            if viewModel.showSpinner {
+                ProgressView {
+                    Text("Loading...")
+                }
+                .controlSize(.large)
+                .padding()
+                .background(
+                    RoundedRectangle(
+                        cornerRadius: AppConstants.Visual.cornerRadius,
+                        style: .circular
+                    )
+                    .foregroundStyle(.ultraThinMaterial)
+                )
+            }
         }
         .padding(.bottom, 24)
         .navigationBarBackButtonHidden()
@@ -53,6 +69,9 @@ struct RegPhotoView: View {
                 isShowing: $viewModel.showLimitedPicker,
                 uiImage: $viewModel.selectedImage,
                 viewModel: viewModel)
+            .onAppear {
+                viewModel.showSpinner = false
+            }
         }
         .fullScreenCover(isPresented: $viewModel.showCropView) {
             DtCropView(inputUIImage: viewModel.selectedImage) { croppedImage in
@@ -94,33 +113,6 @@ private extension RegPhotoView {
                                                 if let image = viewModel.selectedImages[index] {
                                                     ZStack {
                                                         image.resizableFill()
-                                                            Button {
-                                                                viewModel.selectedImages[index] = nil
-                                                                viewModel.imageSelections[index] = nil
-                                                            } label: {
-                                                                ZStack {
-                                                                    Circle()
-                                                                        .foregroundStyle(Color.backgroundPrimary)
-                                                                        .frame(width: 32, height: 32)
-                                                                    Image(systemName: "xmark")
-                                                                        .resizable()
-                                                                        .frame(width: 10, height: 10)
-                                                                        .foregroundStyle(Color.iconsSecondary)
-                                                                }
-                                                            }
-                                                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
-                                                            .padding(8)
-                                                    }
-                                                } else {
-                                                    photoPlaceholderView
-                                                }
-                                            }
-                                        }
-                                    } else {
-                                        Group {
-                                            if let image = viewModel.selectedImages[index] {
-                                                ZStack {
-                                                    image.resizableFill()
                                                         Button {
                                                             viewModel.selectedImages[index] = nil
                                                             viewModel.imageSelections[index] = nil
@@ -137,12 +129,42 @@ private extension RegPhotoView {
                                                         }
                                                         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
                                                         .padding(8)
+                                                    }
+                                                } else {
+                                                    photoPlaceholderView
+                                                }
+                                            }
+                                        }
+                                    } else {
+                                        Group {
+                                            if let image = viewModel.selectedImages[index] {
+                                                ZStack {
+                                                    image.resizableFill()
+                                                    Button {
+                                                        viewModel.selectedImages[index] = nil
+                                                        viewModel.imageSelections[index] = nil
+                                                    } label: {
+                                                        ZStack {
+                                                            Circle()
+                                                                .foregroundStyle(Color.backgroundPrimary)
+                                                                .frame(width: 32, height: 32)
+                                                            Image(systemName: "xmark")
+                                                                .resizable()
+                                                                .frame(width: 10, height: 10)
+                                                                .foregroundStyle(Color.iconsSecondary)
+                                                        }
+                                                    }
+                                                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
+                                                    .padding(8)
                                                 }
                                             } else {
                                                 photoPlaceholderView
                                             }
                                         }
                                         .onTapGesture {
+                                            Task {
+                                                viewModel.showSpinner = true
+                                            }
                                             if viewModel.photoAuthStatus == .limited {
                                                 viewModel.photoIndex = index
                                                 viewModel.showLimitedPicker = true
