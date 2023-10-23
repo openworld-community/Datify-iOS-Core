@@ -32,6 +32,7 @@ struct DtLimitedPhotoPicker: View {
                             }
                         }
                         .clipped()
+                        .contentShape(Rectangle())
                         .scaledToFit()
                     }
                 }
