@@ -18,4 +18,12 @@ enum DtImage {
     static let arrowRight = "iconArrowRight"
     static let tabbarChat = "tabbarChat"
     static let tabbarMenu = "tabbarMenu"
+
+    static let voiceRecording = "voice.recording"
+    static let stopRecording = "stop.voice.recording"
+    static let deleteDisabled = "delete.disabled"
+    static let deleteEnabled = "delete.enabled"
+    static let playDisabled = "play.disabled"
+    static let playEnabled = "play.enabled"
+    static let stopPlayingEnabled = "stop.playing"
 }

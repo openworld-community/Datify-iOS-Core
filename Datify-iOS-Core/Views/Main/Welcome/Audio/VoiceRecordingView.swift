@@ -13,9 +13,7 @@ struct VoiceRecordingView: View {
             Spacer()
             titleSegment
             Spacer()
-            HStack {
-                
-            }
+            AudioTrackView()
             navigationButtons
         }
         .toolbar {
@@ -29,7 +27,9 @@ struct VoiceRecordingView: View {
 }
 
 #Preview {
-    VoiceRecordingView()
+    NavigationStack {
+        VoiceRecordingView()
+    }
 }
 
 private extension VoiceRecordingView {
