@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 enum AppRoute {
     case temp
@@ -17,6 +18,8 @@ enum AppRoute {
     case registrationLocation
     case registrationRecord
     case registrationFinish
+    case location
+    case countryAndCity(isCountrySelection: Bool, viewModel: LocationViewModel)
 }
 
 extension AppRoute: Hashable, Equatable {
@@ -31,6 +34,9 @@ extension AppRoute: Hashable, Equatable {
         case (.registrationLocation, .registrationLocation): return true
         case (.registrationRecord, .registrationRecord): return true
         case (.registrationFinish, .registrationFinish): return true
+
+        case (.location, .location): return true
+        case (.countryAndCity, .countryAndCity): return true
         default: return false
         }
     }

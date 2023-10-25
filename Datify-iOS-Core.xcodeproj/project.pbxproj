@@ -7,10 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2002C9F62AB465540043B51E /* DtCustomPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2002C9F52AB465540043B51E /* DtCustomPicker.swift */; };
 		2012EF642AAF479400B01688 /* DtBackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2012EF632AAF479400B01688 /* DtBackButton.swift */; };
 		2012EF662AAF719C00B01688 /* DtTermsAndConditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2012EF652AAF719C00B01688 /* DtTermsAndConditions.swift */; };
+		201878B32AB2F8B20029C66C /* RegBirthdayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 201878B22AB2F8B20029C66C /* RegBirthdayView.swift */; };
+		2020736A2AB378B200CBBE42 /* DtCustomDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202073692AB378B200CBBE42 /* DtCustomDatePicker.swift */; };
 		2076AF2E2AB080DB00AF5E11 /* String+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2076AF2D2AB080DB00AF5E11 /* String+extension.swift */; };
 		2076AF302AB085F400AF5E11 /* Image+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2076AF2F2AB085F400AF5E11 /* Image+extension.swift */; };
+		208A426D2AB9061000E90C94 /* RegFinalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208A426C2AB9061000E90C94 /* RegFinalView.swift */; };
+		208D05502AB8F5EB0071E1B7 /* RegOccupationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208D054F2AB8F5EB0071E1B7 /* RegOccupationView.swift */; };
+		208D05522AB903790071E1B7 /* DtSelectorButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208D05512AB903790071E1B7 /* DtSelectorButton.swift */; };
 		20BF9D932AB1BE85008B3CEB /* RegSelectGenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20BF9D922AB1BE85008B3CEB /* RegSelectGenderView.swift */; };
 		20C081052AB1E1B200BB2910 /* RegEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C081042AB1E1B200BB2910 /* RegEmailView.swift */; };
 		20C081072AB1E1D400BB2910 /* RegEnterNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C081062AB1E1D400BB2910 /* RegEnterNameView.swift */; };
@@ -31,7 +37,23 @@
 		4A4CE2F12A9B67B90098FF80 /* Text+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CE2F02A9B67B90098FF80 /* Text+extension.swift */; };
 		63203C712AAC6B2600F8803A /* UIApplication+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63203C702AAC6B2600F8803A /* UIApplication+extension.swift */; };
 		632A7F5E2AAC897B005DA819 /* DtCustomTFView+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632A7F5D2AAC897B005DA819 /* DtCustomTFView+extension.swift */; };
+		634EF7282ADC48010061E13A /* TabbarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634EF7222ADC48010061E13A /* TabbarViewModel.swift */; };
+		634EF7292ADC48010061E13A /* DtTabbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634EF7232ADC48010061E13A /* DtTabbar.swift */; };
+		634EF72A2ADC48010061E13A /* TabItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634EF7242ADC48010061E13A /* TabItem.swift */; };
+		634EF72B2ADC48010061E13A /* TabbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634EF7252ADC48010061E13A /* TabbarView.swift */; };
+		634EF7302ADC48100061E13A /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634EF72E2ADC48100061E13A /* ChatView.swift */; };
+		634EF7312ADC48100061E13A /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634EF72F2ADC48100061E13A /* ChatViewModel.swift */; };
+		634EF7342ADC48220061E13A /* DatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634EF7322ADC48220061E13A /* DatingView.swift */; };
+		634EF7352ADC48220061E13A /* DatingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634EF7332ADC48220061E13A /* DatingViewModel.swift */; };
+		634EF7382ADC48300061E13A /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634EF7362ADC48300061E13A /* MenuView.swift */; };
+		634EF7392ADC48300061E13A /* MenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634EF7372ADC48300061E13A /* MenuViewModel.swift */; };
+		634EF73B2ADC51EB0061E13A /* MainFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634EF73A2ADC51EB0061E13A /* MainFlow.swift */; };
+		638D1E862ABAB45C0001CED4 /* LocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638D1E822ABAB45C0001CED4 /* LocationView.swift */; };
+		638D1E872ABAB45C0001CED4 /* LocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638D1E832ABAB45C0001CED4 /* LocationViewModel.swift */; };
+		638D1E882ABAB45C0001CED4 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638D1E842ABAB45C0001CED4 /* LocationManager.swift */; };
+		638D1E892ABAB45C0001CED4 /* CountryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638D1E852ABAB45C0001CED4 /* CountryModel.swift */; };
 		63A365A32AA04FFB00CBF5CD /* DtCustomTF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A365A22AA04FFB00CBF5CD /* DtCustomTF.swift */; };
+		63A5B8B52AC5F0BA00DEB54A /* CountryAndCityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A5B8B42AC5F0BA00DEB54A /* CountryAndCityView.swift */; };
 		63A729592AA3937500AC60E3 /* RegularTFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A729582AA3937500AC60E3 /* RegularTFView.swift */; };
 		63A7295D2AA395A200AC60E3 /* ConstantsTF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A7295C2AA395A200AC60E3 /* ConstantsTF.swift */; };
 		63A7295F2AA3A30E00AC60E3 /* SecureTFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A7295E2AA3A30E00AC60E3 /* SecureTFView.swift */; };
@@ -75,10 +97,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2002C9F52AB465540043B51E /* DtCustomPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtCustomPicker.swift; sourceTree = "<group>"; };
 		2012EF632AAF479400B01688 /* DtBackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtBackButton.swift; sourceTree = "<group>"; };
 		2012EF652AAF719C00B01688 /* DtTermsAndConditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtTermsAndConditions.swift; sourceTree = "<group>"; };
+		201878B22AB2F8B20029C66C /* RegBirthdayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegBirthdayView.swift; sourceTree = "<group>"; };
+		202073692AB378B200CBBE42 /* DtCustomDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtCustomDatePicker.swift; sourceTree = "<group>"; };
 		2076AF2D2AB080DB00AF5E11 /* String+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+extension.swift"; sourceTree = "<group>"; };
 		2076AF2F2AB085F400AF5E11 /* Image+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+extension.swift"; sourceTree = "<group>"; };
+		208A426C2AB9061000E90C94 /* RegFinalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegFinalView.swift; sourceTree = "<group>"; };
+		208D054F2AB8F5EB0071E1B7 /* RegOccupationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegOccupationView.swift; sourceTree = "<group>"; };
+		208D05512AB903790071E1B7 /* DtSelectorButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtSelectorButton.swift; sourceTree = "<group>"; };
 		20BF9D922AB1BE85008B3CEB /* RegSelectGenderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegSelectGenderView.swift; sourceTree = "<group>"; };
 		20C081042AB1E1B200BB2910 /* RegEmailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegEmailView.swift; sourceTree = "<group>"; };
 		20C081062AB1E1D400BB2910 /* RegEnterNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegEnterNameView.swift; sourceTree = "<group>"; };
@@ -99,7 +127,23 @@
 		4A4CE2F02A9B67B90098FF80 /* Text+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Text+extension.swift"; sourceTree = "<group>"; };
 		63203C702AAC6B2600F8803A /* UIApplication+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+extension.swift"; sourceTree = "<group>"; };
 		632A7F5D2AAC897B005DA819 /* DtCustomTFView+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DtCustomTFView+extension.swift"; sourceTree = "<group>"; };
+		634EF7222ADC48010061E13A /* TabbarViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabbarViewModel.swift; sourceTree = "<group>"; };
+		634EF7232ADC48010061E13A /* DtTabbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DtTabbar.swift; sourceTree = "<group>"; };
+		634EF7242ADC48010061E13A /* TabItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabItem.swift; sourceTree = "<group>"; };
+		634EF7252ADC48010061E13A /* TabbarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabbarView.swift; sourceTree = "<group>"; };
+		634EF72E2ADC48100061E13A /* ChatView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChatView.swift; path = "Datify-iOS-Core/Views/Main/Tabbar/Chat/ChatView.swift"; sourceTree = SOURCE_ROOT; };
+		634EF72F2ADC48100061E13A /* ChatViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChatViewModel.swift; path = "Datify-iOS-Core/Views/Main/Tabbar/Chat/ChatViewModel.swift"; sourceTree = SOURCE_ROOT; };
+		634EF7322ADC48220061E13A /* DatingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatingView.swift; sourceTree = "<group>"; };
+		634EF7332ADC48220061E13A /* DatingViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatingViewModel.swift; sourceTree = "<group>"; };
+		634EF7362ADC48300061E13A /* MenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
+		634EF7372ADC48300061E13A /* MenuViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewModel.swift; sourceTree = "<group>"; };
+		634EF73A2ADC51EB0061E13A /* MainFlow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainFlow.swift; sourceTree = "<group>"; };
+		638D1E822ABAB45C0001CED4 /* LocationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationView.swift; sourceTree = "<group>"; };
+		638D1E832ABAB45C0001CED4 /* LocationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationViewModel.swift; sourceTree = "<group>"; };
+		638D1E842ABAB45C0001CED4 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		638D1E852ABAB45C0001CED4 /* CountryModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryModel.swift; sourceTree = "<group>"; };
 		63A365A22AA04FFB00CBF5CD /* DtCustomTF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtCustomTF.swift; sourceTree = "<group>"; };
+		63A5B8B42AC5F0BA00DEB54A /* CountryAndCityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryAndCityView.swift; sourceTree = "<group>"; };
 		63A729582AA3937500AC60E3 /* RegularTFView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegularTFView.swift; sourceTree = "<group>"; };
 		63A7295C2AA395A200AC60E3 /* ConstantsTF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantsTF.swift; sourceTree = "<group>"; };
 		63A7295E2AA3A30E00AC60E3 /* SecureTFView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureTFView.swift; sourceTree = "<group>"; };
@@ -115,6 +159,7 @@
 		98E38EB52AB358F8007FC35A /* RegPhotoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegPhotoViewModel.swift; sourceTree = "<group>"; };
 		98F3B6D52A9E4F9D0097B5C0 /* DtLogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtLogoView.swift; sourceTree = "<group>"; };
 		98F9F2062AB0C80A00F7DAB8 /* RegEmailViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegEmailViewModel.swift; sourceTree = "<group>"; };
+		B9D98C0D2AC425F400F0F4B8 /* Datifysharedcore */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Datifysharedcore; path = ../Datifysharedcore; sourceTree = "<group>"; };
 		D050B1B02AA84AA0008EC0AB /* DividerLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerLine.swift; sourceTree = "<group>"; };
 		D0C1852F2AA1D0E1000D71E5 /* SignInWithButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInWithButton.swift; sourceTree = "<group>"; };
 		D0C896592AA217630084FA62 /* DtImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtImage.swift; sourceTree = "<group>"; };
@@ -181,6 +226,7 @@
 				98553B0B2AAF0CF3005C80B3 /* CustomTextField */,
 				4A4CE2E92A9B5FB80098FF80 /* DtButton.swift */,
 				2012EF632AAF479400B01688 /* DtBackButton.swift */,
+				208D05512AB903790071E1B7 /* DtSelectorButton.swift */,
 				D0C1852F2AA1D0E1000D71E5 /* SignInWithButton.swift */,
 				4A4CE2EE2A9B66DC0098FF80 /* TempView.swift */,
 				98F3B6D52A9E4F9D0097B5C0 /* DtLogoView.swift */,
@@ -189,6 +235,8 @@
 				2012EF652AAF719C00B01688 /* DtTermsAndConditions.swift */,
 				9888E7852AC4747400F5B86F /* DtLimitedPhotoPicker.swift */,
 				9888E78A2AC5B20100F5B86F /* DtCropView.swift */,
+				202073692AB378B200CBBE42 /* DtCustomDatePicker.swift */,
+				2002C9F52AB465540043B51E /* DtCustomPicker.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -205,6 +253,7 @@
 		4A4CE2CB2A9B3FFB0098FF80 /* Welcome */ = {
 			isa = PBXGroup;
 			children = (
+				638D1E812ABAB44B0001CED4 /* Location */,
 				98F9F2032AB0C67300F7DAB8 /* Registration */,
 				4A4CE2DB2A9B485B0098FF80 /* WelcomeView.swift */,
 				4A4CE2CC2A9B40DA0098FF80 /* Login */,
@@ -225,6 +274,10 @@
 		4A4CE2CE2A9B41920098FF80 /* Tabbar */ = {
 			isa = PBXGroup;
 			children = (
+				634EF7232ADC48010061E13A /* DtTabbar.swift */,
+				634EF7252ADC48010061E13A /* TabbarView.swift */,
+				634EF7222ADC48010061E13A /* TabbarViewModel.swift */,
+				634EF7242ADC48010061E13A /* TabItem.swift */,
 				4A4CE2CF2A9B41B90098FF80 /* Dating */,
 				4A4CE2D02A9B41C40098FF80 /* Chat */,
 				4A4CE2D12A9B41D20098FF80 /* Menu */,
@@ -235,6 +288,8 @@
 		4A4CE2CF2A9B41B90098FF80 /* Dating */ = {
 			isa = PBXGroup;
 			children = (
+				634EF7322ADC48220061E13A /* DatingView.swift */,
+				634EF7332ADC48220061E13A /* DatingViewModel.swift */,
 			);
 			path = Dating;
 			sourceTree = "<group>";
@@ -242,6 +297,8 @@
 		4A4CE2D02A9B41C40098FF80 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				634EF72E2ADC48100061E13A /* ChatView.swift */,
+				634EF72F2ADC48100061E13A /* ChatViewModel.swift */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -249,6 +306,8 @@
 		4A4CE2D12A9B41D20098FF80 /* Menu */ = {
 			isa = PBXGroup;
 			children = (
+				634EF7362ADC48300061E13A /* MenuView.swift */,
+				634EF7372ADC48300061E13A /* MenuViewModel.swift */,
 			);
 			path = Menu;
 			sourceTree = "<group>";
@@ -259,6 +318,7 @@
 				4A4CE2C92A9B3E8C0098FF80 /* NavigationViewBuilder.swift */,
 				4A4CE2D52A9B44C20098FF80 /* LoginFlow.swift */,
 				4A4CE2D32A9B44280098FF80 /* RegistrationFlow.swift */,
+				634EF73A2ADC51EB0061E13A /* MainFlow.swift */,
 			);
 			path = NavigationViewBuilder;
 			sourceTree = "<group>";
@@ -310,6 +370,18 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
+		638D1E812ABAB44B0001CED4 /* Location */ = {
+			isa = PBXGroup;
+			children = (
+				638D1E852ABAB45C0001CED4 /* CountryModel.swift */,
+				638D1E842ABAB45C0001CED4 /* LocationManager.swift */,
+				638D1E822ABAB45C0001CED4 /* LocationView.swift */,
+				638D1E832ABAB45C0001CED4 /* LocationViewModel.swift */,
+				63A5B8B42AC5F0BA00DEB54A /* CountryAndCityView.swift */,
+			);
+			path = Location;
+			sourceTree = "<group>";
+		};
 		63A729572AA3935700AC60E3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -348,6 +420,9 @@
 				20C081062AB1E1D400BB2910 /* RegEnterNameView.swift */,
 				98E38EB32AB351A0007FC35A /* RegPhotoView.swift */,
 				98E38EB52AB358F8007FC35A /* RegPhotoViewModel.swift */,
+				208D054F2AB8F5EB0071E1B7 /* RegOccupationView.swift */,
+				208A426C2AB9061000E90C94 /* RegFinalView.swift */,
+				201878B22AB2F8B20029C66C /* RegBirthdayView.swift */,
 			);
 			path = Registration;
 			sourceTree = "<group>";
@@ -355,6 +430,7 @@
 		D0DC46502A92699C0097CFF3 = {
 			isa = PBXGroup;
 			children = (
+				B9D98C0D2AC425F400F0F4B8 /* Datifysharedcore */,
 				D0DC46862A926C650097CFF3 /* README.md */,
 				D0DC465B2A92699D0097CFF3 /* Datify-iOS-Core */,
 				D0DC466C2A92699F0097CFF3 /* Datify-iOS-CoreTests */,
@@ -423,6 +499,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D0DC467D2A92699F0097CFF3 /* Build configuration list for PBXNativeTarget "Datify-iOS-Core" */;
 			buildPhases = (
+				B9D98C0C2AC422F700F0F4B8 /* Run Script */,
 				D0DC46552A92699D0097CFF3 /* Sources */,
 				D0DC46562A92699D0097CFF3 /* Frameworks */,
 				D0DC46572A92699D0097CFF3 /* Resources */,
@@ -567,6 +644,24 @@
 			shellPath = /bin/sh;
 			shellScript = "if [[ \"$(uname -m)\" == arm64 ]]; then\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nfi\n\nif which swiftlint > /dev/null; then\n  swiftlint --fix && swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
+		B9D98C0C2AC422F700F0F4B8 /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd \"$SRCROOT/Datify-mobile-shared\"\n./gradlew :shared:embedAndSignAppleFrameworkForXcode \n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -576,28 +671,48 @@
 			files = (
 				4A4CE2EA2A9B5FB80098FF80 /* DtButton.swift in Sources */,
 				4A4CE2D42A9B44280098FF80 /* RegistrationFlow.swift in Sources */,
+				2020736A2AB378B200CBBE42 /* DtCustomDatePicker.swift in Sources */,
 				2076AF302AB085F400AF5E11 /* Image+extension.swift in Sources */,
 				980895BA2A9F4A5700F82F02 /* DtSpinnerView.swift in Sources */,
 				63A7295D2AA395A200AC60E3 /* ConstantsTF.swift in Sources */,
+				208D05502AB8F5EB0071E1B7 /* RegOccupationView.swift in Sources */,
 				4A4CE2CA2A9B3E8C0098FF80 /* NavigationViewBuilder.swift in Sources */,
 				4A4CE2C82A9B3B620098FF80 /* Router.swift in Sources */,
+				634EF72B2ADC48010061E13A /* TabbarView.swift in Sources */,
 				D0C185302AA1D0E1000D71E5 /* SignInWithButton.swift in Sources */,
 				632A7F5E2AAC897B005DA819 /* DtCustomTFView+extension.swift in Sources */,
+				634EF72A2ADC48010061E13A /* TabItem.swift in Sources */,
 				4A4CE2DC2A9B485B0098FF80 /* WelcomeView.swift in Sources */,
+				63A5B8B52AC5F0BA00DEB54A /* CountryAndCityView.swift in Sources */,
 				63A7295F2AA3A30E00AC60E3 /* SecureTFView.swift in Sources */,
 				98E38EB62AB358F8007FC35A /* RegPhotoViewModel.swift in Sources */,
+				201878B32AB2F8B20029C66C /* RegBirthdayView.swift in Sources */,
 				4A4CE2E82A9B58590098FF80 /* DtTypography.swift in Sources */,
 				63203C712AAC6B2600F8803A /* UIApplication+extension.swift in Sources */,
+				638D1E862ABAB45C0001CED4 /* LocationView.swift in Sources */,
+				638D1E892ABAB45C0001CED4 /* CountryModel.swift in Sources */,
+				634EF7352ADC48220061E13A /* DatingViewModel.swift in Sources */,
 				D0C8965A2AA217630084FA62 /* DtImage.swift in Sources */,
+				634EF7392ADC48300061E13A /* MenuViewModel.swift in Sources */,
 				D0DC465F2A92699D0097CFF3 /* MainAppView.swift in Sources */,
+				634EF7382ADC48300061E13A /* MenuView.swift in Sources */,
+				634EF7282ADC48010061E13A /* TabbarViewModel.swift in Sources */,
 				63A729592AA3937500AC60E3 /* RegularTFView.swift in Sources */,
 				20BF9D932AB1BE85008B3CEB /* RegSelectGenderView.swift in Sources */,
 				4A4CE2E32A9B53E70098FF80 /* Color+extension.swift in Sources */,
+				208A426D2AB9061000E90C94 /* RegFinalView.swift in Sources */,
 				2076AF2E2AB080DB00AF5E11 /* String+extension.swift in Sources */,
 				9898B2BF2AAA49DE007CA714 /* RegEmailViewModel.swift in Sources */,
 				98F3B6D62A9E4F9D0097B5C0 /* DtLogoView.swift in Sources */,
+				634EF73B2ADC51EB0061E13A /* MainFlow.swift in Sources */,
+				208D05522AB903790071E1B7 /* DtSelectorButton.swift in Sources */,
 				63A729692AA4A94B00AC60E3 /* CountryCodeButton.swift in Sources */,
+				634EF7292ADC48010061E13A /* DtTabbar.swift in Sources */,
+				638D1E872ABAB45C0001CED4 /* LocationViewModel.swift in Sources */,
+				634EF7312ADC48100061E13A /* ChatViewModel.swift in Sources */,
 				D0DC465D2A92699D0097CFF3 /* DatifyiOSCoreApp.swift in Sources */,
+				638D1E882ABAB45C0001CED4 /* LocationManager.swift in Sources */,
+				634EF7342ADC48220061E13A /* DatingView.swift in Sources */,
 				4A4CE2D62A9B44C20098FF80 /* LoginFlow.swift in Sources */,
 				98E38EB42AB351A0007FC35A /* RegPhotoView.swift in Sources */,
 				20C081072AB1E1D400BB2910 /* RegEnterNameView.swift in Sources */,
@@ -607,8 +722,10 @@
 				2012EF662AAF719C00B01688 /* DtTermsAndConditions.swift in Sources */,
 				4A4CE2ED2A9B60A60098FF80 /* AppConstants.swift in Sources */,
 				2012EF642AAF479400B01688 /* DtBackButton.swift in Sources */,
+				634EF7302ADC48100061E13A /* ChatView.swift in Sources */,
 				4A4CE2F12A9B67B90098FF80 /* Text+extension.swift in Sources */,
 				4A4CE2EF2A9B66DC0098FF80 /* TempView.swift in Sources */,
+				2002C9F62AB465540043B51E /* DtCustomPicker.swift in Sources */,
 				63A365A32AA04FFB00CBF5CD /* DtCustomTF.swift in Sources */,
 				4A4CE2C62A9B3A5F0098FF80 /* AppRoute.swift in Sources */,
 				9888E78B2AC5B20100F5B86F /* DtCropView.swift in Sources */,
@@ -778,10 +895,12 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Datify-iOS-Core/Preview Content\"";
 				DEVELOPMENT_TEAM = 2S52Q5VDX5;
 				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/Datify-mobile-shared/shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Datify-iOS-Core/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Datify;
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Our geolocation-based dating app helps you find suitable partners both in your local area and beyond. We utilize geopositioning to generate more precise and personalized recommendations, taking your location into consideration.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -791,6 +910,11 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					shared,
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.a.pride.Datify-iOS-Core";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -814,10 +938,12 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Datify-iOS-Core/Preview Content\"";
 				DEVELOPMENT_TEAM = 2S52Q5VDX5;
 				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/Datify-mobile-shared/shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Datify-iOS-Core/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Datify;
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Our geolocation-based dating app helps you find suitable partners both in your local area and beyond. We utilize geopositioning to generate more precise and personalized recommendations, taking your location into consideration.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -827,6 +953,11 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					shared,
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.a.pride.Datify-iOS-Core";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

@@ -80,7 +80,7 @@ struct RegSelectGenderView: View {
                 DtLogoView()
             }
         }
-        .padding(.bottom)
+        .padding(.bottom, 8)
         .onChange(of: selectedGender, perform: { newValue in
             switch newValue {
             case .other(let value): otherOptionsTitle = "Other option: \(value)".localize()
@@ -204,12 +204,15 @@ private struct EnterOtherGenderSheet: View {
                 DtBackButton(action: {sheet = .otherOptions})
                 DtButton(title: "Proceed".localize(), style: .main, action: {
                     if genderTitleIsCorrect() {
-                        selectedGender = .other(otherGenderTitle.capitalized)
+                        selectedGender = .other(otherGenderTitle.trimWhitespace())
                         sheet = nil
                     }
                 }).disabled(!genderTitleIsCorrect())
             }
         }
+        .onChange(of: otherGenderTitle, perform: { newValue in
+            otherGenderTitle = newValue.trimLeadingSpaces()
+        })
         .padding(.horizontal)
         .presentationDetents([.height(200)])
         .presentationDragIndicator(.visible)
