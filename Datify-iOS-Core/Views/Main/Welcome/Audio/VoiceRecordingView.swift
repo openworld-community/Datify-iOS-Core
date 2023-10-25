@@ -9,20 +9,23 @@ import SwiftUI
 
 struct VoiceRecordingView: View {
     var body: some View {
-        VStack(spacing: 40) {
-            Spacer()
-            titleSegment
-            Spacer()
-            AudioTrackView()
-            navigationButtons
-        }
-        .toolbar {
-            ToolbarItem(placement: .principal) {
-                DtLogoView()
+        NavigationStack {
+            VStack(spacing: 40) {
+                Spacer()
+                titleSegment
+                Spacer()
+                AudioTrackView()
+                navigationButtons
             }
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    DtLogoView()
+                }
+            }
+            .padding(.horizontal)
+            .padding(.bottom, 8)
         }
-        .padding(.horizontal)
-        .padding(.bottom, 8)
+
     }
 }
 

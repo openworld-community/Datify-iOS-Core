@@ -15,14 +15,18 @@ struct AudioTrackView: View {
                 HStack {
 
                 }
-                .frame(width: 3, height: CGFloat(height) * 7)
-                .cornerRadius(/*@START_MENU_TOKEN@*/3.0/*@END_MENU_TOKEN@*/)
-                .background(Color.blue)
+                .frame(width: height == 15 ? 1 : 3, height: CGFloat(height) * 7)
+                .background(height == 15 ? Color.red : Color.blue)
+                .cornerRadius(3)
             }
+            .frame(height: 80)
         }
         .onAppear {
-            for i in 0...75 {
-                viewModel.arrayHeight.append(Float.random(in: 0...20))
+            Task {
+                await viewModel.setUpCaptureSession()
+            }
+            for _ in 0...75 {
+                viewModel.arrayHeight.append(1.0)
             }
         }
         HStack {
@@ -43,7 +47,8 @@ extension AudioTrackView {
     private var recordButton: some View {
         Button {
             Task {
-                //                    recordButtonAction()
+                viewModel.didTapRecordButton()
+//                viewModel.canSubmit = true
                 if viewModel.isRecording {
                     withAnimation(.linear) {
                         viewModel.isRecording = false
@@ -53,7 +58,6 @@ extension AudioTrackView {
                         viewModel.isRecording = true
                     }
                 }
-
             }
         } label: {
 
@@ -72,13 +76,12 @@ extension AudioTrackView {
                         .stroke(Color(hex: 0x3C3C43, alpha: 0.32), lineWidth: 1)
                 )
         }
-
     }
 
     private var deleteButton: some View {
         Button {
             Task {
-                //                    deleteButtonAction()
+                viewModel.deleteRecord()
             }
         } label: {
 
@@ -87,7 +90,7 @@ extension AudioTrackView {
                 .frame(width: 48, height: 48)
                 .foregroundColor(Color.red)
                 .overlay {
-                    Image(fileExists() ? DtImage.deleteEnabled : DtImage.deleteDisabled)
+                    Image(viewModel.fileExists() ? DtImage.deleteEnabled : DtImage.deleteDisabled)
                         .resizable()
                         .frame(width: 24, height: 24)
                 }
@@ -105,7 +108,7 @@ extension AudioTrackView {
                 //                    playButtonAction()
             }
         } label: {
-            if !fileExists() {
+            if !viewModel.fileExists() {
                 Circle()
                     .fill(Color.clear)
                     .frame(width: 48, height: 48)
@@ -116,7 +119,7 @@ extension AudioTrackView {
                             .frame(width: 24, height: 24)
                     }
                     .onAppear {
-                        //                            print("viewModel.audioURL: \(viewModel.audioURL)")
+                        print("viewModel.audioURL: \(viewModel.fileExists())")
                     }
                     .background(
                         RoundedRectangle(cornerRadius: 62)
@@ -142,14 +145,4 @@ extension AudioTrackView {
 
     }
 
-    func fileExists() -> Bool {
-        let fileName = "recording.m4a"
-        if let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-            let fileURL = documentsDirectory.appendingPathComponent(fileName)
-            print("1111fileUrl: \(fileURL)")
-            return FileManager.default.fileExists(atPath: fileURL.path)
-        }
-        print("File doesn't exit")
-        return false
-    }
 }
