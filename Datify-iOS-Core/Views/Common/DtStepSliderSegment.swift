@@ -54,7 +54,7 @@ private extension DtStepSliderSegment {
     private var labelStack: some View {
         GeometryReader { geometry in
             ZStack(alignment: Alignment(horizontal: .leading, vertical: .center)) {
-                let labelStep = geometry.size.width/CGFloat(numberOfSteps)
+                let labelStep = geometry.size.width/CGFloat(labels.count-1)
                 HStack {
                     Text(labels[0])
                     Spacer()
@@ -75,5 +75,30 @@ private extension DtStepSliderSegment {
 }
 
 #Preview {
-    DatingView(router: Router())
+
+    VStack(spacing: 40) {
+        DtStepSliderSegment<Distances>(selectedItem: .constant(.optionTwo),
+                                       items: Distances.allCases,
+                                       labels: Distances.allLabels)
+        DtStepSliderSegment(selectedItem: .constant(7),
+                            items: Array(1...9),
+                            labels: ["One", "Three", "Five", "Seven", "Nine"])
+        DtStepSliderSegment(selectedItem: .constant(2),
+                            items: Array(1...3),
+                            labels: ["One", "Two", "Three"])
+
+        // Can be used in Quiz
+        VStack(alignment: .leading) {
+            Text("On a scale from 1 to 10, how much do you like ...?")
+                .dtTypo(.p3Medium, color: .primary)
+
+            let localItems = Array(1...10)
+            let localLabels = localItems.map { String($0) }
+            DtStepSliderSegment(selectedItem: .constant(2),
+                                items: localItems,
+                                labels: localLabels)
+        }
+
+    }
+    .padding()
 }

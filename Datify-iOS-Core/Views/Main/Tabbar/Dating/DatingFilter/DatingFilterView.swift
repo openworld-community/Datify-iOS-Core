@@ -106,7 +106,7 @@ private extension DatingFilterView {
     }
     private var distanceFilter: some View {
         VStack(alignment: .leading) {
-            Text("Search distance:")
+            Text("Search distance in km:")
                 .dtTypo(.p2Medium, color: .primary)
             DtStepSliderSegment(selectedItem: $viewModel.distance,
                                 items: Distances.allCases,
@@ -141,5 +141,12 @@ private extension DatingFilterView {
 }
 
 #Preview {
-    DatingView(router: Router())
+//    DatingView(router: Router())
+    DatingFilterView(userFilterModel: FilterModel(
+        sex: .male,
+        purpose: [.communication],
+        minimumAge: 16,
+        maximumAge: 99,
+        distance: .optionOne
+    ), filterDataService: .constant(FilterDataService()), sheetIsDisplayed: .constant(true))
 }

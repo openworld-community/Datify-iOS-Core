@@ -135,6 +135,12 @@ private extension DtStepSlider {
         DtStepSlider(circleWidth: 32,
                      items: [1, 2, 3, 4, 5, 6, 7],
                      selectedItem: .constant(4))
+        DtStepSliderSegment<Distances>(selectedItem: .constant(.optionTwo),
+                                       items: Distances.allCases,
+                                       labels: Distances.allLabels)
+        DtStepSliderSegment(selectedItem: .constant(7),
+                            items: Array(1...9),
+                            labels: ["One", "Three", "Five", "Seven", "Nine"])
     }
     .padding(.horizontal)
 }

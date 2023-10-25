@@ -33,7 +33,7 @@ enum Distances: String, Equatable, CaseIterable, Codable {
     }
 
     func label() -> String {
-        return self.rawValue + " km".localize()
+        return self.rawValue
     }
 
     static var allLabels: [String] {
