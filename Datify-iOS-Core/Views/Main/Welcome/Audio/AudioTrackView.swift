@@ -16,26 +16,27 @@ struct AudioTrackView: View {
 
     var body: some View {
         HStack(spacing: 2) {
-            ForEach(viewModel.arrayHeight, id: \.self) { height in
-                VStack(spacing: 0) {
-                    Circle()
-                        .fill(height == 184 ? Color.red : Color.clear)
-                        .frame(width: 4, height: 4)
-                    HStack {
+            ForEach(viewModel.arrayHeight, id: \.self) { bar in
+                HStack {
+                    if bar.isASignal {
+                        HStack {
 
+                        }
+                        .frame(width: 3, height: CGFloat(bar.height))
+                        .background( bar.disabledBool ? Color(hex: 0x3C3C43, alpha: 0.3) : Color(hex: 0x6167FF))
+                        .cornerRadius(3)
+                        .transition(.opacity)
                     }
-                    .frame(width: height == 184 ? 1 : 3, height: CGFloat(height))
-                    .background(height == 184 ? Color.red : Color.blue)
-                    .cornerRadius(3)
-                    Circle()
-                        .fill(height == 184 ? Color.red : Color.clear)
-                        .frame(width: 4, height: 4)
                 }
-                .animation(.bouncy)
-                .frame(width: 3, height: 200)
+                .frame(width: 3, height: bar.isASignal ? CGFloat(bar.height) : 3)
+                .background( bar.disabledBool ? Color(hex: 0x3C3C43, alpha: 0.3) : Color(hex: 0x6167FF))
+                .cornerRadius(3)
+                .transition(bar.isASignal && !bar.disabledBool ? .scale : .opacity )
             }
+
         }
         .frame(height: 200)
+
         HStack {
             deleteButton
             recordButton
@@ -48,7 +49,7 @@ struct AudioTrackView: View {
                 await viewModel.setUpCaptureSession()
             }
             for _ in 0...Int(UIScreen.main.bounds.width / 5) {
-                viewModel.arrayHeight.append(3)
+                viewModel.arrayHeight.append(BarModel(height: 3, disabledBool: true, isASignal: false))
             }
         }
     }
@@ -120,7 +121,7 @@ extension AudioTrackView {
     private var playButton: some View {
         Button {
             Task {
-                //                    playButtonAction()
+                viewModel.play()
             }
         } label: {
             if viewModel.fileExistsBool {

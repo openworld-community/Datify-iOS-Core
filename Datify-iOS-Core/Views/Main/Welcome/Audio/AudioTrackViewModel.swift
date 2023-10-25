@@ -10,17 +10,25 @@ import AVFAudio
 import AVFoundation
 import SwiftUI
 
+struct BarModel: Hashable {
+    var height: Float
+    var disabledBool: Bool
+    var isASignal: Bool
+}
+
 class AudioTrackViewModel: ObservableObject {
     @Published var canSubmit: Bool = false
     @Published var isRecording: Bool = false
     @Published var isPlaying: Bool = false
-    @Published var arrayHeight: [Float] = []
+    @Published var arrayHeight: [BarModel] = []
     @Published var fileExistsBool: Bool = false
 
     var audioRecorder: AVAudioRecorder?
     var meteringTimer: Timer?
+    var playTimer: Timer?
     var meteringFrequency = 15 / Double(UIScreen.main.bounds.width / 5)
-    var recordingTime = 0.0
+    var recordingTime = 15.0
+    var recordingCurrentTime = 0.0
     var index = 0
 
     var isAuthorized: Bool {
@@ -65,12 +73,53 @@ class AudioTrackViewModel: ObservableObject {
         return paths[0]
     }
 
+    func play() {
+
+        for i in arrayHeight.indices {
+            arrayHeight[i].disabledBool = true
+        }
+        runPlayTimer()
+    }
+
+    func runPlayTimer() {
+
+        self.playTimer = Timer.scheduledTimer(withTimeInterval: self.meteringFrequency, repeats: true, block: { [weak self] (_) in
+
+            guard let self = self else { return }
+            recordingCurrentTime += meteringFrequency
+
+            if self.index <= arrayHeight.count - 1 {
+
+                withAnimation {
+                    self.arrayHeight[self.index].disabledBool = false
+                }
+
+                self.index += 1
+            }
+
+            if recordingCurrentTime > recordingTime {
+                stopPlay()
+            }
+        })
+        self.playTimer?.fire()
+    }
+
+    func stopPlay() {
+        stopPlayTimer()
+    }
+
+    func stopPlayTimer() {
+        self.index = 0
+        self.playTimer?.invalidate()
+        self.playTimer = nil
+    }
+
     func runMeteringTimer() {
 
         self.meteringTimer = Timer.scheduledTimer(withTimeInterval: self.meteringFrequency, repeats: true, block: { [weak self] (_) in
 
             guard let self = self else { return }
-            recordingTime += meteringFrequency
+            recordingCurrentTime += meteringFrequency
 
             self.audioRecorder?.updateMeters()
             guard let averagePower = self.audioRecorder?.averagePower(forChannel: 0) else { return }
@@ -87,13 +136,15 @@ class AudioTrackViewModel: ObservableObject {
                 } else {
                     clampedAmplitude *= 630
                 }
-                    self.arrayHeight[self.index] = clampedAmplitude
-                if index <= arrayHeight.count - 2 {
-                    self.arrayHeight[self.index + 1] = 184
+
+                    self.arrayHeight[self.index].height = clampedAmplitude
+                    self.arrayHeight[self.index].disabledBool = false
+                withAnimation {
+                    self.arrayHeight[self.index].isASignal = true
                 }
                 self.index += 1
             }
-            if recordingTime > 15.0 {
+            if recordingCurrentTime > recordingTime {
                 stopRecording()
                 fileExistsBool = fileExists()
             }
@@ -110,6 +161,8 @@ class AudioTrackViewModel: ObservableObject {
     }
 
     func stopMeteringTimer() {
+        self.index = 0
+        self.recordingCurrentTime = 0.0
         self.meteringTimer?.invalidate()
         self.meteringTimer = nil
     }
@@ -125,9 +178,6 @@ class AudioTrackViewModel: ObservableObject {
     }
 
     func didTapRecordButton() {
-//        if fileExists() {
-//            deleteRecord()
-//        }
         if isRecording {
             self.stopRecording()
         } else {
