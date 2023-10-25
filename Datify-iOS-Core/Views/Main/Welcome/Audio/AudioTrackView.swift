@@ -8,27 +8,34 @@
 import SwiftUI
 
 struct AudioTrackView: View {
-    @StateObject var viewModel = AudioTrackViewModel()
+    @ObservedObject var viewModel: AudioTrackViewModel
+
+    init(viewModel: AudioTrackViewModel) {
+        self._viewModel = ObservedObject(wrappedValue: viewModel)
+    }
+
     var body: some View {
         HStack(spacing: 2) {
             ForEach(viewModel.arrayHeight, id: \.self) { height in
-                HStack {
+                VStack(spacing: 0) {
+                    Circle()
+                        .fill(height == 184 ? Color.red : Color.clear)
+                        .frame(width: 4, height: 4)
+                    HStack {
 
+                    }
+                    .frame(width: height == 184 ? 1 : 3, height: CGFloat(height))
+                    .background(height == 184 ? Color.red : Color.blue)
+                    .cornerRadius(3)
+                    Circle()
+                        .fill(height == 184 ? Color.red : Color.clear)
+                        .frame(width: 4, height: 4)
                 }
-                .frame(width: height == 15 ? 1 : 3, height: CGFloat(height) * 7)
-                .background(height == 15 ? Color.red : Color.blue)
-                .cornerRadius(3)
-            }
-            .frame(height: 80)
-        }
-        .onAppear {
-            Task {
-                await viewModel.setUpCaptureSession()
-            }
-            for _ in 0...75 {
-                viewModel.arrayHeight.append(1.0)
+                .animation(.bouncy)
+                .frame(width: 3, height: 200)
             }
         }
+        .frame(height: 200)
         HStack {
             deleteButton
             recordButton
@@ -36,11 +43,19 @@ struct AudioTrackView: View {
                 .disabled(viewModel.canSubmit)
             playButton
         }
+        .onAppear {
+            Task {
+                await viewModel.setUpCaptureSession()
+            }
+            for _ in 0...Int(UIScreen.main.bounds.width / 5) {
+                viewModel.arrayHeight.append(3)
+            }
+        }
     }
 }
 
 #Preview {
-    AudioTrackView()
+    AudioTrackView(viewModel: AudioTrackViewModel())
 }
 
 extension AudioTrackView {
@@ -90,7 +105,7 @@ extension AudioTrackView {
                 .frame(width: 48, height: 48)
                 .foregroundColor(Color.red)
                 .overlay {
-                    Image(viewModel.fileExists() ? DtImage.deleteEnabled : DtImage.deleteDisabled)
+                    Image(!viewModel.fileExistsBool ?  DtImage.deleteDisabled : DtImage.deleteEnabled)
                         .resizable()
                         .frame(width: 24, height: 24)
                 }
@@ -108,13 +123,13 @@ extension AudioTrackView {
                 //                    playButtonAction()
             }
         } label: {
-            if !viewModel.fileExists() {
+            if viewModel.fileExistsBool {
                 Circle()
                     .fill(Color.clear)
                     .frame(width: 48, height: 48)
                     .foregroundColor(Color.red)
                     .overlay {
-                        Image(DtImage.playDisabled)
+                        Image(DtImage.playEnabled)
                             .resizable()
                             .frame(width: 24, height: 24)
                     }
@@ -132,7 +147,7 @@ extension AudioTrackView {
                     .frame(width: 48, height: 48)
                     .foregroundColor(Color.red)
                     .overlay {
-                        Image(viewModel.isPlaying ? DtImage.stopPlayingEnabled : DtImage.playEnabled)
+                        Image(viewModel.isPlaying ? DtImage.stopPlayingEnabled : DtImage.playDisabled)
                             .resizable()
                             .frame(width: 24, height: 24)
                     }

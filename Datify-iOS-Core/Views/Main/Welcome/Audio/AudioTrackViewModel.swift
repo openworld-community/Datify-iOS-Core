@@ -15,10 +15,11 @@ class AudioTrackViewModel: ObservableObject {
     @Published var isRecording: Bool = false
     @Published var isPlaying: Bool = false
     @Published var arrayHeight: [Float] = []
+    @Published var fileExistsBool: Bool = false
 
     var audioRecorder: AVAudioRecorder?
     var meteringTimer: Timer?
-    var meteringFrequency = 0.2
+    var meteringFrequency = 15 / Double(UIScreen.main.bounds.width / 5)
     var recordingTime = 0.0
     var index = 0
 
@@ -69,32 +70,34 @@ class AudioTrackViewModel: ObservableObject {
         self.meteringTimer = Timer.scheduledTimer(withTimeInterval: self.meteringFrequency, repeats: true, block: { [weak self] (_) in
 
             guard let self = self else { return }
-            recordingTime += 0.2
+            recordingTime += meteringFrequency
 
             self.audioRecorder?.updateMeters()
             guard let averagePower = self.audioRecorder?.averagePower(forChannel: 0) else { return }
 
-            // 1.1 to increase the feedback for low voice - due to noise cancellation.
             let amplitude = 1.1 * pow(10.0, averagePower / 20.0)
             var clampedAmplitude = min(max(amplitude, 0), 1)
 
             if self.index <= arrayHeight.count - 1 {
-                if (clampedAmplitude * 70) < 1 {
-                    clampedAmplitude = 1 / 70
+                if (clampedAmplitude * 630) < 1 {
+                    clampedAmplitude = 1
                 }
-                arrayHeight[self.index] = clampedAmplitude * 90
+                if (clampedAmplitude * 630) > 184 {
+                    clampedAmplitude = 183
+                } else {
+                    clampedAmplitude *= 630
+                }
+                    self.arrayHeight[self.index] = clampedAmplitude
                 if index <= arrayHeight.count - 2 {
-                    arrayHeight[self.index + 1] = 15
+                    self.arrayHeight[self.index + 1] = 184
                 }
-
                 self.index += 1
             }
-            print(recordingTime)
             if recordingTime > 15.0 {
                 stopRecording()
+                fileExistsBool = fileExists()
             }
         })
-
         self.meteringTimer?.fire()
     }
 

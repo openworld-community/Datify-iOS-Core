@@ -8,14 +8,17 @@
 import SwiftUI
 
 struct VoiceRecordingView: View {
+    @StateObject var viewModel = AudioTrackViewModel()
     var body: some View {
         NavigationStack {
-            VStack(spacing: 40) {
+            VStack {
                 Spacer()
                 titleSegment
-                Spacer()
-                AudioTrackView()
+//                Spacer()
+                AudioTrackView(viewModel: viewModel)
+                    .padding()
                 navigationButtons
+//                    .padding()
             }
             .toolbar {
                 ToolbarItem(placement: .principal) {
@@ -25,6 +28,9 @@ struct VoiceRecordingView: View {
             .padding(.horizontal)
             .padding(.bottom, 8)
         }
+//        .onAppear {
+//            viewModel.fileExists()
+//        }
 
     }
 }
@@ -50,7 +56,7 @@ private extension VoiceRecordingView {
             DtBackButton {
                 // TODO: - Back button action
             }
-            DtButton(title: "Proceed".localize(), style: .main) {
+            DtButton(title: "Proceed".localize(), style: viewModel.fileExistsBool ? .main : .secondary) {
                 // TODO: - Proceed button action
             }
         }
