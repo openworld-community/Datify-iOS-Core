@@ -56,9 +56,9 @@ private extension DtStepSliderSegment {
             ZStack(alignment: Alignment(horizontal: .leading, vertical: .center)) {
                 let labelStep = geometry.size.width/CGFloat(labels.count-1)
                 HStack {
-                    Text(labels[0])
+                    Text(labels.first ?? "1")
                     Spacer()
-                    Text(labels.last ?? labels[0])
+                    Text(labels.last ?? "0")
                 }
                 ForEach(Array(labels.enumerated()), id: \.0) { index, label in
                     if !(index == 0 || index == labels.count-1) {
