@@ -9,7 +9,6 @@ import SwiftUI
 
 struct DtXMarkButton: View {
     @Environment(\.dismiss) private var dismiss
-//    private let dismiss: DismissAction?
     private let action: () async -> Void
 
     init(action: @escaping () async -> Void = {}) {
