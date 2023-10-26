@@ -17,6 +17,9 @@ struct ChatView: View {
 
     var body: some View {
         ZStack {
+            Rectangle()
+                .ignoresSafeArea()
+                .foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
             Text("ChatView")
                 .dtTypo(.h1Medium, color: .customBlack)
         }

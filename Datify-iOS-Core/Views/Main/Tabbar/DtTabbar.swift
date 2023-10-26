@@ -14,30 +14,37 @@ struct DtTabbar<Content: View>: View {
     let tabView: (TabItem) -> Content
 
     var body: some View {
-        GeometryReader { geometry in
-            VStack {
-                tabView(selectedTab)
-                Spacer()
-                ZStack(alignment: .bottom) {
-                    HStack(alignment: .center) {
-                        ForEach(tabsData, id: \.self) { datum in
-                            ZStack(alignment: .center) {
-                                DtTabItem(
-                                    tabItem: datum,
-                                    selectedTab: $selectedTab,
-                                    itemWidth: geometry.size.width / CGFloat(tabsData.count))
-                                if case .chat = datum {
-                                    alarmUnreadCountView()
+            GeometryReader { geometry in
+                ZStack {
+                    VStack {
+                        tabView(selectedTab)
+                            .padding(.bottom, 50)
+                        Spacer(minLength: 0)
+                    }
+
+                    VStack {
+                        Spacer()
+                        ZStack(alignment: .bottom) {
+                            HStack(alignment: .center) {
+                                ForEach(tabsData, id: \.self) { datum in
+                                    ZStack(alignment: .center) {
+                                        DtTabItem(
+                                            tabItem: datum,
+                                            selectedTab: $selectedTab,
+                                            itemWidth: geometry.size.width / CGFloat(tabsData.count))
+                                        if case .chat = datum {
+                                            alarmUnreadCountView()
+                                        }
+                                    }
                                 }
                             }
+                            .padding(.top)
                         }
+                        .background(Color.customBlack)
                     }
-                    .padding(.top)
                 }
-                .background(Color.customBlack)
             }
         }
-    }
 
     @ViewBuilder
     private func alarmUnreadCountView() -> some View {
@@ -62,7 +69,6 @@ struct DtTabbar<Content: View>: View {
             }
         }
         .frame(width: 32, height: 20, alignment: .trailing)
-        .padding(8)
     }
 }
 

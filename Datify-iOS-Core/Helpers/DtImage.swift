@@ -23,6 +23,7 @@ enum DtImage {
     static let tabbarChat = "tabbarChat"
     static let tabbarMenu = "tabbarMenu"
     static let mainPlay = "mainPlay"
+    static let mainPause = "mainPause"
     static let mainProfile = "mainProfile"
     static let mainBookmark = "mainBookmark"
     static let mainHeart = "mainHeart"

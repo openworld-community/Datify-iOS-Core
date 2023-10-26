@@ -17,6 +17,9 @@ struct MenuView: View {
 
     var body: some View {
         ZStack {
+            Rectangle()
+                .ignoresSafeArea()
+                .foregroundColor(.purple)
 
             Text("MenuView")
                 .dtTypo(.h1Medium, color: .customBlack)

@@ -32,10 +32,8 @@
 		4A4CE2ED2A9B60A60098FF80 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CE2EC2A9B60A60098FF80 /* AppConstants.swift */; };
 		4A4CE2EF2A9B66DC0098FF80 /* TempView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CE2EE2A9B66DC0098FF80 /* TempView.swift */; };
 		4A4CE2F12A9B67B90098FF80 /* Text+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CE2F02A9B67B90098FF80 /* Text+extension.swift */; };
-		631EA17C2AD2EDCA009F211B /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631EA17B2AD2EDCA009F211B /* MainView.swift */; };
 		63203C712AAC6B2600F8803A /* UIApplication+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63203C702AAC6B2600F8803A /* UIApplication+extension.swift */; };
 		632A7F5E2AAC897B005DA819 /* DtCustomTFView+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632A7F5D2AAC897B005DA819 /* DtCustomTFView+extension.swift */; };
-		634EF73D2ADC54440061E13A /* DtAudioPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634EF73C2ADC54440061E13A /* DtAudioPreview.swift */; };
 		634EF7282ADC48010061E13A /* TabbarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634EF7222ADC48010061E13A /* TabbarViewModel.swift */; };
 		634EF7292ADC48010061E13A /* DtTabbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634EF7232ADC48010061E13A /* DtTabbar.swift */; };
 		634EF72A2ADC48010061E13A /* TabItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634EF7242ADC48010061E13A /* TabItem.swift */; };
@@ -47,6 +45,14 @@
 		634EF7382ADC48300061E13A /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634EF7362ADC48300061E13A /* MenuView.swift */; };
 		634EF7392ADC48300061E13A /* MenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634EF7372ADC48300061E13A /* MenuViewModel.swift */; };
 		634EF73B2ADC51EB0061E13A /* MainFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634EF73A2ADC51EB0061E13A /* MainFlow.swift */; };
+		634EF7412ADC62B30061E13A /* DtBarChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634EF7402ADC62B30061E13A /* DtBarChartView.swift */; };
+		634EF7432ADC63810061E13A /* Shape+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634EF7422ADC63810061E13A /* Shape+extension.swift */; };
+		634EF7452ADC63A50061E13A /* Array+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634EF7442ADC63A50061E13A /* Array+extension.swift */; };
+		634EF7472ADC64120061E13A /* DtAudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634EF7462ADC64120061E13A /* DtAudioManager.swift */; };
+		634EF74C2AE419C80061E13A /* recording.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 634EF74B2AE419C80061E13A /* recording.mp3 */; };
+		634EF74E2AE422AD0061E13A /* DtAudioPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634EF74D2AE422AD0061E13A /* DtAudioPlayerView.swift */; };
+		638718622AEA1B7F008C7F54 /* recording5sec.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 638718602AEA1B7F008C7F54 /* recording5sec.mp3 */; };
+		638718632AEA1B7F008C7F54 /* recording15sec.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 638718612AEA1B7F008C7F54 /* recording15sec.mp3 */; };
 		638D1E862ABAB45C0001CED4 /* LocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638D1E822ABAB45C0001CED4 /* LocationView.swift */; };
 		638D1E872ABAB45C0001CED4 /* LocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638D1E832ABAB45C0001CED4 /* LocationViewModel.swift */; };
 		638D1E882ABAB45C0001CED4 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638D1E842ABAB45C0001CED4 /* LocationManager.swift */; };
@@ -117,10 +123,8 @@
 		4A4CE2EC2A9B60A60098FF80 /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
 		4A4CE2EE2A9B66DC0098FF80 /* TempView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempView.swift; sourceTree = "<group>"; };
 		4A4CE2F02A9B67B90098FF80 /* Text+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Text+extension.swift"; sourceTree = "<group>"; };
-		631EA17B2AD2EDCA009F211B /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		63203C702AAC6B2600F8803A /* UIApplication+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+extension.swift"; sourceTree = "<group>"; };
 		632A7F5D2AAC897B005DA819 /* DtCustomTFView+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DtCustomTFView+extension.swift"; sourceTree = "<group>"; };
-		634EF73C2ADC54440061E13A /* DtAudioPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtAudioPreview.swift; sourceTree = "<group>"; };
 		634EF7222ADC48010061E13A /* TabbarViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabbarViewModel.swift; sourceTree = "<group>"; };
 		634EF7232ADC48010061E13A /* DtTabbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DtTabbar.swift; sourceTree = "<group>"; };
 		634EF7242ADC48010061E13A /* TabItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabItem.swift; sourceTree = "<group>"; };
@@ -132,6 +136,15 @@
 		634EF7362ADC48300061E13A /* MenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		634EF7372ADC48300061E13A /* MenuViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewModel.swift; sourceTree = "<group>"; };
 		634EF73A2ADC51EB0061E13A /* MainFlow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainFlow.swift; sourceTree = "<group>"; };
+		634EF7402ADC62B30061E13A /* DtBarChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtBarChartView.swift; sourceTree = "<group>"; };
+		634EF7422ADC63810061E13A /* Shape+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Shape+extension.swift"; sourceTree = "<group>"; };
+		634EF7442ADC63A50061E13A /* Array+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+extension.swift"; sourceTree = "<group>"; };
+		634EF7462ADC64120061E13A /* DtAudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtAudioManager.swift; sourceTree = "<group>"; };
+		634EF74A2AE414740061E13A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		634EF74B2AE419C80061E13A /* recording.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = recording.mp3; sourceTree = "<group>"; };
+		634EF74D2AE422AD0061E13A /* DtAudioPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtAudioPlayerView.swift; sourceTree = "<group>"; };
+		638718602AEA1B7F008C7F54 /* recording5sec.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = recording5sec.mp3; sourceTree = "<group>"; };
+		638718612AEA1B7F008C7F54 /* recording15sec.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = recording15sec.mp3; sourceTree = "<group>"; };
 		638D1E822ABAB45C0001CED4 /* LocationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationView.swift; sourceTree = "<group>"; };
 		638D1E832ABAB45C0001CED4 /* LocationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationViewModel.swift; sourceTree = "<group>"; };
 		638D1E842ABAB45C0001CED4 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
@@ -229,7 +242,6 @@
 		4A4CE2C42A9B3A290098FF80 /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				631EA17A2AD2EDBA009F211B /* Main */,
 				4A4CE2CB2A9B3FFB0098FF80 /* Welcome */,
 				4A4CE2CE2A9B41920098FF80 /* Tabbar */,
 			);
@@ -276,6 +288,9 @@
 			children = (
 				634EF7322ADC48220061E13A /* DatingView.swift */,
 				634EF7332ADC48220061E13A /* DatingViewModel.swift */,
+				634EF74D2AE422AD0061E13A /* DtAudioPlayerView.swift */,
+				634EF7402ADC62B30061E13A /* DtBarChartView.swift */,
+				634EF7462ADC64120061E13A /* DtAudioManager.swift */,
 			);
 			path = Dating;
 			sourceTree = "<group>";
@@ -320,6 +335,9 @@
 			isa = PBXGroup;
 			children = (
 				4A4CE2DF2A9B4F800098FF80 /* Colors.xcassets */,
+				634EF74B2AE419C80061E13A /* recording.mp3 */,
+				638718602AEA1B7F008C7F54 /* recording5sec.mp3 */,
+				638718612AEA1B7F008C7F54 /* recording15sec.mp3 */,
 				4A4CE2E42A9B57870098FF80 /* Fonts */,
 			);
 			path = Resources;
@@ -335,6 +353,8 @@
 				98553B092AAE4A43005C80B3 /* View+extension.swift */,
 				63203C702AAC6B2600F8803A /* UIApplication+extension.swift */,
 				632A7F5D2AAC897B005DA819 /* DtCustomTFView+extension.swift */,
+				634EF7422ADC63810061E13A /* Shape+extension.swift */,
+				634EF7442ADC63A50061E13A /* Array+extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -354,15 +374,6 @@
 				D0C896592AA217630084FA62 /* DtImage.swift */,
 			);
 			path = Helpers;
-			sourceTree = "<group>";
-		};
-		631EA17A2AD2EDBA009F211B /* Main */ = {
-			isa = PBXGroup;
-			children = (
-				631EA17B2AD2EDCA009F211B /* MainView.swift */,
-				634EF73C2ADC54440061E13A /* DtAudioPreview.swift */,
-			);
-			path = Main;
 			sourceTree = "<group>";
 		};
 		638D1E812ABAB44B0001CED4 /* Location */ = {
@@ -445,6 +456,7 @@
 		D0DC465B2A92699D0097CFF3 /* Datify-iOS-Core */ = {
 			isa = PBXGroup;
 			children = (
+				634EF74A2AE414740061E13A /* Info.plist */,
 				D0DC465C2A92699D0097CFF3 /* DatifyiOSCoreApp.swift */,
 				D0DC465E2A92699D0097CFF3 /* MainAppView.swift */,
 				4A4CE2DE2A9B4EEB0098FF80 /* Resources */,
@@ -594,9 +606,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				634EF74C2AE419C80061E13A /* recording.mp3 in Resources */,
 				4A4CE2E02A9B4F800098FF80 /* Colors.xcassets in Resources */,
+				638718632AEA1B7F008C7F54 /* recording15sec.mp3 in Resources */,
 				D0DC46642A92699F0097CFF3 /* Preview Assets.xcassets in Resources */,
 				D0DC46612A92699F0097CFF3 /* Assets.xcassets in Resources */,
+				638718622AEA1B7F008C7F54 /* recording5sec.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -661,7 +676,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4A4CE2EA2A9B5FB80098FF80 /* DtButton.swift in Sources */,
-				631EA17C2AD2EDCA009F211B /* MainView.swift in Sources */,
 				4A4CE2D42A9B44280098FF80 /* RegistrationFlow.swift in Sources */,
 				2076AF302AB085F400AF5E11 /* Image+extension.swift in Sources */,
 				980895BA2A9F4A5700F82F02 /* DtSpinnerView.swift in Sources */,
@@ -670,6 +684,8 @@
 				4A4CE2CA2A9B3E8C0098FF80 /* NavigationViewBuilder.swift in Sources */,
 				4A4CE2C82A9B3B620098FF80 /* Router.swift in Sources */,
 				634EF72B2ADC48010061E13A /* TabbarView.swift in Sources */,
+				634EF7432ADC63810061E13A /* Shape+extension.swift in Sources */,
+				634EF7412ADC62B30061E13A /* DtBarChartView.swift in Sources */,
 				D0C185302AA1D0E1000D71E5 /* SignInWithButton.swift in Sources */,
 				632A7F5E2AAC897B005DA819 /* DtCustomTFView+extension.swift in Sources */,
 				634EF72A2ADC48010061E13A /* TabItem.swift in Sources */,
@@ -682,6 +698,7 @@
 				638D1E892ABAB45C0001CED4 /* CountryModel.swift in Sources */,
 				634EF7352ADC48220061E13A /* DatingViewModel.swift in Sources */,
 				D0C8965A2AA217630084FA62 /* DtImage.swift in Sources */,
+				634EF7452ADC63A50061E13A /* Array+extension.swift in Sources */,
 				634EF7392ADC48300061E13A /* MenuViewModel.swift in Sources */,
 				D0DC465F2A92699D0097CFF3 /* MainAppView.swift in Sources */,
 				634EF7382ADC48300061E13A /* MenuView.swift in Sources */,
@@ -693,12 +710,14 @@
 				2076AF2E2AB080DB00AF5E11 /* String+extension.swift in Sources */,
 				9898B2BF2AAA49DE007CA714 /* RegEmailViewModel.swift in Sources */,
 				98F3B6D62A9E4F9D0097B5C0 /* DtLogoView.swift in Sources */,
+				634EF7472ADC64120061E13A /* DtAudioManager.swift in Sources */,
 				634EF73B2ADC51EB0061E13A /* MainFlow.swift in Sources */,
 				208D05522AB903790071E1B7 /* DtSelectorButton.swift in Sources */,
 				63A729692AA4A94B00AC60E3 /* CountryCodeButton.swift in Sources */,
 				634EF7292ADC48010061E13A /* DtTabbar.swift in Sources */,
 				638D1E872ABAB45C0001CED4 /* LocationViewModel.swift in Sources */,
 				634EF7312ADC48100061E13A /* ChatViewModel.swift in Sources */,
+				634EF74E2AE422AD0061E13A /* DtAudioPlayerView.swift in Sources */,
 				D0DC465D2A92699D0097CFF3 /* DatifyiOSCoreApp.swift in Sources */,
 				638D1E882ABAB45C0001CED4 /* LocationManager.swift in Sources */,
 				634EF7342ADC48220061E13A /* DatingView.swift in Sources */,
@@ -714,7 +733,6 @@
 				4A4CE2F12A9B67B90098FF80 /* Text+extension.swift in Sources */,
 				4A4CE2EF2A9B66DC0098FF80 /* TempView.swift in Sources */,
 				63A365A32AA04FFB00CBF5CD /* DtCustomTF.swift in Sources */,
-				634EF73D2ADC54440061E13A /* DtAudioPreview.swift in Sources */,
 				4A4CE2C62A9B3A5F0098FF80 /* AppRoute.swift in Sources */,
 				4A4CE2DA2A9B47650098FF80 /* LoginViewModel.swift in Sources */,
 				D050B1B12AA84AA0008EC0AB /* DividerLine.swift in Sources */,
@@ -879,12 +897,14 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Datify-iOS-Core/Preview Content\"";
-				DEVELOPMENT_TEAM = 2S52Q5VDX5;
+				DEVELOPMENT_TEAM = RW8DRR2459;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/Datify-mobile-shared/shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)";
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Datify-iOS-Core/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Datify;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Our geolocation-based dating app helps you find suitable partners both in your local area and beyond. We utilize geopositioning to generate more precise and personalized recommendations, taking your location into consideration.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -920,12 +940,14 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Datify-iOS-Core/Preview Content\"";
-				DEVELOPMENT_TEAM = 2S52Q5VDX5;
+				DEVELOPMENT_TEAM = RW8DRR2459;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/Datify-mobile-shared/shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)";
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Datify-iOS-Core/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Datify;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Our geolocation-based dating app helps you find suitable partners both in your local area and beyond. We utilize geopositioning to generate more precise and personalized recommendations, taking your location into consideration.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
