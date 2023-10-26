@@ -62,7 +62,7 @@ struct DtStepSlider<Item>: View where Item: Hashable {
 }
 
 private extension DtStepSlider {
-    private func getColorSchemeMask() -> some View {
+    func getColorSchemeMask() -> some View {
         let gradient = colorScheme == .light ?
         Color.DtGradient.brandLight :
         Color.DtGradient.brandDark
@@ -77,7 +77,7 @@ private extension DtStepSlider {
             }
     }
 
-    private var sliderLayout: some View {
+    var sliderLayout: some View {
         ZStack(alignment: .leading) {
             Capsule()
                 .frame(height: 2)
@@ -93,7 +93,7 @@ private extension DtStepSlider {
         }
     }
 
-    private func sliderAction(value: DragGesture.Value, step: CGFloat, width: CGFloat) {
+    func sliderAction(value: DragGesture.Value, step: CGFloat, width: CGFloat) {
         for (index, item) in items.enumerated() {
             let startRange: CGFloat
             let endRange: CGFloat

@@ -15,7 +15,6 @@ struct DtStepSliderSegment<Item>: View where Item: Hashable {
     private let numberOfSteps: Int
 
     init(selectedItem: Binding<Item>,
-         offset: CGFloat = 0,
          isInitialized: Bool = false,
          items: [Item],
          labels: [String]) {
@@ -51,7 +50,7 @@ struct DtStepSliderSegment<Item>: View where Item: Hashable {
 }
 
 private extension DtStepSliderSegment {
-    private var labelStack: some View {
+    var labelStack: some View {
         GeometryReader { geometry in
             ZStack(alignment: Alignment(horizontal: .leading, vertical: .center)) {
                 let labelStep = geometry.size.width/CGFloat(labels.count-1)

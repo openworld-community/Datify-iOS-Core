@@ -70,8 +70,8 @@ private extension DatingFilterView {
     }
     private var sexFilter: some View {
         VStack(alignment: .leading) {
-            DtSegmentedPicker(selectedItem: $viewModel.sex, items: Sex.allCases) { item in
-                Text(item.title()).tag(item)
+            DtSegmentedPicker(selectedItem: $viewModel.sex, items: Sex.allCases) {
+                Text($0.title())
             }
         }
     }
@@ -127,13 +127,13 @@ private extension DatingFilterView {
             HStack {
                 DtCustomPicker(selectedItem: $viewModel.minimumAge,
                                items: Array(16...viewModel.maximumAge),
-                               height: 96) { age in
-                    Text("\(age)").tag(age)
+                               height: 96) {
+                    Text("\($0)")
                 }
                 DtCustomPicker(selectedItem: $viewModel.maximumAge,
                                items: Array(viewModel.minimumAge...99),
-                               height: 96) { age in
-                    Text("\(age)").tag(age)
+                               height: 96) {
+                    Text("\($0)")
                 }
             }
         }

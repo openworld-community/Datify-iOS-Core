@@ -29,9 +29,9 @@ struct DtCustomPicker<Item, Content>: View where Item: Hashable, Content: View {
                 .frame(height: 32)
 
             Picker("", selection: $selectedItem) {
-                ForEach(items, id: \.self) { item in
-                    content(item)
-                        .tag(item)
+                ForEach(items, id: \.self) {
+                    content($0)
+                        .tag($0)
                         .dtTypo(.p2Regular, color: .textPrimary)
                 }
             }
