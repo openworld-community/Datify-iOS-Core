@@ -56,13 +56,10 @@ final class RegPhotoViewModel: ObservableObject {
             switch status {
             case .restricted, .denied:
                 Task {
+                    self.photoAuthStatus = status
                     self.isAlertShowing = true
                 }
-            case .limited:
-                Task {
-                    self.photoAuthStatus = status
-                }
-            case .authorized:
+            case .limited, .authorized:
                 Task {
                     self.photoAuthStatus = status
                 }
