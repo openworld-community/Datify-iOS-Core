@@ -14,37 +14,43 @@ struct DtTabbar<Content: View>: View {
     let tabView: (TabItem) -> Content
 
     var body: some View {
-            GeometryReader { geometry in
+        GeometryReader { geometry in
+            ZStack {
                 ZStack {
-                    VStack {
-                        tabView(selectedTab)
-                            .padding(.bottom, 50)
-                        Spacer(minLength: 0)
-                    }
+                    tabView(selectedTab)
+                        .frame(width: geometry.size.width)
+                        .ignoresSafeArea(edges: .top)
+                        .ignoresSafeArea(edges: .horizontal)
+                    Spacer(minLength: 0)
+                }
 
-                    VStack {
-                        Spacer()
-                        ZStack(alignment: .bottom) {
-                            HStack(alignment: .center) {
-                                ForEach(tabsData, id: \.self) { datum in
-                                    ZStack(alignment: .center) {
-                                        DtTabItem(
-                                            tabItem: datum,
-                                            selectedTab: $selectedTab,
-                                            itemWidth: geometry.size.width / CGFloat(tabsData.count))
-                                        if case .chat = datum {
-                                            alarmUnreadCountView()
-                                        }
+                VStack {
+                    Spacer()
+                    ZStack(alignment: .bottom) {
+                        HStack(alignment: .center) {
+                            ForEach(tabsData, id: \.self) { datum in
+                                ZStack(alignment: .center) {
+                                    DtTabItem(
+                                        tabItem: datum,
+                                        selectedTab: $selectedTab,
+                                        itemWidth: geometry.size.width / CGFloat(tabsData.count))
+                                    if case .chat = datum {
+                                        alarmUnreadCountView()
                                     }
                                 }
                             }
-                            .padding(.top)
                         }
-                        .background(Color.customBlack)
+                        .padding(.top)
                     }
+                    .onAppear {
+                        print("geometry.size.width: \(geometry.size.width)")
+                        print("UIScreen.main.bounds.width: \(UIScreen.main.bounds.width)")
+                    }
+                    .background(Color.customBlack)
                 }
             }
         }
+    }
 
     @ViewBuilder
     private func alarmUnreadCountView() -> some View {
