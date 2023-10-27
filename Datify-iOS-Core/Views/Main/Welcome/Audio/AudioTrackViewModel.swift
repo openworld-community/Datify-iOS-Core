@@ -6,9 +6,11 @@
 //
 
 import Foundation
-import AVFAudio
+// import AVFAudio
 import AVFoundation
 import SwiftUI
+ import AVKit
+import AudioToolbox
 
 struct BarModel: Hashable {
     var height: Float
@@ -22,7 +24,9 @@ class AudioTrackViewModel: ObservableObject {
     @Published var isPlaying: Bool = false
     @Published var arrayHeight: [BarModel] = []
     @Published var fileExistsBool: Bool = false
-
+    @Published var filePath: URL?
+    
+    var player: AVAudioPlayer?
     var audioRecorder: AVAudioRecorder?
     var meteringTimer: Timer?
     var playTimer: Timer?
@@ -48,8 +52,8 @@ class AudioTrackViewModel: ObservableObject {
 
     func startRecording() {
 
-        var audioFilename = getDocumentsDirectory().appendingPathComponent("recording.m4a")
-
+        let audioFilename = getDocumentsDirectory().appendingPathComponent("recording.m4a")
+        filePath = audioFilename
         let settings = [
             AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
             AVSampleRateKey: 12000,
@@ -73,16 +77,30 @@ class AudioTrackViewModel: ObservableObject {
         return paths[0]
     }
 
-    func play() {
+    func playAudioFromFilePath(filePath: URL) {
+            do {
+                try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
+                try AVAudioSession.sharedInstance().setActive(true)
+                self.player = try AVAudioPlayer(contentsOf: filePath)
+                player?.volume = 1
+                self.player?.play()
+                print(filePath)
+                print("play")
 
+            } catch let error {
+                print(error.localizedDescription)
+            }
+    }
+
+    func play() {
         for i in arrayHeight.indices {
             arrayHeight[i].disabledBool = true
         }
         runPlayTimer()
+        playAudioFromFilePath(filePath: filePath!)
     }
 
     func runPlayTimer() {
-
         self.playTimer = Timer.scheduledTimer(withTimeInterval: self.meteringFrequency, repeats: true, block: { [weak self] (_) in
 
             guard let self = self else { return }
@@ -106,10 +124,12 @@ class AudioTrackViewModel: ObservableObject {
 
     func stopPlay() {
         stopPlayTimer()
+        self.index = 0
     }
 
     func stopPlayTimer() {
         self.index = 0
+        self.recordingCurrentTime = 0.0
         self.playTimer?.invalidate()
         self.playTimer = nil
     }
@@ -120,7 +140,6 @@ class AudioTrackViewModel: ObservableObject {
 
             guard let self = self else { return }
             recordingCurrentTime += meteringFrequency
-
             self.audioRecorder?.updateMeters()
             guard let averagePower = self.audioRecorder?.averagePower(forChannel: 0) else { return }
 
