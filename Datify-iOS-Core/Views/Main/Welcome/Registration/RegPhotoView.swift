@@ -162,15 +162,15 @@ private extension RegPhotoView {
                                             }
                                         }
                                         .onTapGesture {
+                                            guard viewModel.photoAuthStatus == .limited else {
+                                                viewModel.isAlertShowing = true
+                                                return
+                                            }
                                             Task {
                                                 viewModel.showSpinner = true
                                             }
-                                            if viewModel.photoAuthStatus == .limited {
-                                                viewModel.photoIndex = index
-                                                viewModel.showLimitedPicker = true
-                                            } else {
-                                                viewModel.isAlertShowing = true
-                                            }
+                                            viewModel.photoIndex = index
+                                            viewModel.showLimitedPicker = true
                                         }
                                     }
                                 }
