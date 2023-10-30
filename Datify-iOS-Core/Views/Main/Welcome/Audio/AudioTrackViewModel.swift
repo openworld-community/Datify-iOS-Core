@@ -6,7 +6,6 @@
 //
 
 import Foundation
-// import AVFAudio
 import AVFoundation
 import SwiftUI
  import AVKit
@@ -30,11 +29,14 @@ class AudioTrackViewModel: ObservableObject {
 
     var audioPlayer: AVAudioPlayer?
     var audioRecorder: AVAudioRecorder?
-    var audioSession: AVAudioSession = AVAudioSession.sharedInstance()
-    var meteringTimer: Timer?
-    var playTimer: Timer?
-    var meteringFrequency = 15 / Double(UIScreen.main.bounds.width / 5)
-    var recordingTime = 15.0
+    var audioSession = AVAudioSession.sharedInstance()
+    var timer: Timer?
+
+    var widthPowerBar = 3
+    var distanceBetweenBars = 2
+    var deleteAnimationDuration = 1.0
+    var audioRecordingDuration = 15.0
+
     var recordingCurrentTime = 0.0
     var index = 0
 
@@ -62,12 +64,9 @@ class AudioTrackViewModel: ObservableObject {
             do {
                 try audioSession.setCategory(AVAudioSession.Category.playback)
                 try audioSession.setActive(true)
-                self.audioPlayer = try AVAudioPlayer(contentsOf: filePath)
+                audioPlayer = try AVAudioPlayer(contentsOf: filePath)
                 audioPlayer?.volume = 1
-                self.audioPlayer?.play()
-                print(filePath)
-                print("play")
-
+                audioPlayer?.play()
             } catch let error {
                 print(error.localizedDescription)
             }
@@ -86,8 +85,7 @@ class AudioTrackViewModel: ObservableObject {
 
     func pause() {
         audioPlayer?.pause()
-        playTimer?.invalidate()
-        playTimer = nil
+        stopTimer()
         statePlayer = .pause
     }
 
@@ -105,45 +103,42 @@ class AudioTrackViewModel: ObservableObject {
     }
 
     func runPlayTimer() {
-        self.playTimer = Timer.scheduledTimer(withTimeInterval: self.meteringFrequency, repeats: true, block: { [weak self] (_) in
-
+        let timerFrequency = TimeInterval(audioRecordingDuration / (Double(UIScreen.main.bounds.width / Double(widthPowerBar + distanceBetweenBars))))
+        self.timer = Timer.scheduledTimer(withTimeInterval: timerFrequency, repeats: true, block: { [weak self] (_) in
             guard let self = self else { return }
-            recordingCurrentTime += meteringFrequency
-
-            if self.index <= arrayHeight.count - 1 {
-
+            if index <= arrayHeight.count - 1 {
                 withAnimation {
                     self.arrayHeight[self.index].disabledBool = false
                 }
-
-                self.index += 1
+                index += 1
             }
-            if recordingCurrentTime > recordingTime {
+            recordingCurrentTime += timerFrequency
+            if recordingCurrentTime > audioRecordingDuration {
                 stopPlay()
             }
         })
-        self.playTimer?.fire()
+        self.timer?.fire()
     }
 
     func stopPlay() {
         audioPlayer?.stop()
         audioPlayer = nil
-        stopPlayTimer()
+        stopTimer()
         statePlayer = .none
     }
 
-    func stopPlayTimer() {
+    func stopTimer() {
         self.index = 0
         self.recordingCurrentTime = 0.0
-        self.playTimer?.invalidate()
-        self.playTimer = nil
+        self.timer?.invalidate()
+        self.timer = nil
     }
 
     func didTapRecordButton() {
         statePlayer = .recording
-        if fileExists() {
-            deleteRecord()
-        }
+//        if fileExists() {
+//            deleteRecord()
+//        }
         self.startRecording()
     }
 
@@ -167,51 +162,41 @@ class AudioTrackViewModel: ObservableObject {
         self.audioRecorder = try? AVAudioRecorder(url: audioFilename, settings: settings)
         self.audioRecorder?.prepareToRecord()
         self.audioRecorder?.isMeteringEnabled = true
-
-        self.audioRecorder?.record()
-        self.audioRecorder?.stop()
         self.audioRecorder?.record()
 
         self.runMeteringTimer()
     }
 
     func runMeteringTimer() {
-
-        self.meteringTimer = Timer.scheduledTimer(withTimeInterval: self.meteringFrequency, repeats: true, block: { [weak self] (_) in
-
+        let timerFrequency = TimeInterval(audioRecordingDuration / (Double(UIScreen.main.bounds.width / Double(widthPowerBar + distanceBetweenBars))))
+        timer = Timer.scheduledTimer(withTimeInterval: timerFrequency, repeats: true, block: { [weak self] (_) in
             guard let self = self else { return }
-
-            self.audioRecorder?.updateMeters()
+            audioRecorder?.updateMeters()
+            // get the average power, in decibels
             guard let averagePower = self.audioRecorder?.averagePower(forChannel: 0) else { return }
-
             let amplitude = 1.1 * pow(10.0, averagePower / 20.0)
-            var clampedAmplitude = min(max(amplitude, 0), 1)
-
+            var clampedAmplitude = (min(max(amplitude, 0), 1)) * 630
             if self.index <= arrayHeight.count - 1 {
-                if (clampedAmplitude * 630) < 1 {
-                    clampedAmplitude = 1
+                if clampedAmplitude < Float(widthPowerBar) {
+                    clampedAmplitude = Float(widthPowerBar)
                 }
-                if (clampedAmplitude * 630) > 184 {
-                    clampedAmplitude = 183
-                } else {
-                    clampedAmplitude *= 630
+                if clampedAmplitude > 184 {
+                    clampedAmplitude = 184
                 }
-
-                    self.arrayHeight[self.index].height = clampedAmplitude
-                    self.arrayHeight[self.index].disabledBool = false
+                self.arrayHeight[self.index].height = clampedAmplitude
+                self.arrayHeight[self.index].disabledBool = false
                 withAnimation {
                     self.arrayHeight[self.index].isASignal = true
                 }
                 self.index += 1
             }
-
-            recordingCurrentTime += meteringFrequency
-            if recordingCurrentTime > recordingTime {
+            recordingCurrentTime += timerFrequency
+            if recordingCurrentTime > audioRecordingDuration {
                 stopRecording()
                 fileExistsBool = true
             }
         })
-        self.meteringTimer?.fire()
+        self.timer?.fire()
     }
 
     func stopRecording() {
@@ -224,8 +209,8 @@ class AudioTrackViewModel: ObservableObject {
     func stopMeteringTimer() {
         self.index = 0
         self.recordingCurrentTime = 0.0
-        self.meteringTimer?.invalidate()
-        self.meteringTimer = nil
+        self.timer?.invalidate()
+        self.timer = nil
     }
 
     func  fileExists() -> Bool {
@@ -233,9 +218,10 @@ class AudioTrackViewModel: ObservableObject {
         if let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             let fileURL = documentsDirectory.appendingPathComponent(fileName)
             self.filePath = fileURL
+            print(FileManager.default.fileExists(atPath: fileURL.path))
             return FileManager.default.fileExists(atPath: fileURL.path)
         }
-        self.filePath = nil
+        filePath = nil
         return false
     }
 
@@ -243,15 +229,31 @@ class AudioTrackViewModel: ObservableObject {
         do {
             try FileManager.default.removeItem(at: filePath!)
             fileExistsBool = false
-            for index in arrayHeight.indices.reversed() {
-                arrayHeight[index].disabledBool = true
-                withAnimation(.easeIn) {
-                    arrayHeight[index].isASignal = false
-                }
-                arrayHeight[index].height = 3
-            }
         } catch {
             print("Could not delete file, probably read-only filesystem")
         }
+        if !arrayHeight.isEmpty {
+            index = (arrayHeight.count - 1)
+            let timerFrequency = TimeInterval(deleteAnimationDuration / Double(arrayHeight.count))
+            self.timer = Timer.scheduledTimer(withTimeInterval: timerFrequency, repeats: true, block: { [weak self] (_) in
+                guard let self = self else { return }
+                print(arrayHeight.count)
+                print("index - " + "\(index)")
+                withAnimation(.linear) {
+                    self.arrayHeight[self.index].isASignal = false
+                }
+                arrayHeight[self.index].disabledBool = true
+                arrayHeight[self.index].height = 3
+                if index == 0 {
+                    stopDelete()
+                } else {
+                    index -= 1
+                }
+            })
+        }
+    }
+
+    func stopDelete() {
+        stopTimer()
     }
 }

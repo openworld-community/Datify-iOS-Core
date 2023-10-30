@@ -33,7 +33,6 @@ struct AudioTrackView: View {
                 .cornerRadius(3)
                 .transition(bar.isASignal && !bar.disabledBool ? .scale : .opacity )
             }
-
         }
         .frame(height: 200)
         HStack {
@@ -107,7 +106,6 @@ extension AudioTrackView {
                         .stroke(Color(hex: 0x3C3C43, alpha: 0.32), lineWidth: 1)
                 )
         }
-
     }
 
     private var playButton: some View {
@@ -146,7 +144,5 @@ extension AudioTrackView {
                     )
             }
         }
-
     }
-
 }
