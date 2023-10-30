@@ -18,16 +18,19 @@ struct BarModel: Hashable {
     var isASignal: Bool
 }
 
+enum StatePlayerEnum {
+    case playing, recording, pause, none
+}
+
 class AudioTrackViewModel: ObservableObject {
-    @Published var canSubmit: Bool = false
-    @Published var isRecording: Bool = false
-    @Published var isPlaying: Bool = false
+    @Published var statePlayer: StatePlayerEnum = .none
     @Published var arrayHeight: [BarModel] = []
     @Published var fileExistsBool: Bool = false
     @Published var filePath: URL?
-    
-    var player: AVAudioPlayer?
+
+    var audioPlayer: AVAudioPlayer?
     var audioRecorder: AVAudioRecorder?
+    var audioSession: AVAudioSession = AVAudioSession.sharedInstance()
     var meteringTimer: Timer?
     var playTimer: Timer?
     var meteringFrequency = 15 / Double(UIScreen.main.bounds.width / 5)
@@ -50,28 +53,6 @@ class AudioTrackViewModel: ObservableObject {
         guard await isAuthorized else { return }
     }
 
-    func startRecording() {
-
-        let audioFilename = getDocumentsDirectory().appendingPathComponent("recording.m4a")
-        filePath = audioFilename
-        let settings = [
-            AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
-            AVSampleRateKey: 12000,
-            AVNumberOfChannelsKey: 1,
-            AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
-        ]
-
-        self.audioRecorder = try? AVAudioRecorder(url: audioFilename, settings: settings)
-        self.audioRecorder?.prepareToRecord()
-        self.audioRecorder?.isMeteringEnabled = true
-
-        self.audioRecorder?.record()
-        self.audioRecorder?.stop()
-        self.audioRecorder?.record()
-
-        self.runMeteringTimer()
-    }
-
     func getDocumentsDirectory() -> URL {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         return paths[0]
@@ -79,11 +60,11 @@ class AudioTrackViewModel: ObservableObject {
 
     func playAudioFromFilePath(filePath: URL) {
             do {
-                try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
-                try AVAudioSession.sharedInstance().setActive(true)
-                self.player = try AVAudioPlayer(contentsOf: filePath)
-                player?.volume = 1
-                self.player?.play()
+                try audioSession.setCategory(AVAudioSession.Category.playback)
+                try audioSession.setActive(true)
+                self.audioPlayer = try AVAudioPlayer(contentsOf: filePath)
+                audioPlayer?.volume = 1
+                self.audioPlayer?.play()
                 print(filePath)
                 print("play")
 
@@ -92,12 +73,35 @@ class AudioTrackViewModel: ObservableObject {
             }
     }
 
+    func didTapPlayPauseButton() {
+        switch statePlayer {
+        case .playing:
+            pause()
+        case .none, .pause:
+            play()
+        case .recording:
+            break
+        }
+    }
+
+    func pause() {
+        audioPlayer?.pause()
+        playTimer?.invalidate()
+        playTimer = nil
+        statePlayer = .pause
+    }
+
     func play() {
-        for i in arrayHeight.indices {
-            arrayHeight[i].disabledBool = true
+        if statePlayer == .none {
+            for index in arrayHeight.indices {
+                arrayHeight[index].disabledBool = true
+            }
+            playAudioFromFilePath(filePath: filePath!)
+        } else {
+            audioPlayer?.play()
         }
         runPlayTimer()
-        playAudioFromFilePath(filePath: filePath!)
+        statePlayer = .playing
     }
 
     func runPlayTimer() {
@@ -114,7 +118,6 @@ class AudioTrackViewModel: ObservableObject {
 
                 self.index += 1
             }
-
             if recordingCurrentTime > recordingTime {
                 stopPlay()
             }
@@ -123,8 +126,10 @@ class AudioTrackViewModel: ObservableObject {
     }
 
     func stopPlay() {
+        audioPlayer?.stop()
+        audioPlayer = nil
         stopPlayTimer()
-        self.index = 0
+        statePlayer = .none
     }
 
     func stopPlayTimer() {
@@ -134,12 +139,48 @@ class AudioTrackViewModel: ObservableObject {
         self.playTimer = nil
     }
 
+    func didTapRecordButton() {
+        statePlayer = .recording
+        if fileExists() {
+            deleteRecord()
+        }
+        self.startRecording()
+    }
+
+    func startRecording() {
+
+        let audioFilename = getDocumentsDirectory().appendingPathComponent("recording.m4a")
+        filePath = audioFilename
+        let settings = [
+            AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
+            AVSampleRateKey: 12000,
+            AVNumberOfChannelsKey: 1,
+            AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
+        ]
+        do {
+            try audioSession.setCategory(AVAudioSession.Category.record)
+            try audioSession.setActive(true)
+        } catch let error {
+            print(error.localizedDescription)
+        }
+
+        self.audioRecorder = try? AVAudioRecorder(url: audioFilename, settings: settings)
+        self.audioRecorder?.prepareToRecord()
+        self.audioRecorder?.isMeteringEnabled = true
+
+        self.audioRecorder?.record()
+        self.audioRecorder?.stop()
+        self.audioRecorder?.record()
+
+        self.runMeteringTimer()
+    }
+
     func runMeteringTimer() {
 
         self.meteringTimer = Timer.scheduledTimer(withTimeInterval: self.meteringFrequency, repeats: true, block: { [weak self] (_) in
 
             guard let self = self else { return }
-            recordingCurrentTime += meteringFrequency
+
             self.audioRecorder?.updateMeters()
             guard let averagePower = self.audioRecorder?.averagePower(forChannel: 0) else { return }
 
@@ -163,9 +204,11 @@ class AudioTrackViewModel: ObservableObject {
                 }
                 self.index += 1
             }
+
+            recordingCurrentTime += meteringFrequency
             if recordingCurrentTime > recordingTime {
                 stopRecording()
-                fileExistsBool = fileExists()
+                fileExistsBool = true
             }
         })
         self.meteringTimer?.fire()
@@ -174,9 +217,8 @@ class AudioTrackViewModel: ObservableObject {
     func stopRecording() {
         self.audioRecorder?.stop()
         self.audioRecorder = nil
-        self.isRecording = false
         self.stopMeteringTimer()
-        self.canSubmit = false
+        statePlayer = .none
     }
 
     func stopMeteringTimer() {
@@ -186,26 +228,30 @@ class AudioTrackViewModel: ObservableObject {
         self.meteringTimer = nil
     }
 
-    func fileExists() -> Bool {
+    func  fileExists() -> Bool {
         let fileName = "recording.m4a"
         if let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             let fileURL = documentsDirectory.appendingPathComponent(fileName)
+            self.filePath = fileURL
             return FileManager.default.fileExists(atPath: fileURL.path)
         }
-        print("File doesn't exit")
+        self.filePath = nil
         return false
     }
 
-    func didTapRecordButton() {
-        if isRecording {
-            self.stopRecording()
-        } else {
-            self.startRecording()
-        }
-    }
-
     func deleteRecord() {
-        // TODO: - delete func
-//        arrayHeight.removeAll()
+        do {
+            try FileManager.default.removeItem(at: filePath!)
+            fileExistsBool = false
+            for index in arrayHeight.indices.reversed() {
+                arrayHeight[index].disabledBool = true
+                withAnimation(.easeIn) {
+                    arrayHeight[index].isASignal = false
+                }
+                arrayHeight[index].height = 3
+            }
+        } catch {
+            print("Could not delete file, probably read-only filesystem")
+        }
     }
 }

@@ -36,18 +36,21 @@ struct AudioTrackView: View {
 
         }
         .frame(height: 200)
-
         HStack {
             deleteButton
+                .disabled(!viewModel.fileExistsBool)
+                .disabled(viewModel.statePlayer != .none)
             recordButton
-                .animation(nil)
-                .disabled(viewModel.canSubmit)
+                .disabled(viewModel.statePlayer != .none)
             playButton
+                .disabled(!viewModel.fileExistsBool)
+                .disabled(viewModel.statePlayer == .recording)
         }
         .onAppear {
             Task {
                 await viewModel.setUpCaptureSession()
             }
+            _ = viewModel.fileExists()
             for _ in 0...Int(UIScreen.main.bounds.width / 5) {
                 viewModel.arrayHeight.append(BarModel(height: 3, disabledBool: true, isASignal: false))
             }
@@ -64,28 +67,17 @@ extension AudioTrackView {
         Button {
             Task {
                 viewModel.didTapRecordButton()
-//                viewModel.canSubmit = true
-                if viewModel.isRecording {
-                    withAnimation(.linear) {
-                        viewModel.isRecording = false
-                    }
-                } else {
-                    withAnimation(.linear) {
-                        viewModel.isRecording = true
-                    }
-                }
             }
         } label: {
-
             Circle()
                 .fill(Color.clear)
                 .frame(width: 96, height: 96)
                 .foregroundColor(Color.red)
                 .overlay {
-                    Image(viewModel.isRecording ? DtImage.stopRecording :  DtImage.voiceRecording
+                    Image(viewModel.statePlayer == .recording ? DtImage.stopRecording :  DtImage.voiceRecording
                     )
                     .resizable()
-                    .frame(width: viewModel.isRecording ? 28 : 48, height: viewModel.isRecording ? 28 : 48)
+                    .frame(width: viewModel.statePlayer == .recording ? 28 : 48, height: viewModel.statePlayer == .recording ? 28 : 48)
                 }
                 .background(
                     RoundedRectangle(cornerRadius: 62)
@@ -106,7 +98,7 @@ extension AudioTrackView {
                 .frame(width: 48, height: 48)
                 .foregroundColor(Color.red)
                 .overlay {
-                    Image(!viewModel.fileExistsBool ?  DtImage.deleteDisabled : DtImage.deleteEnabled)
+                    Image(viewModel.statePlayer == .none && viewModel.fileExistsBool ? DtImage.deleteEnabled : DtImage.deleteDisabled)
                         .resizable()
                         .frame(width: 24, height: 24)
                 }
@@ -121,7 +113,7 @@ extension AudioTrackView {
     private var playButton: some View {
         Button {
             Task {
-                viewModel.play()
+                viewModel.didTapPlayPauseButton()
             }
         } label: {
             if viewModel.fileExistsBool {
@@ -130,25 +122,21 @@ extension AudioTrackView {
                     .frame(width: 48, height: 48)
                     .foregroundColor(Color.red)
                     .overlay {
-                        Image(DtImage.playEnabled)
+                        Image(viewModel.statePlayer == .playing ? DtImage.pause : DtImage.playEnabled)
                             .resizable()
                             .frame(width: 24, height: 24)
-                    }
-                    .onAppear {
-                        print("viewModel.audioURL: \(viewModel.fileExists())")
                     }
                     .background(
                         RoundedRectangle(cornerRadius: 62)
                             .stroke(Color(hex: 0x3C3C43, alpha: 0.32), lineWidth: 1)
                     )
-
             } else {
                 Circle()
                     .fill(Color.clear)
                     .frame(width: 48, height: 48)
                     .foregroundColor(Color.red)
                     .overlay {
-                        Image(viewModel.isPlaying ? DtImage.stopPlayingEnabled : DtImage.playDisabled)
+                        Image(DtImage.playDisabled)
                             .resizable()
                             .frame(width: 24, height: 24)
                     }

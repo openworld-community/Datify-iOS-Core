@@ -28,9 +28,9 @@ struct VoiceRecordingView: View {
             .padding(.horizontal)
             .padding(.bottom, 8)
         }
-//        .onAppear {
-//            viewModel.fileExists()
-//        }
+        .onAppear {
+            viewModel.fileExists()
+        }
 
     }
 }
