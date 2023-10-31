@@ -88,7 +88,7 @@ extension AudioTrackView {
     private var deleteButton: some View {
         Button {
             Task {
-                viewModel.deleteRecord()
+                viewModel.deleteRecord(complition: nil)
             }
         } label: {
 

@@ -135,11 +135,15 @@ class AudioTrackViewModel: ObservableObject {
     }
 
     func didTapRecordButton() {
-        statePlayer = .recording
-//        if fileExists() {
-//            deleteRecord()
-//        }
-        self.startRecording()
+        if fileExists() {
+            deleteRecord {
+                self.startRecording()
+                self.statePlayer = .recording
+            }
+        } else {
+            self.startRecording()
+            statePlayer = .recording
+        }
     }
 
     func startRecording() {
@@ -225,7 +229,7 @@ class AudioTrackViewModel: ObservableObject {
         return false
     }
 
-    func deleteRecord() {
+    func deleteRecord(complition: (() -> Void)?) {
         do {
             try FileManager.default.removeItem(at: filePath!)
             fileExistsBool = false
@@ -246,6 +250,9 @@ class AudioTrackViewModel: ObservableObject {
                 arrayHeight[self.index].height = 3
                 if index == 0 {
                     stopDelete()
+                    if let complition = complition {
+                        complition()
+                    }
                 } else {
                     index -= 1
                 }
