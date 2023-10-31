@@ -69,7 +69,7 @@ final class DatingViewModel: ObservableObject {
     }
 
     func togglePlayback() {
-        audioPlayerManager.togglePlayback(for: "recording", ofType: "mp3")
+        audioPlayerManager.togglePlayback(for: "recording15sec", ofType: "mp3")
     }
 
     func startProgressUpdates() {

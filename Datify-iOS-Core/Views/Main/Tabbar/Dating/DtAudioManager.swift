@@ -74,7 +74,7 @@ class DtAudioPlayerManager: NSObject, ObservableObject, AVAudioPlayerDelegate {
     }
 
     func loadAudioData() {
-        if let path = Bundle.main.path(forResource: "recording", ofType: "mp3") {
+        if let path = Bundle.main.path(forResource: "recording15sec", ofType: "mp3") {
             let url = URL(fileURLWithPath: path)
             do {
                 let audioFile = try AVAudioFile(forReading: url)
@@ -90,26 +90,6 @@ class DtAudioPlayerManager: NSObject, ObservableObject, AVAudioPlayerDelegate {
 
                 try audioFile.read(into: audioBuffer)
 
-//                if let floatData = audioBuffer.floatChannelData?.pointee {
-//                        let floatArray = Array(UnsafeBufferPointer(start: floatData, count: Int(audioFile.length)))
-//
-//                        var compressedData: [Float] = []
-//
-//                        for i in stride(from: 0, to: floatArray.count, by: pointsPerBar) {
-//                            let subArray = floatArray[i..<min(i+pointsPerBar, floatArray.count)]
-//                            let average = subArray.reduce(0, +) / Float(subArray.count)
-//                            compressedData.append(average)
-//                        }
-//
-//                        let maxCompressedValue = compressedData.max() ?? 1.0
-//
-//                        let desiredMaxHeight = 50.0
-//                        audioSamples = compressedData.map { value in
-//                            let normalizedValue = value / maxCompressedValue
-//                            let barHeight = abs(Double(normalizedValue)) * desiredMaxHeight
-//                            return BarChartDataPoint(value: barHeight)
-//                        }
-//                    }
                 if let floatData = audioBuffer.floatChannelData?.pointee {
                         let floatArray = Array(UnsafeBufferPointer(start: floatData, count: Int(audioFile.length)))
 
@@ -147,5 +127,4 @@ class DtAudioPlayerManager: NSObject, ObservableObject, AVAudioPlayerDelegate {
     func audioPlayerBeginInterruption(_ player: AVAudioPlayer) {
         print("Воспроизведение было прервано")
     }
-
 }

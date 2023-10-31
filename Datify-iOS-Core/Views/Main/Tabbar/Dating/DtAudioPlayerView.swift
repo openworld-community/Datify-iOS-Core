@@ -17,15 +17,15 @@ struct DtAudioPlayerView: View {
     @Binding var playCurrentTime: Int
 
     var body: some View {
-
-        ZStack {
+        ZStack(alignment: .center) {
             Rectangle()
                 .frame(height: 48)
                 .cornerRadius(16)
                 .opacity(0.64)
-            HStack(alignment: .center) {
+
+            HStack {
                 Text(String(format: "%02d:%02d", 00, playCurrentTime))
-                    .frame(width: 50, alignment: .leading) // Фиксируем ширину и выравнивание по правому краю
+                    .frame(width: 50, alignment: .leading)
                     .fixedSize(horizontal: true, vertical: false)
                     .foregroundColor(.white)
 
@@ -43,11 +43,13 @@ struct DtAudioPlayerView: View {
             }
             .padding(.horizontal)
         }
+        .frame(maxWidth: .infinity)
     }
 
     func computeBarWidth() -> CGFloat {
-        let totalSpacing: CGFloat = 2.0 * CGFloat(desiredNumberOfBars - 1)
-        let availableWidth = (UIScreen.main.bounds.width - totalSpacing) * 0.5
+        let totalSpacing: CGFloat = CGFloat(desiredNumberOfBars - 1)
+        let availableWidth = (UIScreen.main.bounds.width - totalSpacing) * 0.45
+
         print("screenWidth: \(UIScreen.main.bounds.width)")
         print("totalSpacing: \(totalSpacing), availableWidth: \(availableWidth)")
 
@@ -55,7 +57,7 @@ struct DtAudioPlayerView: View {
     }
 
     var desiredNumberOfBars: Int {
-        return 55
+        return 60
     }
 
 }

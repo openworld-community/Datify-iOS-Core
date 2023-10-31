@@ -12,42 +12,32 @@ struct DtTabbar<Content: View>: View {
     @Binding var selectedTab: TabItem
     @ObservedObject var viewModel: TabbarViewModel
     let tabView: (TabItem) -> Content
+//    @State private var tabBarHeight: CGFloat = 50
 
     var body: some View {
         GeometryReader { geometry in
-            ZStack {
-                ZStack {
-                    tabView(selectedTab)
-                        .frame(width: geometry.size.width)
-                        .ignoresSafeArea(edges: .top)
-                        .ignoresSafeArea(edges: .horizontal)
-                    Spacer(minLength: 0)
-                }
+            VStack(spacing: 0) {
+                tabView(selectedTab)
+                    .frame(width: geometry.size.width)
+                    .onAppear {
+                        print(" geometry.size.width: \( geometry.size.width)")
+                    }
 
-                VStack {
-                    Spacer()
-                    ZStack(alignment: .bottom) {
-                        HStack(alignment: .center) {
-                            ForEach(tabsData, id: \.self) { datum in
-                                ZStack(alignment: .center) {
-                                    DtTabItem(
-                                        tabItem: datum,
-                                        selectedTab: $selectedTab,
-                                        itemWidth: geometry.size.width / CGFloat(tabsData.count))
-                                    if case .chat = datum {
-                                        alarmUnreadCountView()
-                                    }
-                                }
+                HStack(alignment: .center) {
+                    ForEach(tabsData, id: \.self) { datum in
+                        ZStack(alignment: .center) {
+                            DtTabItem(
+                                tabItem: datum,
+                                selectedTab: $selectedTab,
+                                itemWidth: geometry.size.width / CGFloat(tabsData.count))
+                            if case .chat = datum {
+                                alarmUnreadCountView()
                             }
                         }
-                        .padding(.top)
                     }
-                    .onAppear {
-                        print("geometry.size.width: \(geometry.size.width)")
-                        print("UIScreen.main.bounds.width: \(UIScreen.main.bounds.width)")
-                    }
-                    .background(Color.customBlack)
                 }
+                .padding(.top)
+                .background(Color.customBlack)
             }
         }
     }
@@ -56,22 +46,22 @@ struct DtTabbar<Content: View>: View {
     private func alarmUnreadCountView() -> some View {
         ZStack {
             switch viewModel.alarmsUnreadCountState {
-            case .noAlarms:
-                EmptyView()
-            case let .count(count):
-                ZStack {
-                    Circle()
-                        .fill(Color.red)
-                        .frame(width: 20, height: 20)
-                    Text("\(count)")
-                }
-            default:
-                ZStack {
-                    RoundedRectangle(cornerRadius: 10)
-                        .fill(Color.red)
-                        .frame(width: 32, height: 20)
-                    Text("99+")
-                }
+                case .noAlarms:
+                    EmptyView()
+                case let .count(count):
+                    ZStack {
+                        Circle()
+                            .fill(Color.red)
+                            .frame(width: 20, height: 20)
+                        Text("\(count)")
+                    }
+                default:
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 10)
+                            .fill(Color.red)
+                            .frame(width: 32, height: 20)
+                        Text("99+")
+                    }
             }
         }
         .frame(width: 32, height: 20, alignment: .trailing)
