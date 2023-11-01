@@ -26,6 +26,10 @@ struct TopRightControls: View {
 }
 
 struct UserInfoView: View {
+    @State private var showDescription = false
+    // swiftlint:disable line_length
+    var descriptionUser = "Я художник. Пробовала заниматься графическим дизайном и комиксами, но сейчас ищу что-то новое в области искусства и дизайна. У меня есть муж Лев, он гейм-дизайнер, и да, мы знаем, что поженились довольно рано, но на самом деле мы очень спокойные и дружелюбные люди) Сейчас нахожусь в Белграде, Сербии, я просто ищу кого-нибудь, с кем можно выпить кофе и посплетничать"
+
     var body: some View {
         VStack(alignment: .leading) {
             Spacer()
@@ -47,16 +51,28 @@ struct UserInfoView: View {
             HStack {
                 Text("Aleksandra, 24".localize())
                     .dtTypo(.h3Medium, color: .textInverted)
-                Image(DtImage.mainLocation)
+                Image(DtImage.mainLabel)
                     .resizable()
                     .frame(width: 20, height: 20)
             }
-            Button(action: {
-                // TODO: Show more information about person
-            }, label: {
-                Text("Show more")
-                    .dtTypo(.p3Regular, color: .textPrimary)
-            })
+            if showDescription {
+                Text(descriptionUser)
+                    .dtTypo(.p3Regular, color: .textInverted)
+                    .padding(.bottom, 10)
+                Button(action: {
+                    showDescription.toggle()
+                }, label: {
+                    Text("Hide")
+                        .dtTypo(.p3Regular, color: .textInverted)
+                })
+            } else {
+                Button(action: {
+                    showDescription.toggle()
+                }, label: {
+                    Text("Show more")
+                        .dtTypo(.p3Regular, color: .textInverted)
+                })
+            }
         }
     }
 }
@@ -125,15 +141,18 @@ struct DatingView: View {
                     .frame(maxWidth: geometry.size.width)
                     .edgesIgnoringSafeArea(.all)
 
+                LinearGradient(gradient: Gradient(colors: [Color.clear, Color.black.opacity(0.65)]),
+                               startPoint: .top, endPoint: .bottom)
+                .frame(width: geometry.size.width, height: geometry.size.height / 2)
+                .position(x: geometry.size.width / 2, y: geometry.size.height - 100)
+
                 VStack {
                     HStack {
                         DtLogoView(blackAndWhiteColor: true, fontTextColor: .white)
                         Spacer()
                         TopRightControls()
                     }
-
                     Spacer()
-
                     HStack {
                         UserInfoView()
                         Spacer()
@@ -143,7 +162,6 @@ struct DatingView: View {
                         DtAudioPlayerView(viewModel: viewModel, isPlaying: $viewModel.isPlaying, playCurrentTime: $viewModel.playCurrentTime)
                             .padding(.bottom, 20)
                     }
-
                 }
                 .padding(.bottom, 50)
                 .padding(.trailing)

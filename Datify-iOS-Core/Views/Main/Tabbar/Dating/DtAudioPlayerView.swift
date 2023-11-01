@@ -43,16 +43,11 @@ struct DtAudioPlayerView: View {
             }
             .padding(.horizontal)
         }
-        .frame(maxWidth: .infinity)
     }
 
     func computeBarWidth() -> CGFloat {
         let totalSpacing: CGFloat = CGFloat(desiredNumberOfBars - 1)
         let availableWidth = (UIScreen.main.bounds.width - totalSpacing) * 0.45
-
-        print("screenWidth: \(UIScreen.main.bounds.width)")
-        print("totalSpacing: \(totalSpacing), availableWidth: \(availableWidth)")
-
         return availableWidth / CGFloat(desiredNumberOfBars)
     }
 

@@ -12,34 +12,30 @@ struct DtTabbar<Content: View>: View {
     @Binding var selectedTab: TabItem
     @ObservedObject var viewModel: TabbarViewModel
     let tabView: (TabItem) -> Content
-//    @State private var tabBarHeight: CGFloat = 50
 
     var body: some View {
-        GeometryReader { geometry in
-            VStack(spacing: 0) {
-                tabView(selectedTab)
-                    .frame(width: geometry.size.width)
-                    .onAppear {
-                        print(" geometry.size.width: \( geometry.size.width)")
-                    }
+        VStack(spacing: 0) {
+            tabView(selectedTab)
 
-                HStack(alignment: .center) {
-                    ForEach(tabsData, id: \.self) { datum in
-                        ZStack(alignment: .center) {
-                            DtTabItem(
-                                tabItem: datum,
-                                selectedTab: $selectedTab,
-                                itemWidth: geometry.size.width / CGFloat(tabsData.count))
-                            if case .chat = datum {
-                                alarmUnreadCountView()
-                            }
+            HStack(alignment: .center) {
+                ForEach(tabsData, id: \.self) { datum in
+                    ZStack(alignment: .center) {
+                        DtTabItem(
+                            tabItem: datum,
+                            selectedTab: $selectedTab,
+                            itemWidth: UIScreen.main.bounds.width / CGFloat(tabsData.count))
+                        if case .chat = datum {
+                            alarmUnreadCountView()
                         }
                     }
                 }
-                .padding(.top)
-                .background(Color.customBlack)
             }
+            .padding(.top)
+            .background(Color.customBlack)
+            .frame(maxWidth: .infinity)
+
         }
+//        .edgesIgnoringSafeArea(.horizontal)
     }
 
     @ViewBuilder
