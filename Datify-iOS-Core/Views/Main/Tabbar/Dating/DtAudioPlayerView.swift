@@ -46,8 +46,9 @@ struct DtAudioPlayerView: View {
     }
 
     func computeBarWidth() -> CGFloat {
-        let totalSpacing: CGFloat = CGFloat(desiredNumberOfBars - 1)
-        let availableWidth = (UIScreen.main.bounds.width - totalSpacing) * 0.45
+        let totalSpacing: CGFloat = CGFloat(desiredNumberOfBars - 1) * 2 // Учитываем промежуток между столбцами
+        let labelWidths: CGFloat = 50 + 30 + 4 * 16// Ширина для меток времени и кнопки воспроизведения + отступы
+        let availableWidth = UIScreen.main.bounds.width - totalSpacing - labelWidths
         return availableWidth / CGFloat(desiredNumberOfBars)
     }
 

@@ -39,6 +39,7 @@ struct DtBarChartView: View {
                     .cornerRadius(3)
             }
         }
+        .padding(.horizontal, 0)
         .frame(maxWidth: .infinity)
     }
 

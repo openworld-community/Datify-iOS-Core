@@ -59,7 +59,6 @@ class DtAudioPlayerManager: NSObject, ObservableObject, AVAudioPlayerDelegate {
             self.playCurrentTime = Int(player.currentTime)
             self.playbackProgress = player.currentTime / player.duration
             self.playerDuration = player.duration
-//            print("playbackProgress: \(playbackProgress), player.currentTime: \(player.currentTime), player.duration: \(player.duration)")
         }
     }
 

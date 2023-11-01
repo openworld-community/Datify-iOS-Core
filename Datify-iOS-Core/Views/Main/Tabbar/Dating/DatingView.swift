@@ -163,8 +163,8 @@ struct DatingView: View {
                             .padding(.bottom, 20)
                     }
                 }
+                .padding(.horizontal)
                 .padding(.bottom, 50)
-                .padding(.trailing)
             }
             .navigationBarHidden(true)
         }
