@@ -29,7 +29,7 @@ struct VoiceRecordingView: View {
             .padding(.bottom, 8)
         }
         .onAppear {
-            viewModel.fileExists()
+//            viewModel.fileExists()
         }
 
     }

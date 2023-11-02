@@ -28,6 +28,7 @@ struct AudioTrackView: View {
                         .transition(.opacity)
                     }
                 }
+                .id(bar.height)
                 .frame(width: 3, height: bar.isASignal ? CGFloat(bar.height) : 3)
                 .background( bar.disabledBool ? Color(hex: 0x3C3C43, alpha: 0.3) : Color(hex: 0x6167FF))
                 .cornerRadius(3)
@@ -49,9 +50,13 @@ struct AudioTrackView: View {
             Task {
                 await viewModel.setUpCaptureSession()
             }
-            _ = viewModel.fileExists()
-            for _ in 0...Int(UIScreen.main.bounds.width / 5) {
-                viewModel.arrayHeight.append(BarModel(height: 3, disabledBool: true, isASignal: false))
+            if viewModel.fileExists() {
+                viewModel.fileExistsBool = true
+                viewModel.getPower()
+            } else {
+                for _ in 0...Int(UIScreen.main.bounds.width / 5) {
+                    viewModel.arrayHeight.append(BarModel(height: 3, disabledBool: true, isASignal: false))
+                }
             }
         }
     }

@@ -5,11 +5,8 @@
 //  Created by Алексей Баранов on 25.10.2023.
 //
 
-import Foundation
 import AVFoundation
 import SwiftUI
- import AVKit
-import AudioToolbox
 
 struct BarModel: Hashable {
     var height: Float
@@ -21,11 +18,17 @@ enum StatePlayerEnum {
     case playing, recording, pause, none
 }
 
-class AudioTrackViewModel: ObservableObject {
+class AudioTrackViewModel: ObservableObject, AudioDelegate {
+    var service: AudioService?
     @Published var statePlayer: StatePlayerEnum = .none
     @Published var arrayHeight: [BarModel] = []
     @Published var fileExistsBool: Bool = false
     @Published var filePath: URL?
+
+    init() {
+        service = AudioService(widthPowerBar: 3, distanceBetweenBars: 2, deleteAnimationDuration: 1.0, audioRecordingDuration: 15.0)
+        service?.delegate = self
+    }
 
     var audioPlayer: AVAudioPlayer?
     var audioRecorder: AVAudioRecorder?
@@ -137,11 +140,11 @@ class AudioTrackViewModel: ObservableObject {
     func didTapRecordButton() {
         if fileExists() {
             deleteRecord {
-                self.startRecording()
+                self.service?.startRecording()
                 self.statePlayer = .recording
             }
         } else {
-            self.startRecording()
+            self.service?.startRecording()
             statePlayer = .recording
         }
     }
@@ -206,27 +209,31 @@ class AudioTrackViewModel: ObservableObject {
     func stopRecording() {
         self.audioRecorder?.stop()
         self.audioRecorder = nil
-        self.stopMeteringTimer()
+        self.stopTimer()
         statePlayer = .none
     }
 
-    func stopMeteringTimer() {
-        self.index = 0
-        self.recordingCurrentTime = 0.0
-        self.timer?.invalidate()
-        self.timer = nil
-    }
-
-    func  fileExists() -> Bool {
+    func fileExists() -> Bool {
         let fileName = "recording.m4a"
         if let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             let fileURL = documentsDirectory.appendingPathComponent(fileName)
-            self.filePath = fileURL
-            print(FileManager.default.fileExists(atPath: fileURL.path))
-            return FileManager.default.fileExists(atPath: fileURL.path)
+            if FileManager.default.fileExists(atPath: fileURL.path) {
+                filePath = fileURL
+                return true
+            }
         }
         filePath = nil
         return false
+    }
+
+    func getPower() {
+        if let filePath = filePath {
+            do {
+                try service?.calculatePower(for: filePath)
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
     }
 
     func deleteRecord(complition: (() -> Void)?) {
@@ -241,8 +248,6 @@ class AudioTrackViewModel: ObservableObject {
             let timerFrequency = TimeInterval(deleteAnimationDuration / Double(arrayHeight.count))
             self.timer = Timer.scheduledTimer(withTimeInterval: timerFrequency, repeats: true, block: { [weak self] (_) in
                 guard let self = self else { return }
-                print(arrayHeight.count)
-                print("index - " + "\(index)")
                 withAnimation(.linear) {
                     self.arrayHeight[self.index].isASignal = false
                 }
