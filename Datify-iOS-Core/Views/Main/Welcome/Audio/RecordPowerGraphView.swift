@@ -1,5 +1,5 @@
 //
-//  AudioTrackView.swift
+//  RecordPowerGraphView.swift
 //  Datify-iOS-Core
 //
 //  Created by Алексей Баранов on 25.10.2023.
@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-struct AudioTrackView: View {
-    @ObservedObject var viewModel: AudioTrackViewModel
+struct RecordPowerGraphView: View {
+    @ObservedObject var viewModel: RegRecordViewModel
 
-    init(viewModel: AudioTrackViewModel) {
+    init(viewModel: RegRecordViewModel) {
         self._viewModel = ObservedObject(wrappedValue: viewModel)
     }
 
@@ -19,12 +19,9 @@ struct AudioTrackView: View {
             ForEach(viewModel.arrayHeight, id: \.self) { bar in
                 HStack {
                     if bar.isASignal {
-                        HStack {
-
-                        }
+                        RoundedRectangle(cornerRadius: 3)
                         .frame(width: 3, height: CGFloat(bar.height))
-                        .background( bar.disabledBool ? Color(hex: 0x3C3C43, alpha: 0.3) : Color(hex: 0x6167FF))
-                        .cornerRadius(3)
+                        .foregroundStyle( bar.disabledBool ? Color(hex: 0x3C3C43, alpha: 0.3) : Color(hex: 0x6167FF))
                         .transition(.opacity)
                     }
                 }
@@ -63,15 +60,13 @@ struct AudioTrackView: View {
 }
 
 #Preview {
-    AudioTrackView(viewModel: AudioTrackViewModel())
+    RecordPowerGraphView(viewModel: RegRecordViewModel(router: Router()))
 }
 
-extension AudioTrackView {
+extension RecordPowerGraphView {
     private var recordButton: some View {
         Button {
-            Task {
-                viewModel.didTapRecordButton()
-            }
+            viewModel.didTapRecordButton()
         } label: {
             Circle()
                 .fill(Color.clear)
@@ -92,11 +87,8 @@ extension AudioTrackView {
 
     private var deleteButton: some View {
         Button {
-            Task {
-                viewModel.deleteRecord(complition: nil)
-            }
+            viewModel.didTapDeleteButton()
         } label: {
-
             Circle()
                 .fill(Color.clear)
                 .frame(width: 48, height: 48)
@@ -115,9 +107,7 @@ extension AudioTrackView {
 
     private var playButton: some View {
         Button {
-            Task {
-                viewModel.didTapPlayPauseButton()
-            }
+            viewModel.didTapPlayPauseButton()
         } label: {
             if viewModel.fileExistsBool {
                 Circle()

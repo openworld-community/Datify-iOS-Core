@@ -1,5 +1,5 @@
 //
-//  VoiceRecordingView.swift
+//  RegRecordView.swift
 //  Datify-iOS-Core
 //
 //  Created by Алексей Баранов on 25.10.2023.
@@ -7,18 +7,21 @@
 
 import SwiftUI
 
-struct VoiceRecordingView: View {
-    @StateObject var viewModel = AudioTrackViewModel()
+struct RegRecordView: View {
+    @StateObject var viewModel: RegRecordViewModel
+
+    init(router: Router<AppRoute>) {
+            _viewModel = StateObject(wrappedValue: RegRecordViewModel(router: router))
+        }
+
     var body: some View {
         NavigationStack {
             VStack {
                 Spacer()
                 titleSegment
-//                Spacer()
-                AudioTrackView(viewModel: viewModel)
+                RecordPowerGraphView(viewModel: viewModel)
                     .padding()
                 navigationButtons
-//                    .padding()
             }
             .toolbar {
                 ToolbarItem(placement: .principal) {
@@ -28,20 +31,16 @@ struct VoiceRecordingView: View {
             .padding(.horizontal)
             .padding(.bottom, 8)
         }
-        .onAppear {
-//            viewModel.fileExists()
-        }
-
     }
 }
 
 #Preview {
     NavigationStack {
-        VoiceRecordingView()
+        RegRecordView(router: Router())
     }
 }
 
-private extension VoiceRecordingView {
+private extension RegRecordView {
     var titleSegment: some View {
         VStack(spacing: 8) {
             Text("Record a voice message for other people")

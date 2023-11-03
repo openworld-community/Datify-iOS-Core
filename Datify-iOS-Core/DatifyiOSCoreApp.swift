@@ -15,7 +15,7 @@ struct DatifyiOSCoreApp: App {
 
         WindowGroup {
 //            MainAppView(router: router, navViewBuilder: builder)
-            VoiceRecordingView()
+            RegRecordView(router: router)
         }
     }
 }
