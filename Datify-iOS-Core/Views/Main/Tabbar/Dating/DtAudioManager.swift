@@ -20,34 +20,75 @@ class DtAudioPlayerManager: NSObject, ObservableObject, AVAudioPlayerDelegate {
     @Published var totalDuration: Double = 0.0
     @Published var audioSamples: [BarChartDataPoint] = []
     @Published var playerDuration: Double = 0.0
+    //
+    @Published var playbackFinished: Bool = false
 
     override init() {
         super.init()
+        loadAudioData()
     }
 
+//    func togglePlayback(for resource: String, ofType type: String) {
+//        if let player = audioPlayer {
+//            if player.isPlaying {
+//                player.pause()
+//                stopProgressUpdates()
+//                isPlaying = false
+//            } else {
+//                player.play()
+//                startProgressUpdates()
+//                isPlaying = true
+//            }
+//        } else {
+//            if let path = Bundle.main.path(forResource: resource, ofType: type) {
+//                let url = URL(fileURLWithPath: path)
+//                do {
+//                    audioPlayer = try AVAudioPlayer(contentsOf: url)
+//                    audioPlayer?.delegate = self
+//                    audioPlayer?.play()
+//                    startProgressUpdates()
+//                    totalDuration = audioPlayer?.duration ?? 0.0
+//                    isPlaying = true
+//                } catch {
+//                    print("Ошибка воспроизведения файла: \(error)")
+//                }
+//            }
+//        }
+//    }
+
     func togglePlayback(for resource: String, ofType type: String) {
+        // Если аудиоплеер уже инициализирован
         if let player = audioPlayer {
             if player.isPlaying {
+                // Если аудио воспроизводится, поставить на паузу
                 player.pause()
                 stopProgressUpdates()
                 isPlaying = false
             } else {
+                // Если аудио на паузе, продолжить воспроизведение
                 player.play()
                 startProgressUpdates()
+                playbackFinished = false
                 isPlaying = true
             }
         } else {
+            // Если аудиоплеер еще не инициализирован, попытаться загрузить и воспроизвести файл
             if let path = Bundle.main.path(forResource: resource, ofType: type) {
                 let url = URL(fileURLWithPath: path)
                 do {
                     audioPlayer = try AVAudioPlayer(contentsOf: url)
                     audioPlayer?.delegate = self
+                    audioPlayer?.prepareToPlay()
+                    playerDuration = audioPlayer?.duration ?? 0.0
+                    totalDuration = playerDuration
+
                     audioPlayer?.play()
                     startProgressUpdates()
-                    totalDuration = audioPlayer?.duration ?? 0.0
+                    playbackFinished = false
                     isPlaying = true
                 } catch {
                     print("Ошибка воспроизведения файла: \(error)")
+                    playbackFinished = true
                 }
             }
         }
@@ -59,6 +100,7 @@ class DtAudioPlayerManager: NSObject, ObservableObject, AVAudioPlayerDelegate {
             self.playCurrentTime = Int(player.currentTime)
             self.playbackProgress = player.currentTime / player.duration
             self.playerDuration = player.duration
+            print("Текущий прогресс: \(self.playbackProgress)")
         }
     }
 
@@ -67,8 +109,25 @@ class DtAudioPlayerManager: NSObject, ObservableObject, AVAudioPlayerDelegate {
         updateTimer = nil
     }
 
+//    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+//        isPlaying = false
+//        stopProgressUpdates()
+//    }
+//    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+//        DispatchQueue.main.async { [weak self] in
+//            self?.playbackProgress = 0.0
+//            self?.playbackFinished = true
+//            self?.isPlaying = false
+//        }
+//        stopProgressUpdates()
+//    }
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        isPlaying = false
+        DispatchQueue.main.async { [weak self] in
+            self?.playbackProgress = 0.0
+            self?.playCurrentTime = Int(self?.audioPlayer?.duration ?? 0)
+            self?.playbackFinished = true
+            self?.isPlaying = false
+        }
         stopProgressUpdates()
     }
 
@@ -79,8 +138,8 @@ class DtAudioPlayerManager: NSObject, ObservableObject, AVAudioPlayerDelegate {
                 let audioFile = try AVAudioFile(forReading: url)
                 let totalDurationInSeconds = Double(audioFile.length) / audioFile.fileFormat.sampleRate
                 let durationPerBar = totalDurationInSeconds / 55.0
-                print("durationPerBar: \(durationPerBar), totalDuration: \(totalDuration)")
                 let pointsPerBar = Int(durationPerBar * audioFile.processingFormat.sampleRate)
+                totalDuration = totalDurationInSeconds
 
                 guard let audioBuffer = AVAudioPCMBuffer(pcmFormat: audioFile.processingFormat, frameCapacity: AVAudioFrameCount(audioFile.length)) else {
                     print("Ошибка создания буфера")

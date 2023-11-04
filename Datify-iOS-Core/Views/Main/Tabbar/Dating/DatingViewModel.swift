@@ -12,6 +12,7 @@ final class DatingViewModel: ObservableObject {
     unowned let router: Router<AppRoute>
     var audioPlayerManager = DtAudioPlayerManager()
     var updateTimer: Timer?
+    @Published var playbackFinished: Bool = false
 
     @Published var isPlaying: Bool = false {
         didSet {
@@ -43,6 +44,10 @@ final class DatingViewModel: ObservableObject {
             .assign(to: \.audioSamples, on: self)
             .store(in: &cancellables)
 
+        audioPlayerManager.$playbackFinished
+            .assign(to: \.playbackFinished, on: self)
+            .store(in: &cancellables)
+
         audioPlayerManager.$isPlaying
             .assign(to: \.isPlaying, on: self)
             .store(in: &cancellables)
@@ -52,18 +57,32 @@ final class DatingViewModel: ObservableObject {
                 print("Получены новые audioSamples в DatingViewModel: \(newSamples.count) элементов")
             }
             .store(in: &cancellables)
-
         audioPlayerManager.$playbackProgress
             .sink { [weak self] newProgress in
-                self?.playbackProgress = newProgress
-                print("+++++++++playbackProgress \(newProgress)")
+                DispatchQueue.main.async {
+                    self?.playbackProgress = newProgress
+                    print("Обновленный прогресс в DatingViewModel: \(newProgress)")
+                }
             }
             .store(in: &cancellables)
-
+        audioPlayerManager.$totalDuration
+            .sink { [weak self] totalDuration in
+                self?.totalDuration = totalDuration
+            }
+            .store(in: &cancellables)
         audioPlayerManager.$playCurrentTime
-            .sink { [weak self] newCurrentTime in
-                self?.playCurrentTime = newCurrentTime
-                print("+++++++++newCurrentTime \(newCurrentTime)")
+            .sink { [weak self] newTime in
+                DispatchQueue.main.async {
+                    self?.playCurrentTime = newTime
+                    print("Обновленное текущее время в DatingViewModel: \(newTime)")
+                }
+            }
+            .store(in: &cancellables)
+        audioPlayerManager.$playCurrentTime
+            .sink { [weak self] currentTime in
+                DispatchQueue.main.async {
+                    self?.playCurrentTime = currentTime
+                }
             }
             .store(in: &cancellables)
     }
@@ -83,4 +102,24 @@ final class DatingViewModel: ObservableObject {
     func loadingAudioData() {
         audioPlayerManager.loadAudioData()
     }
+
+//    var remainingTime: Int {
+//        max(Int(totalDuration) - playCurrentTime, 0)
+//    }
+    var remainingTime: Int {
+        if playbackFinished {
+            return 0
+        } else {
+            return max(Int(totalDuration) - playCurrentTime, 0)
+        }
+    }
+
+    func minutes(from seconds: Int) -> Int {
+        seconds / 60
+    }
+
+    func seconds(from seconds: Int) -> Int {
+        seconds % 60
+    }
+
 }

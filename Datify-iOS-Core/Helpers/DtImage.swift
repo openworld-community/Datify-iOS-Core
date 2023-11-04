@@ -26,7 +26,9 @@ enum DtImage {
     static let mainPause = "mainPause"
     static let mainProfile = "mainProfile"
     static let mainBookmark = "mainBookmark"
+    static let mainSelectedBookmark = "mainSelectedBookmark"
     static let mainHeart = "mainHeart"
+    static let mainSelectedHeart = "mainSelectedHeart"
     static let mainFilter = "mainFilter"
     static let mainNotifications = "mainNotifications"
 }

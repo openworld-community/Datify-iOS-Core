@@ -26,7 +26,8 @@ struct TopRightControls: View {
 }
 
 struct UserInfoView: View {
-    @State private var showDescription = false
+    @Binding var showDescription: Bool
+
     // swiftlint:disable line_length
     var descriptionUser = "Я художник. Пробовала заниматься графическим дизайном и комиксами, но сейчас ищу что-то новое в области искусства и дизайна. У меня есть муж Лев, он гейм-дизайнер, и да, мы знаем, что поженились довольно рано, но на самом деле мы очень спокойные и дружелюбные люди) Сейчас нахожусь в Белграде, Сербии, я просто ищу кого-нибудь, с кем можно выпить кофе и посплетничать"
 
@@ -78,10 +79,15 @@ struct UserInfoView: View {
 }
 
 struct UserActionsView: View {
+    @Binding var liked: Bool
+    @Binding var bookmarked: Bool
+
     var body: some View {
         VStack(spacing: 12) {
             Spacer()
             Button(action: {
+                liked.toggle()
+
                 // TODO: Implement button action
             }, label: {
                 ZStack {
@@ -90,11 +96,13 @@ struct UserActionsView: View {
                         .foregroundColor(Color.iconsSecondary)
                         .opacity(0.64)
                         .clipShape(RoundedRectangle(cornerRadius: 16))
-                    Image(DtImage.mainHeart)
+                    Image(liked ? DtImage.mainSelectedHeart : DtImage.mainHeart)
 
                 }
             })
             Button(action: {
+                bookmarked.toggle()
+
                 // TODO: Implement button action
             }, label: {
                 ZStack {
@@ -103,7 +111,7 @@ struct UserActionsView: View {
                         .foregroundColor(Color.iconsSecondary)
                         .opacity(0.64)
                         .clipShape(RoundedRectangle(cornerRadius: 16))
-                    Image(DtImage.mainBookmark)
+                    Image(bookmarked ? DtImage.mainSelectedBookmark : DtImage.mainBookmark)
 
                 }
             })
@@ -127,7 +135,12 @@ struct UserActionsView: View {
 struct DatingView: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel: DatingViewModel
-
+    @State var showDescription = false
+    @State var liked: Bool = false
+    @State var bookmarked: Bool = false
+    let images = ["mockBackground", "mockBackground", "mockBackground"] // Замените на ваши изображения
+        @State private var selectedImageIndex = 0
+    
     init(router: Router<AppRoute>) {
         _viewModel = StateObject(wrappedValue: DatingViewModel(router: router))
     }
@@ -135,17 +148,18 @@ struct DatingView: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack {
-                Image("mockBackground")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(maxWidth: geometry.size.width)
-                    .edgesIgnoringSafeArea(.all)
+                    Image("mockBackground")
+                        .resizable()
+                        .scaledToFill()
+                        .frame(maxWidth: geometry.size.width)
+                        .blur(radius: showDescription ? 2 : 0)
+                        .animation(.easeInOut(duration: 0.4))
+                        .edgesIgnoringSafeArea(.all)
 
-                LinearGradient(gradient: Gradient(colors: [Color.clear, Color.black.opacity(0.65)]),
-                               startPoint: .top, endPoint: .bottom)
-                .frame(width: geometry.size.width, height: geometry.size.height / 2)
-                .position(x: geometry.size.width / 2, y: geometry.size.height - 100)
-
+                    LinearGradient(gradient: Gradient(colors: [Color.clear, Color.black.opacity(0.8)]),
+                                   startPoint: .top, endPoint: .bottom)
+                    .frame(width: geometry.size.width, height: 320)
+                    .position(x: geometry.size.width / 2, y: geometry.size.height - 150)
                 VStack {
                     HStack {
                         DtLogoView(blackAndWhiteColor: true, fontTextColor: .white)
@@ -154,19 +168,29 @@ struct DatingView: View {
                     }
                     Spacer()
                     HStack {
-                        UserInfoView()
+                        UserInfoView(showDescription: $showDescription)
                         Spacer()
-                        UserActionsView()
+                        UserActionsView(liked: $liked, bookmarked: $bookmarked)
                     }
                     HStack {
-                        DtAudioPlayerView(viewModel: viewModel, isPlaying: $viewModel.isPlaying, playCurrentTime: $viewModel.playCurrentTime)
-                            .padding(.bottom, 20)
+                        DtAudioPlayerView(
+                            viewModel: viewModel,
+                            isPlaying: $viewModel.isPlaying,
+                            playCurrentTime: $viewModel.playCurrentTime,
+                            playbackFinished: $viewModel.playbackFinished
+                        )
+                        .padding(.bottom, 20)
+
+                    }
+                    .onAppear {
+                        print("$viewModel.isPlaying: \($viewModel.isPlaying), $viewModel.playCurrentTime: \($viewModel.playCurrentTime)")
                     }
                 }
                 .padding(.horizontal)
                 .padding(.bottom, 50)
             }
             .navigationBarHidden(true)
+            .background(Color.customBlack)
         }
     }
 }
