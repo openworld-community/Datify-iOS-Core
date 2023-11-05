@@ -32,8 +32,8 @@ struct DatingModel {
         star: Bool = true,
         // swiftlint:disable line_length
         description: String = "Я художник. Пробовала заниматься графическим дизайном и комиксами, но сейчас ищу что-то новое в области искусства и дизайна. У меня есть муж Лев, он гейм-дизайнер, и да, мы знаем, что поженились довольно рано, но на самом деле мы очень спокойные и дружелюбные люди) Сейчас нахожусь в Белграде, Сербии, я просто ищу кого-нибудь, с кем можно выпить кофе и посплетничать",
-        liked: Bool = false,
-        bookmarked: Bool = false,
+        liked: Bool = true,
+        bookmarked: Bool = true,
         audiofile: String = "recording5sec"
     ) {
         self.userId = userId

@@ -169,6 +169,7 @@ struct UserActionsView: View {
                      Image(bookmarked ? DtImage.mainSelectedBookmark : DtImage.mainBookmark)
                  }
              })
+
             Button(action: {
                 // TODO: Implement button action
             }, label: {
@@ -194,9 +195,10 @@ struct DatingView: View {
     @State private var isSwipeAndIndicatorsDisabled = false
 
     @State var showDescription = false
+    @State private var selectedPhotoIndex = 0
+
     @State var liked: Bool = false
     @State var bookmarked: Bool = false
-    @State private var selectedPhotoIndex = 0
 
     init(router: Router<AppRoute>) {
         _viewModel = StateObject(wrappedValue: DatingViewModel(router: router))
@@ -257,6 +259,10 @@ struct DatingView: View {
                             showLikedAnimation: $showLikedAnimation,
                             showBookmarkedAnimation: $showBookmarkedAnimation
                         )
+                        .onAppear {
+                            liked = viewModel.datingModel.liked
+                            bookmarked = viewModel.datingModel.bookmarked
+                        }
                     }
                     HStack {
                         DtAudioPlayerView(
@@ -276,8 +282,4 @@ struct DatingView: View {
             .background(Color.customBlack)
         }
     }
-}
-
-#Preview {
-    DatingView(router: Router())
 }
