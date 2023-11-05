@@ -30,6 +30,7 @@ final class DatingViewModel: ObservableObject {
         self.router = router
         loadingAudioData()
         setupBindings()
+        loadInitialData()
     }
 
     deinit {
@@ -84,6 +85,11 @@ final class DatingViewModel: ObservableObject {
                 self?.datingModel.bookmarked = newValue
             }
             .store(in: &cancellables)
+    }
+
+    func loadInitialData() {
+        self.liked = datingModel.liked
+        self.bookmarked = datingModel.bookmarked
     }
 
     func togglePlayback() {
