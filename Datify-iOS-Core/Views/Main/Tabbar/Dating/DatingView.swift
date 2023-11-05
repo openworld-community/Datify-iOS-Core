@@ -29,14 +29,17 @@ struct AnimatedIconView: View {
 }
 
 struct Indicators: View {
-    var images: [String]
-    var selectedImageIndex: Int
+    @Binding var isSwipeAndIndicatorsDisabled: Bool
+
+    var photos: [String]
+    var selectedPhotoIndex: Int
     var body: some View {
         HStack(spacing: 8) {
-            ForEach(images.indices, id: \.self) { index in
+            ForEach(photos.indices, id: \.self) { index in
                 Circle()
                     .frame(width: 6, height: 6)
-                    .foregroundColor(selectedImageIndex == index ? .white : .gray)
+                    .foregroundColor(selectedPhotoIndex == index ? .white : .gray)
+                    .opacity(isSwipeAndIndicatorsDisabled ? 0 : 1)
             }
         }
     }
@@ -62,10 +65,10 @@ struct TopRightControls: View {
 
 struct UserInfoView: View {
     @Binding var showDescription: Bool
-    var images: [String]
-    var selectedImageIndex: Int
-        // swiftlint:disable line_length
-    var descriptionUser = "Я художник. Пробовала заниматься графическим дизайном и комиксами, но сейчас ищу что-то новое в области искусства и дизайна. У меня есть муж Лев, он гейм-дизайнер, и да, мы знаем, что поженились довольно рано, но на самом деле мы очень спокойные и дружелюбные люди) Сейчас нахожусь в Белграде, Сербии, я просто ищу кого-нибудь, с кем можно выпить кофе и посплетничать"
+    @Binding var isSwipeAndIndicatorsDisabled: Bool
+
+    var viewModel: DatingViewModel
+    var selectedPhotoIndex: Int
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -74,13 +77,17 @@ struct UserInfoView: View {
                 ZStack {
                     Rectangle()
                         .frame(width: 120, height: 24)
-                        .foregroundColor(.red)
+                        .foregroundColor(viewModel.datingModel.colorLabel)
                         .clipShape(RoundedRectangle(cornerRadius: 16))
-                    Text("Looking for love".localize())
+                    Text(viewModel.datingModel.label)
                         .dtTypo(.p4Medium, color: .textInverted)
                 }
                 Spacer()
-                Indicators(images: images, selectedImageIndex: selectedImageIndex)
+                Indicators(
+                    isSwipeAndIndicatorsDisabled: $isSwipeAndIndicatorsDisabled,
+                    photos: viewModel.datingModel.photos,
+                    selectedPhotoIndex: selectedPhotoIndex
+                )
                 Spacer()
             }
 
@@ -88,22 +95,24 @@ struct UserInfoView: View {
                 Image(DtImage.mainLocation)
                     .resizable()
                     .frame(width: 16, height: 16)
-                Text("500 meters from you".localize())
+                Text(viewModel.datingModel.location)
                     .dtTypo(.p3Regular, color: .textInverted)
             }
             HStack {
-                Text("Aleksandra, 24".localize())
+                Text("\(viewModel.datingModel.name), \(viewModel.datingModel.age)")
                     .dtTypo(.h3Medium, color: .textInverted)
                 Image(DtImage.mainLabel)
                     .resizable()
                     .frame(width: 20, height: 20)
             }
+
             if showDescription {
-                Text(descriptionUser)
+                Text(viewModel.datingModel.description)
                     .dtTypo(.p3Regular, color: .textInverted)
                     .padding(.bottom, 10)
                 Button(action: {
                     showDescription.toggle()
+                    isSwipeAndIndicatorsDisabled.toggle()
                 }, label: {
                     Text("Hide")
                         .dtTypo(.p3Regular, color: .textInverted)
@@ -111,6 +120,7 @@ struct UserInfoView: View {
             } else {
                 Button(action: {
                     showDescription.toggle()
+                    isSwipeAndIndicatorsDisabled.toggle()
                 }, label: {
                     Text("Show more")
                         .dtTypo(.p3Regular, color: .textInverted)
@@ -179,14 +189,14 @@ struct UserActionsView: View {
 struct DatingView: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel: DatingViewModel
+    @State private var showLikedAnimation = false
+    @State private var showBookmarkedAnimation = false
+    @State private var isSwipeAndIndicatorsDisabled = false
+
     @State var showDescription = false
     @State var liked: Bool = false
     @State var bookmarked: Bool = false
-    @State private var showLikedAnimation = false
-    @State private var showBookmarkedAnimation = false
-
-    let images = ["mockBackground", "mockBackground2", "mockBackground"] // Замените на ваши изображения
-        @State private var selectedImageIndex = 0
+    @State private var selectedPhotoIndex = 0
 
     init(router: Router<AppRoute>) {
         _viewModel = StateObject(wrappedValue: DatingViewModel(router: router))
@@ -195,9 +205,9 @@ struct DatingView: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack {
-                TabView(selection: $selectedImageIndex) {
-                    ForEach(images.indices, id: \.self) { index in
-                        Image(images[index])
+                TabView(selection: $selectedPhotoIndex) {
+                    ForEach(viewModel.datingModel.photos.indices, id: \.self) { index in
+                        Image(viewModel.datingModel.photos[index])
                             .resizable()
                             .scaledToFill()
                             .frame(maxWidth: geometry.size.width)
@@ -207,7 +217,8 @@ struct DatingView: View {
                             .tag(index)
                     }
                 }
-                .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
+                .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+                .disabled(isSwipeAndIndicatorsDisabled)
                 .edgesIgnoringSafeArea(.all)
 
                 if showLikedAnimation {
@@ -233,9 +244,19 @@ struct DatingView: View {
                     }
                     Spacer()
                     HStack {
-                        UserInfoView(showDescription: $showDescription, images: images, selectedImageIndex: selectedImageIndex)
+                        UserInfoView(
+                            showDescription: $showDescription,
+                            isSwipeAndIndicatorsDisabled: $isSwipeAndIndicatorsDisabled,
+                            viewModel: viewModel,
+                            selectedPhotoIndex: selectedPhotoIndex
+                        )
                         Spacer()
-                        UserActionsView(liked: $liked, bookmarked: $bookmarked, showLikedAnimation: $showLikedAnimation, showBookmarkedAnimation: $showBookmarkedAnimation)
+                        UserActionsView(
+                            liked: $liked,
+                            bookmarked: $bookmarked,
+                            showLikedAnimation: $showLikedAnimation,
+                            showBookmarkedAnimation: $showBookmarkedAnimation
+                        )
                     }
                     HStack {
                         DtAudioPlayerView(

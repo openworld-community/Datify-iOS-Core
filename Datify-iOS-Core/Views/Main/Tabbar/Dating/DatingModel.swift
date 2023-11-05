@@ -23,17 +23,18 @@ struct DatingModel {
 
     init(
         userId: UUID = UUID(),
-        photos: [String] = ["defaultPhoto1", "defaultPhoto2", "defaultPhoto3"],
+        photos: [String] = ["mockBackground", "mockBackground2", "mockBackground"],
         label: String = "Looking for love",
         colorLabel: Color = .red,
         location: String = "500 meters from you",
         name: String = "Aleksandra",
         age: Int = 24,
         star: Bool = true,
-        description: String = "Я художник. Пробовала заниматься графическим дизайном и комиксами, но сейчас ищу что-то новое...",
+        // swiftlint:disable line_length
+        description: String = "Я художник. Пробовала заниматься графическим дизайном и комиксами, но сейчас ищу что-то новое в области искусства и дизайна. У меня есть муж Лев, он гейм-дизайнер, и да, мы знаем, что поженились довольно рано, но на самом деле мы очень спокойные и дружелюбные люди) Сейчас нахожусь в Белграде, Сербии, я просто ищу кого-нибудь, с кем можно выпить кофе и посплетничать",
         liked: Bool = false,
         bookmarked: Bool = false,
-        audiofile: String = "default_audiofile.mp3"
+        audiofile: String = "recording5sec"
     ) {
         self.userId = userId
         self.photos = photos
@@ -49,4 +50,3 @@ struct DatingModel {
         self.audiofile = audiofile
     }
 }
-

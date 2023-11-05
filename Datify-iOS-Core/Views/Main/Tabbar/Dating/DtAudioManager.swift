@@ -24,7 +24,6 @@ class DtAudioPlayerManager: NSObject, ObservableObject, AVAudioPlayerDelegate {
 
     override init() {
         super.init()
-        loadAudioData()
     }
 
     func togglePlayback(for resource: String, ofType type: String) {
@@ -85,8 +84,9 @@ class DtAudioPlayerManager: NSObject, ObservableObject, AVAudioPlayerDelegate {
         stopProgressUpdates()
     }
 
-    func loadAudioData() {
-        if let path = Bundle.main.path(forResource: "recording5sec", ofType: "mp3") {
+    func loadAudioData(for resource: String, ofType type: String) {
+        print("manager resource: \(resource)")
+        if let path = Bundle.main.path(forResource: resource, ofType: type) {
             let url = URL(fileURLWithPath: path)
             do {
                 let audioFile = try AVAudioFile(forReading: url)
@@ -95,7 +95,10 @@ class DtAudioPlayerManager: NSObject, ObservableObject, AVAudioPlayerDelegate {
                 let pointsPerBar = Int(durationPerBar * audioFile.processingFormat.sampleRate)
                 totalDuration = totalDurationInSeconds
 
-                guard let audioBuffer = AVAudioPCMBuffer(pcmFormat: audioFile.processingFormat, frameCapacity: AVAudioFrameCount(audioFile.length)) else {
+                guard let audioBuffer = AVAudioPCMBuffer(
+                    pcmFormat: audioFile.processingFormat,
+                    frameCapacity: AVAudioFrameCount(audioFile.length)
+                ) else {
                     print("Ошибка создания буфера")
                     return
                 }

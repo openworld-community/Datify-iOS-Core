@@ -12,7 +12,6 @@ final class DatingViewModel: ObservableObject {
     unowned let router: Router<AppRoute>
     var audioPlayerManager = DtAudioPlayerManager()
     var updateTimer: Timer?
-    let defaultDatingModel = DatingModel()
 
     @Published var playbackFinished: Bool = false
     @Published var isPlaying: Bool = false
@@ -20,6 +19,8 @@ final class DatingViewModel: ObservableObject {
     @Published var playCurrentTime: Int = 0
     @Published var totalDuration: Double = 0.0
     @Published var audioSamples: [BarChartDataPoint] = []
+
+    var datingModel = DatingModel()
 
     private var cancellables: Set<AnyCancellable> = []
 
@@ -40,11 +41,6 @@ final class DatingViewModel: ObservableObject {
             .assign(to: \.isPlaying, on: self)
             .store(in: &cancellables)
 
-        audioPlayerManager.$audioSamples
-            .sink { newSamples in
-                print("Получены новые audioSamples в DatingViewModel: \(newSamples.count) элементов")
-            }
-            .store(in: &cancellables)
         audioPlayerManager.$playbackProgress
             .sink { [weak self] newProgress in
                 DispatchQueue.main.async {
@@ -52,11 +48,13 @@ final class DatingViewModel: ObservableObject {
                 }
             }
             .store(in: &cancellables)
+
         audioPlayerManager.$totalDuration
             .sink { [weak self] totalDuration in
                 self?.totalDuration = totalDuration
             }
             .store(in: &cancellables)
+
         audioPlayerManager.$playCurrentTime
             .sink { [weak self] newTime in
                 DispatchQueue.main.async {
@@ -64,6 +62,7 @@ final class DatingViewModel: ObservableObject {
                 }
             }
             .store(in: &cancellables)
+
         audioPlayerManager.$playCurrentTime
             .sink { [weak self] currentTime in
                 DispatchQueue.main.async {
@@ -74,7 +73,7 @@ final class DatingViewModel: ObservableObject {
     }
 
     func togglePlayback() {
-        audioPlayerManager.togglePlayback(for: "recording5sec", ofType: "mp3")
+        audioPlayerManager.togglePlayback(for: datingModel.audiofile, ofType: "mp3")
     }
 
     func startProgressUpdates() {
@@ -86,7 +85,7 @@ final class DatingViewModel: ObservableObject {
     }
 
     func loadingAudioData() {
-        audioPlayerManager.loadAudioData()
+        audioPlayerManager.loadAudioData(for: datingModel.audiofile, ofType: "mp3")
     }
 
     var remainingTime: Int {
@@ -104,5 +103,4 @@ final class DatingViewModel: ObservableObject {
     func seconds(from seconds: Int) -> Int {
         seconds % 60
     }
-
 }

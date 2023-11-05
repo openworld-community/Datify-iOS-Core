@@ -26,11 +26,21 @@ struct DtAudioPlayerView: View {
 
             HStack {
                 Text(String(format: "%02d:%02d",
-                    viewModel.minutes(from: playbackFinished ? Int(viewModel.totalDuration) : viewModel.remainingTime),
-                    viewModel.seconds(from: playbackFinished ? Int(viewModel.totalDuration) : viewModel.remainingTime)))
-                    .frame(width: 50, alignment: .leading)
-                    .fixedSize(horizontal: true, vertical: false)
-                    .foregroundColor(.white)
+                    viewModel.minutes(from:
+                                        playbackFinished
+                                            ? Int(viewModel.totalDuration)
+                                            : viewModel.remainingTime
+                                     ),
+                    viewModel.seconds(from:
+                                        playbackFinished
+                                            ? Int(viewModel.totalDuration)
+                                            : viewModel.remainingTime
+                                     )
+                           )
+                )
+                .frame(width: 50, alignment: .leading)
+                .fixedSize(horizontal: true, vertical: false)
+                .foregroundColor(.white)
 
                 DtBarChartView(
                     viewModel: viewModel,
@@ -40,7 +50,11 @@ struct DtAudioPlayerView: View {
                 Button(action: {
                     viewModel.togglePlayback()
                 }) {
-                    Image(isPlaying ? DtImage.mainPause : DtImage.mainPlay)
+                    Image(
+                        isPlaying
+                            ? DtImage.mainPause
+                            : DtImage.mainPlay
+                    )
                 }
                 .frame(width: 30)
             }
@@ -59,5 +73,4 @@ struct DtAudioPlayerView: View {
     var desiredNumberOfBars: Int {
         return 60
     }
-
 }
