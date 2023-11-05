@@ -10,8 +10,6 @@ import Combine
 
 final class DatingViewModel: ObservableObject {
     unowned let router: Router<AppRoute>
-    var audioPlayerManager = DtAudioPlayerManager()
-    var updateTimer: Timer?
 
     @Published var playbackFinished: Bool = false
     @Published var isPlaying: Bool = false
@@ -19,16 +17,26 @@ final class DatingViewModel: ObservableObject {
     @Published var playCurrentTime: Int = 0
     @Published var totalDuration: Double = 0.0
     @Published var audioSamples: [BarChartDataPoint] = []
+    @Published var liked: Bool = false
+    @Published var bookmarked: Bool = false
 
     var datingModel = DatingModel()
+    var audioPlayerManager = DtAudioPlayerManager()
+    var updateTimer: Timer?
 
     private var cancellables: Set<AnyCancellable> = []
 
     init(router: Router<AppRoute>) {
         self.router = router
-
         loadingAudioData()
+        setupBindings()
+    }
 
+    deinit {
+        updateTimer?.invalidate()
+    }
+
+    func setupBindings() {
         audioPlayerManager.$audioSamples
             .assign(to: \.audioSamples, on: self)
             .store(in: &cancellables)
@@ -63,11 +71,17 @@ final class DatingViewModel: ObservableObject {
             }
             .store(in: &cancellables)
 
-        audioPlayerManager.$playCurrentTime
-            .sink { [weak self] currentTime in
-                DispatchQueue.main.async {
-                    self?.playCurrentTime = currentTime
-                }
+        $liked
+            .dropFirst()
+            .sink { [weak self] newValue in
+                self?.datingModel.liked = newValue
+            }
+            .store(in: &cancellables)
+
+        $bookmarked
+            .dropFirst()
+            .sink { [weak self] newValue in
+                self?.datingModel.bookmarked = newValue
             }
             .store(in: &cancellables)
     }
@@ -94,13 +108,5 @@ final class DatingViewModel: ObservableObject {
         } else {
             return max(Int(totalDuration) - playCurrentTime, 0)
         }
-    }
-
-    func minutes(from seconds: Int) -> Int {
-        seconds / 60
-    }
-
-    func seconds(from seconds: Int) -> Int {
-        seconds % 60
     }
 }

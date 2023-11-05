@@ -54,6 +54,14 @@
 		638718622AEA1B7F008C7F54 /* recording5sec.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 638718602AEA1B7F008C7F54 /* recording5sec.mp3 */; };
 		638718632AEA1B7F008C7F54 /* recording15sec.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 638718612AEA1B7F008C7F54 /* recording15sec.mp3 */; };
 		638718652AF7A4EA008C7F54 /* DatingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638718642AF7A4EA008C7F54 /* DatingModel.swift */; };
+		638718672AF7CDFB008C7F54 /* Int+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638718662AF7CDFB008C7F54 /* Int+extension.swift */; };
+		6387186A2AF7EC24008C7F54 /* AnimatedIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638718692AF7EC24008C7F54 /* AnimatedIconView.swift */; };
+		6387186C2AF7EC3A008C7F54 /* IndicatorsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6387186B2AF7EC3A008C7F54 /* IndicatorsView.swift */; };
+		6387186E2AF7EC5E008C7F54 /* TopRightControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6387186D2AF7EC5E008C7F54 /* TopRightControls.swift */; };
+		638718702AF7EC6E008C7F54 /* UserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6387186F2AF7EC6E008C7F54 /* UserInfoView.swift */; };
+		638718722AF7EC81008C7F54 /* UserActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638718712AF7EC81008C7F54 /* UserActionView.swift */; };
+		638718742AF7ECF2008C7F54 /* PhotoSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638718732AF7ECF2008C7F54 /* PhotoSliderView.swift */; };
+		638718762AF7EFC2008C7F54 /* BottomDarkGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638718752AF7EFC2008C7F54 /* BottomDarkGradientView.swift */; };
 		638D1E862ABAB45C0001CED4 /* LocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638D1E822ABAB45C0001CED4 /* LocationView.swift */; };
 		638D1E872ABAB45C0001CED4 /* LocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638D1E832ABAB45C0001CED4 /* LocationViewModel.swift */; };
 		638D1E882ABAB45C0001CED4 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638D1E842ABAB45C0001CED4 /* LocationManager.swift */; };
@@ -147,6 +155,14 @@
 		638718602AEA1B7F008C7F54 /* recording5sec.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = recording5sec.mp3; sourceTree = "<group>"; };
 		638718612AEA1B7F008C7F54 /* recording15sec.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = recording15sec.mp3; sourceTree = "<group>"; };
 		638718642AF7A4EA008C7F54 /* DatingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatingModel.swift; sourceTree = "<group>"; };
+		638718662AF7CDFB008C7F54 /* Int+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+extension.swift"; sourceTree = "<group>"; };
+		638718692AF7EC24008C7F54 /* AnimatedIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedIconView.swift; sourceTree = "<group>"; };
+		6387186B2AF7EC3A008C7F54 /* IndicatorsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorsView.swift; sourceTree = "<group>"; };
+		6387186D2AF7EC5E008C7F54 /* TopRightControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopRightControls.swift; sourceTree = "<group>"; };
+		6387186F2AF7EC6E008C7F54 /* UserInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoView.swift; sourceTree = "<group>"; };
+		638718712AF7EC81008C7F54 /* UserActionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserActionView.swift; sourceTree = "<group>"; };
+		638718732AF7ECF2008C7F54 /* PhotoSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSliderView.swift; sourceTree = "<group>"; };
+		638718752AF7EFC2008C7F54 /* BottomDarkGradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomDarkGradientView.swift; sourceTree = "<group>"; };
 		638D1E822ABAB45C0001CED4 /* LocationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationView.swift; sourceTree = "<group>"; };
 		638D1E832ABAB45C0001CED4 /* LocationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationViewModel.swift; sourceTree = "<group>"; };
 		638D1E842ABAB45C0001CED4 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
@@ -288,6 +304,7 @@
 		4A4CE2CF2A9B41B90098FF80 /* Dating */ = {
 			isa = PBXGroup;
 			children = (
+				638718682AF7EC0B008C7F54 /* Views */,
 				638718642AF7A4EA008C7F54 /* DatingModel.swift */,
 				634EF7322ADC48220061E13A /* DatingView.swift */,
 				634EF7332ADC48220061E13A /* DatingViewModel.swift */,
@@ -358,6 +375,7 @@
 				632A7F5D2AAC897B005DA819 /* DtCustomTFView+extension.swift */,
 				634EF7422ADC63810061E13A /* Shape+extension.swift */,
 				634EF7442ADC63A50061E13A /* Array+extension.swift */,
+				638718662AF7CDFB008C7F54 /* Int+extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -377,6 +395,20 @@
 				D0C896592AA217630084FA62 /* DtImage.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		638718682AF7EC0B008C7F54 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				638718692AF7EC24008C7F54 /* AnimatedIconView.swift */,
+				6387186B2AF7EC3A008C7F54 /* IndicatorsView.swift */,
+				6387186D2AF7EC5E008C7F54 /* TopRightControls.swift */,
+				6387186F2AF7EC6E008C7F54 /* UserInfoView.swift */,
+				638718712AF7EC81008C7F54 /* UserActionView.swift */,
+				638718732AF7ECF2008C7F54 /* PhotoSliderView.swift */,
+				638718752AF7EFC2008C7F54 /* BottomDarkGradientView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		638D1E812ABAB44B0001CED4 /* Location */ = {
@@ -682,7 +714,9 @@
 				4A4CE2D42A9B44280098FF80 /* RegistrationFlow.swift in Sources */,
 				2076AF302AB085F400AF5E11 /* Image+extension.swift in Sources */,
 				980895BA2A9F4A5700F82F02 /* DtSpinnerView.swift in Sources */,
+				6387186C2AF7EC3A008C7F54 /* IndicatorsView.swift in Sources */,
 				63A7295D2AA395A200AC60E3 /* ConstantsTF.swift in Sources */,
+				6387186E2AF7EC5E008C7F54 /* TopRightControls.swift in Sources */,
 				208D05502AB8F5EB0071E1B7 /* RegOccupationView.swift in Sources */,
 				4A4CE2CA2A9B3E8C0098FF80 /* NavigationViewBuilder.swift in Sources */,
 				4A4CE2C82A9B3B620098FF80 /* Router.swift in Sources */,
@@ -691,6 +725,7 @@
 				634EF7412ADC62B30061E13A /* DtBarChartView.swift in Sources */,
 				D0C185302AA1D0E1000D71E5 /* SignInWithButton.swift in Sources */,
 				632A7F5E2AAC897B005DA819 /* DtCustomTFView+extension.swift in Sources */,
+				638718702AF7EC6E008C7F54 /* UserInfoView.swift in Sources */,
 				634EF72A2ADC48010061E13A /* TabItem.swift in Sources */,
 				4A4CE2DC2A9B485B0098FF80 /* WelcomeView.swift in Sources */,
 				63A5B8B52AC5F0BA00DEB54A /* CountryAndCityView.swift in Sources */,
@@ -703,14 +738,18 @@
 				634EF7352ADC48220061E13A /* DatingViewModel.swift in Sources */,
 				D0C8965A2AA217630084FA62 /* DtImage.swift in Sources */,
 				634EF7452ADC63A50061E13A /* Array+extension.swift in Sources */,
+				638718742AF7ECF2008C7F54 /* PhotoSliderView.swift in Sources */,
 				634EF7392ADC48300061E13A /* MenuViewModel.swift in Sources */,
 				D0DC465F2A92699D0097CFF3 /* MainAppView.swift in Sources */,
+				638718762AF7EFC2008C7F54 /* BottomDarkGradientView.swift in Sources */,
 				634EF7382ADC48300061E13A /* MenuView.swift in Sources */,
 				634EF7282ADC48010061E13A /* TabbarViewModel.swift in Sources */,
 				63A729592AA3937500AC60E3 /* RegularTFView.swift in Sources */,
 				20BF9D932AB1BE85008B3CEB /* RegSelectGenderView.swift in Sources */,
+				6387186A2AF7EC24008C7F54 /* AnimatedIconView.swift in Sources */,
 				4A4CE2E32A9B53E70098FF80 /* Color+extension.swift in Sources */,
 				208A426D2AB9061000E90C94 /* RegFinalView.swift in Sources */,
+				638718672AF7CDFB008C7F54 /* Int+extension.swift in Sources */,
 				2076AF2E2AB080DB00AF5E11 /* String+extension.swift in Sources */,
 				9898B2BF2AAA49DE007CA714 /* RegEmailViewModel.swift in Sources */,
 				98F3B6D62A9E4F9D0097B5C0 /* DtLogoView.swift in Sources */,
@@ -736,6 +775,7 @@
 				634EF7302ADC48100061E13A /* ChatView.swift in Sources */,
 				4A4CE2F12A9B67B90098FF80 /* Text+extension.swift in Sources */,
 				4A4CE2EF2A9B66DC0098FF80 /* TempView.swift in Sources */,
+				638718722AF7EC81008C7F54 /* UserActionView.swift in Sources */,
 				63A365A32AA04FFB00CBF5CD /* DtCustomTF.swift in Sources */,
 				4A4CE2C62A9B3A5F0098FF80 /* AppRoute.swift in Sources */,
 				4A4CE2DA2A9B47650098FF80 /* LoginViewModel.swift in Sources */,

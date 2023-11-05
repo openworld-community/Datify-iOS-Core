@@ -10,12 +10,18 @@ import AVFoundation
 import Charts
 
 struct DtAudioPlayerView: View {
-    var viewModel: DatingViewModel
     @State private var isAlertPresented = false
     @State private var alertMessage = ""
+
     @Binding var isPlaying: Bool
     @Binding var playCurrentTime: Int
     @Binding var playbackFinished: Bool
+
+    var viewModel: DatingViewModel
+
+    var desiredNumberOfBars: Int {
+        return 60
+    }
 
     var body: some View {
         ZStack(alignment: .center) {
@@ -25,22 +31,12 @@ struct DtAudioPlayerView: View {
                 .opacity(0.64)
 
             HStack {
-                Text(String(format: "%02d:%02d",
-                    viewModel.minutes(from:
-                                        playbackFinished
-                                            ? Int(viewModel.totalDuration)
-                                            : viewModel.remainingTime
-                                     ),
-                    viewModel.seconds(from:
-                                        playbackFinished
-                                            ? Int(viewModel.totalDuration)
-                                            : viewModel.remainingTime
-                                     )
-                           )
-                )
-                .frame(width: 50, alignment: .leading)
-                .fixedSize(horizontal: true, vertical: false)
-                .foregroundColor(.white)
+                let totalSeconds = playbackFinished ? Int(viewModel.totalDuration) : viewModel.remainingTime
+                Text(String(format: "%02d:%02d", totalSeconds.minutes, totalSeconds.seconds))
+
+                    .frame(width: 50, alignment: .leading)
+                    .fixedSize(horizontal: true, vertical: false)
+                    .foregroundColor(.white)
 
                 DtBarChartView(
                     viewModel: viewModel,
@@ -60,7 +56,6 @@ struct DtAudioPlayerView: View {
             }
             .padding(.horizontal)
         }
-
     }
 
     func computeBarWidth() -> CGFloat {
@@ -68,9 +63,5 @@ struct DtAudioPlayerView: View {
         let labelWidths: CGFloat = 50 + 30 + 4 * 16
         let availableWidth = UIScreen.main.bounds.width - totalSpacing - labelWidths
         return availableWidth / CGFloat(desiredNumberOfBars)
-    }
-
-    var desiredNumberOfBars: Int {
-        return 60
     }
 }

@@ -17,8 +17,8 @@ struct DatingModel {
     let age: Int
     let star: Bool
     let description: String
-    let liked: Bool
-    let bookmarked: Bool
+    var liked: Bool
+    var bookmarked: Bool
     let audiofile: String
 
     init(

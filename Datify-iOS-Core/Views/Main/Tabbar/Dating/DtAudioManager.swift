@@ -10,17 +10,16 @@ import Combine
 import AVFoundation
 
 class DtAudioPlayerManager: NSObject, ObservableObject, AVAudioPlayerDelegate {
-    var audioPlayer: AVAudioPlayer?
-    var updateTimer: Timer?
-
     @Published var isPlaying: Bool = false
     @Published var playbackProgress: Double = 0.0
-
     @Published var playCurrentTime: Int = 0
     @Published var totalDuration: Double = 0.0
     @Published var audioSamples: [BarChartDataPoint] = []
     @Published var playerDuration: Double = 0.0
     @Published var playbackFinished: Bool = false
+
+    var audioPlayer: AVAudioPlayer?
+    var updateTimer: Timer?
 
     override init() {
         super.init()
@@ -53,7 +52,7 @@ class DtAudioPlayerManager: NSObject, ObservableObject, AVAudioPlayerDelegate {
                     playbackFinished = false
                     isPlaying = true
                 } catch {
-                    print("Ошибка воспроизведения файла: \(error)")
+                    print("Error playing file: \(error)")
                     playbackFinished = true
                 }
             }
@@ -85,7 +84,6 @@ class DtAudioPlayerManager: NSObject, ObservableObject, AVAudioPlayerDelegate {
     }
 
     func loadAudioData(for resource: String, ofType type: String) {
-        print("manager resource: \(resource)")
         if let path = Bundle.main.path(forResource: resource, ofType: type) {
             let url = URL(fileURLWithPath: path)
             do {
@@ -99,7 +97,7 @@ class DtAudioPlayerManager: NSObject, ObservableObject, AVAudioPlayerDelegate {
                     pcmFormat: audioFile.processingFormat,
                     frameCapacity: AVAudioFrameCount(audioFile.length)
                 ) else {
-                    print("Ошибка создания буфера")
+                    print("Error creating buffer")
                     return
                 }
 
@@ -128,16 +126,16 @@ class DtAudioPlayerManager: NSObject, ObservableObject, AVAudioPlayerDelegate {
                         }
                     }
             } catch {
-                print("Ошибка загрузки аудиоданных: \(error)")
+                print("Error loading audio data: \(error)")
             }
         }
     }
 
     func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?) {
-        print("Ошибка декодирования: \(String(describing: error))")
+        print("Decoding error: \(String(describing: error))")
     }
 
     func audioPlayerBeginInterruption(_ player: AVAudioPlayer) {
-        print("Воспроизведение было прервано")
+        print("Playback was interrupted")
     }
 }
