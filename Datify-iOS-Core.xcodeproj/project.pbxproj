@@ -53,6 +53,7 @@
 		634EF74E2AE422AD0061E13A /* DtAudioPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634EF74D2AE422AD0061E13A /* DtAudioPlayerView.swift */; };
 		638718622AEA1B7F008C7F54 /* recording5sec.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 638718602AEA1B7F008C7F54 /* recording5sec.mp3 */; };
 		638718632AEA1B7F008C7F54 /* recording15sec.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 638718612AEA1B7F008C7F54 /* recording15sec.mp3 */; };
+		638718652AF7A4EA008C7F54 /* DatingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638718642AF7A4EA008C7F54 /* DatingModel.swift */; };
 		638D1E862ABAB45C0001CED4 /* LocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638D1E822ABAB45C0001CED4 /* LocationView.swift */; };
 		638D1E872ABAB45C0001CED4 /* LocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638D1E832ABAB45C0001CED4 /* LocationViewModel.swift */; };
 		638D1E882ABAB45C0001CED4 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638D1E842ABAB45C0001CED4 /* LocationManager.swift */; };
@@ -145,6 +146,7 @@
 		634EF74D2AE422AD0061E13A /* DtAudioPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtAudioPlayerView.swift; sourceTree = "<group>"; };
 		638718602AEA1B7F008C7F54 /* recording5sec.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = recording5sec.mp3; sourceTree = "<group>"; };
 		638718612AEA1B7F008C7F54 /* recording15sec.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = recording15sec.mp3; sourceTree = "<group>"; };
+		638718642AF7A4EA008C7F54 /* DatingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatingModel.swift; sourceTree = "<group>"; };
 		638D1E822ABAB45C0001CED4 /* LocationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationView.swift; sourceTree = "<group>"; };
 		638D1E832ABAB45C0001CED4 /* LocationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationViewModel.swift; sourceTree = "<group>"; };
 		638D1E842ABAB45C0001CED4 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
@@ -286,6 +288,7 @@
 		4A4CE2CF2A9B41B90098FF80 /* Dating */ = {
 			isa = PBXGroup;
 			children = (
+				638718642AF7A4EA008C7F54 /* DatingModel.swift */,
 				634EF7322ADC48220061E13A /* DatingView.swift */,
 				634EF7332ADC48220061E13A /* DatingViewModel.swift */,
 				634EF74D2AE422AD0061E13A /* DtAudioPlayerView.swift */,
@@ -695,6 +698,7 @@
 				4A4CE2E82A9B58590098FF80 /* DtTypography.swift in Sources */,
 				63203C712AAC6B2600F8803A /* UIApplication+extension.swift in Sources */,
 				638D1E862ABAB45C0001CED4 /* LocationView.swift in Sources */,
+				638718652AF7A4EA008C7F54 /* DatingModel.swift in Sources */,
 				638D1E892ABAB45C0001CED4 /* CountryModel.swift in Sources */,
 				634EF7352ADC48220061E13A /* DatingViewModel.swift in Sources */,
 				D0C8965A2AA217630084FA62 /* DtImage.swift in Sources */,

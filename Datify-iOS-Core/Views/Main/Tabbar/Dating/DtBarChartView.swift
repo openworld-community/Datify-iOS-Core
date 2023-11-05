@@ -35,8 +35,6 @@ struct DtBarChartView: View {
                 let color = viewModel.playbackFinished ? Color.gray :
                             (gradientFraction < viewModel.playbackProgress || (gradientFraction == 0 && viewModel.playbackProgress > 0)) ? interpolatedColor(for: gradientFraction) : Color.gray
 
-                printValue("Индекс: \(index), Прогресс: \(viewModel.playbackProgress), Цвет: \(color)")
-
                 Rectangle()
                     .fill(color)
                     .frame(width: barWidth, height: min(20, CGFloat(dataPoints[index].value)))
@@ -46,17 +44,13 @@ struct DtBarChartView: View {
         .padding(.horizontal, 0)
         .frame(maxWidth: .infinity)
     }
-    func printValue<T>(_ value: T) -> EmptyView {
-        print(value)
-        return EmptyView()
-    }
+
     func interpolatedColor(for fraction: Double) -> Color {
         for index in 0..<gradientColors.count - 1 {
             if fraction >= gradientColors[index].0 && fraction <= gradientColors[index + 1].0 {
                 let startColor = gradientColors[index].1
                 let endColor = gradientColors[index + 1].1
                 let t = (fraction - gradientColors[index].0) / (gradientColors[index + 1].0 - gradientColors[index].0)
-                printValue("Фракция: \(fraction), Цвет: \(t)")
 
                 return Color(
                     red: lerp(startColor.redComponent, endColor.redComponent, t),

@@ -7,6 +7,41 @@
 
 import SwiftUI
 
+struct AnimatedIconView: View {
+    var icon: Image
+    @Binding var show: Bool
+
+    var body: some View {
+        icon
+            .resizable()
+            .scaledToFit()
+            .frame(width: 80, height: 80)
+            .scaleEffect(show ? 1 : 0)
+            .opacity(show ? 1 : 0)
+            .animation(.easeInOut(duration: 0.5), value: show)
+            .onAppear {
+                show = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    show = false
+                }
+            }
+    }
+}
+
+struct Indicators: View {
+    var images: [String]
+    var selectedImageIndex: Int
+    var body: some View {
+        HStack(spacing: 8) {
+            ForEach(images.indices, id: \.self) { index in
+                Circle()
+                    .frame(width: 6, height: 6)
+                    .foregroundColor(selectedImageIndex == index ? .white : .gray)
+            }
+        }
+    }
+}
+
 struct TopRightControls: View {
     var body: some View {
         HStack {
@@ -27,21 +62,28 @@ struct TopRightControls: View {
 
 struct UserInfoView: View {
     @Binding var showDescription: Bool
-
-    // swiftlint:disable line_length
+    var images: [String]
+    var selectedImageIndex: Int
+        // swiftlint:disable line_length
     var descriptionUser = "Я художник. Пробовала заниматься графическим дизайном и комиксами, но сейчас ищу что-то новое в области искусства и дизайна. У меня есть муж Лев, он гейм-дизайнер, и да, мы знаем, что поженились довольно рано, но на самом деле мы очень спокойные и дружелюбные люди) Сейчас нахожусь в Белграде, Сербии, я просто ищу кого-нибудь, с кем можно выпить кофе и посплетничать"
 
     var body: some View {
         VStack(alignment: .leading) {
             Spacer()
-            ZStack {
-                Rectangle()
-                    .frame(width: 120, height: 24)
-                    .foregroundColor(.red)
-                    .clipShape(RoundedRectangle(cornerRadius: 16))
-                Text("Looking for love".localize())
-                    .dtTypo(.p4Medium, color: .textInverted)
+            HStack {
+                ZStack {
+                    Rectangle()
+                        .frame(width: 120, height: 24)
+                        .foregroundColor(.red)
+                        .clipShape(RoundedRectangle(cornerRadius: 16))
+                    Text("Looking for love".localize())
+                        .dtTypo(.p4Medium, color: .textInverted)
+                }
+                Spacer()
+                Indicators(images: images, selectedImageIndex: selectedImageIndex)
+                Spacer()
             }
+
             HStack {
                 Image(DtImage.mainLocation)
                     .resizable()
@@ -81,40 +123,42 @@ struct UserInfoView: View {
 struct UserActionsView: View {
     @Binding var liked: Bool
     @Binding var bookmarked: Bool
+    @Binding var showLikedAnimation: Bool
+    @Binding var showBookmarkedAnimation: Bool
 
     var body: some View {
         VStack(spacing: 12) {
             Spacer()
             Button(action: {
-                liked.toggle()
-
-                // TODO: Implement button action
-            }, label: {
-                ZStack {
-                    Rectangle()
-                        .frame(width: 48, height: 48)
-                        .foregroundColor(Color.iconsSecondary)
-                        .opacity(0.64)
-                        .clipShape(RoundedRectangle(cornerRadius: 16))
-                    Image(liked ? DtImage.mainSelectedHeart : DtImage.mainHeart)
-
-                }
-            })
-            Button(action: {
-                bookmarked.toggle()
-
-                // TODO: Implement button action
-            }, label: {
-                ZStack {
-                    Rectangle()
-                        .frame(width: 48, height: 48)
-                        .foregroundColor(Color.iconsSecondary)
-                        .opacity(0.64)
-                        .clipShape(RoundedRectangle(cornerRadius: 16))
-                    Image(bookmarked ? DtImage.mainSelectedBookmark : DtImage.mainBookmark)
-
-                }
-            })
+                 withAnimation {
+                     liked.toggle()
+                     showLikedAnimation = liked
+                 }
+             }, label: {
+                 ZStack {
+                     Rectangle()
+                         .frame(width: 48, height: 48)
+                         .foregroundColor(Color.iconsSecondary)
+                         .opacity(0.64)
+                         .clipShape(RoundedRectangle(cornerRadius: 16))
+                     Image(liked ? DtImage.mainSelectedHeart : DtImage.mainHeart)
+                 }
+             })
+             Button(action: {
+                 withAnimation {
+                     bookmarked.toggle()
+                     showBookmarkedAnimation = bookmarked
+                 }
+             }, label: {
+                 ZStack {
+                     Rectangle()
+                         .frame(width: 48, height: 48)
+                         .foregroundColor(Color.iconsSecondary)
+                         .opacity(0.64)
+                         .clipShape(RoundedRectangle(cornerRadius: 16))
+                     Image(bookmarked ? DtImage.mainSelectedBookmark : DtImage.mainBookmark)
+                 }
+             })
             Button(action: {
                 // TODO: Implement button action
             }, label: {
@@ -138,9 +182,12 @@ struct DatingView: View {
     @State var showDescription = false
     @State var liked: Bool = false
     @State var bookmarked: Bool = false
-    let images = ["mockBackground", "mockBackground", "mockBackground"] // Замените на ваши изображения
+    @State private var showLikedAnimation = false
+    @State private var showBookmarkedAnimation = false
+
+    let images = ["mockBackground", "mockBackground2", "mockBackground"] // Замените на ваши изображения
         @State private var selectedImageIndex = 0
-    
+
     init(router: Router<AppRoute>) {
         _viewModel = StateObject(wrappedValue: DatingViewModel(router: router))
     }
@@ -148,18 +195,36 @@ struct DatingView: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack {
-                    Image("mockBackground")
-                        .resizable()
-                        .scaledToFill()
-                        .frame(maxWidth: geometry.size.width)
-                        .blur(radius: showDescription ? 2 : 0)
-                        .animation(.easeInOut(duration: 0.4))
-                        .edgesIgnoringSafeArea(.all)
+                TabView(selection: $selectedImageIndex) {
+                    ForEach(images.indices, id: \.self) { index in
+                        Image(images[index])
+                            .resizable()
+                            .scaledToFill()
+                            .frame(maxWidth: geometry.size.width)
+                            .blur(radius: showDescription ? 2 : 0)
+                            .animation(.easeInOut(duration: 0.4))
+                            .edgesIgnoringSafeArea(.all)
+                            .tag(index)
+                    }
+                }
+                .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
+                .edgesIgnoringSafeArea(.all)
 
-                    LinearGradient(gradient: Gradient(colors: [Color.clear, Color.black.opacity(0.8)]),
-                                   startPoint: .top, endPoint: .bottom)
-                    .frame(width: geometry.size.width, height: 320)
-                    .position(x: geometry.size.width / 2, y: geometry.size.height - 150)
+                if showLikedAnimation {
+                    AnimatedIconView(icon: Image(DtImage.mainSelectedHeart), show: $showLikedAnimation)
+                        .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
+                }
+
+                if showBookmarkedAnimation {
+                    AnimatedIconView(icon: Image(DtImage.mainSelectedBookmark), show: $showBookmarkedAnimation)
+                        .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
+                }
+
+                LinearGradient(gradient: Gradient(colors: [Color.clear, Color.black.opacity(0.8)]),
+                               startPoint: .top, endPoint: .bottom)
+                .frame(width: geometry.size.width, height: 320)
+                .position(x: geometry.size.width / 2, y: geometry.size.height - 150)
+
                 VStack {
                     HStack {
                         DtLogoView(blackAndWhiteColor: true, fontTextColor: .white)
@@ -168,9 +233,9 @@ struct DatingView: View {
                     }
                     Spacer()
                     HStack {
-                        UserInfoView(showDescription: $showDescription)
+                        UserInfoView(showDescription: $showDescription, images: images, selectedImageIndex: selectedImageIndex)
                         Spacer()
-                        UserActionsView(liked: $liked, bookmarked: $bookmarked)
+                        UserActionsView(liked: $liked, bookmarked: $bookmarked, showLikedAnimation: $showLikedAnimation, showBookmarkedAnimation: $showBookmarkedAnimation)
                     }
                     HStack {
                         DtAudioPlayerView(
@@ -179,11 +244,8 @@ struct DatingView: View {
                             playCurrentTime: $viewModel.playCurrentTime,
                             playbackFinished: $viewModel.playbackFinished
                         )
-                        .padding(.bottom, 20)
+                        .padding(.bottom, -30)
 
-                    }
-                    .onAppear {
-                        print("$viewModel.isPlaying: \($viewModel.isPlaying), $viewModel.playCurrentTime: \($viewModel.playCurrentTime)")
                     }
                 }
                 .padding(.horizontal)

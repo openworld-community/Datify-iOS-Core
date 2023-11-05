@@ -12,24 +12,12 @@ final class DatingViewModel: ObservableObject {
     unowned let router: Router<AppRoute>
     var audioPlayerManager = DtAudioPlayerManager()
     var updateTimer: Timer?
+    let defaultDatingModel = DatingModel()
+
     @Published var playbackFinished: Bool = false
-
-    @Published var isPlaying: Bool = false {
-        didSet {
-            print("viewModel.isPlaying: \(isPlaying)")
-        }
-
-    }
-    @Published var playbackProgress: Double = 0.0 {
-        didSet {
-            print("Прогресс в DatingViewModel: \(playbackProgress)")
-        }
-    }
-    @Published var playCurrentTime: Int = 0 {
-        didSet {
-            print("playCurrentTime: \(playCurrentTime)")
-        }
-    }
+    @Published var isPlaying: Bool = false
+    @Published var playbackProgress: Double = 0.0
+    @Published var playCurrentTime: Int = 0
     @Published var totalDuration: Double = 0.0
     @Published var audioSamples: [BarChartDataPoint] = []
 
@@ -61,7 +49,6 @@ final class DatingViewModel: ObservableObject {
             .sink { [weak self] newProgress in
                 DispatchQueue.main.async {
                     self?.playbackProgress = newProgress
-                    print("Обновленный прогресс в DatingViewModel: \(newProgress)")
                 }
             }
             .store(in: &cancellables)
@@ -74,7 +61,6 @@ final class DatingViewModel: ObservableObject {
             .sink { [weak self] newTime in
                 DispatchQueue.main.async {
                     self?.playCurrentTime = newTime
-                    print("Обновленное текущее время в DatingViewModel: \(newTime)")
                 }
             }
             .store(in: &cancellables)
@@ -88,7 +74,7 @@ final class DatingViewModel: ObservableObject {
     }
 
     func togglePlayback() {
-        audioPlayerManager.togglePlayback(for: "recording15sec", ofType: "mp3")
+        audioPlayerManager.togglePlayback(for: "recording5sec", ofType: "mp3")
     }
 
     func startProgressUpdates() {
@@ -103,9 +89,6 @@ final class DatingViewModel: ObservableObject {
         audioPlayerManager.loadAudioData()
     }
 
-//    var remainingTime: Int {
-//        max(Int(totalDuration) - playCurrentTime, 0)
-//    }
     var remainingTime: Int {
         if playbackFinished {
             return 0

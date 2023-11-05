@@ -25,10 +25,6 @@ struct DtAudioPlayerView: View {
                 .opacity(0.64)
 
             HStack {
-//                Text(String(format: "%02d:%02d", viewModel.minutes(from: viewModel.remainingTime), viewModel.seconds(from: viewModel.remainingTime)))
-//                    .frame(width: 50, alignment: .leading)
-//                    .fixedSize(horizontal: true, vertical: false)
-//                    .foregroundColor(.white)
                 Text(String(format: "%02d:%02d",
                     viewModel.minutes(from: playbackFinished ? Int(viewModel.totalDuration) : viewModel.remainingTime),
                     viewModel.seconds(from: playbackFinished ? Int(viewModel.totalDuration) : viewModel.remainingTime)))
@@ -45,7 +41,6 @@ struct DtAudioPlayerView: View {
                     viewModel.togglePlayback()
                 }) {
                     Image(isPlaying ? DtImage.mainPause : DtImage.mainPlay)
-                    printValue("isPlaying: \(isPlaying)")
                 }
                 .frame(width: 30)
             }
@@ -53,13 +48,10 @@ struct DtAudioPlayerView: View {
         }
 
     }
-    func printValue<T>(_ value: T) -> EmptyView {
-        print(value)
-        return EmptyView()
-    }
+
     func computeBarWidth() -> CGFloat {
-        let totalSpacing: CGFloat = CGFloat(desiredNumberOfBars - 1) * 2 // Учитываем промежуток между столбцами
-        let labelWidths: CGFloat = 50 + 30 + 4 * 16// Ширина для меток времени и кнопки воспроизведения + отступы
+        let totalSpacing: CGFloat = CGFloat(desiredNumberOfBars - 1) * 2
+        let labelWidths: CGFloat = 50 + 30 + 4 * 16
         let availableWidth = UIScreen.main.bounds.width - totalSpacing - labelWidths
         return availableWidth / CGFloat(desiredNumberOfBars)
     }

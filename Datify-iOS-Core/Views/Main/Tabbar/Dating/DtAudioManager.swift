@@ -20,7 +20,6 @@ class DtAudioPlayerManager: NSObject, ObservableObject, AVAudioPlayerDelegate {
     @Published var totalDuration: Double = 0.0
     @Published var audioSamples: [BarChartDataPoint] = []
     @Published var playerDuration: Double = 0.0
-    //
     @Published var playbackFinished: Bool = false
 
     override init() {
@@ -28,51 +27,19 @@ class DtAudioPlayerManager: NSObject, ObservableObject, AVAudioPlayerDelegate {
         loadAudioData()
     }
 
-//    func togglePlayback(for resource: String, ofType type: String) {
-//        if let player = audioPlayer {
-//            if player.isPlaying {
-//                player.pause()
-//                stopProgressUpdates()
-//                isPlaying = false
-//            } else {
-//                player.play()
-//                startProgressUpdates()
-//                isPlaying = true
-//            }
-//        } else {
-//            if let path = Bundle.main.path(forResource: resource, ofType: type) {
-//                let url = URL(fileURLWithPath: path)
-//                do {
-//                    audioPlayer = try AVAudioPlayer(contentsOf: url)
-//                    audioPlayer?.delegate = self
-//                    audioPlayer?.play()
-//                    startProgressUpdates()
-//                    totalDuration = audioPlayer?.duration ?? 0.0
-//                    isPlaying = true
-//                } catch {
-//                    print("Ошибка воспроизведения файла: \(error)")
-//                }
-//            }
-//        }
-//    }
-
     func togglePlayback(for resource: String, ofType type: String) {
-        // Если аудиоплеер уже инициализирован
         if let player = audioPlayer {
             if player.isPlaying {
-                // Если аудио воспроизводится, поставить на паузу
                 player.pause()
                 stopProgressUpdates()
                 isPlaying = false
             } else {
-                // Если аудио на паузе, продолжить воспроизведение
                 player.play()
                 startProgressUpdates()
                 playbackFinished = false
                 isPlaying = true
             }
         } else {
-            // Если аудиоплеер еще не инициализирован, попытаться загрузить и воспроизвести файл
             if let path = Bundle.main.path(forResource: resource, ofType: type) {
                 let url = URL(fileURLWithPath: path)
                 do {
@@ -100,7 +67,6 @@ class DtAudioPlayerManager: NSObject, ObservableObject, AVAudioPlayerDelegate {
             self.playCurrentTime = Int(player.currentTime)
             self.playbackProgress = player.currentTime / player.duration
             self.playerDuration = player.duration
-            print("Текущий прогресс: \(self.playbackProgress)")
         }
     }
 
@@ -109,18 +75,6 @@ class DtAudioPlayerManager: NSObject, ObservableObject, AVAudioPlayerDelegate {
         updateTimer = nil
     }
 
-//    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-//        isPlaying = false
-//        stopProgressUpdates()
-//    }
-//    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-//        DispatchQueue.main.async { [weak self] in
-//            self?.playbackProgress = 0.0
-//            self?.playbackFinished = true
-//            self?.isPlaying = false
-//        }
-//        stopProgressUpdates()
-//    }
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         DispatchQueue.main.async { [weak self] in
             self?.playbackProgress = 0.0
@@ -132,7 +86,7 @@ class DtAudioPlayerManager: NSObject, ObservableObject, AVAudioPlayerDelegate {
     }
 
     func loadAudioData() {
-        if let path = Bundle.main.path(forResource: "recording15sec", ofType: "mp3") {
+        if let path = Bundle.main.path(forResource: "recording5sec", ofType: "mp3") {
             let url = URL(fileURLWithPath: path)
             do {
                 let audioFile = try AVAudioFile(forReading: url)
@@ -159,10 +113,8 @@ class DtAudioPlayerManager: NSObject, ObservableObject, AVAudioPlayerDelegate {
                             compressedData.append(average)
                         }
 
-                        // Определите максимальное значение
                         let maxCompressedValue = compressedData.max() ?? 1.0
 
-                        // Масштабируйте каждое значение относительно максимального
                         let desiredMaxHeight = 50.0
                         let minimumBarHeight = 2.0
                         audioSamples = compressedData.map { value in

@@ -35,7 +35,6 @@ struct DtTabbar<Content: View>: View {
             .frame(maxWidth: .infinity)
 
         }
-//        .edgesIgnoringSafeArea(.horizontal)
     }
 
     @ViewBuilder
