@@ -102,7 +102,7 @@ class RecordService {
         self.audioRecorder?.stop()
         self.audioRecorder = nil
         self.stopTimer()
-        delegate?.statePlayer = .none
+        delegate?.statePlayer = .inaction
     }
 
     private func stopTimer() {
@@ -133,7 +133,7 @@ class RecordService {
             let averagePower = sqrt(powerSum / Float(channelCount)) * 1000
             powerValues.append(averagePower)
         }
-        let max = (powerValues.max() ?? 184)
+        let max = (powerValues.max() ?? 160)
             let sector = Int(powerValues.count) / Int(UIScreen.main.bounds.width / 5)
             var box = 0
             var temp: Float = 0.0
@@ -160,7 +160,7 @@ class RecordService {
     }
 
     func play() {
-        if delegate?.statePlayer == StatePlayerEnum.none {
+        if delegate?.statePlayer == StatePlayerEnum.inaction {
             for index in delegate!.arrayHeight.indices {
                 delegate?.arrayHeight[index].disabledBool = true
             }
@@ -169,7 +169,7 @@ class RecordService {
             audioPlayer?.play()
         }
         runPlayTimer()
-        delegate?.statePlayer = .playing
+        delegate?.statePlayer = .play
     }
 
     private func playAudioFromFilePath(filePath: URL) {
@@ -194,7 +194,7 @@ class RecordService {
         audioPlayer?.stop()
         audioPlayer = nil
         stopTimer()
-        delegate?.statePlayer = .none
+        delegate?.statePlayer = .inaction
     }
 
     private func runPlayTimer() {

@@ -19,6 +19,8 @@ struct RegRecordView: View {
             VStack {
                 Spacer()
                 titleSegment
+                    .background(.yellow)
+                    .padding()
                 RecordPowerGraphView(viewModel: viewModel)
                     .padding()
                 navigationButtons

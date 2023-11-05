@@ -15,7 +15,7 @@ struct BarModel: Hashable {
 }
 
 enum StatePlayerEnum {
-    case playing, recording, pause, none
+    case play, record, pause, inaction
 }
 
 class RegRecordViewModel: ObservableObject, RecordServiceDelegate {
@@ -30,10 +30,10 @@ class RegRecordViewModel: ObservableObject, RecordServiceDelegate {
     init(router: Router<AppRoute>) {
         self.router = router
         dataService = RecordDataService()
-        statePlayer = .none
+        statePlayer = .inaction
         arrayHeight = []
         fileExistsBool = false
-        service = RecordService(widthPowerBar: 3, hrightPowerGraph: 184, distanceBetweenBars: 2, deleteAnimationDuration: 1.0, audioRecordingDuration: 15.0)
+        service = RecordService(widthPowerBar: 3, hrightPowerGraph: 160, distanceBetweenBars: 2, deleteAnimationDuration: 1.0, audioRecordingDuration: 15.0)
         service.delegate = self
 
     }
@@ -55,11 +55,11 @@ class RegRecordViewModel: ObservableObject, RecordServiceDelegate {
 
     func didTapPlayPauseButton() {
         switch statePlayer {
-        case .playing:
+        case .play:
             service.pause()
-        case .none, .pause:
+        case .inaction, .pause:
             service.play()
-        case .recording:
+        case .record:
             break
         }
     }
@@ -72,11 +72,11 @@ class RegRecordViewModel: ObservableObject, RecordServiceDelegate {
         if fileExists() {
             service.delete {
                 self.service.record()
-                self.statePlayer = .recording
+                self.statePlayer = .record
             }
         } else {
             self.service.record()
-            statePlayer = .recording
+            statePlayer = .record
         }
     }
 

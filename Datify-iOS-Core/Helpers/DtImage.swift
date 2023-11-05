@@ -26,4 +26,9 @@ enum DtImage {
     static let playDisabled = "play.disabled"
     static let playEnabled = "play.enabled"
     static let pause = "pause.playing"
+    static let delete = "Delete"
+    static let play = "Play"
+    static let stop = "Stop"
+    static let record = "Rec"
+
 }
