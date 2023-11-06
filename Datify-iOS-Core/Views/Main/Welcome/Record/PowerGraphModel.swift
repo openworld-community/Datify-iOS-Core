@@ -27,7 +27,7 @@ struct PowerGraphModel {
         self.deleteAnimationDuration = deleteDuration
         self.audioRecordingDuration = recordingDuration
         self.statePlayer = .inaction
-        self.fileExistsBool = false
+        self.fileExistsBool = true
         self.filePath = nil
         self.arrayHeights = []
         fillTheArrayHeight()

@@ -79,8 +79,6 @@ class RecordService {
             recordingCurrentTime += timerFrequency
             if recordingCurrentTime > delegate!.powerGraphModel.audioRecordingDuration {
                 stopRecording()
-
-                delegate?.powerGraphModel.fileExistsBool = true
             }
         })
         self.timer?.fire()
@@ -91,6 +89,7 @@ class RecordService {
         audioRecorder?.stop()
         audioRecorder = nil
         stopTimer()
+        delegate?.powerGraphModel.fileExistsBool = true
         delegate?.powerGraphModel.statePlayer = .inaction
     }
 
@@ -154,38 +153,20 @@ class RecordService {
     func play() {
         if delegate?.powerGraphModel.statePlayer == StatePlayerEnum.inaction {
             delegate?.powerGraphModel.turnOffColor()
-            playAudioFromFilePath(filePath: (delegate?.powerGraphModel.filePath)!)
+            do {
+                try audioSession.setCategory(AVAudioSession.Category.playback)
+                try audioSession.setActive(true)
+                audioPlayer = try AVAudioPlayer(contentsOf: (delegate?.powerGraphModel.filePath)!)
+                audioDuration = (audioPlayer?.duration)!
+                audioPlayer?.play()
+            } catch let error {
+                print(error.localizedDescription)
+            }
         } else {
             audioPlayer?.play()
         }
         runPlayTimer()
         delegate?.powerGraphModel.statePlayer = .play
-    }
-
-    private func playAudioFromFilePath(filePath: URL) {
-        do {
-            try audioSession.setCategory(AVAudioSession.Category.playback)
-            try audioSession.setActive(true)
-            audioPlayer = try AVAudioPlayer(contentsOf: filePath)
-            audioDuration = (audioPlayer?.duration)!
-            audioPlayer?.play()
-            runPlayTimer()
-        } catch let error {
-            print(error.localizedDescription)
-        }
-    }
-
-    func pause() {
-        audioPlayer?.pause()
-        stopTimer()
-        delegate?.powerGraphModel.statePlayer = .pause
-    }
-
-    private func stopPlay() {
-        audioPlayer?.stop()
-        audioPlayer = nil
-        stopTimer()
-        delegate?.powerGraphModel.statePlayer = .inaction
     }
 
     private func runPlayTimer() {
@@ -206,10 +187,24 @@ class RecordService {
         self.timer?.fire()
     }
 
+    func pause() {
+        audioPlayer?.pause()
+        timer?.invalidate()
+        timer = nil
+        delegate?.powerGraphModel.statePlayer = .pause
+    }
+
+    private func stopPlay() {
+        audioPlayer?.stop()
+        audioPlayer = nil
+        stopTimer()
+        delegate?.powerGraphModel.turnOffColor()
+        delegate?.powerGraphModel.statePlayer = .inaction
+    }
+
     func delete(complition: (() -> Void)?) {
         do {
             try FileManager.default.removeItem(at: (delegate?.powerGraphModel.filePath)!)
-
         } catch {
             print("Could not delete file")
         }
@@ -226,6 +221,7 @@ class RecordService {
                 if index == 0 {
                     stopTimer()
                     delegate?.powerGraphModel.fileExistsBool = false
+                    print(delegate?.powerGraphModel.fileExistsBool)
                     if let complition = complition {
                         complition()
                     }

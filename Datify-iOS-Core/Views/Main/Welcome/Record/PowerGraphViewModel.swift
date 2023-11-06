@@ -53,10 +53,12 @@ class PowerGraphViewModel: ObservableObject, RecordServiceDelegate {
         case .record:
             break
         }
+        print(powerGraphModel.fileExistsBool)
     }
 
     func didTapDeleteButton() {
         recordService.delete(complition: nil)
+        print(powerGraphModel.fileExistsBool)
     }
 
     func didTapRecordButton() {
@@ -68,6 +70,7 @@ class PowerGraphViewModel: ObservableObject, RecordServiceDelegate {
             self.recordService.record()
             powerGraphModel.statePlayer = .record
         }
+        print(powerGraphModel.fileExistsBool)
     }
 
     func fileExists() {

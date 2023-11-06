@@ -11,7 +11,7 @@ struct RegRecordView: View {
     @StateObject var viewModel: RegRecordViewModel
 
     init(router: Router<AppRoute>) {
-        _viewModel = StateObject(wrappedValue: RegRecordViewModel(router: router))
+        self._viewModel = StateObject(wrappedValue: RegRecordViewModel(router: router))
     }
 
     var body: some View {
@@ -59,6 +59,7 @@ private extension RegRecordView {
             DtButton(title: "Proceed".localize(), style: viewModel.powerGraphModel.fileExistsBool ? .main : .secondary) {
                 // TODO: - Proceed button action
             }
+            .disabled(viewModel.powerGraphModel.fileExistsBool)
         }
     }
 }

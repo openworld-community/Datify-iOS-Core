@@ -17,17 +17,9 @@ struct RecordPowerGraphView: View {
     var body: some View {
         HStack(spacing: 2) {
             ForEach(viewModel.powerGraphModel.arrayHeights) { bar in
-                HStack {
-                    if bar.isASignal {
-                        RoundedRectangle(cornerRadius: 3)
-                        .frame(width: 3, height: CGFloat(bar.height))
-                        .foregroundStyle( bar.coloredBool ? Color(hex: 0x3C3C43, alpha: 0.3) : Color(hex: 0x6167FF))
-                        .transition(.opacity)
-                    }
-                }
+               RoundedRectangle(cornerRadius: 3)
                 .frame(width: 3, height: bar.isASignal ? CGFloat(bar.height) : 3)
-                .background( bar.coloredBool ? Color(hex: 0x3C3C43, alpha: 0.3) : Color(hex: 0x6167FF))
-                .cornerRadius(3)
+                .foregroundStyle( bar.coloredBool ? Color(hex: 0x3C3C43, alpha: 0.3) : Color(hex: 0x6167FF))
                 .transition(bar.isASignal && !bar.coloredBool ? .scale : .opacity )
             }
         }
