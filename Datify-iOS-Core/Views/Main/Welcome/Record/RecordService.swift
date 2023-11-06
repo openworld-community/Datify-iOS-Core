@@ -23,8 +23,6 @@ class RecordService {
     private var index = 0
     private var audioDuration: Double = 0.0
 
-    init() {}
-
     private func getDocumentsDirectory() -> URL {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         return paths[0]
@@ -122,6 +120,16 @@ class RecordService {
                 let averagePower = sqrt(powerSum / Float(channelCount)) * 1000
                 powerValues.append(averagePower)
             }
+//            let maxCompressedValue = powerValues.max() ?? 1.0
+//
+//            let desiredMaxHeight = 50.0
+//            let minimumBarHeight = 2.0
+//            let audioSamples = powerValues.map { value in
+//                let normalizedValue = value / maxCompressedValue
+//                let barHeight = abs(Double(normalizedValue)) * desiredMaxHeight
+//                let finalBarHeight = barHeight + minimumBarHeight
+//                return BarChartDataPoint(value: finalBarHeight)
+//            }
             let max = (powerValues.max() ?? 160)
                 let sector = Int(powerValues.count) / Int(UIScreen.main.bounds.width / 5)
                 var box = 0

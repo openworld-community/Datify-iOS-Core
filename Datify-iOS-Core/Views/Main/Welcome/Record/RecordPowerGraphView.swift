@@ -10,8 +10,8 @@ import SwiftUI
 struct RecordPowerGraphView: View {
     @ObservedObject var viewModel: PowerGraphViewModel
 
-    init(graphModel: PowerGraphModel) {
-        self._viewModel = ObservedObject(wrappedValue: PowerGraphViewModel(powerGraphModel: graphModel))
+    init(viewModel: PowerGraphViewModel) {
+        self._viewModel = ObservedObject(wrappedValue: viewModel)
     }
 
     var body: some View {
@@ -46,9 +46,9 @@ struct RecordPowerGraphView: View {
     }
 }
 
-#Preview {
-    RecordPowerGraphView(graphModel: PowerGraphModel(widthElement: 3, heightGraph: 160, wightGraph: Int(UIScreen.main.bounds.width), distanceElements: 2, deleteDuration: 1.0, recordingDuration: 15))
-}
+// #Preview {
+//    RecordPowerGraphView(graphModel: PowerGraphModel(widthElement: 3, heightGraph: 160, wightGraph: Int(UIScreen.main.bounds.width), distanceElements: 2, deleteDuration: 1.0, recordingDuration: 15))
+// }
 
 extension RecordPowerGraphView {
     private var recordButton: some View {

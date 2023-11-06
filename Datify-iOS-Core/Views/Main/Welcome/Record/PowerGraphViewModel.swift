@@ -20,11 +20,13 @@ enum StatePlayerEnum {
 }
 
 class PowerGraphViewModel: ObservableObject, RecordServiceDelegate {
+    unowned let router: Router<AppRoute>
     @Published var powerGraphModel: PowerGraphModel
     private var recordService = RecordService()
     private var dataService = RecordDataService()
 
-    init(powerGraphModel: PowerGraphModel) {
+    init(router: Router<AppRoute>, powerGraphModel: PowerGraphModel) {
+        self.router = router
         self.powerGraphModel = powerGraphModel
         recordService.delegate = self
     }
