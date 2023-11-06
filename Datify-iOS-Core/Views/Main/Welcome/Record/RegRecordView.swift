@@ -11,17 +11,16 @@ struct RegRecordView: View {
     @StateObject var viewModel: RegRecordViewModel
 
     init(router: Router<AppRoute>) {
-            _viewModel = StateObject(wrappedValue: RegRecordViewModel(router: router))
-        }
+        _viewModel = StateObject(wrappedValue: RegRecordViewModel(router: router))
+    }
 
     var body: some View {
         NavigationStack {
             VStack {
                 Spacer()
                 titleSegment
-                    .background(.yellow)
                     .padding()
-                RecordPowerGraphView(viewModel: viewModel)
+                RecordPowerGraphView(graphModel: viewModel.powerGraphModel)
                     .padding()
                 navigationButtons
             }
@@ -57,7 +56,7 @@ private extension RegRecordView {
             DtBackButton {
                 // TODO: - Back button action
             }
-            DtButton(title: "Proceed".localize(), style: viewModel.fileExistsBool ? .main : .secondary) {
+            DtButton(title: "Proceed".localize(), style: viewModel.powerGraphModel.fileExistsBool ? .main : .secondary) {
                 // TODO: - Proceed button action
             }
         }

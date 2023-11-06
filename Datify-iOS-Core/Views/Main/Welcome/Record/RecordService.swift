@@ -10,33 +10,20 @@ import SwiftUI
 import Accelerate
 
 protocol RecordServiceDelegate: AnyObject {
-    var arrayHeight: [BarModel] {get set}
-    var filePath: URL? {get set}
-    var statePlayer: StatePlayerEnum {get set}
+    var powerGraphModel: PowerGraphModel {get set}
 }
 
 class RecordService {
     weak var delegate: RecordServiceDelegate?
-    var widthPowerElement: Int
-    var heightPowerGraph: Int
-    var distanceBetweenElements: Int
-    var deleteAnimationDuration: Double
-    var audioRecordingDuration: Double
-
     private var audioPlayer: AVAudioPlayer?
     private var audioRecorder: AVAudioRecorder?
     private var audioSession = AVAudioSession.sharedInstance()
     private var timer: Timer?
     private var recordingCurrentTime = 0.0
     private var index = 0
+    private var audioDuration: Double = 0.0
 
-    init(widthPowerBar: Int, hrightPowerGraph: Int, distanceBetweenBars: Int, deleteAnimationDuration: Double, audioRecordingDuration: Double) {
-        self.widthPowerElement = widthPowerBar
-        self.distanceBetweenElements = distanceBetweenBars
-        self.deleteAnimationDuration = deleteAnimationDuration
-        self.audioRecordingDuration = audioRecordingDuration
-        self.heightPowerGraph = hrightPowerGraph
-    }
+    init() {}
 
     private func getDocumentsDirectory() -> URL {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
@@ -45,7 +32,7 @@ class RecordService {
 
     func record() {
         let audioFilename = getDocumentsDirectory().appendingPathComponent("recording.m4a")
-        delegate?.filePath = audioFilename
+        delegate?.powerGraphModel.filePath = audioFilename
         let settings = [
             AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
             AVSampleRateKey: 12000,
@@ -66,7 +53,7 @@ class RecordService {
     }
 
     private func runRecordTimer() {
-        let timerFrequency = TimeInterval(audioRecordingDuration / (Double(UIScreen.main.bounds.width / Double(widthPowerElement + distanceBetweenElements))))
+        let timerFrequency = TimeInterval(delegate!.powerGraphModel.audioRecordingDuration / (Double(UIScreen.main.bounds.width / Double(5))))
         timer = Timer.scheduledTimer(withTimeInterval: timerFrequency, repeats: true, block: { [weak self] (_) in
             guard let self = self else { return }
             audioRecorder?.updateMeters()
@@ -74,102 +61,105 @@ class RecordService {
             let amplitude = 1.1 * pow(10.0, averagePower / 20.0)
             var clampedAmplitude = (min(max(amplitude, 0), 1)) * 630
             if let delegate = delegate {
-                if self.index <= delegate.arrayHeight.count - 1 {
-                    if clampedAmplitude < Float(widthPowerElement) {
-                        clampedAmplitude = Float(widthPowerElement)
+                if self.index <= delegate.powerGraphModel.arrayHeights.count - 1 {
+                    if clampedAmplitude < Float(delegate.powerGraphModel.widthPowerElement) {
+                        clampedAmplitude = Float(delegate.powerGraphModel.widthPowerElement)
                     }
-                    if clampedAmplitude > Float(heightPowerGraph) {
-                        clampedAmplitude = Float(heightPowerGraph)
+                    if clampedAmplitude > Float(delegate.powerGraphModel.heightPowerGraph) {
+                        clampedAmplitude = Float(delegate.powerGraphModel.heightPowerGraph)
                     }
-                    delegate.arrayHeight[self.index].height = clampedAmplitude
-                    delegate.arrayHeight[self.index].disabledBool = false
+                    delegate.powerGraphModel.arrayHeights[self.index].height = clampedAmplitude
+                    delegate.powerGraphModel.arrayHeights[self.index].coloredBool = false
                     withAnimation {
-                        delegate.arrayHeight[self.index].isASignal = true
+                        delegate.powerGraphModel.arrayHeights[self.index].isASignal = true
                     }
                     self.index += 1
                 }
             }
             recordingCurrentTime += timerFrequency
-            if recordingCurrentTime > audioRecordingDuration {
+            if recordingCurrentTime > delegate!.powerGraphModel.audioRecordingDuration {
                 stopRecording()
-//                fileExistsBool = true
+
+                delegate?.powerGraphModel.fileExistsBool = true
             }
         })
         self.timer?.fire()
     }
 
-    private func stopRecording() {
-        self.audioRecorder?.stop()
-        self.audioRecorder = nil
-        self.stopTimer()
-        delegate?.statePlayer = .inaction
+    func stopRecording() {
+        delegate?.powerGraphModel.turnOffColor()
+        audioRecorder?.stop()
+        audioRecorder = nil
+        stopTimer()
+        delegate?.powerGraphModel.statePlayer = .inaction
     }
 
     private func stopTimer() {
-        self.index = 0
-        self.recordingCurrentTime = 0.0
-        self.timer?.invalidate()
-        self.timer = nil
+        index = 0
+        recordingCurrentTime = 0.0
+        timer?.invalidate()
+        timer = nil
     }
 
-    func calculatePower(for audioURL: URL) throws {
-        let audioFile = try AVAudioFile(forReading: audioURL)
-        let format = AVAudioFormat(commonFormat: .pcmFormatFloat32, sampleRate: audioFile.fileFormat.sampleRate, channels: 1, interleaved: false)
-        let audioFrameCount = UInt32(audioFile.length)
-        let audioData = AVAudioPCMBuffer(pcmFormat: format!, frameCapacity: audioFrameCount)!
-        try audioFile.read(into: audioData)
+    func calculatePower(for audioURL: URL?) throws {
+        if let audioURL = audioURL {
+            let audioFile = try AVAudioFile(forReading: audioURL)
+            let format = AVAudioFormat(commonFormat: .pcmFormatFloat32, sampleRate: audioFile.fileFormat.sampleRate, channels: 1, interleaved: false)
+            let audioFrameCount = UInt32(audioFile.length)
+            let audioData = AVAudioPCMBuffer(pcmFormat: format!, frameCapacity: audioFrameCount)!
+            try audioFile.read(into: audioData)
 
-        let channelCount = Int(audioData.format.channelCount)
-        let frameCount = Int(audioData.frameLength)
-        let powerData = Array(UnsafeBufferPointer(start: audioData.floatChannelData?[0], count: frameCount))
+            let channelCount = Int(audioData.format.channelCount)
+            let frameCount = Int(audioData.frameLength)
+            let powerData = Array(UnsafeBufferPointer(start: audioData.floatChannelData?[0], count: frameCount))
 
-        var powerValues: [Float] = []
-        for i in 0..<frameCount {
-            var powerSum: Float = 0.0
-            for j in 0..<channelCount {
-                let power = pow(powerData[i + j * frameCount], 2)
-                powerSum += power
-            }
-            let averagePower = sqrt(powerSum / Float(channelCount)) * 1000
-            powerValues.append(averagePower)
-        }
-        let max = (powerValues.max() ?? 160)
-            let sector = Int(powerValues.count) / Int(UIScreen.main.bounds.width / 5)
-            var box = 0
-            var temp: Float = 0.0
-            var newArray: [Int] = []
-            for value in powerValues {
-                if box < sector {
-                    temp += value
-                    box += 1
-                } else {
-                    var avarage: Float = temp / Float(box)
-                    temp = 0
-                    box = 0
-                    if (avarage) < 3 {
-                        avarage = 3
-                    } else {
-                        avarage = ((avarage * Float(heightPowerGraph)) / max) * 3
-                    }
-                    newArray.append(Int(avarage))
+            var powerValues: [Float] = []
+            for i in 0..<frameCount {
+                var powerSum: Float = 0.0
+                for j in 0..<channelCount {
+                    let power = pow(powerData[i + j * frameCount], 2)
+                    powerSum += power
                 }
+                let averagePower = sqrt(powerSum / Float(channelCount)) * 1000
+                powerValues.append(averagePower)
             }
-        for index in newArray.indices {
-            delegate?.arrayHeight.append(BarModel(height: Float(newArray[index]), disabledBool: false, isASignal: true))
+            let max = (powerValues.max() ?? 160)
+                let sector = Int(powerValues.count) / Int(UIScreen.main.bounds.width / 5)
+                var box = 0
+                var temp: Float = 0.0
+                var newArray: [Int] = []
+                for value in powerValues {
+                    if box < sector {
+                        temp += value
+                        box += 1
+                    } else {
+                        var avarage: Float = temp / Float(box)
+                        temp = 0
+                        box = 0
+                        if (avarage) < 3 {
+                            avarage = 3
+                        } else {
+                            avarage = ((avarage * Float(delegate!.powerGraphModel.heightPowerGraph)) / max) * 3
+                        }
+                        newArray.append(Int(avarage))
+                    }
+                }
+            delegate?.powerGraphModel.arrayHeights.removeAll()
+            for index in newArray.indices {
+                delegate?.powerGraphModel.arrayHeights.append(BarModel(height: Float(newArray[index]), coloredBool: true, isASignal: true))
+            }
         }
     }
 
     func play() {
-        if delegate?.statePlayer == StatePlayerEnum.inaction {
-            for index in delegate!.arrayHeight.indices {
-                delegate?.arrayHeight[index].disabledBool = true
-            }
-            playAudioFromFilePath(filePath: (delegate?.filePath)!)
+        if delegate?.powerGraphModel.statePlayer == StatePlayerEnum.inaction {
+            delegate?.powerGraphModel.turnOffColor()
+            playAudioFromFilePath(filePath: (delegate?.powerGraphModel.filePath)!)
         } else {
             audioPlayer?.play()
         }
         runPlayTimer()
-        delegate?.statePlayer = .play
+        delegate?.powerGraphModel.statePlayer = .play
     }
 
     private func playAudioFromFilePath(filePath: URL) {
@@ -177,8 +167,9 @@ class RecordService {
             try audioSession.setCategory(AVAudioSession.Category.playback)
             try audioSession.setActive(true)
             audioPlayer = try AVAudioPlayer(contentsOf: filePath)
-            audioPlayer?.volume = 1
+            audioDuration = (audioPlayer?.duration)!
             audioPlayer?.play()
+            runPlayTimer()
         } catch let error {
             print(error.localizedDescription)
         }
@@ -187,28 +178,28 @@ class RecordService {
     func pause() {
         audioPlayer?.pause()
         stopTimer()
-        delegate?.statePlayer = .pause
+        delegate?.powerGraphModel.statePlayer = .pause
     }
 
     private func stopPlay() {
         audioPlayer?.stop()
         audioPlayer = nil
         stopTimer()
-        delegate?.statePlayer = .inaction
+        delegate?.powerGraphModel.statePlayer = .inaction
     }
 
     private func runPlayTimer() {
-        let timerFrequency = TimeInterval(audioRecordingDuration / (Double(UIScreen.main.bounds.width / Double(widthPowerElement + distanceBetweenElements))))
+        let timerFrequency = audioDuration / (Double(UIScreen.main.bounds.width / Double(delegate!.powerGraphModel.widthPowerElement + delegate!.powerGraphModel.distanceBetweenElements)))
         self.timer = Timer.scheduledTimer(withTimeInterval: timerFrequency, repeats: true, block: { [weak self] (_) in
             guard let self = self else { return }
-            if index <= (delegate?.arrayHeight.count)! - 1 {
+            if index <= (delegate?.powerGraphModel.arrayHeights.count)! - 1 {
                 withAnimation {
-                    self.delegate?.arrayHeight[self.index].disabledBool = false
+                    self.delegate?.powerGraphModel.arrayHeights[self.index].coloredBool = false
                 }
                 index += 1
             }
             recordingCurrentTime += timerFrequency
-            if recordingCurrentTime > audioRecordingDuration {
+            if recordingCurrentTime > audioDuration {
                 stopPlay()
             }
         })
@@ -217,23 +208,24 @@ class RecordService {
 
     func delete(complition: (() -> Void)?) {
         do {
-            try FileManager.default.removeItem(at: (delegate?.filePath)!)
-//            fileExistsBool = false
+            try FileManager.default.removeItem(at: (delegate?.powerGraphModel.filePath)!)
+
         } catch {
-            print("Could not delete file, probably read-only filesystem")
+            print("Could not delete file")
         }
-        if !(delegate?.arrayHeight.isEmpty)! {
-            index = ((delegate?.arrayHeight.count)! - 1)
-            let timerFrequency = TimeInterval(deleteAnimationDuration / Double((delegate?.arrayHeight.count)!))
-            self.timer = Timer.scheduledTimer(withTimeInterval: timerFrequency, repeats: true, block: { [weak self] (_) in
+        if let arrayHeights = delegate?.powerGraphModel.arrayHeights {
+            index = arrayHeights.count - 1
+            let timerFrequency = delegate!.powerGraphModel.deleteAnimationDuration / Double(arrayHeights.count)
+            self.timer = Timer.scheduledTimer(withTimeInterval: timerFrequency, repeats: true, block: { [weak self] _ in
                 guard let self = self else { return }
                 withAnimation(.linear) {
-                    self.delegate?.arrayHeight[self.index].isASignal = false
+                    self.delegate?.powerGraphModel.arrayHeights[self.index].isASignal = false
                 }
-                delegate?.arrayHeight[self.index].disabledBool = true
-                delegate?.arrayHeight[self.index].height = 3
+                delegate?.powerGraphModel.arrayHeights[self.index].coloredBool = true
+                delegate?.powerGraphModel.arrayHeights[self.index].height = 3
                 if index == 0 {
                     stopTimer()
+                    delegate?.powerGraphModel.fileExistsBool = false
                     if let complition = complition {
                         complition()
                     }
