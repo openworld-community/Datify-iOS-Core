@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct RegBirthdayView: View {
+    unowned let router: Router<AppRoute>
     @State private var selectedDate: Date = Calendar
         .current
         .date(byAdding: .year, value: -16, to: Date()) ?? Date()
@@ -26,11 +27,12 @@ struct RegBirthdayView: View {
             Spacer()
             HStack(spacing: 10) {
                 DtBackButton {
-                    // TODO: - Back button action
+                    router.pop()
                 }
                 DtButton(title: "Proceed".localize(), style: .main) {
                     // TODO: - Proceed button action
                     // По хорошему надо проверить подтянув текущую дату с бэка, чтобы пользователь не мог просто изменить дату на телефоне и обойти ограничение по возрасту
+                    router.push(.registrationLocation)
                 }
             }
             .toolbar {
@@ -41,6 +43,7 @@ struct RegBirthdayView: View {
             .padding(.horizontal)
             .padding(.bottom, 8)
         }
+        .navigationBarBackButtonHidden()
         .alert(isPresented: $showAlert, content: {
             Alert(title: Text("You must be at least 16 years old to register"))
         })
@@ -50,7 +53,7 @@ struct RegBirthdayView: View {
 struct RegBirthdayView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            RegBirthdayView()
+            RegBirthdayView(router: Router())
         }
     }
 }

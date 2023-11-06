@@ -60,8 +60,9 @@ struct RegSelectGenderView: View {
 
     @State private var sheet: Sheets?
     @State private var selectedGender: Gender?
-    @State private var otherOptionsTitle = "Other options".localize()
-    private let selectGenderTitle = "Select gender".localize()
+    @State private var otherOptionsTitle: String = "Other options".localize()
+    private let selectGenderTitle: String = "Select gender".localize()
+    unowned let router: Router<AppRoute>
 
     var body: some View {
         VStack(spacing: 20) {
@@ -75,6 +76,7 @@ struct RegSelectGenderView: View {
             backProceedButtons
         }
         .padding(.bottom, 24)
+        .navigationBarBackButtonHidden()
         .toolbar {
             ToolbarItem(placement: .principal) {
                 DtLogoView()
@@ -107,14 +109,14 @@ struct RegSelectGenderView_Previews: PreviewProvider {
     static var previews: some View {
 
         NavigationStack {
-            RegSelectGenderView()
+            RegSelectGenderView(router: Router())
         }
     }
 }
 
-extension RegSelectGenderView {
+private extension RegSelectGenderView {
     // MARK: - Male and Female gender buttons
-    private var genderButtons: some View {
+    var genderButtons: some View {
         HStack(spacing: 16) {
             DtButton(title: Gender.male.title, style: selectedGender == .male ? .main : .picker) {
                 selectedGender = .male
@@ -127,7 +129,7 @@ extension RegSelectGenderView {
     }
 
     // MARK: - Other options picker label
-    private var otherOptionsLabel: some View {
+    var otherOptionsLabel: some View {
         Button(otherOptionsTitle) {
             sheet = .otherOptions
         }
@@ -135,7 +137,7 @@ extension RegSelectGenderView {
     }
 
     // MARK: - Terms and conditions label and sheet
-    private var termsAndConditionsLabel: some View {
+    var termsAndConditionsLabel: some View {
         HStack(spacing: 0) {
             Text("By registering, you accept the ")
                 .dtTypo(.p4Regular, color: .textSecondary)
@@ -149,13 +151,14 @@ extension RegSelectGenderView {
     }
 
     // MARK: - Bottom buttons, back arrow and proceed
-    private var backProceedButtons: some View {
+    var backProceedButtons: some View {
         HStack(spacing: 8) {
             DtBackButton {
-                // TODO: - Back button action
+                router.pop()
             }
             DtButton(title: "Proceed".localize(), style: .main) {
                 // TODO: - Proceed button action
+                router.push(.registrationName)
             }
                 .disabled(selectedGender == nil)
         }
@@ -192,7 +195,7 @@ private struct OtherGendersSheet: View {
 }
 
 private struct EnterOtherGenderSheet: View {
-    @State private var otherGenderTitle = ""
+    @State private var otherGenderTitle: String = .init()
     @Binding var selectedGender: Gender?
     @Binding var sheet: RegSelectGenderView.Sheets?
     var body: some View {

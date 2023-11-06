@@ -15,6 +15,8 @@ protocol RegistrationFlow {
     associatedtype RegRecord: View
     associatedtype RegFinish: View
     associatedtype RegPhoto: View
+    associatedtype RegEnterName: View
+    associatedtype RegBirthday: View
 
     func createRegSexView() -> RegSex
     func createRegEmailView() -> RegEmail
@@ -25,11 +27,13 @@ protocol RegistrationFlow {
     func createRegRecordView() -> RegRecord
     func createRegFinishView() -> RegFinish
     func createRegPhotoView() -> RegPhoto
+    func createRegEnterNameView() -> RegEnterName
+    func createRegBirthday() -> RegBirthday
 }
 
 extension NavigationViewBuilder: RegistrationFlow {
     func createRegSexView() -> some View {
-        Text("RegSex")
+        RegSelectGenderView(router: router)
     }
     func createRegEmailView() -> some View {
         RegEmailView(router: router)
@@ -44,9 +48,15 @@ extension NavigationViewBuilder: RegistrationFlow {
         Text("RegRecord")
     }
     func createRegFinishView() -> some View {
-        Text("RegFinish")
+        RegFinalView(router: router)
     }
     func createRegPhotoView() -> some View {
         RegPhotoView(router: router)
+    }
+    func createRegEnterNameView() -> some View {
+        RegEnterNameView(router: router)
+    }
+    func createRegBirthday() -> some View {
+        RegBirthdayView(router: router)
     }
 }

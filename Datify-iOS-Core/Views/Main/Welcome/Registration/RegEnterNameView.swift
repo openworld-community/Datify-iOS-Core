@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct RegEnterNameView: View {
+    unowned let router: Router<AppRoute>
     @State private var name: String = .init()
+
     var body: some View {
         VStack(spacing: 40) {
             Spacer()
@@ -22,11 +24,14 @@ struct RegEnterNameView: View {
             Spacer()
             HStack(spacing: 10) {
                 DtBackButton {
-                    // TODO: - Back button action
+                    router.pop()
                 }
                 DtButton(title: "Proceed".localize(), style: .main) {
+
+                    // nameIsValid() лишнее, т.к. кнопка дизейбл
                     if nameIsValid() && name == name.trimWhitespaceCapit() {
                         // TODO: - Proceed button action
+                        router.push(.registrationBirthday)
                     } else {
                         // Преобразует введеное имя убирая повторяющиеся пробелы и пробелы в конце, все слова пишет с большой буквы
                         name = name.trimWhitespaceCapit()
@@ -35,6 +40,7 @@ struct RegEnterNameView: View {
                 .disabled(!nameIsValid())
             }
         }
+        .navigationBarBackButtonHidden()
         .toolbar {
             ToolbarItem(placement: .principal) {
                 DtLogoView()
@@ -56,7 +62,7 @@ struct RegEnterNameView: View {
 struct RegEnterNameView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            RegEnterNameView()
+            RegEnterNameView(router: Router())
         }
     }
 }

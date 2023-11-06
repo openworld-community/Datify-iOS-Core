@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// TODO: delete this View?
+
 struct RegEmailView: View {
     @StateObject private var viewModel: RegEmailViewModel
 
