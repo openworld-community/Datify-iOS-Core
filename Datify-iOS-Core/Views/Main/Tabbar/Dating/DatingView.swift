@@ -18,6 +18,9 @@ struct DatingView: View {
     @State private var showDescription = false
     @State private var selectedPhotoIndex = 0
 
+    @State private var isAlertPresented = false
+    @State private var alertMessage = ""
+
     init(router: Router<AppRoute>) {
         _viewModel = StateObject(wrappedValue: DatingViewModel(router: router))
     }
@@ -110,6 +113,15 @@ struct DatingView: View {
                     showBookmarkedAnimation = false
                 }
             }
+        }
+        .alert(isPresented: $viewModel.showAlert) {
+            Alert(
+                title: Text("Error"),
+                message: Text(viewModel.errorMessage ?? "An unknown error occurred"),
+                dismissButton: .default(Text("OK")) {
+                    viewModel.showAlert = false
+                }
+            )
         }
     }
 }

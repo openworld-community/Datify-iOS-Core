@@ -20,7 +20,6 @@ struct UserActionsView: View {
                  withAnimation {
                      liked.toggle()
                      showLikedAnimation = liked
-
                  }
              }, label: {
                  ZStack {
@@ -36,7 +35,6 @@ struct UserActionsView: View {
                  withAnimation {
                      bookmarked.toggle()
                      showBookmarkedAnimation = bookmarked
-
                  }
              }, label: {
                  ZStack {

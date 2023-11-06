@@ -20,9 +20,21 @@ final class DatingViewModel: ObservableObject {
     @Published var liked: Bool = false
     @Published var bookmarked: Bool = false
 
+    @Published var showAlert = false
+    @Published var errorMessage: String?
+
     var datingModel = DatingModel()
     var audioPlayerManager = DtAudioPlayerManager()
     var updateTimer: Timer?
+
+    var error: Error? {
+        didSet {
+            if let error = error {
+                errorMessage = error.localizedDescription
+                showAlert = true
+            }
+        }
+    }
 
     private var cancellables: Set<AnyCancellable> = []
 
@@ -85,11 +97,20 @@ final class DatingViewModel: ObservableObject {
                 self?.datingModel.bookmarked = newValue
             }
             .store(in: &cancellables)
+
+        audioPlayerManager.errorSubject
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] error in
+                self?.errorMessage = error.localizedDescription
+                self?.showAlert = true
+            }
+            .store(in: &cancellables)
     }
 
     func loadInitialData() {
         self.liked = datingModel.liked
         self.bookmarked = datingModel.bookmarked
+        print("Initial liked: \(self.liked), bookmarked: \(self.bookmarked)")
     }
 
     func togglePlayback() {

@@ -11,12 +11,16 @@ import AVFoundation
 
 class DtAudioPlayerManager: NSObject, ObservableObject, AVAudioPlayerDelegate {
     @Published var isPlaying: Bool = false
+
     @Published var playbackProgress: Double = 0.0
     @Published var playCurrentTime: Int = 0
+
     @Published var totalDuration: Double = 0.0
+
     @Published var audioSamples: [BarChartDataPoint] = []
-    @Published var playerDuration: Double = 0.0
     @Published var playbackFinished: Bool = false
+
+    let errorSubject = PassthroughSubject<Error, Never>()
 
     var audioPlayer: AVAudioPlayer?
     var updateTimer: Timer?
@@ -44,15 +48,15 @@ class DtAudioPlayerManager: NSObject, ObservableObject, AVAudioPlayerDelegate {
                     audioPlayer = try AVAudioPlayer(contentsOf: url)
                     audioPlayer?.delegate = self
                     audioPlayer?.prepareToPlay()
-                    playerDuration = audioPlayer?.duration ?? 0.0
-                    totalDuration = playerDuration
+                    totalDuration = audioPlayer?.duration ?? 0.0
+                    totalDuration = totalDuration
 
                     audioPlayer?.play()
                     startProgressUpdates()
                     playbackFinished = false
                     isPlaying = true
                 } catch {
-                    print("Error playing file: \(error)")
+                    self.errorSubject.send(error)
                     playbackFinished = true
                 }
             }
@@ -64,7 +68,7 @@ class DtAudioPlayerManager: NSObject, ObservableObject, AVAudioPlayerDelegate {
             guard let self = self, let player = self.audioPlayer else { return }
             self.playCurrentTime = Int(player.currentTime)
             self.playbackProgress = player.currentTime / player.duration
-            self.playerDuration = player.duration
+            self.totalDuration = player.duration
         }
     }
 
@@ -97,7 +101,8 @@ class DtAudioPlayerManager: NSObject, ObservableObject, AVAudioPlayerDelegate {
                     pcmFormat: audioFile.processingFormat,
                     frameCapacity: AVAudioFrameCount(audioFile.length)
                 ) else {
-                    print("Error creating buffer")
+                    let bufferError = NSError(domain: "AudioError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Error creating buffer"])
+                    self.errorSubject.send(bufferError)
                     return
                 }
 
@@ -126,16 +131,14 @@ class DtAudioPlayerManager: NSObject, ObservableObject, AVAudioPlayerDelegate {
                         }
                     }
             } catch {
-                print("Error loading audio data: \(error)")
+                self.errorSubject.send(error)
             }
         }
     }
 
     func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?) {
-        print("Decoding error: \(String(describing: error))")
-    }
-
-    func audioPlayerBeginInterruption(_ player: AVAudioPlayer) {
-        print("Playback was interrupted")
+        if let error = error {
+            errorSubject.send(error)
+        }
     }
 }
