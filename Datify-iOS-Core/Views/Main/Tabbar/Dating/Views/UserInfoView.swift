@@ -15,6 +15,8 @@ struct UserInfoView: View {
     var selectedPhotoIndex: Int
 
     var body: some View {
+        let currentUser = viewModel.users[selectedPhotoIndex]
+
         VStack(alignment: .leading) {
             Spacer()
 
@@ -23,9 +25,9 @@ struct UserInfoView: View {
                         ZStack {
                             Rectangle()
                                 .frame(width: 120, height: 24)
-                                .foregroundColor(viewModel.datingModel.colorLabel)
+                                .foregroundColor(currentUser.colorLabel)
                                 .clipShape(RoundedRectangle(cornerRadius: 16))
-                            Text(viewModel.datingModel.label)
+                            Text(currentUser.label)
                                 .dtTypo(.p4Medium, color: .textInverted)
                         }
                         Spacer()
@@ -36,11 +38,11 @@ struct UserInfoView: View {
                 Image(DtImage.mainLocation)
                     .resizable()
                     .frame(width: 16, height: 16)
-                Text(viewModel.datingModel.location)
+                Text(currentUser.location)
                     .dtTypo(.p3Regular, color: .textInverted)
             }
             HStack {
-                Text("\(viewModel.datingModel.name), \(viewModel.datingModel.age)")
+                Text("\(currentUser.name), \(currentUser.age)")
                     .dtTypo(.h3Medium, color: .textInverted)
                 Image(DtImage.mainLabel)
                     .resizable()
@@ -48,7 +50,7 @@ struct UserInfoView: View {
             }
 
             if showDescription {
-                Text(viewModel.datingModel.description)
+                Text(currentUser.description)
                     .dtTypo(.p3Regular, color: .textInverted)
                     .padding(.bottom, 10)
                 Button(action: {

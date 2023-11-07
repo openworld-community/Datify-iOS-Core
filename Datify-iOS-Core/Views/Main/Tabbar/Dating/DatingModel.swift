@@ -23,18 +23,17 @@ struct DatingModel {
 
     init(
         userId: UUID = UUID(),
-        photos: [String] = ["mockBackground", "mockBackground2", "mockBackground"],
-        label: String = "Looking for love",
-        colorLabel: Color = .red,
-        location: String = "500 meters from you",
-        name: String = "Aleksandra",
-        age: Int = 24,
-        star: Bool = true,
-        // swiftlint:disable line_length
-        description: String = "Я художник. Пробовала заниматься графическим дизайном и комиксами, но сейчас ищу что-то новое в области искусства и дизайна. У меня есть муж Лев, он гейм-дизайнер, и да, мы знаем, что поженились довольно рано, но на самом деле мы очень спокойные и дружелюбные люди) Сейчас нахожусь в Белграде, Сербии, я просто ищу кого-нибудь, с кем можно выпить кофе и посплетничать",
-        liked: Bool = true,
-        bookmarked: Bool = true,
-        audiofile: String = "recording5sec"
+        photos: [String],
+        label: String,
+        colorLabel: Color,
+        location: String,
+        name: String,
+        age: Int,
+        star: Bool,
+        description: String,
+        liked: Bool,
+        bookmarked: Bool,
+        audiofile: String
     ) {
         self.userId = userId
         self.photos = photos
@@ -49,4 +48,46 @@ struct DatingModel {
         self.bookmarked = bookmarked
         self.audiofile = audiofile
     }
+
+    static let defaultUsers: [DatingModel] = [
+        DatingModel(
+            photos: ["mockBackground", "mockBackground2", "mockBackground"],
+            label: "Adventurous Soul",
+            colorLabel: .blue,
+            location: "2 kilometers away",
+            name: "Maxim",
+            age: 28,
+            star: false,
+            description: "Всегда в поиске новых приключений и интересных знакомств. Люблю путешествовать, активный отдых и хорошую компанию.",
+            liked: false,
+            bookmarked: false,
+            audiofile: "recording5sec"
+        ),
+        DatingModel(
+            photos: ["mockBackground2", "mockBackground2", "mockBackground"],
+            label: "Adventurous Soul",
+            colorLabel: .blue,
+            location: "2 kilometers away",
+            name: "Maxim",
+            age: 28,
+            star: false,
+            description: "Всегда в поиске новых приключений и интересных знакомств. Люблю путешествовать, активный отдых и хорошую компанию.",
+            liked: false,
+            bookmarked: false,
+            audiofile: "recording5sec"
+        ),
+        DatingModel(
+            photos: ["mockBackground", "mockBackground2", "mockBackground"],
+            label: "Music Lover",
+            colorLabel: .green,
+            location: "1 kilometer away",
+            name: "Irina",
+            age: 25,
+            star: true,
+            description: "Музыка – моя страсть и профессия. Ищу человека с похожими интересами для совместного посещения концертов и не только.",
+            liked: true,
+            bookmarked: true,
+            audiofile: "recording5sec"
+        )
+        ]
 }

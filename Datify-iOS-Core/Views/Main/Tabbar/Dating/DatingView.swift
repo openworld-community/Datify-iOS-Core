@@ -27,72 +27,79 @@ struct DatingView: View {
 
     var body: some View {
         GeometryReader { geometry in
-            ZStack {
-                PhotoSliderView(
-                    selectedPhotoIndex: $selectedPhotoIndex,
-                    showDescription: $showDescription,
-                    isSwipeAndIndicatorsDisabled: $isSwipeAndIndicatorsDisabled,
-                    photos: viewModel.datingModel.photos
-                )
-                .overlay(
-                    IndicatorsView(
-                        isSwipeAndIndicatorsDisabled: $isSwipeAndIndicatorsDisabled,
-                        photos: viewModel.datingModel.photos,
-                        selectedPhotoIndex: selectedPhotoIndex
-                    )
-                    .position(x: geometry.size.width / 2, y: geometry.size.height - 180), alignment: .bottom
-                )
+            ScrollView {
+                LazyVStack {
+                    ForEach($viewModel.users.indices, id: \.self) { index in
+                        ZStack {
+                            PhotoSliderView(
+                                selectedPhotoIndex: $selectedPhotoIndex,
+                                showDescription: $showDescription,
+                                isSwipeAndIndicatorsDisabled: $isSwipeAndIndicatorsDisabled,
+                                photos: viewModel.users[index].photos
+                            )
+                            .overlay(
+                                IndicatorsView(
+                                    isSwipeAndIndicatorsDisabled: $isSwipeAndIndicatorsDisabled,
+                                    photos: viewModel.users[index].photos,
+                                    selectedPhotoIndex: selectedPhotoIndex
+                                )
+                                .position(x: geometry.size.width / 2, y: geometry.size.height - 180), alignment: .bottom
+                            )
 
-                if showLikedAnimation {
-                    AnimatedIconView(show: $showLikedAnimation, icon: Image(DtImage.mainSelectedHeart))
-                        .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
-                }
+                            if showLikedAnimation {
+                                AnimatedIconView(show: $showLikedAnimation, icon: Image(DtImage.mainSelectedHeart))
+                                    .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
+                            }
 
-                if showBookmarkedAnimation {
-                    AnimatedIconView(show: $showBookmarkedAnimation, icon: Image(DtImage.mainSelectedBookmark))
-                        .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
-                }
+                            if showBookmarkedAnimation {
+                                AnimatedIconView(show: $showBookmarkedAnimation, icon: Image(DtImage.mainSelectedBookmark))
+                                    .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
+                            }
 
-                BottomDarkGradientView(geometry: geometry)
+                            BottomDarkGradientView(geometry: geometry)
 
-                VStack {
-                    HStack {
-                        DtLogoView(blackAndWhiteColor: true, fontTextColor: .white)
-                        Spacer()
-                        TopRightControls()
+                            VStack {
+                                HStack {
+                                    DtLogoView(blackAndWhiteColor: true, fontTextColor: .white)
+                                    Spacer()
+                                    TopRightControls()
+                                }
+                                Spacer()
+                                HStack {
+                                    UserInfoView(
+                                        showDescription: $showDescription,
+                                        isSwipeAndIndicatorsDisabled: $isSwipeAndIndicatorsDisabled,
+                                        viewModel: viewModel,
+                                        selectedPhotoIndex: selectedPhotoIndex
+                                    )
+                                    Spacer()
+                                    UserActionsView(
+                                        liked: $viewModel.liked,
+                                        bookmarked: $viewModel.bookmarked,
+                                        showLikedAnimation: $showLikedAnimation,
+                                        showBookmarkedAnimation: $showBookmarkedAnimation
+                                    )
+                                }
+                                HStack {
+                                    DtAudioPlayerView(
+                                        isPlaying: $viewModel.isPlaying,
+                                        playCurrentTime: $viewModel.playCurrentTime,
+                                        playbackFinished: $viewModel.playbackFinished,
+                                        viewModel: viewModel
+                                    )
+                                    .padding(.bottom, -30)
+
+                                }
+                            }
+                            .padding(.horizontal)
+                            .padding(.bottom, 50)
+                        }
+                        .navigationBarHidden(true)
+                        .frame(width: geometry.size.width, height: geometry.size.height)
+                        .background(Color.customBlack)
                     }
-                    Spacer()
-                    HStack {
-                        UserInfoView(
-                            showDescription: $showDescription,
-                            isSwipeAndIndicatorsDisabled: $isSwipeAndIndicatorsDisabled,
-                            viewModel: viewModel,
-                            selectedPhotoIndex: selectedPhotoIndex
-                        )
-                        Spacer()
-                        UserActionsView(
-                            liked: $viewModel.liked,
-                            bookmarked: $viewModel.bookmarked,
-                            showLikedAnimation: $showLikedAnimation,
-                            showBookmarkedAnimation: $showBookmarkedAnimation
-                        )
-                    }
-                    HStack {
-                        DtAudioPlayerView(
-                            isPlaying: $viewModel.isPlaying,
-                            playCurrentTime: $viewModel.playCurrentTime,
-                            playbackFinished: $viewModel.playbackFinished,
-                            viewModel: viewModel
-                        )
-                        .padding(.bottom, -30)
-
-                    }
                 }
-                .padding(.horizontal)
-                .padding(.bottom, 50)
             }
-            .navigationBarHidden(true)
-            .background(Color.customBlack)
         }
         .onChange(of: viewModel.liked) { newValue in
             if newValue {

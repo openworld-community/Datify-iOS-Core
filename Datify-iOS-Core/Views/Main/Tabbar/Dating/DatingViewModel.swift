@@ -17,13 +17,16 @@ final class DatingViewModel: ObservableObject {
     @Published var playCurrentTime: Int = 0
     @Published var totalDuration: Double = 0.0
     @Published var audioSamples: [BarChartDataPoint] = []
+
     @Published var liked: Bool = false
     @Published var bookmarked: Bool = false
 
     @Published var showAlert = false
     @Published var errorMessage: String?
+//    var datingModel = DatingModel()
+    @Published var users: [DatingModel] = DatingModel.defaultUsers
+    @Published var currentUserIndex = 0
 
-    var datingModel = DatingModel()
     var audioPlayerManager = DtAudioPlayerManager()
     var updateTimer: Timer?
 
@@ -87,14 +90,16 @@ final class DatingViewModel: ObservableObject {
         $liked
             .dropFirst()
             .sink { [weak self] newValue in
-                self?.datingModel.liked = newValue
+                guard let self = self else { return }
+                self.users[self.currentUserIndex].liked = newValue
             }
             .store(in: &cancellables)
 
         $bookmarked
             .dropFirst()
             .sink { [weak self] newValue in
-                self?.datingModel.bookmarked = newValue
+                guard let self = self else { return }
+                self.users[self.currentUserIndex].bookmarked = newValue
             }
             .store(in: &cancellables)
 
@@ -108,13 +113,15 @@ final class DatingViewModel: ObservableObject {
     }
 
     func loadInitialData() {
-        self.liked = datingModel.liked
-        self.bookmarked = datingModel.bookmarked
-        print("Initial liked: \(self.liked), bookmarked: \(self.bookmarked)")
+        let currentUser = users[currentUserIndex]
+
+        self.liked = currentUser.liked
+        self.bookmarked = currentUser.bookmarked
     }
 
     func togglePlayback() {
-        audioPlayerManager.togglePlayback(for: datingModel.audiofile, ofType: "mp3")
+        let currentUser = users[currentUserIndex]
+        audioPlayerManager.togglePlayback(for: currentUser.audiofile, ofType: "mp3")
     }
 
     func startProgressUpdates() {
@@ -126,7 +133,8 @@ final class DatingViewModel: ObservableObject {
     }
 
     func loadingAudioData() {
-        audioPlayerManager.loadAudioData(for: datingModel.audiofile, ofType: "mp3")
+        let currentUser = users[currentUserIndex]
+        audioPlayerManager.loadAudioData(for: currentUser.audiofile, ofType: "mp3")
     }
 
     var remainingTime: Int {
