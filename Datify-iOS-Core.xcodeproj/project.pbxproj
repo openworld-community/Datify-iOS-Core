@@ -66,7 +66,6 @@
 		79BE96E52AF4E419008E943C /* RecordDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BE96E42AF4E419008E943C /* RecordDataService.swift */; };
 		79BE96E72AF7689E008E943C /* DtCircleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BE96E62AF7689E008E943C /* DtCircleButton.swift */; };
 		79BE96E92AF79186008E943C /* PowerGraphModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BE96E82AF79186008E943C /* PowerGraphModel.swift */; };
-		79BE96EB2AF7C2F0008E943C /* RegRecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BE96EA2AF7C2EF008E943C /* RegRecordViewModel.swift */; };
 		980895BA2A9F4A5700F82F02 /* DtSpinnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980895B92A9F4A5700F82F02 /* DtSpinnerView.swift */; };
 		98553B0A2AAE4A43005C80B3 /* View+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98553B092AAE4A43005C80B3 /* View+extension.swift */; };
 		9898B2BF2AAA49DE007CA714 /* RegEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9898B2BE2AAA49DE007CA714 /* RegEmailViewModel.swift */; };
@@ -160,7 +159,6 @@
 		79BE96E42AF4E419008E943C /* RecordDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordDataService.swift; sourceTree = "<group>"; };
 		79BE96E62AF7689E008E943C /* DtCircleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtCircleButton.swift; sourceTree = "<group>"; };
 		79BE96E82AF79186008E943C /* PowerGraphModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerGraphModel.swift; sourceTree = "<group>"; };
-		79BE96EA2AF7C2EF008E943C /* RegRecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegRecordViewModel.swift; sourceTree = "<group>"; };
 		980895B92A9F4A5700F82F02 /* DtSpinnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtSpinnerView.swift; sourceTree = "<group>"; };
 		98553B092AAE4A43005C80B3 /* View+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+extension.swift"; sourceTree = "<group>"; };
 		9898B2BE2AAA49DE007CA714 /* RegEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RegEmailViewModel.swift; path = "Datify-iOS-Core/Views/Main/Welcome/Registration/RegEmailViewModel.swift"; sourceTree = SOURCE_ROOT; };
@@ -403,7 +401,6 @@
 			isa = PBXGroup;
 			children = (
 				797CA5512AE85184004DACFA /* RegRecordView.swift */,
-				79BE96EA2AF7C2EF008E943C /* RegRecordViewModel.swift */,
 				797CA5552AE86519004DACFA /* RecordPowerGraphView.swift */,
 				797CA5572AE86584004DACFA /* PowerGraphViewModel.swift */,
 				79BE96E82AF79186008E943C /* PowerGraphModel.swift */,
@@ -727,7 +724,6 @@
 				208D05522AB903790071E1B7 /* DtSelectorButton.swift in Sources */,
 				63A729692AA4A94B00AC60E3 /* CountryCodeButton.swift in Sources */,
 				634EF7292ADC48010061E13A /* DtTabbar.swift in Sources */,
-				79BE96EB2AF7C2F0008E943C /* RegRecordViewModel.swift in Sources */,
 				797CA5582AE86584004DACFA /* PowerGraphViewModel.swift in Sources */,
 				638D1E872ABAB45C0001CED4 /* LocationViewModel.swift in Sources */,
 				634EF7312ADC48100061E13A /* ChatViewModel.swift in Sources */,

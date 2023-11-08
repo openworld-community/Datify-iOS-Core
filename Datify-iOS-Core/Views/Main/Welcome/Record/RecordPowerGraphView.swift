@@ -18,16 +18,15 @@ struct RecordPowerGraphView: View {
         HStack(spacing: 2) {
             ForEach(viewModel.powerGraphModel.arrayHeights) { bar in
                RoundedRectangle(cornerRadius: 3)
-                .frame(width: 3, height: bar.isASignal ? CGFloat(bar.height) : 3)
-                .foregroundStyle( bar.coloredBool ? Color(hex: 0x3C3C43, alpha: 0.3) : Color(hex: 0x6167FF))
+                .frame(width: viewModel.powerGraphModel.widthPowerElement, height: bar.isASignal ? CGFloat(bar.height) : viewModel.powerGraphModel.widthPowerElement)
+                .foregroundStyle(bar.coloredBool ? Color.iconsSecondary : Color(hex: 0x6167FF))
                 .transition(bar.isASignal && !bar.coloredBool ? .scale : .opacity )
             }
         }
-        .frame(height: 160)
+        .frame(height: viewModel.powerGraphModel.heightPowerGraph)
         HStack {
             deleteButton
-                .disabled(!viewModel.powerGraphModel.fileExistsBool)
-                .disabled(viewModel.powerGraphModel.statePlayer != .inaction)
+                .disabled(viewModel.disableDeletebutton())
             recordButton
                 .disabled(viewModel.powerGraphModel.statePlayer == .play || viewModel.powerGraphModel.statePlayer == .pause)
                 .disabled(viewModel.powerGraphModel.fileExistsBool)
@@ -37,18 +36,18 @@ struct RecordPowerGraphView: View {
                 .disabled(viewModel.powerGraphModel.statePlayer == .record)
         }
         .padding(.bottom)
-        .onAppear {
-            Task {
-                await viewModel.setUpCaptureSession()
-            }
+        .task {
+            await viewModel.setUpCaptureSession()
             viewModel.getPowerFromFile()
         }
     }
 }
 
-// #Preview {
-//    RecordPowerGraphView(graphModel: PowerGraphModel(widthElement: 3, heightGraph: 160, wightGraph: Int(UIScreen.main.bounds.width), distanceElements: 2, deleteDuration: 1.0, recordingDuration: 15))
-// }
+#Preview {
+    RecordPowerGraphView(viewModel: PowerGraphViewModel(
+        router: Router(),
+        powerGraphModel: PowerGraphModel(widthElement: 3, heightGraph: 160, wightGraph: 355, distanceElements: 2, deleteDuration: 1.0, recordingDuration: 15)))
+ }
 
 extension RecordPowerGraphView {
     private var recordButton: some View {

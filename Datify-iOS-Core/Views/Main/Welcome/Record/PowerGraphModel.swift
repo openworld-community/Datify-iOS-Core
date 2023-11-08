@@ -12,14 +12,16 @@ struct PowerGraphModel {
     var arrayHeights: [BarModel]
     var fileExistsBool: Bool
     var filePath: URL?
-    var widthPowerElement: Int
-    var heightPowerGraph: Int
-    var wightPowerGraph: Int
-    var distanceBetweenElements: Int
+
+    var widthPowerElement: CGFloat
+    var heightPowerGraph: CGFloat
+    var wightPowerGraph: CGFloat
+    var distanceBetweenElements: CGFloat
     var deleteAnimationDuration: Double
     var audioRecordingDuration: Double
+    var elementsCount: Double
 
-    init(widthElement: Int, heightGraph: Int, wightGraph: Int, distanceElements: Int, deleteDuration: Double, recordingDuration: Double) {
+    init(widthElement: CGFloat, heightGraph: CGFloat, wightGraph: CGFloat, distanceElements: CGFloat, deleteDuration: Double, recordingDuration: Double) {
         self.widthPowerElement = widthElement
         self.heightPowerGraph = heightGraph
         self.wightPowerGraph = wightGraph
@@ -30,11 +32,12 @@ struct PowerGraphModel {
         self.fileExistsBool = true
         self.filePath = nil
         self.arrayHeights = []
+        self.elementsCount = Double(wightPowerGraph / (widthPowerElement + distanceBetweenElements))
         fillTheArrayHeight()
     }
 
     mutating func fillTheArrayHeight() {
-        for _ in 0...(wightPowerGraph / (widthPowerElement + distanceBetweenElements)) {
+        for _ in 0...Int(wightPowerGraph / (widthPowerElement + distanceBetweenElements)) {
             arrayHeights.append(BarModel(height: Float(widthPowerElement), coloredBool: true, isASignal: false))
         }
     }

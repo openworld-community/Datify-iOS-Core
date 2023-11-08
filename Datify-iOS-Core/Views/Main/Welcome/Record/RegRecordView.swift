@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct RegRecordView: View {
-    @StateObject var viewModel: PowerGraphViewModel
+    @StateObject private var viewModel: PowerGraphViewModel
 
     init(router: Router<AppRoute>) {
-        let powerGraphModel = PowerGraphModel(widthElement: 3, heightGraph: 160, wightGraph: Int(UIScreen.main.bounds.width), distanceElements: 2, deleteDuration: 0.5, recordingDuration: 15)
+        let powerGraphModel = PowerGraphModel(widthElement: 3, heightGraph: 160, wightGraph: UIScreen.main.bounds.width, distanceElements: 2, deleteDuration: 0.5, recordingDuration: 15)
         self._viewModel = StateObject(wrappedValue: PowerGraphViewModel(router: router, powerGraphModel: powerGraphModel))
     }
 

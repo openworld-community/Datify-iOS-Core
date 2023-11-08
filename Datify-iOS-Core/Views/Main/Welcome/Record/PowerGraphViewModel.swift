@@ -42,6 +42,14 @@ class PowerGraphViewModel: ObservableObject, RecordServiceDelegate {
         }
     }
 
+    func disableDeletebutton() -> Bool {
+        if !powerGraphModel.fileExistsBool || powerGraphModel.statePlayer != .inaction {
+            return true
+        } else {
+            return false
+        }
+    }
+
     func setUpCaptureSession() async {
         guard await isAuthorized else { return }
     }
@@ -55,12 +63,10 @@ class PowerGraphViewModel: ObservableObject, RecordServiceDelegate {
         case .record:
             break
         }
-        print(powerGraphModel.fileExistsBool)
     }
 
     func didTapDeleteButton() {
-        recordService.delete(complition: nil)
-        print(powerGraphModel.fileExistsBool)
+        recordService.delete()
     }
 
     func didTapRecordButton() {
@@ -72,7 +78,6 @@ class PowerGraphViewModel: ObservableObject, RecordServiceDelegate {
             self.recordService.record()
             powerGraphModel.statePlayer = .record
         }
-        print(powerGraphModel.fileExistsBool)
     }
 
     func fileExists() {
@@ -92,7 +97,7 @@ class PowerGraphViewModel: ObservableObject, RecordServiceDelegate {
     func getPowerFromFile() {
         fileExists()
         do {
-            try recordService.calculatePower(for: powerGraphModel.filePath)
+            try recordService.loadAudioData(for: powerGraphModel.filePath)
         } catch {
             print(error.localizedDescription)
         }
