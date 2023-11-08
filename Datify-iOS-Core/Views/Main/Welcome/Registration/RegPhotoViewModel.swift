@@ -8,7 +8,7 @@
 import SwiftUI
 import PhotosUI
 
-@MainActor
+// @MainActor
 final class RegPhotoViewModel: ObservableObject {
     @Published var selectedImages: [Image?] = Array(repeating: nil, count: 5)
     @Published var selectedImage: UIImage?
@@ -30,9 +30,14 @@ final class RegPhotoViewModel: ObservableObject {
         selectedImages.compactMap({ $0 }).count < 2
     }
     unowned let router: Router<AppRoute>
+    private let application: UIApplication
 
-    init(router: Router<AppRoute>) {
+    init(
+        router: Router<AppRoute>,
+        application: UIApplication = UIApplication.shared
+    ) {
         self.router = router
+        self.application = application
     }
 
     func setImage(from selection: PhotosPickerItem?) {
@@ -47,8 +52,8 @@ final class RegPhotoViewModel: ObservableObject {
 
     func goToAppSettings() {
         guard let url = URL(string: UIApplication.openSettingsURLString),
-              UIApplication.shared.canOpenURL(url) else { return }
-        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+              application.canOpenURL(url) else { return }
+        application.open(url, options: [:], completionHandler: nil)
     }
 
     func checkPhotoAuthStatus() {
@@ -67,5 +72,9 @@ final class RegPhotoViewModel: ObservableObject {
                 break
             }
         }
+    }
+
+    func back() {
+        router.pop()
     }
 }

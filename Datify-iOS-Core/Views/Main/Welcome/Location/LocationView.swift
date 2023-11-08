@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct LocationView: View {
-    // TODO: dismiss not used
-    @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel: LocationViewModel
     @State private var isAlertPresented: Bool = false
     @State private var alertMessage: String = .init()
@@ -135,9 +133,8 @@ private extension LocationView {
     }
 
     var bottomButtons: some View {
-        HStack {
+        HStack(spacing: 8) {
             DtBackButton {
-                // TODO: Back button
                 viewModel.back()
             }
             DtButton(title: "Next".localize(), style: .main) {

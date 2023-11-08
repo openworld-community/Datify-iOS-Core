@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct CountryAndCityView: View {
-    // TODO: dismiss not used
-    @Environment(\.dismiss) private var dismiss
     @ObservedObject private var viewModel: LocationViewModel
 
     private var isCountrySelection: Bool

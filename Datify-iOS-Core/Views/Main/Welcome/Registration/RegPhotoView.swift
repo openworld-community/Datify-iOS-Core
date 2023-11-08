@@ -37,7 +37,7 @@ struct RegPhotoView: View {
                 )
             }
         }
-        .padding(.bottom, 24)
+        .padding(.bottom)
         .navigationBarBackButtonHidden()
         .toolbar {
             ToolbarItem(placement: .principal) {
@@ -210,7 +210,7 @@ private extension RegPhotoView {
     var buttonsSection: some View {
         HStack(spacing: 8) {
             DtBackButton {
-                viewModel.router.pop()
+                viewModel.back()
             }
             DtButton(
                 title: "Continue".localize(),

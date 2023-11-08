@@ -29,7 +29,7 @@ struct RegFinalView: View {
                 secondaryText
                 Spacer()
                 bottomButtons
-                    .padding(.bottom, 8)
+                    .padding(.bottom)
             }
             .multilineTextAlignment(.center)
             .padding(.horizontal)

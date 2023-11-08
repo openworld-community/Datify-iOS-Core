@@ -25,14 +25,14 @@ struct RegBirthdayView: View {
             }
             DtCustomDatePicker(selectedDate: $selectedDate)
             Spacer()
-            HStack(spacing: 10) {
+            HStack(spacing: 8) {
                 DtBackButton {
                     router.pop()
                 }
                 DtButton(title: "Proceed".localize(), style: .main) {
                     // TODO: - Proceed button action
                     // По хорошему надо проверить подтянув текущую дату с бэка, чтобы пользователь не мог просто изменить дату на телефоне и обойти ограничение по возрасту
-                    router.push(.registrationLocation)
+                    router.push(.registrationOccupation)
                 }
             }
             .toolbar {
@@ -41,7 +41,7 @@ struct RegBirthdayView: View {
                 }
             }
             .padding(.horizontal)
-            .padding(.bottom, 8)
+            .padding(.bottom)
         }
         .navigationBarBackButtonHidden()
         .alert(isPresented: $showAlert, content: {

@@ -40,7 +40,9 @@ struct MainAppView: View {
                     isCountrySelection: isCountrySelection
                 )
         case .registrationName: navViewBuilder.createRegEnterNameView()
-        case .registrationBirthday: navViewBuilder.createRegBirthday()
+        case .registrationBirthday: navViewBuilder.createRegBirthdayView()
+        case .registrationOccupation:
+            navViewBuilder.createRegOccupationView()
         }
     }
 }

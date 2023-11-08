@@ -75,14 +75,13 @@ struct RegSelectGenderView: View {
             termsAndConditionsLabel
             backProceedButtons
         }
-        .padding(.bottom, 24)
+        .padding(.bottom)
         .navigationBarBackButtonHidden()
         .toolbar {
             ToolbarItem(placement: .principal) {
                 DtLogoView()
             }
         }
-        .padding(.bottom, 8)
         .onChange(of: selectedGender, perform: { newValue in
             switch newValue {
             case .other(let value): otherOptionsTitle = "Other option: \(value)".localize()

@@ -22,14 +22,12 @@ struct RegEnterNameView: View {
             }
             DtCustomTF(style: .text("Enter name".localize(), .center), input: $name)
             Spacer()
-            HStack(spacing: 10) {
+            HStack(spacing: 8) {
                 DtBackButton {
                     router.pop()
                 }
                 DtButton(title: "Proceed".localize(), style: .main) {
-
-                    // nameIsValid() лишнее, т.к. кнопка дизейбл
-                    if nameIsValid() && name == name.trimWhitespaceCapit() {
+                    if name == name.trimWhitespaceCapit() {
                         // TODO: - Proceed button action
                         router.push(.registrationBirthday)
                     } else {
@@ -50,7 +48,7 @@ struct RegEnterNameView: View {
             name = newValue.trimLeadingSpaces()
         })
         .padding(.horizontal)
-        .padding(.bottom, 8)
+        .padding(.bottom)
 
     }
 

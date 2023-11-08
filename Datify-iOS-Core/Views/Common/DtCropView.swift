@@ -63,10 +63,6 @@ struct DtCropView: View {
                         )
 
                         onCrop(cropImage(image: inputUIImage, cropRect: cropRect))
-//                        if let cgImage = inputUIImage.cgImage,
-//                           let croppedImage = cgImage.cropping(to: cropRect) {
-//                            onCrop(UIImage(cgImage: croppedImage, scale: inputUIImage.scale, orientation: inputUIImage.imageOrientation)/*UIImage(cgImage: croppedImage)*/)
-//                        }
                         dismiss()
                     } label: {
                         Image(systemName: "checkmark")
@@ -89,13 +85,14 @@ struct DtCropView: View {
 
     @ViewBuilder
     func imageView() -> some View {
+        let cropView: String = "CROPVIEW"
         Group {
             if let inputUIImage {
                 Image(uiImage: inputUIImage)
                     .resizableFill()
                     .overlay(content: {
                         GeometryReader { proxy in
-                            let rect = proxy.frame(in: .named("CROPVIEW"))
+                            let rect = proxy.frame(in: .named(cropView))
 
                             Color.clear
                                 .onChange(of: isInteracting) { _ in
@@ -128,7 +125,7 @@ struct DtCropView: View {
         }
         .scaleEffect(imageScale)
         .offset(imageOffset)
-        .coordinateSpace(name: "CROPVIEW")
+        .coordinateSpace(name: cropView)
         .gesture(
             DragGesture()
                 .updating($isInteracting, body: { _, out, _ in

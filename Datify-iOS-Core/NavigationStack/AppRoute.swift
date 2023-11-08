@@ -22,6 +22,7 @@ enum AppRoute {
     case countryAndCity(isCountrySelection: Bool, viewModel: LocationViewModel)
     case registrationName
     case registrationBirthday
+    case registrationOccupation
 }
 
 extension AppRoute: Hashable, Equatable {
@@ -40,6 +41,7 @@ extension AppRoute: Hashable, Equatable {
         case (.countryAndCity, .countryAndCity): return true
         case (.registrationName, .registrationName): return true
         case (.registrationBirthday, .registrationBirthday): return true
+        case (.registrationOccupation, .registrationOccupation): return true
         default: return false
         }
     }
