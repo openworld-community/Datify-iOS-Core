@@ -8,12 +8,15 @@
 import Foundation
 import AVFoundation
 import Combine
+import SwiftUI
 
 class RegRecordViewModel: ObservableObject {
     unowned var router: Router<AppRoute>
     private var cancellables: Set<AnyCancellable> = []
     @Published var fileExistsBool: Bool = false
     var recordGraphViewModel = RecordGraphViewModel()
+    @Published var isAlertShowing: Bool = false
+    @Published var audioAuthStatus: AVAuthorizationStatus = AVCaptureDevice.authorizationStatus(for: .audio)
 
     init(router: Router<AppRoute>) {
         self.router = router
@@ -21,23 +24,34 @@ class RegRecordViewModel: ObservableObject {
     }
 
     func setUpCaptureSession() async {
-        guard await isAuthorized else { return }
+        guard await recordGraphViewModel.isAuthorized else { return }
     }
 
     private func setupBindings() {
         recordGraphViewModel.$fileExistsBool
             .assign(to: \.fileExistsBool, on: self)
             .store(in: &cancellables)
+        
+        recordGraphViewModel.$isAlertShowing
+            .assign(to: \.isAlertShowing, on: self)
+            .store(in: &cancellables)
+    }
+    
+    func goToAppSettings() {
+        guard let url = URL(string: UIApplication.openSettingsURLString),
+              UIApplication.shared.canOpenURL(url) else { return }
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
 
-    private var isAuthorized: Bool {
-        get async {
-            let status = AVCaptureDevice.authorizationStatus(for: .audio)
-            var isAuthorized = status == .authorized
-            if status == .notDetermined {
-                isAuthorized = await AVCaptureDevice.requestAccess(for: .audio)
-            }
-            return isAuthorized
+    func checkPhotoAuthStatus() {
+        let status = AVCaptureDevice.authorizationStatus(for: .audio)
+        switch status {
+        case .denied, .restricted, .notDetermined:
+            isAlertShowing = true
+        case .authorized:
+            isAlertShowing = false
+        default:
+            break
         }
     }
 }

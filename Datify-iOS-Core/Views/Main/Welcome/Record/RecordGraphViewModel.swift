@@ -28,6 +28,7 @@ class RecordGraphViewModel: ObservableObject {
     @Published var distanceBetweenBars: CGFloat = 0
     @Published var widthBar: CGFloat = 0
     @Published var canStopRecord: Bool = false
+    @Published var isAlertShowing: Bool = false
 
     var filePath: URL?
 //    var size: CGSize = .zero
@@ -47,6 +48,17 @@ class RecordGraphViewModel: ObservableObject {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         let filePath = paths[0].appendingPathComponent(AppConstants.URL.recordVoice)
         return filePath
+    }
+
+    var isAuthorized: Bool {
+        get async {
+            let status = AVCaptureDevice.authorizationStatus(for: .audio)
+            var isAuthorized = status == .authorized
+            if status == .notDetermined {
+                isAuthorized = await AVCaptureDevice.requestAccess(for: .audio)
+            }
+            return isAuthorized
+        }
     }
 
     private func setupBindings() {
@@ -113,18 +125,30 @@ class RecordGraphViewModel: ObservableObject {
     }
 
     func didTapRecordButton() {
-        if let filePath = filePath {
-            if statePlayer == .record && canStopRecord {
-                recordManager.stopRecording()
-                fileExists(audioURL: filePath)
-                loadAudioDataFromFile()
-            } else {
-                if statePlayer != .record {
-                    self.recordManager.record(audioURL: filePath)
-                    statePlayer = .record
+        Task {
+            if await !isAuthorized {
+                await MainActor.run {
+                    isAlertShowing = true
                 }
+            } else {
+                await MainActor.run {
+                    if let filePath = filePath {
+                        if statePlayer == .record && canStopRecord {
+                            recordManager.stopRecording()
+                            fileExists(audioURL: filePath)
+                            loadAudioDataFromFile()
+                        } else {
+                            if statePlayer != .record {
+                                self.recordManager.record(audioURL: filePath)
+                                statePlayer = .record
+                            }
+                        }
+                    }
+                }
+
             }
         }
+
     }
 
     private func fileExists(audioURL: URL) {

@@ -27,6 +27,22 @@ struct RegRecordView: View {
             .task {
                 await viewModel.setUpCaptureSession()
             }
+            .alert(
+                "Access denied",
+                isPresented: $viewModel.isAlertShowing
+            ) {
+
+                    Button("OK") {
+                        viewModel.goToAppSettings()
+                    }
+                    Button("Cancel", role: .cancel, action: {viewModel.isAlertShowing = false})
+            } message: {
+                    Text("Open Settings for editing?")
+
+            }
+            .onAppear {
+                viewModel.checkPhotoAuthStatus()
+            }
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     DtLogoView()
@@ -58,9 +74,11 @@ private extension RegRecordView {
         HStack(spacing: 8) {
             DtBackButton {
                 // TODO: - Back button action
+
             }
             DtButton(title: "Proceed".localize(), style: viewModel.fileExistsBool ? .main : .secondary) {
                 // TODO: - Proceed button action
+                viewModel.isAlertShowing = true
 
             }
             .disabled(!viewModel.fileExistsBool)
