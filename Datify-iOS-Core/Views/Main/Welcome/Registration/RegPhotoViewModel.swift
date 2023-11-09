@@ -8,7 +8,6 @@
 import SwiftUI
 import PhotosUI
 
-// @MainActor
 final class RegPhotoViewModel: ObservableObject {
     @Published var selectedImages: [Image?] = Array(repeating: nil, count: 5)
     @Published var selectedImage: UIImage?
@@ -41,7 +40,7 @@ final class RegPhotoViewModel: ObservableObject {
     }
 
     func setImage(from selection: PhotosPickerItem?) {
-        Task {
+        Task { @MainActor in
             if let selection,
                let data = try? await selection.loadTransferable(type: Data.self),
                let uiImage = UIImage(data: data ) {
@@ -60,12 +59,12 @@ final class RegPhotoViewModel: ObservableObject {
         PHPhotoLibrary.requestAuthorization(for: .readWrite) { status in
             switch status {
             case .restricted, .denied:
-                Task {
+                Task { @MainActor in
                     self.photoAuthStatus = status
                     self.isAlertShowing = true
                 }
             case .limited, .authorized:
-                Task {
+                Task { @MainActor in
                     self.photoAuthStatus = status
                 }
             default:
