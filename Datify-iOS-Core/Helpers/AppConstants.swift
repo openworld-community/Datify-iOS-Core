@@ -12,6 +12,9 @@ enum AppConstants {
         static let cornerRadius: CGFloat = 16
         static let buttonHeight: CGFloat = 56
     }
+    enum URL {
+        static let recordVoice: String = "recordVoice"
+    }
     // swiftlint: disable all
     enum Text {
         static let termsAndConditions = """

@@ -12,7 +12,7 @@ struct DtCircleButton: View {
     @Environment(\.colorScheme) private var colorScheme
     private let systemName: String
     private let style: DtCircleButton.Style
-    private let disable: Bool
+    private let disableImage: Bool
     private let action: () async -> Void
 
     enum Style: CGFloat {
@@ -20,10 +20,10 @@ struct DtCircleButton: View {
         case big = 96
     }
 
-    init(systemName: String, style: DtCircleButton.Style, disable: Bool, action: @escaping () async -> Void) {
+    init(systemName: String, style: DtCircleButton.Style, disableImage: Bool, action: @escaping () async -> Void) {
         self.systemName = systemName
         self.style = style
-        self.disable = disable
+        self.disableImage = disableImage
         self.action = action
     }
 
@@ -35,9 +35,9 @@ struct DtCircleButton: View {
         } label: {
             switch style {
             case .small:
-                createBody(systemName: systemName, style: .small, disable: disable)
+                createBody(systemName: systemName, style: .small, disableImage: disableImage)
             case .big:
-                createBody(systemName: systemName, style: .big, disable: disable)
+                createBody(systemName: systemName, style: .big, disableImage: disableImage)
             }
         }
         .buttonStyle(.plain)
@@ -46,7 +46,7 @@ struct DtCircleButton: View {
     private func createBody(
         systemName: String,
         style: DtCircleButton.Style,
-        disable: Bool
+        disableImage: Bool
     ) -> some View {
         Circle()
             .fill(Color.clear)
@@ -57,7 +57,8 @@ struct DtCircleButton: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: style.rawValue/2, height: style.rawValue/2)
-                    .foregroundColor(disable ? Color.iconsSecondary : Color.iconsPrimary)
+                    .foregroundColor(disableImage ? Color.iconsSecondary : Color.iconsPrimary)
+                    .animation(nil, value: UUID())
             }
             .background(
                 RoundedRectangle(cornerRadius: style.rawValue/2)
@@ -69,11 +70,11 @@ struct DtCircleButton: View {
 struct DtCircleButton_Previews: PreviewProvider {
     static var previews: some View {
         HStack {
-            DtCircleButton(systemName: DtImage.delete, style: .small, disable: true) {}
-            DtCircleButton(systemName: DtImage.delete, style: .small, disable: false) {}
-            DtCircleButton(systemName: DtImage.record, style: .big, disable: false) {}
-            DtCircleButton(systemName: DtImage.stop, style: .big, disable: false) {}
-            DtCircleButton(systemName: DtImage.play, style: .small, disable: false) {}
+            DtCircleButton(systemName: DtImage.delete, style: .small, disableImage: true) {}
+            DtCircleButton(systemName: DtImage.delete, style: .small, disableImage: false) {}
+            DtCircleButton(systemName: DtImage.record, style: .big, disableImage: false) {}
+            DtCircleButton(systemName: DtImage.stop, style: .big, disableImage: false) {}
+            DtCircleButton(systemName: DtImage.play, style: .small, disableImage: false) {}
         }
     }
 }

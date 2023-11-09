@@ -8,11 +8,10 @@
 import SwiftUI
 
 struct RegRecordView: View {
-    @StateObject private var viewModel: PowerGraphViewModel
+    @StateObject var viewModel: RegRecordViewModel
 
     init(router: Router<AppRoute>) {
-        let powerGraphModel = PowerGraphModel(widthElement: 3, heightGraph: 160, wightGraph: UIScreen.main.bounds.width, distanceElements: 2, deleteDuration: 0.5, recordingDuration: 15)
-        self._viewModel = StateObject(wrappedValue: PowerGraphViewModel(router: router, powerGraphModel: powerGraphModel))
+        self._viewModel = StateObject(wrappedValue: RegRecordViewModel(router: router))
     }
 
     var body: some View {
@@ -21,9 +20,12 @@ struct RegRecordView: View {
                 Spacer()
                 titleSegment
                     .padding()
-                RecordPowerGraphView(viewModel: viewModel)
-                    .padding()
+                RecordGraphView(vm: viewModel.recordGraphViewModel)
+                    .padding(.vertical)
                 navigationButtons
+            }
+            .task {
+                await viewModel.setUpCaptureSession()
             }
             .toolbar {
                 ToolbarItem(placement: .principal) {
@@ -57,10 +59,11 @@ private extension RegRecordView {
             DtBackButton {
                 // TODO: - Back button action
             }
-            DtButton(title: "Proceed".localize(), style: viewModel.powerGraphModel.fileExistsBool ? .main : .secondary) {
+            DtButton(title: "Proceed".localize(), style: viewModel.fileExistsBool ? .main : .secondary) {
                 // TODO: - Proceed button action
+
             }
-            .disabled(!viewModel.powerGraphModel.fileExistsBool)
+            .disabled(!viewModel.fileExistsBool)
         }
     }
 }
