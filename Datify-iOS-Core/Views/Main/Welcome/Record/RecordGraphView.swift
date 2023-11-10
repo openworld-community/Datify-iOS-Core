@@ -7,38 +7,8 @@
 
 import SwiftUI
 
-// struct ChildSizeReader<Content: View>: View {
-//    @Binding var size: CGSize
-//    let content: () -> Content
-//    var body: some View {
-//        ZStack {
-//            content()
-//                .background(
-//                    GeometryReader { proxy in
-//                        Color.clear
-//                            .preference(key: HeightPreferenceKey.self, value: proxy.size)
-//                    }
-//                )
-//        }
-//        .onPreferenceChange(HeightPreferenceKey.self) { preferences in
-//            self.size = preferences
-//        }
-//    }
-// }
-//
-// private struct HeightPreferenceKey: PreferenceKey {
-//
-//    static let defaultValue: CGSize = .zero
-//
-//    static func reduce(value: inout CGSize, nextValue: () -> CGSize) {
-//        value = nextValue()
-//    }
-// }
-
 struct RecordGraphView: View {
-
     @StateObject var viewModel: RecordGraphViewModel
-    @State var height: CGFloat = 160
 
     init(vm: RecordGraphViewModel) {
         self._viewModel = StateObject(wrappedValue: vm)
@@ -47,13 +17,13 @@ struct RecordGraphView: View {
     var body: some View {
         HStack(spacing: viewModel.distanceBetweenBars) {
             ForEach(viewModel.arrayHeights) { bar in
-                RoundedRectangle(cornerRadius: 3)
+                RoundedRectangle(cornerRadius: viewModel.widthBar / 2)
                     .frame(width: viewModel.widthBar, height: bar.isASignal ? CGFloat(bar.height) : viewModel.widthBar)
-                    .foregroundStyle(bar.coloredBool ? Color.iconsSecondary : Color(hex: 0x6167FF))
+                    .foregroundStyle(bar.coloredBool ? Color.iconsSecondary : Color.accentsPrimary)
                     .transition(bar.isASignal && !bar.coloredBool ? .scale : .opacity )
             }
         }
-        .frame(height: 160)
+        .frame(width: viewModel.wightBarGraph, height: viewModel.heightBarGraph)
         HStack {
             deleteButton
                 .disabled(viewModel.disableDeleteButton())

@@ -21,7 +21,6 @@ enum StatePlayerEnum {
 }
 
 class RecordGraphViewModel: ObservableObject {
-
     @Published var statePlayer: StatePlayerEnum = .inaction
     @Published var arrayHeights: [BarModel] = []
     @Published var fileExistsBool: Bool = false
@@ -29,11 +28,10 @@ class RecordGraphViewModel: ObservableObject {
     @Published var widthBar: CGFloat = 0
     @Published var canStopRecord: Bool = false
     @Published var isAlertShowing: Bool = false
-
-    var filePath: URL?
-//    var size: CGSize = .zero
-
-    private var recordManager = RecordManager(wightBarGraph: UIScreen.main.bounds.width, heightBarGraph: 160)
+    @Published var heightBarGraph: CGFloat = 0
+    @Published var wightBarGraph: CGFloat = 0
+    private var filePath: URL?
+    private var recordManager = RecordManager(wightBarGraph: UIScreen.main.bounds.width)
     private var cancellables: Set<AnyCancellable> = []
 
     init() {
@@ -84,6 +82,14 @@ class RecordGraphViewModel: ObservableObject {
 
         recordManager.$canStopRecord
             .assign(to: \.canStopRecord, on: self)
+            .store(in: &cancellables)
+
+        recordManager.$heightBarGraph
+            .assign(to: \.heightBarGraph, on: self)
+            .store(in: &cancellables)
+
+        recordManager.$wightBarGraph
+            .assign(to: \.wightBarGraph, on: self)
             .store(in: &cancellables)
     }
 
@@ -145,10 +151,8 @@ class RecordGraphViewModel: ObservableObject {
                         }
                     }
                 }
-
             }
         }
-
     }
 
     private func fileExists(audioURL: URL) {

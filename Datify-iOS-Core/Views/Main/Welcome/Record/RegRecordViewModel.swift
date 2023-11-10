@@ -5,7 +5,6 @@
 //  Created by Алексей Баранов on 09.11.2023.
 //
 
-import Foundation
 import AVFoundation
 import Combine
 import SwiftUI
@@ -13,8 +12,8 @@ import SwiftUI
 class RegRecordViewModel: ObservableObject {
     unowned var router: Router<AppRoute>
     private var cancellables: Set<AnyCancellable> = []
-    @Published var fileExistsBool: Bool = false
     var recordGraphViewModel = RecordGraphViewModel()
+    @Published var fileExistsBool: Bool = false
     @Published var isAlertShowing: Bool = false
     @Published var audioAuthStatus: AVAuthorizationStatus = AVCaptureDevice.authorizationStatus(for: .audio)
 
@@ -31,12 +30,12 @@ class RegRecordViewModel: ObservableObject {
         recordGraphViewModel.$fileExistsBool
             .assign(to: \.fileExistsBool, on: self)
             .store(in: &cancellables)
-        
+
         recordGraphViewModel.$isAlertShowing
             .assign(to: \.isAlertShowing, on: self)
             .store(in: &cancellables)
     }
-    
+
     func goToAppSettings() {
         guard let url = URL(string: UIApplication.openSettingsURLString),
               UIApplication.shared.canOpenURL(url) else { return }

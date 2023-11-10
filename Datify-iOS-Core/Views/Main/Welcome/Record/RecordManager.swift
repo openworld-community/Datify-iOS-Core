@@ -10,34 +10,30 @@ import SwiftUI
 import Accelerate
 
 class RecordManager: ObservableObject {
-
-    private enum Record {
+    private enum Constant {
         static let deleteAnimationDurationSec: Double = 1
         static let maxRecordingDurationSec: Double = 15.0
         static let minRecordingDurationSec: Double = 1.0
         static let factorAmplitudes: Float = 630
         static let widthBarPercentageOfWidthView: CGFloat = 0.75
         static let distanceBetweenBarsPercentageOfWidthView: CGFloat = 0.5
+        static let heightViwePercentageOfWidthView: CGFloat = 44
     }
-
     @Published var statePlayer: StatePlayerEnum = .inaction
     @Published var arrayHeights: [BarModel] = []
     @Published var fileExistsBool: Bool = false
     @Published var distanceBetweenBars: CGFloat = 0
     @Published var widthBar: CGFloat = 0
     @Published var canStopRecord: Bool = false
-
-    var heightBarGraph: CGFloat
-    var wightBarGraph: CGFloat
-
+    @Published var heightBarGraph: CGFloat
+    @Published var wightBarGraph: CGFloat
     private var maxHeightBar: CGFloat = 0
     private var minHeightBar: CGFloat = 0
-    private var deleteAnimationDuration: Double = Record.deleteAnimationDurationSec
-    private var maxRecordingDuration: Double = Record.maxRecordingDurationSec
-    private var minRecordingDuration: Double = Record.minRecordingDurationSec
+    private var deleteAnimationDuration: Double = Constant.deleteAnimationDurationSec
+    private var maxRecordingDuration: Double = Constant.maxRecordingDurationSec
+    private var minRecordingDuration: Double = Constant.minRecordingDurationSec
     private var barsCount: Double = 0
-    private var factorAmplitudes: Float = Record.factorAmplitudes
-
+    private var factorAmplitudes: Float = Constant.factorAmplitudes
     private var audioPlayer: AVAudioPlayer?
     private var audioRecorder: AVAudioRecorder?
     private var audioSession = AVAudioSession.sharedInstance()
@@ -46,11 +42,11 @@ class RecordManager: ObservableObject {
     private var index = 0
     private var audioDuration: Double = 0.0
 
-    init(wightBarGraph: CGFloat, heightBarGraph: CGFloat) {
+    init(wightBarGraph: CGFloat) {
         self.wightBarGraph = wightBarGraph
-        self.heightBarGraph = heightBarGraph
-        self.widthBar = (wightBarGraph / 100) * Record.widthBarPercentageOfWidthView
-        self.distanceBetweenBars = (wightBarGraph / 100) * Record.distanceBetweenBarsPercentageOfWidthView
+        self.heightBarGraph = (wightBarGraph * Constant.heightViwePercentageOfWidthView) / 100
+        self.widthBar = (wightBarGraph / 100) * Constant.widthBarPercentageOfWidthView
+        self.distanceBetweenBars = (wightBarGraph / 100) * Constant.distanceBetweenBarsPercentageOfWidthView
         self.maxHeightBar = heightBarGraph
         self.minHeightBar = widthBar
         self.barsCount = wightBarGraph / (widthBar + distanceBetweenBars)
@@ -120,7 +116,6 @@ class RecordManager: ObservableObject {
                     canStopRecord = true
                 }
             }
-
         })
     }
 
@@ -147,22 +142,17 @@ class RecordManager: ObservableObject {
             let audioFile = try AVAudioFile(forReading: audioURL)
             let audioFormat = audioFile.processingFormat
             let audioFrameCount = UInt32(audioFile.length)
-
             // creating a buffer for audio data
             guard let audioFileBuffer = AVAudioPCMBuffer(
                 pcmFormat: audioFormat,
                 frameCapacity: audioFrameCount) else {return []}
-
             // reading audio file data into buffer
             try audioFile.read(into: audioFileBuffer)
-
             // determining the number of channels and the number of frames
             let channelCount = Int(audioFileBuffer.format.channelCount)
             let frameCount = Int(audioFileBuffer.frameLength)
-
             // creating an array with data on the amplitude of the audio signal
             let powerData = Array(UnsafeBufferPointer(start: audioFileBuffer.floatChannelData?[0], count: frameCount))
-
             // calculates the volume level of an audio file on each frame
             for frame in 0..<frameCount {
                 var powerSum: Float = 0.0
@@ -182,7 +172,6 @@ class RecordManager: ObservableObject {
     func loadAudioData(audioURL: URL) {
         let powerValues: [Float] = audioFileSetupAndRead(audioURL: audioURL)
         if !powerValues.isEmpty {
-
             // splits powerValues into parts(chunkSize) and calculates the average value for each part
             var averageArray: [Float] = []
             let chunkSize = powerValues.count / Int(barsCount)
