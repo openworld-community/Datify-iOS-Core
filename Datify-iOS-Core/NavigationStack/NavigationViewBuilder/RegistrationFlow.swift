@@ -18,6 +18,7 @@ protocol RegistrationFlow {
     associatedtype RegEnterName: View
     associatedtype RegBirthday: View
     associatedtype RegOccupation: View
+    associatedtype RegPassword: View
 
     func createRegSexView() -> RegSex
     func createRegEmailView() -> RegEmail
@@ -31,6 +32,7 @@ protocol RegistrationFlow {
     func createRegEnterNameView() -> RegEnterName
     func createRegBirthdayView() -> RegBirthday
     func createRegOccupationView() -> RegOccupation
+    func createRegPasswordView() -> RegPassword
 }
 
 extension NavigationViewBuilder: RegistrationFlow {
@@ -47,7 +49,7 @@ extension NavigationViewBuilder: RegistrationFlow {
         CountryAndCityView(viewModel: viewModel, isCountrySelection: isCountrySelection)
     }
     func createRegRecordView() -> some View {
-        Text("RegRecord")
+        RegRecordView(router: router)
     }
     func createRegFinishView() -> some View {
         RegFinalView(router: router)
@@ -63,5 +65,8 @@ extension NavigationViewBuilder: RegistrationFlow {
     }
     func createRegOccupationView() -> some View {
         RegOccupationView(router: router)
+    }
+    func createRegPasswordView() -> some View {
+        PasswordView(router: router)
     }
 }

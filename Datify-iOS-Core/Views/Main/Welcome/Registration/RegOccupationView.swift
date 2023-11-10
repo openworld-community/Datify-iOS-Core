@@ -39,7 +39,7 @@ struct RegOccupationView: View {
                 }
                 DtButton(title: "Proceed".localize(), style: .main) {
                     // TODO: - Proceed button action
-                    router.push(.registrationLocation)
+                    router.push(.registrationPassword)
                 }
             }
         }

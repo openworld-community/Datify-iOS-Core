@@ -216,7 +216,7 @@ private extension RegPhotoView {
                 title: "Continue".localize(),
                 style: .main) {
                     // TODO: viewModel func photo processing and sending
-                    viewModel.router.push(.registrationFinish)
+                    viewModel.router.push(.registrationRecord)
                 }
                 .disabled(viewModel.isButtonDisabled)
         }
