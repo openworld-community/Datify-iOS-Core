@@ -172,8 +172,8 @@ private struct OtherGendersSheet: View {
     var body: some View {
         VStack(spacing: 0) {
             Picker("", selection: $otherGender) {
-                ForEach(Gender.otherGenders, id: \.self) { gender in
-                    Text(gender.title).tag(gender)
+                ForEach(Gender.otherGenders, id: \.self) {
+                    Text($0.title).tag($0)
                         .dtTypo(.p1Regular, color: .textPrimary)
                 }
             }
