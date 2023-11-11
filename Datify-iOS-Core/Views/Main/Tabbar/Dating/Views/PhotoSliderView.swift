@@ -11,11 +11,11 @@ struct PhotoSliderView: View {
     @Binding var selectedPhotoIndex: Int
     @Binding var showDescription: Bool
     @Binding var isSwipeAndIndicatorsDisabled: Bool
+    var geometry: GeometryProxy
 
     let photos: [String]
 
     var body: some View {
-        GeometryReader { geometry in
             TabView(selection: $selectedPhotoIndex) {
                 ForEach(photos.indices, id: \.self) { index in
                     Image(photos[index])
@@ -24,13 +24,10 @@ struct PhotoSliderView: View {
                         .frame(maxWidth: geometry.size.width)
                         .blur(radius: showDescription ? 2 : 0)
                         .animation(.easeInOut(duration: 0.4))
-                        .edgesIgnoringSafeArea(.all)
                         .tag(index)
                 }
             }
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
             .disabled(isSwipeAndIndicatorsDisabled)
-            .edgesIgnoringSafeArea(.all)
-        }
     }
 }

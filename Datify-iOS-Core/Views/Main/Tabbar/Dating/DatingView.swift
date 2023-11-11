@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@available(iOS 17.0, *)
 struct DatingView: View {
     @Environment(\.dismiss) private var dismiss
 
@@ -28,13 +29,14 @@ struct DatingView: View {
     var body: some View {
         GeometryReader { geometry in
             ScrollView {
-                LazyVStack {
+                LazyVStack(spacing: 0) {
                     ForEach($viewModel.users.indices, id: \.self) { index in
                         ZStack {
                             PhotoSliderView(
                                 selectedPhotoIndex: $selectedPhotoIndex,
                                 showDescription: $showDescription,
                                 isSwipeAndIndicatorsDisabled: $isSwipeAndIndicatorsDisabled,
+                                geometry: geometry,
                                 photos: viewModel.users[index].photos
                             )
                             .overlay(
@@ -43,7 +45,7 @@ struct DatingView: View {
                                     photos: viewModel.users[index].photos,
                                     selectedPhotoIndex: selectedPhotoIndex
                                 )
-                                .position(x: geometry.size.width / 2, y: geometry.size.height - 180), alignment: .bottom
+                                .position(x: geometry.size.width / 2, y: geometry.size.height), alignment: .center
                             )
 
                             if showLikedAnimation {
@@ -70,7 +72,8 @@ struct DatingView: View {
                                         showDescription: $showDescription,
                                         isSwipeAndIndicatorsDisabled: $isSwipeAndIndicatorsDisabled,
                                         viewModel: viewModel,
-                                        selectedPhotoIndex: selectedPhotoIndex
+                                        selectedPhotoIndex: selectedPhotoIndex,
+                                        index: index
                                     )
                                     Spacer()
                                     UserActionsView(
@@ -87,20 +90,21 @@ struct DatingView: View {
                                         playbackFinished: $viewModel.playbackFinished,
                                         viewModel: viewModel
                                     )
-                                    .padding(.bottom, -30)
-
                                 }
+                                .padding(.bottom)
                             }
                             .padding(.horizontal)
-                            .padding(.bottom, 50)
                         }
                         .navigationBarHidden(true)
                         .frame(width: geometry.size.width, height: geometry.size.height)
                         .background(Color.customBlack)
                     }
                 }
+                .scrollTargetLayout()
             }
         }
+        .edgesIgnoringSafeArea(.top)
+        .scrollTargetBehavior(.paging)
         .onChange(of: viewModel.liked) { newValue in
             if newValue {
                 withAnimation {

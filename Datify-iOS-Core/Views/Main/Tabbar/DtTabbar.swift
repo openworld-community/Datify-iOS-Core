@@ -33,7 +33,6 @@ struct DtTabbar<Content: View>: View {
             .padding(.top)
             .background(Color.customBlack)
             .frame(maxWidth: .infinity)
-
         }
     }
 
