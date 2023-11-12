@@ -22,11 +22,11 @@ enum StatePlayerEnum {
 class VoiceGraphViewModel: ObservableObject {
     @Published var statePlayer: StatePlayerEnum = .inaction
     @Published var heightsBar: [BarModel] = []
-    @Published var fileExists: Bool = false
+    @Published var fileExists = false
     @Published var spaceBetweenBars: CGFloat = 0
     @Published var widthBar: CGFloat = 0
-    @Published var canStopRecord: Bool = false
-    @Published var isAlertShowing: Bool = false
+    @Published var canStopRecord = false
+    @Published var isAlertShowing = false
     @Published var heightVoiceGraph: CGFloat = 0
     @Published var wightVoiceGraph: CGFloat = 0
 

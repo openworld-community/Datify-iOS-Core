@@ -928,7 +928,7 @@
 					"-framework",
 					shared,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "acom.a.pride.Datify-iOS-Core";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.a.pride.Datify-iOS-Core";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -970,7 +970,7 @@
 					"-framework",
 					shared,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "acom.a.pride.Datify-iOS-Core";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.a.pride.Datify-iOS-Core";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;

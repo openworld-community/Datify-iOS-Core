@@ -17,16 +17,16 @@ class RecordManager: ObservableObject {
         static let widthBarPercentageOfWidthGraph: CGFloat = 0.75
         static let spaceBetweenBarsPercentageOfWidthGraph: CGFloat = 0.5
         static let heightViewPercentageOfWidthGraph: CGFloat = 44
-        static let audioSamplingRates: Int = 44100
-        static let numberOfAudioChannels: Int = 2
+        static let audioSamplingRates = 44100
+        static let numberOfAudioChannels = 2
     }
 
     @Published var statePlayer: StatePlayerEnum = .inaction
     @Published var heightsBar: [BarModel] = []
-    @Published var fileExists: Bool = false
+    @Published var fileExists = false
     @Published var spaceBetweenBars: CGFloat = 0
     @Published var widthBar: CGFloat = 0
-    @Published var canStopRecord: Bool = false
+    @Published var canStopRecord = false
     @Published var heightVoiceGraph: CGFloat
     @Published var wightVoiceGraph: CGFloat
 
@@ -35,7 +35,7 @@ class RecordManager: ObservableObject {
     private var deleteAnimationDuration: Double = Constant.deleteAnimationDuration
     private var maxRecordingDuration: Double = Constant.maxRecordingDuration
     private var minRecordingDuration: Double = Constant.minRecordingDuration
-    private var barsCount: Int = 0
+    private var barsCount = 0
     private var factorAmplitudes: Float = Constant.factorAmplitudes
     private var currentRecordingTime = 0.0
     private var index = 0
@@ -171,7 +171,7 @@ class RecordManager: ObservableObject {
 
 private extension RecordManager {
     func createHeightsBar() {
-        for _ in 0...Int(barsCount) {
+        for _ in 0...barsCount {
             heightsBar.append(BarModel(height: Float(minHeightBar), coloredBool: true))
         }
     }

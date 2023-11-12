@@ -19,7 +19,6 @@ struct RegRecordView: View {
             VStack {
                 Spacer()
                 titleSegment
-                    .padding()
                 VoiceGraphView(vm: viewModel.voiceGraphViewModel)
                     .padding(.vertical)
                 navigationButtons
@@ -44,8 +43,6 @@ struct RegRecordView: View {
                     DtLogoView()
                 }
             }
-            .padding(.horizontal)
-            .padding(.bottom, 8)
         }
     }
 }
@@ -62,9 +59,10 @@ private extension RegRecordView {
             Text("Record a voice message for other people")
                 .dtTypo(.h3Medium, color: .textPrimary)
             Text("Your voice message will be listened, to find out more about you")
-                .dtTypo(.p3Regular, color: .textSecondary)
+                .dtTypo(.p2Regular, color: .textSecondary)
         }
         .multilineTextAlignment(.center)
+        .padding()
     }
     var navigationButtons: some View {
         HStack(spacing: 8) {
@@ -77,5 +75,6 @@ private extension RegRecordView {
             }
             .disabled(!viewModel.fileExistsBool)
         }
+        .padding(.horizontal)
     }
 }
