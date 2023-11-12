@@ -67,6 +67,6 @@ extension NavigationViewBuilder: RegistrationFlow {
         RegOccupationView(router: router)
     }
     func createRegPasswordView() -> some View {
-        PasswordView(router: router)
+        RegPasswordView(router: router)
     }
 }

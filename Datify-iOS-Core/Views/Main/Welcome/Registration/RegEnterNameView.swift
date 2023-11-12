@@ -39,6 +39,7 @@ struct RegEnterNameView: View {
             }
         }
         .navigationBarBackButtonHidden()
+        .hideKeyboardTapOutside()
         .toolbar {
             ToolbarItem(placement: .principal) {
                 DtLogoView()

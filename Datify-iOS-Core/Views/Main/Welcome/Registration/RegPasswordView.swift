@@ -1,5 +1,5 @@
 //
-//  PasswordView.swift
+//  RegPasswordView.swift
 //  Datify-iOS-Core
 //
 //  Created by Reek i on 10.11.2023.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct PasswordView: View {
+struct RegPasswordView: View {
     unowned let router: Router<AppRoute>
 
     var body: some View {
@@ -25,7 +25,7 @@ struct PasswordView: View {
                 }
                 DtButton(title: "Continue".localize(), style: .main) {
                     // TODO: - Proceed button action
-                    router.push(.registrationLocation)
+                    router.push(.registrationEmail)
                 }
             }
             .padding(.bottom)
@@ -42,6 +42,6 @@ struct PasswordView: View {
 
 #Preview {
     NavigationStack {
-        PasswordView(router: Router())
+        RegPasswordView(router: Router())
     }
 }
