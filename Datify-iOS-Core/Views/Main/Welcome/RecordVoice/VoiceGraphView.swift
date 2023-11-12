@@ -15,15 +15,15 @@ struct VoiceGraphView: View {
     }
 
     var body: some View {
-        HStack(spacing: viewModel.distanceBetweenBars) {
-            ForEach(viewModel.arrayHeights) { bar in
+        HStack(spacing: viewModel.spaceBetweenBars) {
+            ForEach(viewModel.heightsBar) { bar in
                 RoundedRectangle(cornerRadius: viewModel.widthBar / 2)
-                    .frame(width: viewModel.widthBar, height: bar.signal ? CGFloat(bar.height) : viewModel.widthBar)
+                    .frame(width: viewModel.widthBar, height: CGFloat(bar.height))
                     .foregroundStyle(bar.coloredBool ? Color.iconsSecondary : Color.accentsPrimary)
-                    .transition(bar.signal && !bar.coloredBool ? .scale : .opacity )
+                    .transition(.scale)
             }
         }
-        .frame(width: viewModel.wightBarGraph, height: viewModel.heightBarGraph)
+        .frame(width: viewModel.wightVoiceGraph, height: viewModel.heightVoiceGraph)
         HStack {
             deleteButton
                 .disabled(viewModel.disableDeleteButton())

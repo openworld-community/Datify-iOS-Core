@@ -7,7 +7,6 @@
 
 import AVFoundation
 import SwiftUI
-import Accelerate
 
 class RecordManager: ObservableObject {
     private enum Constant {
@@ -16,7 +15,7 @@ class RecordManager: ObservableObject {
         static let minRecordingDuration: Double = 1
         static let factorAmplitudes: Float = 630
         static let widthBarPercentageOfWidthGraph: CGFloat = 0.75
-        static let distanceBetweenBarsPercentageOfWidthGraph: CGFloat = 0.5
+        static let spaceBetweenBarsPercentageOfWidthGraph: CGFloat = 0.5
         static let heightViewPercentageOfWidthGraph: CGFloat = 44
         static let audioSamplingRates: Int = 44100
         static let numberOfAudioChannels: Int = 2
@@ -25,7 +24,7 @@ class RecordManager: ObservableObject {
     @Published var statePlayer: StatePlayerEnum = .inaction
     @Published var heightsBar: [BarModel] = []
     @Published var fileExists: Bool = false
-    @Published var distanceBetweenBars: CGFloat = 0
+    @Published var spaceBetweenBars: CGFloat = 0
     @Published var widthBar: CGFloat = 0
     @Published var canStopRecord: Bool = false
     @Published var heightVoiceGraph: CGFloat
@@ -46,16 +45,16 @@ class RecordManager: ObservableObject {
     private var audioSession = AVAudioSession.sharedInstance()
     private var timer: Timer?
 
-    init(wightBarGraph: CGFloat) {
-        self.wightVoiceGraph = wightBarGraph
-        self.heightVoiceGraph = (wightBarGraph * Constant.heightViewPercentageOfWidthGraph) / 100
-        self.widthBar = (wightBarGraph / 100) * Constant.widthBarPercentageOfWidthGraph
-        self.distanceBetweenBars = (wightBarGraph / 100) * Constant.distanceBetweenBarsPercentageOfWidthGraph
+    init(wightVoiceGraph: CGFloat) {
+        self.wightVoiceGraph = wightVoiceGraph
+        self.heightVoiceGraph = (wightVoiceGraph * Constant.heightViewPercentageOfWidthGraph) / 100
+        self.widthBar = (wightVoiceGraph / 100) * Constant.widthBarPercentageOfWidthGraph
+        self.spaceBetweenBars = (wightVoiceGraph / 100) * Constant.spaceBetweenBarsPercentageOfWidthGraph
         self.maxHeightBar = heightVoiceGraph
         self.minHeightBar = widthBar
-        self.barsCount = Int(wightBarGraph / (widthBar + distanceBetweenBars)) - 1
+        self.barsCount = Int(wightVoiceGraph / (widthBar + spaceBetweenBars)) - 1
         setAudioSession()
-        fillTheArrayHeight()
+        createHeightsBar()
     }
 
     func record(path: URL) {
@@ -65,16 +64,22 @@ class RecordManager: ObservableObject {
             AVNumberOfChannelsKey: Constant.numberOfAudioChannels,
             AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
         ]
-        audioRecorder = try? AVAudioRecorder(url: path, settings: settings)
-        audioRecorder?.prepareToRecord()
-        audioRecorder?.isMeteringEnabled = true
-        audioRecorder?.record()
-        statePlayer = .record
-        runRecordTimer()
+        do {
+            audioRecorder = try AVAudioRecorder(url: path, settings: settings)
+        } catch {
+            print(error.localizedDescription)
+        }
+        if let audioRecorder = audioRecorder {
+            audioRecorder.prepareToRecord()
+            audioRecorder.isMeteringEnabled = true
+            audioRecorder.record()
+            statePlayer = .record
+            runRecordTimer()
+        }
     }
 
     func stopRecording() {
-        turnOffColorBar()
+        discolorBar()
         audioRecorder?.stop()
         audioRecorder = nil
         stopTimer()
@@ -96,8 +101,10 @@ class RecordManager: ObservableObject {
         } else {
             audioPlayer?.play()
         }
-        runPlayTimer()
-        statePlayer = .play
+        if let audioPlayer = audioPlayer {
+            runPlayTimer()
+            statePlayer = .play
+        }
     }
 
     func pause() {
@@ -111,17 +118,16 @@ class RecordManager: ObservableObject {
         do {
             try FileManager.default.removeItem(at: audioURL)
         } catch {
-            print(error.localizedDescription)
+            print("Error: \(error.localizedDescription)")
         }
         index = heightsBar.count - 1
         let timerFrequency = deleteAnimationDuration / Double(heightsBar.count)
         self.timer = Timer.scheduledTimer(withTimeInterval: timerFrequency, repeats: true, block: { [weak self] _ in
             guard let self = self else { return }
             withAnimation(.linear) {
-                self.heightsBar[self.index].signal = false
+                self.heightsBar[self.index].height = Float(self.minHeightBar)
             }
             heightsBar[self.index].coloredBool = true
-            heightsBar[self.index].height = Float(minHeightBar)
             if index == 0 {
                 stopTimer()
                 fileExists = false
@@ -157,20 +163,20 @@ class RecordManager: ObservableObject {
             }
             heightsBar.removeAll()
             for index in resultArray.indices {
-                heightsBar.append(BarModel(height: Float(resultArray[index]), coloredBool: true, signal: true))
+                heightsBar.append(BarModel(height: Float(resultArray[index]), coloredBool: true))
             }
         }
     }
 }
 
 private extension RecordManager {
-    func fillTheArrayHeight() {
+    func createHeightsBar() {
         for _ in 0...Int(barsCount) {
-            heightsBar.append(BarModel(height: Float(minHeightBar), coloredBool: true, signal: false))
+            heightsBar.append(BarModel(height: Float(minHeightBar), coloredBool: true))
         }
     }
 
-   func turnOffColorBar() {
+   func discolorBar() {
         for index in heightsBar.indices {
             heightsBar[index].coloredBool = true
         }
@@ -181,7 +187,7 @@ private extension RecordManager {
             try AVAudioSession.sharedInstance().setCategory(.playAndRecord, options: [.defaultToSpeaker])
             try AVAudioSession.sharedInstance().setActive(true)
         } catch {
-            print("Failed to set audio session category.")
+            print("Error: \(error.localizedDescription)")
         }
     }
 
@@ -196,10 +202,9 @@ private extension RecordManager {
             let amplitude = factorAmplitudes * pow(10.0, averagePower / 20.0)
             let clampedAmplitude = (min(max(amplitude, Float(minHeightBar)), Float(heightVoiceGraph)))
             if self.index <= heightsBar.count - 1 {
-                heightsBar[self.index].height = clampedAmplitude
                 heightsBar[self.index].coloredBool = false
                 withAnimation {
-                    self.heightsBar[self.index].signal = true
+                    self.heightsBar[self.index].height = clampedAmplitude
                 }
                 self.index += 1
             }
@@ -265,7 +270,7 @@ private extension RecordManager {
                 powerValues.append(averagePower)
             }
         } catch {
-            print("Ошибка при загрузке аудиофайла: \(error.localizedDescription)")
+            print("Error: \(error.localizedDescription)")
         }
         return powerValues
     }
@@ -281,7 +286,7 @@ private extension RecordManager {
         audioPlayer?.stop()
         audioPlayer = nil
         stopTimer()
-        turnOffColorBar()
+        discolorBar()
         statePlayer = .inaction
     }
 }

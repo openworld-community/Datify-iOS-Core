@@ -20,7 +20,7 @@ struct RegRecordView: View {
                 Spacer()
                 titleSegment
                     .padding()
-                VoiceGraphView(vm: viewModel.recordGraphViewModel)
+                VoiceGraphView(vm: viewModel.voiceGraphViewModel)
                     .padding(.vertical)
                 navigationButtons
             }
@@ -38,7 +38,6 @@ struct RegRecordView: View {
                 Button("Cancel", role: .cancel, action: {viewModel.isAlertShowing = false})
             } message: {
                 Text("Open Settings for editing?")
-
             }
             .toolbar {
                 ToolbarItem(placement: .principal) {

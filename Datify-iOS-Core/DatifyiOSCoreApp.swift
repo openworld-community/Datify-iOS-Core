@@ -14,7 +14,8 @@ struct DatifyiOSCoreApp: App {
         let builder: NavigationViewBuilder = .init(router: router)
 
         WindowGroup {
-            MainAppView(router: router, navViewBuilder: builder)
+//            MainAppView(router: router, navViewBuilder: builder)
+            RegRecordView(router: router)
         }
     }
 }

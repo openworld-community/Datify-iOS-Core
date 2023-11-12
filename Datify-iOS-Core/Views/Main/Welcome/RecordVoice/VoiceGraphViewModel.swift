@@ -13,7 +13,6 @@ struct BarModel: Identifiable {
     var id = UUID()
     var height: Float
     var coloredBool: Bool
-    var signal: Bool
 }
 
 enum StatePlayerEnum {
@@ -22,32 +21,18 @@ enum StatePlayerEnum {
 
 class VoiceGraphViewModel: ObservableObject {
     @Published var statePlayer: StatePlayerEnum = .inaction
-    @Published var arrayHeights: [BarModel] = []
-    @Published var fileExistsBool: Bool = false
-    @Published var distanceBetweenBars: CGFloat = 0
+    @Published var heightsBar: [BarModel] = []
+    @Published var fileExists: Bool = false
+    @Published var spaceBetweenBars: CGFloat = 0
     @Published var widthBar: CGFloat = 0
     @Published var canStopRecord: Bool = false
     @Published var isAlertShowing: Bool = false
-    @Published var heightBarGraph: CGFloat = 0
-    @Published var wightBarGraph: CGFloat = 0
+    @Published var heightVoiceGraph: CGFloat = 0
+    @Published var wightVoiceGraph: CGFloat = 0
 
     private var filePath: URL?
-    private var recordManager = RecordManager(wightBarGraph: UIScreen.main.bounds.width)
+    private var recordManager = RecordManager(wightVoiceGraph: UIScreen.main.bounds.width)
     private var cancellables: Set<AnyCancellable> = []
-
-    init() {
-        bindValues()
-        filePath = getDocumentsDirectory()
-        if let filePath = filePath {
-            isFileExists(audioURL: filePath)
-        }
-    }
-
-    private func getDocumentsDirectory() -> URL {
-        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        let filePath = paths[0].appendingPathComponent(AppConstants.URL.recordVoice)
-        return filePath
-    }
 
     var isAuthorized: Bool {
         get async {
@@ -60,29 +45,43 @@ class VoiceGraphViewModel: ObservableObject {
         }
     }
 
-    private func isFileExists(audioURL: URL) {
-        if FileManager.default.fileExists(atPath: audioURL.path) {
-            fileExistsBool = true
-        } else {
-            fileExistsBool = false
+    init() {
+        setupSubscribers()
+        filePath = getDocumentsDirectory()
+        if let filePath = filePath {
+            isFileExists(audioURL: filePath)
         }
     }
 
-    private func bindValues() {
+    private func getDocumentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        let filePath = paths[0].appendingPathComponent(AppConstants.URL.recordVoice)
+        return filePath
+    }
+
+    private func isFileExists(audioURL: URL) {
+        if FileManager.default.fileExists(atPath: audioURL.path) {
+            fileExists = true
+        } else {
+            fileExists = false
+        }
+    }
+
+    private func setupSubscribers() {
         recordManager.$statePlayer
             .assign(to: \.statePlayer, on: self)
             .store(in: &cancellables)
 
         recordManager.$heightsBar
-            .assign(to: \.arrayHeights, on: self)
+            .assign(to: \.heightsBar, on: self)
             .store(in: &cancellables)
 
         recordManager.$fileExists
-            .assign(to: \.fileExistsBool, on: self)
+            .assign(to: \.fileExists, on: self)
             .store(in: &cancellables)
 
-        recordManager.$distanceBetweenBars
-            .assign(to: \.distanceBetweenBars, on: self)
+        recordManager.$spaceBetweenBars
+            .assign(to: \.spaceBetweenBars, on: self)
             .store(in: &cancellables)
 
         recordManager.$widthBar
@@ -94,28 +93,28 @@ class VoiceGraphViewModel: ObservableObject {
             .store(in: &cancellables)
 
         recordManager.$heightVoiceGraph
-            .assign(to: \.heightBarGraph, on: self)
+            .assign(to: \.heightVoiceGraph, on: self)
             .store(in: &cancellables)
 
         recordManager.$wightVoiceGraph
-            .assign(to: \.wightBarGraph, on: self)
+            .assign(to: \.wightVoiceGraph, on: self)
             .store(in: &cancellables)
     }
 
     func disableDeleteButton() -> Bool {
-        return (!fileExistsBool || statePlayer != .inaction) ? true : false
+        return (!fileExists || statePlayer != .inaction) ? true : false
     }
 
     func disableRecordButton() -> Bool {
         return (statePlayer == .play ||
                 statePlayer == .pause ||
-                fileExistsBool ||
+                fileExists ||
                 (statePlayer == .record && !canStopRecord)
         ) ? true : false
     }
 
     func disablePlayButton() -> Bool {
-        return (!fileExistsBool || statePlayer == .record) ? true: false
+        return (!fileExists || statePlayer == .record) ? true: false
     }
 
     func didTapPlayPauseButton() {
@@ -133,7 +132,8 @@ class VoiceGraphViewModel: ObservableObject {
 
     func didTapDeleteButton() {
         if let filePath = filePath {
-            if fileExistsBool {
+            isFileExists(audioURL: filePath)
+            if fileExists {
                 recordManager.delete(audioURL: filePath)
             }
         }
@@ -151,7 +151,9 @@ class VoiceGraphViewModel: ObservableObject {
                         if statePlayer == .record && canStopRecord {
                             recordManager.stopRecording()
                             isFileExists(audioURL: filePath)
-                            loadAudioDataFromFile()
+                            if fileExists {
+                                recordManager.loadAudioData(audioURL: filePath)
+                            }
                         } else {
                             if statePlayer != .record {
                                 self.recordManager.record(path: filePath)
@@ -165,7 +167,8 @@ class VoiceGraphViewModel: ObservableObject {
 
     func loadAudioDataFromFile() {
         if let filePath = filePath {
-            if fileExistsBool {
+            isFileExists(audioURL: filePath)
+            if fileExists {
                 recordManager.loadAudioData(audioURL: filePath)
             }
         }

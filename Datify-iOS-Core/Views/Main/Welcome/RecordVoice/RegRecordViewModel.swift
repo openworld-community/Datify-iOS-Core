@@ -11,26 +11,26 @@ import SwiftUI
 
 class RegRecordViewModel: ObservableObject {
     unowned var router: Router<AppRoute>
-    private var cancellables: Set<AnyCancellable> = []
-    var recordGraphViewModel = VoiceGraphViewModel()
     @Published var fileExistsBool: Bool = false
     @Published var isAlertShowing: Bool = false
+    var voiceGraphViewModel = VoiceGraphViewModel()
+    private var cancellables: Set<AnyCancellable> = []
 
     init(router: Router<AppRoute>) {
         self.router = router
-        bindValues()
+        setupSubscribers()
     }
 
     func setUpCaptureSession() async {
-        guard await recordGraphViewModel.isAuthorized else { return }
+        guard await voiceGraphViewModel.isAuthorized else { return }
     }
 
-    private func bindValues() {
-        recordGraphViewModel.$fileExistsBool
+    private func setupSubscribers() {
+        voiceGraphViewModel.$fileExists
             .assign(to: \.fileExistsBool, on: self)
             .store(in: &cancellables)
 
-        recordGraphViewModel.$isAlertShowing
+        voiceGraphViewModel.$isAlertShowing
             .assign(to: \.isAlertShowing, on: self)
             .store(in: &cancellables)
     }
