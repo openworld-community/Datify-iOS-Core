@@ -13,6 +13,9 @@ struct UserActionsView: View {
     @Binding var showLikedAnimation: Bool
     @Binding var showBookmarkedAnimation: Bool
 
+    var viewModel: DatingViewModel
+    var index: Int
+
     var body: some View {
         VStack(spacing: 12) {
             Spacer()
@@ -20,6 +23,7 @@ struct UserActionsView: View {
                  withAnimation {
                      liked.toggle()
                      showLikedAnimation = liked
+                     viewModel.users[index].liked = liked
                  }
              }, label: {
                  ZStack {
@@ -28,13 +32,14 @@ struct UserActionsView: View {
                          .foregroundColor(Color.iconsSecondary)
                          .opacity(0.64)
                          .clipShape(RoundedRectangle(cornerRadius: 16))
-                     Image(liked ? DtImage.mainSelectedHeart : DtImage.mainHeart)
+                     Image(viewModel.users[index].liked ? DtImage.mainSelectedHeart : DtImage.mainHeart)
                  }
              })
              Button(action: {
                  withAnimation {
                      bookmarked.toggle()
                      showBookmarkedAnimation = bookmarked
+                     viewModel.users[index].bookmarked = bookmarked
                  }
              }, label: {
                  ZStack {
@@ -43,7 +48,7 @@ struct UserActionsView: View {
                          .foregroundColor(Color.iconsSecondary)
                          .opacity(0.64)
                          .clipShape(RoundedRectangle(cornerRadius: 16))
-                     Image(bookmarked ? DtImage.mainSelectedBookmark : DtImage.mainBookmark)
+                     Image(viewModel.users[index].bookmarked ? DtImage.mainSelectedBookmark : DtImage.mainBookmark)
                  }
              })
 

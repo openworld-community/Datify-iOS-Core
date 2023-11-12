@@ -23,7 +23,6 @@ final class DatingViewModel: ObservableObject {
 
     @Published var showAlert = false
     @Published var errorMessage: String?
-//    var datingModel = DatingModel()
     @Published var users: [DatingModel] = DatingModel.defaultUsers
     @Published var currentUserIndex = 0
 
@@ -121,6 +120,7 @@ final class DatingViewModel: ObservableObject {
 
     func togglePlayback() {
         let currentUser = users[currentUserIndex]
+        print("currentUser: \(currentUser.name)")
         audioPlayerManager.togglePlayback(for: currentUser.audiofile, ofType: "mp3")
     }
 
@@ -134,6 +134,7 @@ final class DatingViewModel: ObservableObject {
 
     func loadingAudioData() {
         let currentUser = users[currentUserIndex]
+        print("currentUser: \(currentUser.name)")
         audioPlayerManager.loadAudioData(for: currentUser.audiofile, ofType: "mp3")
     }
 

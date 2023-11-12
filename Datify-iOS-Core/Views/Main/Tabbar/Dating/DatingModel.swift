@@ -51,7 +51,7 @@ struct DatingModel {
 
     static let defaultUsers: [DatingModel] = [
         DatingModel(
-            photos: ["mockBackground", "mockBackground2", "mockBackground"],
+            photos: ["user1Photo1", "user1Photo2"],
             label: "Looking for love",
             colorLabel: .red,
             location: "500 meters from you",
@@ -65,11 +65,11 @@ struct DatingModel {
             audiofile: "recording"
         ),
         DatingModel(
-            photos: ["mockBackground2", "mockBackground2", "mockBackground"],
+            photos: ["user2Photo1", "user2Photo2", "user2Photo3"],
             label: "Adventurous Soul",
             colorLabel: .blue,
             location: "2 kilometers away",
-            name: "Maxim",
+            name: "Irina",
             age: 28,
             star: false,
             description: "Всегда в поиске новых приключений и интересных знакомств. Люблю путешествовать, активный отдых и хорошую компанию.",
@@ -78,11 +78,11 @@ struct DatingModel {
             audiofile: "recording5sec"
         ),
         DatingModel(
-            photos: ["mockBackground", "mockBackground2", "mockBackground"],
+            photos: ["user3Photo1", "user3Photo2", "user3Photo3"],
             label: "Music Lover",
             colorLabel: .green,
             location: "1 kilometer away",
-            name: "Irina",
+            name: "Maxim",
             age: 25,
             star: true,
             description: "Музыка – моя страсть и профессия. Ищу человека с похожими интересами для совместного посещения концертов и не только.",

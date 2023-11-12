@@ -21,9 +21,18 @@ struct DatingView: View {
 
     @State private var isAlertPresented = false
     @State private var alertMessage = ""
+    @State private var currentUserIndex: Int = 0
+
+    var safeAreaTopInset: CGFloat
 
     init(router: Router<AppRoute>) {
         _viewModel = StateObject(wrappedValue: DatingViewModel(router: router))
+
+        if let safeAreaInsets = UIApplication.shared.windows.first?.safeAreaInsets {
+            safeAreaTopInset = safeAreaInsets.top
+        } else {
+            safeAreaTopInset = 0
+        }
     }
 
     var body: some View {
@@ -39,14 +48,14 @@ struct DatingView: View {
                                 geometry: geometry,
                                 photos: viewModel.users[index].photos
                             )
+                            .frame(width: geometry.size.width, height: geometry.size.height)
                             .overlay(
                                 IndicatorsView(
                                     isSwipeAndIndicatorsDisabled: $isSwipeAndIndicatorsDisabled,
                                     photos: viewModel.users[index].photos,
                                     selectedPhotoIndex: selectedPhotoIndex
                                 )
-                                .position(x: geometry.size.width / 2, y: geometry.size.height), alignment: .center
-                            )
+                                .position(x: geometry.size.width / 2, y: geometry.size.height - 170), alignment: .center)
 
                             if showLikedAnimation {
                                 AnimatedIconView(show: $showLikedAnimation, icon: Image(DtImage.mainSelectedHeart))
@@ -66,6 +75,7 @@ struct DatingView: View {
                                     Spacer()
                                     TopRightControls()
                                 }
+                                .padding(.top, safeAreaTopInset)
                                 Spacer()
                                 HStack {
                                     UserInfoView(
@@ -80,7 +90,9 @@ struct DatingView: View {
                                         liked: $viewModel.liked,
                                         bookmarked: $viewModel.bookmarked,
                                         showLikedAnimation: $showLikedAnimation,
-                                        showBookmarkedAnimation: $showBookmarkedAnimation
+                                        showBookmarkedAnimation: $showBookmarkedAnimation,
+                                        viewModel: viewModel,
+                                        index: index
                                     )
                                 }
                                 HStack {
@@ -96,12 +108,12 @@ struct DatingView: View {
                             .padding(.horizontal)
                         }
                         .navigationBarHidden(true)
-                        .frame(width: geometry.size.width, height: geometry.size.height)
                         .background(Color.customBlack)
                     }
                 }
                 .scrollTargetLayout()
             }
+
         }
         .edgesIgnoringSafeArea(.top)
         .scrollTargetBehavior(.paging)
@@ -123,6 +135,12 @@ struct DatingView: View {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     showBookmarkedAnimation = false
                 }
+            }
+        }
+        .onChange(of: viewModel.currentUserIndex) { _ in
+            withAnimation {
+                showLikedAnimation = false
+                showBookmarkedAnimation = false
             }
         }
         .alert(isPresented: $viewModel.showAlert) {
