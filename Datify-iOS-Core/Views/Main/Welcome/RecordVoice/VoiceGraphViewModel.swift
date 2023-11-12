@@ -13,14 +13,14 @@ struct BarModel: Identifiable {
     var id = UUID()
     var height: Float
     var coloredBool: Bool
-    var isASignal: Bool
+    var signal: Bool
 }
 
 enum StatePlayerEnum {
     case play, record, pause, inaction
 }
 
-class RecordGraphViewModel: ObservableObject {
+class VoiceGraphViewModel: ObservableObject {
     @Published var statePlayer: StatePlayerEnum = .inaction
     @Published var arrayHeights: [BarModel] = []
     @Published var fileExistsBool: Bool = false
@@ -30,15 +30,16 @@ class RecordGraphViewModel: ObservableObject {
     @Published var isAlertShowing: Bool = false
     @Published var heightBarGraph: CGFloat = 0
     @Published var wightBarGraph: CGFloat = 0
+
     private var filePath: URL?
     private var recordManager = RecordManager(wightBarGraph: UIScreen.main.bounds.width)
     private var cancellables: Set<AnyCancellable> = []
 
     init() {
-        setupBindings()
+        bindValues()
         filePath = getDocumentsDirectory()
         if let filePath = filePath {
-            fileExists(audioURL: filePath)
+            isFileExists(audioURL: filePath)
         }
     }
 
@@ -59,16 +60,24 @@ class RecordGraphViewModel: ObservableObject {
         }
     }
 
-    private func setupBindings() {
+    private func isFileExists(audioURL: URL) {
+        if FileManager.default.fileExists(atPath: audioURL.path) {
+            fileExistsBool = true
+        } else {
+            fileExistsBool = false
+        }
+    }
+
+    private func bindValues() {
         recordManager.$statePlayer
             .assign(to: \.statePlayer, on: self)
             .store(in: &cancellables)
 
-        recordManager.$arrayHeights
+        recordManager.$heightsBar
             .assign(to: \.arrayHeights, on: self)
             .store(in: &cancellables)
 
-        recordManager.$fileExistsBool
+        recordManager.$fileExists
             .assign(to: \.fileExistsBool, on: self)
             .store(in: &cancellables)
 
@@ -84,11 +93,11 @@ class RecordGraphViewModel: ObservableObject {
             .assign(to: \.canStopRecord, on: self)
             .store(in: &cancellables)
 
-        recordManager.$heightBarGraph
+        recordManager.$heightVoiceGraph
             .assign(to: \.heightBarGraph, on: self)
             .store(in: &cancellables)
 
-        recordManager.$wightBarGraph
+        recordManager.$wightVoiceGraph
             .assign(to: \.wightBarGraph, on: self)
             .store(in: &cancellables)
     }
@@ -141,25 +150,16 @@ class RecordGraphViewModel: ObservableObject {
                     if let filePath = filePath {
                         if statePlayer == .record && canStopRecord {
                             recordManager.stopRecording()
-                            fileExists(audioURL: filePath)
+                            isFileExists(audioURL: filePath)
                             loadAudioDataFromFile()
                         } else {
                             if statePlayer != .record {
-                                self.recordManager.record(audioURL: filePath)
-                                statePlayer = .record
+                                self.recordManager.record(path: filePath)
                             }
                         }
                     }
                 }
             }
-        }
-    }
-
-    private func fileExists(audioURL: URL) {
-        if FileManager.default.fileExists(atPath: audioURL.path) {
-            fileExistsBool = true
-        } else {
-            fileExistsBool = false
         }
     }
 

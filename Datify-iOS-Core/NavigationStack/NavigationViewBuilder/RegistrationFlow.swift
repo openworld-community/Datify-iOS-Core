@@ -39,7 +39,7 @@ extension NavigationViewBuilder: RegistrationFlow {
         CountryAndCityView(viewModel: viewModel, isCountrySelection: isCountrySelection)
     }
     func createRegRecordView() -> some View {
-        Text("RegRecord")
+        RegRecordView(router: router)
     }
     func createRegFinishView() -> some View {
         Text("RegFinish")

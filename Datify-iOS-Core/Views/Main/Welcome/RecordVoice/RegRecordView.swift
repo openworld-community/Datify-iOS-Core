@@ -20,13 +20,13 @@ struct RegRecordView: View {
                 Spacer()
                 titleSegment
                     .padding()
-                RecordGraphView(vm: viewModel.recordGraphViewModel)
+                VoiceGraphView(vm: viewModel.recordGraphViewModel)
                     .padding(.vertical)
                 navigationButtons
             }
             .task {
                 await viewModel.setUpCaptureSession()
-                viewModel.checkPhotoAuthStatus()
+                viewModel.checkRecordAuthStatus()
             }
             .alert(
                 "Access denied",
@@ -37,7 +37,7 @@ struct RegRecordView: View {
                 }
                 Button("Cancel", role: .cancel, action: {viewModel.isAlertShowing = false})
             } message: {
-                    Text("Open Settings for editing?")
+                Text("Open Settings for editing?")
 
             }
             .toolbar {
@@ -61,7 +61,7 @@ private extension RegRecordView {
     var titleSegment: some View {
         VStack(spacing: 8) {
             Text("Record a voice message for other people")
-                .dtTypo(.h3Regular, color: .textPrimary)
+                .dtTypo(.h3Medium, color: .textPrimary)
             Text("Your voice message will be listened, to find out more about you")
                 .dtTypo(.p3Regular, color: .textSecondary)
         }
@@ -71,8 +71,9 @@ private extension RegRecordView {
         HStack(spacing: 8) {
             DtBackButton {
                 // TODO: - Back button action
+                viewModel.back()
             }
-            DtButton(title: "Proceed".localize(), style: viewModel.fileExistsBool ? .main : .secondary) {
+            DtButton(title: "Continue".localize(), style: viewModel.fileExistsBool ? .main : .secondary) {
                 // TODO: - Proceed button action
             }
             .disabled(!viewModel.fileExistsBool)

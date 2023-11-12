@@ -12,21 +12,20 @@ import SwiftUI
 class RegRecordViewModel: ObservableObject {
     unowned var router: Router<AppRoute>
     private var cancellables: Set<AnyCancellable> = []
-    var recordGraphViewModel = RecordGraphViewModel()
+    var recordGraphViewModel = VoiceGraphViewModel()
     @Published var fileExistsBool: Bool = false
     @Published var isAlertShowing: Bool = false
-    @Published var audioAuthStatus: AVAuthorizationStatus = AVCaptureDevice.authorizationStatus(for: .audio)
 
     init(router: Router<AppRoute>) {
         self.router = router
-        setupBindings()
+        bindValues()
     }
 
     func setUpCaptureSession() async {
         guard await recordGraphViewModel.isAuthorized else { return }
     }
 
-    private func setupBindings() {
+    private func bindValues() {
         recordGraphViewModel.$fileExistsBool
             .assign(to: \.fileExistsBool, on: self)
             .store(in: &cancellables)
@@ -42,7 +41,7 @@ class RegRecordViewModel: ObservableObject {
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
 
-    func checkPhotoAuthStatus() {
+    func checkRecordAuthStatus() {
         let status = AVCaptureDevice.authorizationStatus(for: .audio)
         switch status {
         case .denied, .restricted, .notDetermined:
@@ -52,5 +51,9 @@ class RegRecordViewModel: ObservableObject {
         default:
             break
         }
+    }
+
+    func back() {
+        router.pop()
     }
 }

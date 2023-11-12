@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-struct RecordGraphView: View {
-    @StateObject var viewModel: RecordGraphViewModel
+struct VoiceGraphView: View {
+    @StateObject var viewModel: VoiceGraphViewModel
 
-    init(vm: RecordGraphViewModel) {
+    init(vm: VoiceGraphViewModel) {
         self._viewModel = StateObject(wrappedValue: vm)
     }
 
@@ -18,9 +18,9 @@ struct RecordGraphView: View {
         HStack(spacing: viewModel.distanceBetweenBars) {
             ForEach(viewModel.arrayHeights) { bar in
                 RoundedRectangle(cornerRadius: viewModel.widthBar / 2)
-                    .frame(width: viewModel.widthBar, height: bar.isASignal ? CGFloat(bar.height) : viewModel.widthBar)
+                    .frame(width: viewModel.widthBar, height: bar.signal ? CGFloat(bar.height) : viewModel.widthBar)
                     .foregroundStyle(bar.coloredBool ? Color.iconsSecondary : Color.accentsPrimary)
-                    .transition(bar.isASignal && !bar.coloredBool ? .scale : .opacity )
+                    .transition(bar.signal && !bar.coloredBool ? .scale : .opacity )
             }
         }
         .frame(width: viewModel.wightBarGraph, height: viewModel.heightBarGraph)
@@ -40,19 +40,19 @@ struct RecordGraphView: View {
     }
 }
 
- #Preview {
-     RecordGraphView(vm: RecordGraphViewModel())
- }
+#Preview {
+    VoiceGraphView(vm: VoiceGraphViewModel())
+}
 
-extension RecordGraphView {
+extension VoiceGraphView {
     private var recordButton: some View {
         DtCircleButton(
-            systemName: (viewModel.statePlayer == .record && viewModel.canStopRecord) ? DtImage.stop :  DtImage.record,
+            systemName: (viewModel.statePlayer == .record) ? DtImage.stop :  DtImage.record,
             style: .big,
             disableImage: false) {
                 viewModel.didTapRecordButton()
             }
-            .animation(.easeIn, value: viewModel.statePlayer)
+            .animation(.none, value: viewModel.statePlayer)
     }
     private var deleteButton: some View {
         DtCircleButton(
