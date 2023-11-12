@@ -29,7 +29,7 @@ struct RegBirthdayView: View {
                 DtBackButton {
                     router.pop()
                 }
-                DtButton(title: "Proceed".localize(), style: .main) {
+                DtButton(title: "Continue".localize(), style: .main) {
                     // TODO: - Proceed button action
                     // По хорошему надо проверить подтянув текущую дату с бэка, чтобы пользователь не мог просто изменить дату на телефоне и обойти ограничение по возрасту
                     router.push(.registrationOccupation)

@@ -137,7 +137,7 @@ private extension LocationView {
             DtBackButton {
                 viewModel.back()
             }
-            DtButton(title: "Next".localize(), style: .main) {
+            DtButton(title: "Continue".localize(), style: .main) {
                 // TODO: Next button
                 viewModel.router.push(.registrationPhoto)
             }

@@ -26,7 +26,7 @@ struct RegEnterNameView: View {
                 DtBackButton {
                     router.pop()
                 }
-                DtButton(title: "Proceed".localize(), style: .main) {
+                DtButton(title: "Continue".localize(), style: .main) {
                     if name == name.trimWhitespaceCapit() {
                         // TODO: - Proceed button action
                         router.push(.registrationBirthday)

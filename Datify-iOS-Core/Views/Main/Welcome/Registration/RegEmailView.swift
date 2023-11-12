@@ -48,7 +48,7 @@ struct RegEmailView: View {
             Spacer()
 
             DtButton(
-                title: String(localized: "Continue"),
+                title: "Continue".localize(),
                 style: .main
             ) {
                 viewModel.validateEmail()

@@ -155,7 +155,7 @@ private extension RegSelectGenderView {
             DtBackButton {
                 router.pop()
             }
-            DtButton(title: "Proceed".localize(), style: .main) {
+            DtButton(title: "Continue".localize(), style: .main) {
                 // TODO: - Proceed button action
                 router.push(.registrationName)
             }
