@@ -48,6 +48,7 @@ struct LoginView: View {
             .padding(.bottom, 40)
 
             VStack(spacing: 12) {
+                // TODO: use DtCustomTF here
                 RegularTextFieldView(
                     style: .phoneAndEmail,
                     input: $viewModel.email,
@@ -60,6 +61,7 @@ struct LoginView: View {
                         focusedField = .secureField
                     }
 
+                // TODO: use DtCustomTF here
                 SecureTextFieldView(
                     style: .password,
                     input: $viewModel.password,

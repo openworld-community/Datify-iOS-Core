@@ -20,20 +20,20 @@ struct RegEnterNameView: View {
                 Text("This name will be shown to other users")
                     .dtTypo(.p3Regular, color: .textSecondary)
             }
-            DtCustomTF(style: .text("Enter name".localize(), .center), input: $name)
+            DtCustomTF(
+                style: .text("Enter name".localize(), .center),
+                input: $name) {
+                    if nameIsValid() {
+                        continueButtonAction()
+                    }
+                }
             Spacer()
             HStack(spacing: 8) {
                 DtBackButton {
                     router.pop()
                 }
                 DtButton(title: "Continue".localize(), style: .main) {
-                    if name == name.trimWhitespaceCapit() {
-                        // TODO: - Proceed button action
-                        router.push(.registrationBirthday)
-                    } else {
-                        // Преобразует введеное имя убирая повторяющиеся пробелы и пробелы в конце, все слова пишет с большой буквы
-                        name = name.trimWhitespaceCapit()
-                    }
+                    continueButtonAction()
                 }
                 .disabled(!nameIsValid())
             }
@@ -55,6 +55,16 @@ struct RegEnterNameView: View {
 
     private func nameIsValid () -> Bool {
         name.count > 0 && name.count < 30
+    }
+
+    private func continueButtonAction() {
+        if name == name.trimWhitespaceCapit() {
+            // TODO: - Proceed button action
+            router.push(.registrationBirthday)
+        } else {
+            // Преобразует введеное имя убирая повторяющиеся пробелы и пробелы в конце, все слова пишет с большой буквы
+            name = name.trimWhitespaceCapit()
+        }
     }
 }
 
