@@ -20,4 +20,6 @@ enum DtImage {
     static let tabbarMenu = "tabbarMenu"
     static let strokes = "strokes"
     static let checkmark = "checkMark"
+    static let favouriteStarWhite = "favouriteStarWhite"
+    static let favouriteStar = "favouriteStar"
 }

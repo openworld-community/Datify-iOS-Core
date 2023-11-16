@@ -37,6 +37,7 @@ struct MainAppView: View {
                     viewModel: viewModel,
                     isCountrySelection: isCountrySelection
                 )
+        case .notifications: navViewBuilder.createNotificationsView()
         }
     }
 }

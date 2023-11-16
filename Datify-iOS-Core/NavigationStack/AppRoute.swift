@@ -12,6 +12,7 @@ enum AppRoute {
     case temp
     case login
     case tabbar
+    case notifications
     case registrationSex
     case registrationEmail
     case registrationLocation
@@ -24,6 +25,7 @@ enum AppRoute {
 extension AppRoute: Hashable, Equatable {
     static func == (lhs: AppRoute, rhs: AppRoute) -> Bool {
         switch (lhs, rhs) {
+        case (.notifications, .notifications): return true
         case (.temp, .temp): return true
         case (.login, .login): return true
         case (.tabbar, .tabbar): return true

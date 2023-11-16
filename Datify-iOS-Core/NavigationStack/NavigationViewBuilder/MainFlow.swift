@@ -11,15 +11,20 @@ protocol MainFlow {
     associatedtype Dating: View
     associatedtype Chat: View
     associatedtype Menu: View
+    associatedtype Notifications: View
 
     func createDatingView() -> Dating
     func createChatView() -> Chat
     func createMenuView() -> Menu
+    func createNotificationsView() -> Notifications
 }
 
 extension NavigationViewBuilder: MainFlow {
     func createDatingView() -> some View {
         DatingView(router: router)
+    }
+    func createNotificationsView() -> some View {
+        NotificationsView(router: router)
     }
     func createChatView() -> some View {
         ChatView(router: router)
