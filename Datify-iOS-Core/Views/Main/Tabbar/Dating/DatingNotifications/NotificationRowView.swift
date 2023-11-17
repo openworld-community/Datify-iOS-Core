@@ -111,7 +111,7 @@ private extension NotificationRowView {
                 if notification.isNew {
                     Circle()
                         .frame(width: 12)
-                        .foregroundStyle(Color.red)
+                        .foregroundStyle(Color.accentsPink)
                         .overlay {
                             Circle()
                                 .stroke(Color.backgroundPrimary, lineWidth: 2)

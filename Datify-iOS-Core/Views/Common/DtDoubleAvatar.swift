@@ -16,8 +16,7 @@ struct DtDoubleAvatar: View {
             ZStack {
                 if let user2 = user2 {
                     Image(user1.photoURL)
-                        .resizable()
-                        .scaledToFill()
+                        .resizableFill()
                         .clipShape(Circle())
                         .frame(width: 44, height: 44)
                         .offset(x: -6, y: -6)
@@ -33,8 +32,7 @@ struct DtDoubleAvatar: View {
                             }
                         )
                     Image(user2.photoURL)
-                        .resizable()
-                        .scaledToFill()
+                        .resizableFill()
                         .clipShape(Circle())
                         .frame(width: 44, height: 44)
                         .offset(x: 6, y: 6)
