@@ -7,48 +7,83 @@
 
 import SwiftUI
 
-struct SMSView: View {
+struct SmsView: View {
     unowned let router: Router<AppRoute>
+    @State private var smsCode: String = .init()
+    @State private var isError: Bool = false
 
     var body: some View {
         VStack {
             Spacer()
 
-            Text("SMS View")
-                .dtTypo(.h1Medium, color: .textPrimary)
+            VStack(spacing: 40) {
+                VStack(spacing: 8) {
+                    Text("Enter the code from SMS")
+                        .dtTypo(.h3Medium, color: .textPrimary)
 
-            DtButton(title: "Login", style: .gradient) {
-                router.push(.login)
-            }
+                    Text("This is required to confirm the number")
+                        .dtTypo(.p2Regular, color: .textSecondary)
+                }
 
-            DtButton(title: "Registration", style: .gradient) {
-                router.push(.registrationSex)
+                VStack(spacing: 16) {
+                    VStack(spacing: 4) {
+                        DtCustomTF(
+                            style: .sms,
+                            input: $smsCode,
+                            isError: $isError) {
+                                // TODO: do we need onsubmit action? keyboardStyle is .phonePad
+                                router.push(.registrationSex)
+                            }
+
+                        if isError {
+                            Text("Wrong code")
+                                .dtTypo(.p4Regular, color: .accentsError)
+                        }
+                    }
+
+                    Button {
+                        // TODO: sending code again
+                    } label: {
+                        Text("Send the code again")
+                            .dtTypo(.p3Medium, color: .textPrimaryLink)
+                    }
+                }
             }
 
             Spacer()
 
-            HStack(spacing: 8) {
-                DtBackButton {
-                    router.pop()
+            VStack(spacing: 8) {
+                DtButton(title: "Continue", style: .main) {
+                    // TODO: code processing action
+                    validateCode()
                 }
-                DtButton(title: "Continue".localize(), style: .main) {
-                    // TODO: - Proceed button action
+                .disabled(smsCode.isEmpty)
+
+                DtButton(title: "Choose another way", style: .other) {
+                    router.popToRoot()
                 }
             }
-            .padding(.bottom)
-            .navigationBarBackButtonHidden()
         }
-        .padding(.horizontal)
+        .hideKeyboardTapOutside()
+        .padding()
+        .navigationBarBackButtonHidden()
         .toolbar {
             ToolbarItem(placement: .principal) {
                 DtLogoView()
             }
         }
     }
+
+    private func validateCode() {
+        guard smsCode == "777" else {
+            isError = true
+            return
+        }
+        isError = false
+        router.push(.registrationSex)
+    }
 }
 
 #Preview {
-    NavigationStack {
-        SMSView(router: Router())
-    }
+    SmsView(router: Router())
 }
