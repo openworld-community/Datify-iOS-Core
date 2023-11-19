@@ -11,6 +11,7 @@ struct RegularTextFieldView: View {
 
     let style: DtCustomTF.Style
     @Binding var input: String
+    @Binding var isError: Bool
     let placeholder: String
     let keyboardType: UIKeyboardType
     let submitLabel: SubmitLabel
@@ -35,6 +36,7 @@ struct RegularTextFieldView: View {
             }
         }
         .modifier(DtCustomTFViewModifier(
+            isError: isError,
             style: style,
             keyboardType: keyboardType,
             submitLabel: submitLabel,
