@@ -8,7 +8,7 @@
 import Foundation
 
 enum LoginState {
-    case idle, inProcess, success, error
+    case idle, inProcess, success, error, recovery
 }
 
 final class LoginViewModel: ObservableObject {
@@ -16,6 +16,7 @@ final class LoginViewModel: ObservableObject {
     @Published var isError: Bool = false
     @Published var password: String = .init()
     @Published var showForgotSheet: Bool = false
+    @Published var receivedPassword: String = .init()
     unowned let router: Router<AppRoute>
 
     var isButtonDisabled: Bool {
@@ -44,10 +45,29 @@ final class LoginViewModel: ObservableObject {
     }
 
     func forgotPassword() {
-        showForgotSheet = true
+        isError = false
+        loginState = .recovery
     }
 
     func chooseAnotherWay() {
         router.popToRoot()
+    }
+
+    func validateReceivedPassword() {
+        loginState = .inProcess
+
+        // TODO: received password processing
+        guard receivedPassword == "777" else {
+            loginState = .recovery
+            isError = true
+            return
+        }
+
+        router.push(.tabbar)
+
+        loginState = .success
+        isError = false
+
+        receivedPassword = .init()
     }
 }

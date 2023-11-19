@@ -102,6 +102,8 @@ struct LoginView: View {
         switch viewModel.loginState {
         case .inProcess:
             DtSpinnerView(size: 56)
+        case .recovery:
+            RecoveryView(viewModel: viewModel)
         default:
             idleView
         }

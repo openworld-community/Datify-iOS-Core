@@ -88,6 +88,7 @@ struct DtCustomTF: View {
                     RegularTextFieldView(
                         style: style,
                         input: $input,
+                        isError: $isError,
                         placeholder: style.stringValue,
                         keyboardType: style.keyboardStyle,
                         submitLabel: style.submitLabel,
@@ -100,6 +101,7 @@ struct DtCustomTF: View {
                     RegularTextFieldView(
                         style: style,
                         input: $input,
+                        isError: $isError,
                         placeholder: style.stringValue,
                         keyboardType: style.keyboardStyle,
                         submitLabel: style.submitLabel,
@@ -127,6 +129,7 @@ struct DtCustomTF: View {
                         RegularTextFieldView(
                             style: style,
                             input: $input,
+                            isError: $isError,
                             placeholder: style.stringValue,
                             keyboardType: style.keyboardStyle,
                             submitLabel: style.submitLabel,
@@ -150,6 +153,7 @@ struct DtCustomTF: View {
                     RegularTextFieldView(
                         style: style,
                         input: $input,
+                        isError: $isError,
                         placeholder: style.stringValue,
                         keyboardType: style.keyboardStyle,
                         submitLabel: style.submitLabel,
@@ -170,6 +174,7 @@ struct DtCustomTF: View {
                     RegularTextFieldView(
                         style: style,
                         input: $input,
+                        isError: $isError,
                         placeholder: style.stringValue,
                         keyboardType: style.keyboardStyle,
                         submitLabel: style.submitLabel,
