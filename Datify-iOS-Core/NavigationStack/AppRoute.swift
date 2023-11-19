@@ -14,11 +14,17 @@ enum AppRoute {
     case tabbar
     case registrationSex
     case registrationEmail
+    case registrationPhoto
     case registrationLocation
     case registrationRecord
     case registrationFinish
-    case location
+//    case location
     case countryAndCity(isCountrySelection: Bool, viewModel: LocationViewModel)
+    case registrationName
+    case registrationBirthday
+    case registrationOccupation
+    case sms
+    case registrationPassword
 }
 
 extension AppRoute: Hashable, Equatable {
@@ -29,12 +35,17 @@ extension AppRoute: Hashable, Equatable {
         case (.tabbar, .tabbar): return true
         case (.registrationSex, .registrationSex): return true
         case (.registrationEmail, .registrationEmail): return true
+        case (.registrationPhoto, .registrationPhoto): return true
         case (.registrationLocation, .registrationLocation): return true
         case (.registrationRecord, .registrationRecord): return true
         case (.registrationFinish, .registrationFinish): return true
-
-        case (.location, .location): return true
+//        case (.location, .location): return true
         case (.countryAndCity, .countryAndCity): return true
+        case (.registrationName, .registrationName): return true
+        case (.registrationBirthday, .registrationBirthday): return true
+        case (.registrationOccupation, .registrationOccupation): return true
+        case (.sms, .sms): return true
+        case (.registrationPassword, .registrationPassword): return true
         default: return false
         }
     }

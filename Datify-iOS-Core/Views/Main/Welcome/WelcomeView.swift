@@ -62,12 +62,12 @@ extension WelcomeView {
     private var buttonsSection: some View {
         VStack {
             SignInWithButton {
-                router.push(.login)
+                router.push(.sms)
             }
             .padding()
             orLine
             DtButton(title: signUpButtonTitle, style: .main) {
-                router.push(.registrationEmail)
+                router.push(.sms)
             }
             .padding()
         }
@@ -84,7 +84,7 @@ extension WelcomeView {
 
     private var alreadyHaveAnAccountSection: some View {
         Button {
-            router.push(.login)
+            router.push(.sms)
         } label: {
             HStack {
                 Text(alreadyHaveAnAccountTitle)

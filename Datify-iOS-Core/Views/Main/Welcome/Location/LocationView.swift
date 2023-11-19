@@ -8,10 +8,9 @@
 import SwiftUI
 
 struct LocationView: View {
-    @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel: LocationViewModel
-    @State private var isAlertPresented = false
-    @State private var alertMessage = ""
+    @State private var isAlertPresented: Bool = false
+    @State private var alertMessage: String = .init()
 
     init(router: Router<AppRoute>) {
         _viewModel = StateObject(wrappedValue: LocationViewModel(router: router))
@@ -120,8 +119,8 @@ struct LocationChooseButtonView: View {
     }
 }
 
-extension LocationView {
-    private var titleLabel: some View {
+private extension LocationView {
+    var titleLabel: some View {
         VStack(spacing: 8) {
             Text("Where are you located?")
                 .dtTypo(.h3Medium, color: .textPrimary)
@@ -133,15 +132,14 @@ extension LocationView {
         .padding(.bottom, 40)
     }
 
-    private var bottomButtons: some View {
-        HStack {
+    var bottomButtons: some View {
+        HStack(spacing: 8) {
             DtBackButton {
-                // TODO: Back button
                 viewModel.back()
-
             }
-            DtButton(title: "Next".localize(), style: .main) {
+            DtButton(title: "Continue".localize(), style: .main) {
                 // TODO: Next button
+                viewModel.router.push(.registrationPhoto)
             }
         }
         .padding(.horizontal)

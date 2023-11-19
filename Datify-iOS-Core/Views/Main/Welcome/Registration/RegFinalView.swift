@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct RegFinalView: View {
-    private var title1: String = "Your profile is created,".localize()
-    private var title2: String = "congratulations!".localize()
+    unowned let router: Router<AppRoute>
+    private let title1: String = "Your profile is created,".localize()
+    private let title2: String = "congratulations!".localize()
 
     var body: some View {
         GeometryReader { geometry in
@@ -28,13 +29,13 @@ struct RegFinalView: View {
                 secondaryText
                 Spacer()
                 bottomButtons
-                    .padding(.bottom, 8)
+                    .padding(.bottom)
             }
             .multilineTextAlignment(.center)
             .padding(.horizontal)
 
         }
-
+        .navigationBarBackButtonHidden()
         .toolbar {
             ToolbarItem(placement: .principal) {
                 DtLogoView()
@@ -57,7 +58,7 @@ struct RegFinalView: View {
 struct RegFinalView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            RegFinalView()
+            RegFinalView(router: Router())
         }
     }
 }
@@ -72,9 +73,11 @@ private extension RegFinalView {
         VStack(spacing: 10) {
             DtButton(title: "Fill out your profile".localize(), style: .main) {
                 // TODO: - Fill profile button action
+                router.push(.temp)
             }
             DtButton(title: "I'll fill it out later".localize(), style: .other) {
                 // TODO: - Later button action
+                router.push(.tabbar)
             }
         }
     }

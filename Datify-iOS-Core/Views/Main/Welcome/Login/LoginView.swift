@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct LoginView: View {
-    @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel: LoginViewModel
     @FocusState private var focusedField: FocusField?
 
@@ -22,6 +21,7 @@ struct LoginView: View {
 
     var body: some View {
         checkState()
+            .navigationBarBackButtonHidden()
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     DtLogoView()
@@ -48,6 +48,7 @@ struct LoginView: View {
             .padding(.bottom, 40)
 
             VStack(spacing: 12) {
+                // TODO: use DtCustomTF here
                 RegularTextFieldView(
                     style: .phoneAndEmail,
                     input: $viewModel.email,
@@ -60,6 +61,7 @@ struct LoginView: View {
                         focusedField = .secureField
                     }
 
+                // TODO: use DtCustomTF here
                 SecureTextFieldView(
                     style: .password,
                     input: $viewModel.password,
@@ -98,7 +100,7 @@ struct LoginView: View {
             .disabled(viewModel.isButtonDisabled)
 
             Button {
-                dismiss()
+                viewModel.router.popToRoot()
             } label: {
                 Text("Choose another way")
                     .dtTypo(.p2Medium, color: .textPrimary)
@@ -114,7 +116,6 @@ struct LoginView: View {
         switch viewModel.loginState {
         case .inProcess:
             DtSpinnerView(size: 56)
-                .navigationBarBackButtonHidden()
         default:
             idleView
                 // Temporary(?) alert
