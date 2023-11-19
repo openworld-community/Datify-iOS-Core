@@ -56,6 +56,7 @@ struct DtCustomTF: View {
     @State private var isEditing = false
     private let style: DtCustomTF.Style
     @Binding var input: String
+    @Binding var isError: Bool
     private let width: CGFloat
     private let height: CGFloat
     private let textPlaceholder: String?
@@ -66,12 +67,14 @@ struct DtCustomTF: View {
         style: DtCustomTF.Style,
         input: Binding<String>,
         width: CGFloat = .infinity,
+        isError: Binding<Bool> = .constant(false),
         height: CGFloat = AppConstants.Visual.buttonHeight,
         textPlaceholder: String? = nil,
         action: @escaping () -> Void = UIApplication.shared.dismissKeyboard
     ) {
         self.style = style
         self._input = input
+        self._isError = isError
         self.width = width
         self.height = height
         self.textPlaceholder = textPlaceholder
@@ -109,7 +112,8 @@ struct DtCustomTF: View {
                     SecureTextFieldView(
                         style: style,
                         input: $input,
-                        placeholder: style.stringValue,
+                        isError: $isError,
+                        placeholder: textPlaceholder != nil ? textPlaceholder! : style.stringValue,
                         keyboardType: style.keyboardStyle,
                         submitLabel: style.submitLabel,
                         textAlignment: style.textAlignment,
