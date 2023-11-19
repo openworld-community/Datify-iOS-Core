@@ -15,33 +15,36 @@ struct RegRecordView: View {
     }
 
     var body: some View {
-        NavigationStack {
-            VStack {
-                Spacer()
-                titleSegment
-                VoiceGraphView(vm: viewModel.voiceGraphViewModel)
-                    .padding(.vertical)
-                navigationButtons
+        VStack {
+            Spacer()
+            titleSegment
+            VoiceGraphView(vm: viewModel.voiceGraphViewModel)
+                .padding(.vertical)
+            navigationButtons
+        }
+        .task {
+            await viewModel.setUpCaptureSession()
+            viewModel.checkRecordAuthStatus()
+        }
+        .alert(
+            "Access denied",
+            isPresented: $viewModel.isAlertShowing
+        ) {
+            Button("OK") {
+                viewModel.goToAppSettings()
             }
-            .task {
-                await viewModel.setUpCaptureSession()
-                viewModel.checkRecordAuthStatus()
-            }
-            .alert(
-                "Access denied",
-                isPresented: $viewModel.isAlertShowing
-            ) {
-                Button("OK") {
-                    viewModel.goToAppSettings()
+            Button("Cancel", role: .cancel) {
+                Task { @MainActor in
+                    viewModel.isAlertShowing = false
                 }
-                Button("Cancel", role: .cancel, action: {viewModel.isAlertShowing = false})
-            } message: {
-                Text("Open Settings for editing?")
             }
-            .toolbar {
-                ToolbarItem(placement: .principal) {
-                    DtLogoView()
-                }
+        } message: {
+            Text("Open Settings for editing?")
+        }
+        .navigationBarBackButtonHidden()
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                DtLogoView()
             }
         }
     }
@@ -70,10 +73,10 @@ private extension RegRecordView {
                 // TODO: - Back button action
                 viewModel.back()
             }
-            DtButton(title: "Continue".localize(), style: viewModel.fileExistsBool ? .main : .secondary) {
+            DtButton(title: "Continue".localize(), style: viewModel.isFileExist ? .main : .secondary) {
                 // TODO: - Proceed button action
             }
-            .disabled(!viewModel.fileExistsBool)
+            .disabled(!viewModel.isFileExist)
         }
         .padding(.horizontal)
     }

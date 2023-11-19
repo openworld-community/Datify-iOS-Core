@@ -12,7 +12,7 @@ enum AppConstants {
         static let cornerRadius: CGFloat = 16
         static let buttonHeight: CGFloat = 56
     }
-    enum URL {
+    enum FileName {
         static let recordVoice: String = "recordVoice"
     }
     // swiftlint: disable all

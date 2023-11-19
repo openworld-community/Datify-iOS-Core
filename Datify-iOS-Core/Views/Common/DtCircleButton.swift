@@ -5,7 +5,6 @@
 //  Created by Алексей Баранов on 05.11.2023.
 //
 
-import Foundation
 import SwiftUI
 
 struct DtCircleButton: View {
@@ -15,9 +14,23 @@ struct DtCircleButton: View {
     private let disableImage: Bool
     private let action: () async -> Void
 
-    enum Style: CGFloat {
-        case small = 48
-        case big = 96
+    enum Style {
+        case small
+        case big
+
+        func sizeButton() -> CGFloat {
+            switch self {
+            case .big: return 96
+            case .small: return 48
+            }
+        }
+
+        func sizeIcon() -> CGFloat {
+            switch self {
+            case .big: return 48
+            case .small: return 24
+            }
+        }
     }
 
     init(systemName: String, style: DtCircleButton.Style, disableImage: Bool, action: @escaping () async -> Void) {
@@ -33,12 +46,7 @@ struct DtCircleButton: View {
                 await action()
             }
         } label: {
-            switch style {
-            case .small:
-                createBody(systemName: systemName, style: .small, disableImage: disableImage)
-            case .big:
-                createBody(systemName: systemName, style: .big, disableImage: disableImage)
-            }
+            createBody(systemName: systemName, style: style, disableImage: disableImage)
         }
         .buttonStyle(.plain)
     }
@@ -50,18 +58,17 @@ struct DtCircleButton: View {
     ) -> some View {
         Circle()
             .fill(Color.clear)
-            .frame(width: style.rawValue, height: style.rawValue)
+            .frame(width: style.sizeButton(), height: style.sizeButton())
             .overlay {
                 Image(systemName)
                     .renderingMode(style == .small ? .template : .original)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: style.rawValue/2, height: style.rawValue/2)
+                    .frame(width: style.sizeIcon(), height: style.sizeIcon())
                     .foregroundColor(disableImage ? Color.iconsSecondary : Color.iconsPrimary)
-                    .animation(nil, value: UUID())
             }
             .background(
-                RoundedRectangle(cornerRadius: style.rawValue/2)
+                RoundedRectangle(cornerRadius: style.sizeButton()/2)
                         .stroke(Color.iconsTertiary, lineWidth: 0.33)
             )
     }
@@ -73,7 +80,7 @@ struct DtCircleButton_Previews: PreviewProvider {
             DtCircleButton(systemName: DtImage.delete, style: .small, disableImage: true) {}
             DtCircleButton(systemName: DtImage.delete, style: .small, disableImage: false) {}
             DtCircleButton(systemName: DtImage.record, style: .big, disableImage: false) {}
-            DtCircleButton(systemName: DtImage.stop, style: .big, disableImage: false) {}
+            DtCircleButton(systemName: DtImage.stopRecord, style: .big, disableImage: false) {}
             DtCircleButton(systemName: DtImage.play, style: .small, disableImage: false) {}
         }
     }

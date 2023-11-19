@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct VoiceGraphView: View {
-    @StateObject var viewModel: VoiceGraphViewModel
+    @StateObject private var viewModel: VoiceGraphViewModel
 
     init(vm: VoiceGraphViewModel) {
         self._viewModel = StateObject(wrappedValue: vm)
@@ -23,7 +23,7 @@ struct VoiceGraphView: View {
                     .transition(.scale)
             }
         }
-        .frame(width: viewModel.wightVoiceGraph, height: viewModel.heightVoiceGraph)
+        .frame(width: viewModel.widthVoiceGraph, height: viewModel.heightVoiceGraph)
         HStack {
             deleteButton
                 .disabled(viewModel.disableDeleteButton())
@@ -44,17 +44,16 @@ struct VoiceGraphView: View {
     VoiceGraphView(vm: VoiceGraphViewModel())
 }
 
-extension VoiceGraphView {
-    private var recordButton: some View {
+private extension VoiceGraphView {
+    var recordButton: some View {
         DtCircleButton(
-            systemName: (viewModel.statePlayer == .record) ? DtImage.stop :  DtImage.record,
+            systemName: (viewModel.statePlayer == .record) ? DtImage.stopRecord :  DtImage.record,
             style: .big,
             disableImage: false) {
                 viewModel.didTapRecordButton()
             }
-            .animation(.none, value: viewModel.statePlayer)
     }
-    private var deleteButton: some View {
+    var deleteButton: some View {
         DtCircleButton(
             systemName: DtImage.delete,
             style: .small,
@@ -62,7 +61,7 @@ extension VoiceGraphView {
                 viewModel.didTapDeleteButton()
             }
     }
-    private var playButton: some View {
+    var playButton: some View {
         DtCircleButton(
             systemName: viewModel.statePlayer == .play ? DtImage.pause : DtImage.play,
             style: .small,

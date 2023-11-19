@@ -8,22 +8,22 @@
 import AVFoundation
 import SwiftUI
 
-class RecordManager: ObservableObject {
-    private enum Constant {
-        static let deleteAnimationDuration: Double = 1
-        static let maxRecordingDuration: Double = 15
-        static let minRecordingDuration: Double = 1
-        static let factorAmplitudes: Float = 630
-        static let widthBarPercentageOfWidthGraph: CGFloat = 0.75
-        static let spaceBetweenBarsPercentageOfWidthGraph: CGFloat = 0.5
-        static let heightViewPercentageOfWidthGraph: CGFloat = 44
-        static let audioSamplingRates = 44100
-        static let numberOfAudioChannels = 2
-    }
+private enum Constant {
+    static let deleteAnimationDuration: Double = 1
+    static let maxRecordingDuration: Double = 15
+    static let minRecordingDuration: Double = 15
+    static let factorAmplitudes: Float = 630
+    static let widthBarPercentageOfWidthGraph: CGFloat = 0.75
+    static let spaceBetweenBarsPercentageOfWidthGraph: CGFloat = 0.5
+    static let heightViewPercentageOfWidthGraph: CGFloat = 44
+    static let audioSamplingRates = 48000
+    static let numberOfAudioChannels = 2
+}
 
-    @Published var statePlayer: StatePlayerEnum = .inaction
+class RecordManager: ObservableObject {
+    @Published var statePlayer: StatePlayerEnum = .idle
     @Published var heightsBar: [BarModel] = []
-    @Published var fileExists = false
+    @Published var isFileExist = false
     @Published var spaceBetweenBars: CGFloat = 0
     @Published var widthBar: CGFloat = 0
     @Published var canStopRecord = false
@@ -83,28 +83,24 @@ class RecordManager: ObservableObject {
         audioRecorder?.stop()
         audioRecorder = nil
         stopTimer()
-        fileExists = true
+        isFileExist = true
         canStopRecord = false
-        statePlayer = .inaction
+        statePlayer = .idle
     }
 
     func play(audioURL: URL) {
-        if statePlayer == StatePlayerEnum.inaction {
+        if audioPlayer == nil {
             do {
                 audioPlayer = try AVAudioPlayer(contentsOf: audioURL)
                 audioPlayer?.prepareToPlay()
                 audioDuration = (audioPlayer?.duration) ?? 0
-                audioPlayer?.play()
-            } catch let error {
+            } catch {
                 print(error.localizedDescription)
             }
-        } else {
-            audioPlayer?.play()
         }
-        if let audioPlayer = audioPlayer {
-            runPlayTimer()
-            statePlayer = .play
-        }
+        audioPlayer?.play()
+        runPlayTimer()
+        statePlayer = .play
     }
 
     func pause() {
@@ -122,24 +118,26 @@ class RecordManager: ObservableObject {
         }
         index = heightsBar.count - 1
         let timerFrequency = deleteAnimationDuration / Double(heightsBar.count)
-        self.timer = Timer.scheduledTimer(withTimeInterval: timerFrequency, repeats: true, block: { [weak self] _ in
-            guard let self = self else { return }
+        self.timer = Timer.scheduledTimer(withTimeInterval: timerFrequency, repeats: true) { [weak self] _ in
+            guard let self else { return }
             withAnimation(.linear) {
-                self.heightsBar[self.index].height = Float(self.minHeightBar)
+                if self.index >= 0, self.index < self.heightsBar.count {
+                    self.heightsBar[self.index].height = Float(self.minHeightBar)
+                }
             }
             heightsBar[self.index].coloredBool = true
             if index == 0 {
                 stopTimer()
-                fileExists = false
+                isFileExist = false
             } else {
                 index -= 1
             }
-        })
+        }
     }
 
     func loadAudioData(audioURL: URL) {
         let powerValues: [Float] = audioFileSetupAndRead(audioURL: audioURL)
-        if !powerValues.isEmpty {
+        if powerValues.isNotEmpty {
             // splits powerValues into parts(chunkSize) and calculates the average value for each part
             var averageArray: [Float] = []
             let chunkSize = powerValues.count / Int(barsCount)
@@ -162,8 +160,8 @@ class RecordManager: ObservableObject {
                 resultArray.append(newValue)
             }
             heightsBar.removeAll()
-            for index in resultArray.indices {
-                heightsBar.append(BarModel(height: Float(resultArray[index]), coloredBool: true))
+            for height in resultArray {
+                heightsBar.append(BarModel(height: height, coloredBool: true))
             }
         }
     }
@@ -177,9 +175,9 @@ private extension RecordManager {
     }
 
    func discolorBar() {
-        for index in heightsBar.indices {
-            heightsBar[index].coloredBool = true
-        }
+       for index in heightsBar.indices where index < self.heightsBar.count {
+           heightsBar[index].coloredBool = true
+       }
     }
 
     func setAudioSession() {
@@ -193,15 +191,15 @@ private extension RecordManager {
 
     func runRecordTimer() {
         let timerFrequency = TimeInterval(maxRecordingDuration / Double(barsCount))
-        timer = Timer.scheduledTimer(withTimeInterval: timerFrequency, repeats: true, block: { [weak self] (_) in
-            guard let self = self else { return }
+        timer = Timer.scheduledTimer(withTimeInterval: timerFrequency, repeats: true) { [weak self] (_) in
+            guard let self else { return }
             // get audio signal amplitude values in decebels
             audioRecorder?.updateMeters()
             guard let averagePower = self.audioRecorder?.averagePower(forChannel: 0) else { return }
             // converting a value from decibels to amplitude, factorAmplitudes is the amplitude factor
             let amplitude = factorAmplitudes * pow(10.0, averagePower / 20.0)
             let clampedAmplitude = (min(max(amplitude, Float(minHeightBar)), Float(heightVoiceGraph)))
-            if self.index <= heightsBar.count - 1 {
+            if self.index < heightsBar.count {
                 heightsBar[self.index].coloredBool = false
                 withAnimation {
                     self.heightsBar[self.index].height = clampedAmplitude
@@ -212,12 +210,10 @@ private extension RecordManager {
             if currentRecordingTime > maxRecordingDuration {
                 stopRecording()
             }
-            if !canStopRecord {
-                if currentRecordingTime > minRecordingDuration {
-                    canStopRecord = true
-                }
+            if !canStopRecord, currentRecordingTime > minRecordingDuration {
+                canStopRecord = true
             }
-        })
+        }
     }
 
     func runPlayTimer() {
@@ -227,8 +223,8 @@ private extension RecordManager {
                 withTimeInterval: timerFrequency,
                 repeats: true,
                 block: { [weak self] (_) in
-                    guard let self = self else { return }
-                    if index <= (heightsBar.count) - 1 {
+                    guard let self else { return }
+                    if index < heightsBar.count {
                         self.heightsBar[self.index].coloredBool = false
                         index += 1
                     }
@@ -287,6 +283,6 @@ private extension RecordManager {
         audioPlayer = nil
         stopTimer()
         discolorBar()
-        statePlayer = .inaction
+        statePlayer = .idle
     }
 }

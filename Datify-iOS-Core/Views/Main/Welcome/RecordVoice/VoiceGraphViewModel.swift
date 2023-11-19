@@ -16,54 +16,53 @@ struct BarModel: Identifiable {
 }
 
 enum StatePlayerEnum {
-    case play, record, pause, inaction
+    case play, record, pause, idle
 }
 
 class VoiceGraphViewModel: ObservableObject {
-    @Published var statePlayer: StatePlayerEnum = .inaction
+    @Published var statePlayer: StatePlayerEnum = .idle
     @Published var heightsBar: [BarModel] = []
-    @Published var fileExists = false
+    @Published var isFileExist = false
     @Published var spaceBetweenBars: CGFloat = 0
     @Published var widthBar: CGFloat = 0
     @Published var canStopRecord = false
     @Published var isAlertShowing = false
     @Published var heightVoiceGraph: CGFloat = 0
-    @Published var wightVoiceGraph: CGFloat = 0
+    @Published var widthVoiceGraph: CGFloat = 0
 
     private var filePath: URL?
     private var recordManager = RecordManager(wightVoiceGraph: UIScreen.main.bounds.width)
     private var cancellables: Set<AnyCancellable> = []
 
-    var isAuthorized: Bool {
-        get async {
-            let status = AVCaptureDevice.authorizationStatus(for: .audio)
-            var isAuthorized = status == .authorized
-            if status == .notDetermined {
-                isAuthorized = await AVCaptureDevice.requestAccess(for: .audio)
-            }
-            return isAuthorized
+    func isAuthorized() async -> Bool {
+        let status = AVCaptureDevice.authorizationStatus(for: .audio)
+        var isAuthorized = status == .authorized
+        if status == .notDetermined {
+            isAuthorized = await AVCaptureDevice.requestAccess(for: .audio)
         }
+        return isAuthorized
     }
 
     init() {
         setupSubscribers()
         filePath = getDocumentsDirectory()
-        if let filePath = filePath {
-            isFileExists(audioURL: filePath)
+        if let filePath {
+            doFileExists(audioURL: filePath)
         }
     }
 
     private func getDocumentsDirectory() -> URL {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        let filePath = paths[0].appendingPathComponent(AppConstants.URL.recordVoice)
+        let filePath = paths[0].appendingPathComponent(AppConstants.FileName.recordVoice)
         return filePath
     }
 
-    private func isFileExists(audioURL: URL) {
-        if FileManager.default.fileExists(atPath: audioURL.path) {
-            fileExists = true
-        } else {
-            fileExists = false
+    private func doFileExists(audioURL: URL, callBack: (() -> Void)? = nil) {
+        isFileExist = FileManager.default.fileExists(atPath: audioURL.path)
+        if isFileExist {
+            if let callBack {
+                callBack()
+            }
         }
     }
 
@@ -76,8 +75,8 @@ class VoiceGraphViewModel: ObservableObject {
             .assign(to: \.heightsBar, on: self)
             .store(in: &cancellables)
 
-        recordManager.$fileExists
-            .assign(to: \.fileExists, on: self)
+        recordManager.$isFileExist
+            .assign(to: \.isFileExist, on: self)
             .store(in: &cancellables)
 
         recordManager.$spaceBetweenBars
@@ -97,32 +96,32 @@ class VoiceGraphViewModel: ObservableObject {
             .store(in: &cancellables)
 
         recordManager.$wightVoiceGraph
-            .assign(to: \.wightVoiceGraph, on: self)
+            .assign(to: \.widthVoiceGraph, on: self)
             .store(in: &cancellables)
     }
 
     func disableDeleteButton() -> Bool {
-        return (!fileExists || statePlayer != .inaction) ? true : false
+        (!isFileExist || statePlayer != .idle) ? true : false
     }
 
     func disableRecordButton() -> Bool {
-        return (statePlayer == .play ||
+        (statePlayer == .play ||
                 statePlayer == .pause ||
-                fileExists ||
+                isFileExist ||
                 (statePlayer == .record && !canStopRecord)
         ) ? true : false
     }
 
     func disablePlayButton() -> Bool {
-        return (!fileExists || statePlayer == .record) ? true: false
+        (!isFileExist || statePlayer == .record) ? true: false
     }
 
     func didTapPlayPauseButton() {
         switch statePlayer {
         case .play:
             recordManager.pause()
-        case .inaction, .pause:
-            if let filePath = filePath {
+        case .idle, .pause:
+            if let filePath {
                 recordManager.play(audioURL: filePath)
             }
         case .record:
@@ -131,45 +130,39 @@ class VoiceGraphViewModel: ObservableObject {
     }
 
     func didTapDeleteButton() {
-        if let filePath = filePath {
-            isFileExists(audioURL: filePath)
-            if fileExists {
-                recordManager.delete(audioURL: filePath)
+        if let filePath {
+            doFileExists(audioURL: filePath) {
+                self.recordManager.delete(audioURL: filePath)
             }
         }
     }
 
+    @MainActor
     func didTapRecordButton() {
         Task {
-            if await !isAuthorized {
-                await MainActor.run {
-                    isAlertShowing = true
+            if await isAuthorized() {
+                if let filePath, statePlayer == .record, canStopRecord {
+                    recordManager.stopRecording()
+                    doFileExists(audioURL: filePath) {
+                        self.recordManager.loadAudioData(audioURL: filePath)
+                    }
+                } else {
+                    if let filePath, statePlayer != .record {
+                        self.recordManager.record(path: filePath)
+                    }
                 }
             } else {
                 await MainActor.run {
-                    if let filePath = filePath {
-                        if statePlayer == .record && canStopRecord {
-                            recordManager.stopRecording()
-                            isFileExists(audioURL: filePath)
-                            if fileExists {
-                                recordManager.loadAudioData(audioURL: filePath)
-                            }
-                        } else {
-                            if statePlayer != .record {
-                                self.recordManager.record(path: filePath)
-                            }
-                        }
-                    }
+                    isAlertShowing = true
                 }
             }
         }
     }
 
     func loadAudioDataFromFile() {
-        if let filePath = filePath {
-            isFileExists(audioURL: filePath)
-            if fileExists {
-                recordManager.loadAudioData(audioURL: filePath)
+        if let filePath {
+            doFileExists(audioURL: filePath) {
+                self.recordManager.loadAudioData(audioURL: filePath)
             }
         }
     }
