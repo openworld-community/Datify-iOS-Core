@@ -9,11 +9,6 @@ import SwiftUI
 
 struct LoginView: View {
     @StateObject private var viewModel: LoginViewModel
-    @FocusState private var focusedField: FocusField?
-
-    private enum FocusField {
-        case textField, secureField
-    }
 
     init(router: Router<AppRoute>) {
         _viewModel = StateObject(wrappedValue: LoginViewModel(router: router))
@@ -27,14 +22,15 @@ struct LoginView: View {
                     DtLogoView()
                 }
             }
-            .sheet(isPresented: $viewModel.forgotSheet) {
+            .sheet(isPresented: $viewModel.showForgotSheet) {
                 TempView()
             }
             .hideKeyboardTapOutside()
+            .navigationBarBackButtonHidden()
     }
 
     private var idleView: some View {
-        VStack {
+        VStack(spacing: 40) {
             Spacer()
 
             VStack(spacing: 8) {
@@ -45,70 +41,60 @@ struct LoginView: View {
                     .dtTypo(.p2Regular, color: .textSecondary)
                     .multilineTextAlignment(.center)
             }
-            .padding(.bottom, 40)
 
             VStack(spacing: 12) {
-                // TODO: use DtCustomTF here
-                RegularTextFieldView(
-                    style: .phoneAndEmail,
-                    input: $viewModel.email,
-                    placeholder: String(localized: "Phone number or Email"),
-                    keyboardType: .emailAddress,
-                    submitLabel: .continue,
-                    textAlignment: .leading,
-                    width: .infinity,
-                    height: AppConstants.Visual.buttonHeight) {
-                        focusedField = .secureField
-                    }
-
-                // TODO: use DtCustomTF here
-                SecureTextFieldView(
-                    style: .password,
-                    input: $viewModel.password,
-                    placeholder: String(localized: "Password"),
-                    keyboardType: .default,
-                    submitLabel: .done,
-                    textAlignment: .leading,
-                    width: .infinity,
-                    height: AppConstants.Visual.buttonHeight) {
+                VStack(spacing: 4) {
+                    DtCustomTF(
+                        style: .password,
+                        input: $viewModel.password,
+                        isError: $viewModel.isError
+                    ) {
                         if !viewModel.isButtonDisabled {
                             viewModel.authenticate()
                         }
                     }
-                    .focused($focusedField, equals: .secureField)
 
-                HStack {
-                    Spacer()
-
-                    Button {
-                        viewModel.forgotPassword()
-                    } label: {
-                        Text("Forgot your password?")
-                            .dtTypo(.p3Medium, color: .textPrimaryLink)
+                    if viewModel.isError {
+                        Text("Wrong password")
+                            .dtTypo(.p4Regular, color: .accentsError)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.leading)
                     }
                 }
+
+                Button {
+                    viewModel.forgotPassword()
+                } label: {
+                    Text("Forgot your password?")
+                        .dtTypo(.p3Medium, color: .textPrimaryLink)
+                }
+                .frame(
+                    maxWidth: .infinity,
+                    alignment: .trailing
+                )
             }
 
             Spacer()
 
-            DtButton(
-                title: String(localized: "Sign in"),
-                style: .gradient
-            ) {
-                viewModel.authenticate()
-            }
-            .disabled(viewModel.isButtonDisabled)
+            VStack(spacing: 8) {
+                DtButton(
+                    title: String(localized: "Sign in"),
+                    style: .main
+                ) {
+                    viewModel.authenticate()
+                }
+                .disabled(viewModel.isButtonDisabled)
 
-            Button {
-                viewModel.router.popToRoot()
-            } label: {
-                Text("Choose another way")
-                    .dtTypo(.p2Medium, color: .textPrimary)
-                    .padding(.vertical)
+                Button {
+                    viewModel.chooseAnotherWay()
+                } label: {
+                    Text("Choose another way")
+                        .dtTypo(.p2Medium, color: .textPrimary)
+                        .padding(.vertical)
+                }
             }
         }
-        .padding(.horizontal)
-        .padding(.top, 8)
+        .padding()
     }
 
     @ViewBuilder
@@ -118,13 +104,6 @@ struct LoginView: View {
             DtSpinnerView(size: 56)
         default:
             idleView
-                // Temporary(?) alert
-                .alert("Wrong Login or password. Please try again!", isPresented: $viewModel.isError) {
-                    Button("OK", action: {
-                        viewModel.loginState = .idle
-                        viewModel.isError = false
-                    })
-                }
         }
     }
 }

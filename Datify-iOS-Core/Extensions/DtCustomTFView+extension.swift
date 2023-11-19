@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct DtCustomTFViewModifier: ViewModifier {
+    var isError: Bool = false
     let style: DtCustomTF.Style
     let keyboardType: UIKeyboardType
     let submitLabel: SubmitLabel
@@ -31,7 +32,7 @@ struct DtCustomTFViewModifier: ViewModifier {
             .cornerRadius(AppConstants.Visual.cornerRadius)
             .overlay(
                 RoundedRectangle(cornerRadius: AppConstants.Visual.cornerRadius)
-                    .stroke(Color.backgroundStroke, lineWidth: 1)
+                    .stroke(isError ? Color.accentsError : .backgroundStroke, lineWidth: 1)
             )
             .submitLabel(submitLabel)
             .onSubmit {

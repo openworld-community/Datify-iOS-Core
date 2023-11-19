@@ -14,13 +14,12 @@ enum LoginState {
 final class LoginViewModel: ObservableObject {
     @Published var loginState: LoginState = .idle
     @Published var isError: Bool = false
-    @Published var email: String = .init()
     @Published var password: String = .init()
-    @Published var forgotSheet: Bool = false
+    @Published var showForgotSheet: Bool = false
     unowned let router: Router<AppRoute>
 
     var isButtonDisabled: Bool {
-        email.isEmpty || password.isEmpty
+        password.isEmpty
     }
 
     init(router: Router<AppRoute>) {
@@ -30,21 +29,25 @@ final class LoginViewModel: ObservableObject {
     func authenticate() {
         loginState = .inProcess
 
-        guard email.lowercased() == "a", password == "a" else {
+        // TODO: password processing
+        guard password == "a" else {
             loginState = .error
             isError = true
             return
         }
-
-        self.loginState = .success
-
         router.push(.tabbar)
 
-        email = .init()
+        loginState = .success
+        isError = false
+
         password = .init()
     }
 
     func forgotPassword() {
-        forgotSheet = true
+        showForgotSheet = true
+    }
+
+    func chooseAnotherWay() {
+        router.popToRoot()
     }
 }
