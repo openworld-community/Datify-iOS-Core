@@ -77,8 +77,16 @@
 		63A729692AA4A94B00AC60E3 /* CountryCodeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A729682AA4A94B00AC60E3 /* CountryCodeButton.swift */; };
 		980895BA2A9F4A5700F82F02 /* DtSpinnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980895B92A9F4A5700F82F02 /* DtSpinnerView.swift */; };
 		98553B0A2AAE4A43005C80B3 /* View+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98553B092AAE4A43005C80B3 /* View+extension.swift */; };
+		98747F902AFE271E005618CB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98747F8F2AFE271E005618CB /* LaunchScreen.storyboard */; };
+		9888E7862AC4747400F5B86F /* DtLimitedPhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9888E7852AC4747400F5B86F /* DtLimitedPhotoPicker.swift */; };
+		9888E78B2AC5B20100F5B86F /* DtCropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9888E78A2AC5B20100F5B86F /* DtCropView.swift */; };
 		9898B2BF2AAA49DE007CA714 /* RegEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9898B2BE2AAA49DE007CA714 /* RegEmailViewModel.swift */; };
+		98E38EB42AB351A0007FC35A /* RegPhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E38EB32AB351A0007FC35A /* RegPhotoView.swift */; };
+		98E38EB62AB358F8007FC35A /* RegPhotoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E38EB52AB358F8007FC35A /* RegPhotoViewModel.swift */; };
 		98F3B6D62A9E4F9D0097B5C0 /* DtLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F3B6D52A9E4F9D0097B5C0 /* DtLogoView.swift */; };
+		98F536A22AFE4B380051D751 /* SMSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F536A12AFE4B380051D751 /* SMSView.swift */; };
+		98F536A42AFE4FBD0051D751 /* RegPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F536A32AFE4FBD0051D751 /* RegPasswordView.swift */; };
+		98F536A62AFE52700051D751 /* RegRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F536A52AFE52700051D751 /* RegRecordView.swift */; };
 		D050B1B12AA84AA0008EC0AB /* DividerLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D050B1B02AA84AA0008EC0AB /* DividerLine.swift */; };
 		D0C185302AA1D0E1000D71E5 /* SignInWithButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C1852F2AA1D0E1000D71E5 /* SignInWithButton.swift */; };
 		D0C8965A2AA217630084FA62 /* DtImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C896592AA217630084FA62 /* DtImage.swift */; };
@@ -179,8 +187,17 @@
 		63A729682AA4A94B00AC60E3 /* CountryCodeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCodeButton.swift; sourceTree = "<group>"; };
 		980895B92A9F4A5700F82F02 /* DtSpinnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtSpinnerView.swift; sourceTree = "<group>"; };
 		98553B092AAE4A43005C80B3 /* View+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+extension.swift"; sourceTree = "<group>"; };
+		98747F8F2AFE271E005618CB /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		9888E7852AC4747400F5B86F /* DtLimitedPhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtLimitedPhotoPicker.swift; sourceTree = "<group>"; };
+		9888E7872AC55E3600F5B86F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		9888E78A2AC5B20100F5B86F /* DtCropView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtCropView.swift; sourceTree = "<group>"; };
 		9898B2BE2AAA49DE007CA714 /* RegEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RegEmailViewModel.swift; path = "Datify-iOS-Core/Views/Main/Welcome/Registration/RegEmailViewModel.swift"; sourceTree = SOURCE_ROOT; };
+		98E38EB32AB351A0007FC35A /* RegPhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegPhotoView.swift; sourceTree = "<group>"; };
+		98E38EB52AB358F8007FC35A /* RegPhotoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegPhotoViewModel.swift; sourceTree = "<group>"; };
 		98F3B6D52A9E4F9D0097B5C0 /* DtLogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtLogoView.swift; sourceTree = "<group>"; };
+		98F536A12AFE4B380051D751 /* SMSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSView.swift; sourceTree = "<group>"; };
+		98F536A32AFE4FBD0051D751 /* RegPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegPasswordView.swift; sourceTree = "<group>"; };
+		98F536A52AFE52700051D751 /* RegRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegRecordView.swift; sourceTree = "<group>"; };
 		98F9F2062AB0C80A00F7DAB8 /* RegEmailViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegEmailViewModel.swift; sourceTree = "<group>"; };
 		B9D98C0D2AC425F400F0F4B8 /* Datifysharedcore */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Datifysharedcore; path = ../Datifysharedcore; sourceTree = "<group>"; };
 		D050B1B02AA84AA0008EC0AB /* DividerLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerLine.swift; sourceTree = "<group>"; };
@@ -282,6 +299,8 @@
 				980895B92A9F4A5700F82F02 /* DtSpinnerView.swift */,
 				D050B1B02AA84AA0008EC0AB /* DividerLine.swift */,
 				2012EF652AAF719C00B01688 /* DtTermsAndConditions.swift */,
+				9888E7852AC4747400F5B86F /* DtLimitedPhotoPicker.swift */,
+				9888E78A2AC5B20100F5B86F /* DtCropView.swift */,
 				202073692AB378B200CBBE42 /* DtCustomDatePicker.swift */,
 				2002C9F52AB465540043B51E /* DtCustomPicker.swift */,
 				20FD2D2C2ADDCCF90051C894 /* DtSegmentedPicker.swift */,
@@ -306,6 +325,7 @@
 				638D1E812ABAB44B0001CED4 /* Location */,
 				98F9F2032AB0C67300F7DAB8 /* Registration */,
 				4A4CE2DB2A9B485B0098FF80 /* WelcomeView.swift */,
+				98F536A12AFE4B380051D751 /* SMSView.swift */,
 				4A4CE2CC2A9B40DA0098FF80 /* Login */,
 				4A4CE2DD2A9B4CB70098FF80 /* FillProfile */,
 			);
@@ -471,9 +491,13 @@
 				20C081042AB1E1B200BB2910 /* RegEmailView.swift */,
 				20BF9D922AB1BE85008B3CEB /* RegSelectGenderView.swift */,
 				20C081062AB1E1D400BB2910 /* RegEnterNameView.swift */,
+				98E38EB32AB351A0007FC35A /* RegPhotoView.swift */,
+				98E38EB52AB358F8007FC35A /* RegPhotoViewModel.swift */,
 				208D054F2AB8F5EB0071E1B7 /* RegOccupationView.swift */,
 				208A426C2AB9061000E90C94 /* RegFinalView.swift */,
 				201878B22AB2F8B20029C66C /* RegBirthdayView.swift */,
+				98F536A32AFE4FBD0051D751 /* RegPasswordView.swift */,
+				98F536A52AFE52700051D751 /* RegRecordView.swift */,
 			);
 			path = Registration;
 			sourceTree = "<group>";
@@ -504,6 +528,8 @@
 		D0DC465B2A92699D0097CFF3 /* Datify-iOS-Core */ = {
 			isa = PBXGroup;
 			children = (
+				9888E7872AC55E3600F5B86F /* Info.plist */,
+				98747F8F2AFE271E005618CB /* LaunchScreen.storyboard */,
 				D0DC465C2A92699D0097CFF3 /* DatifyiOSCoreApp.swift */,
 				D0DC465E2A92699D0097CFF3 /* MainAppView.swift */,
 				4A4CE2DE2A9B4EEB0098FF80 /* Resources */,
@@ -654,6 +680,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4A4CE2E02A9B4F800098FF80 /* Colors.xcassets in Resources */,
+				98747F902AFE271E005618CB /* LaunchScreen.storyboard in Resources */,
 				D0DC46642A92699F0097CFF3 /* Preview Assets.xcassets in Resources */,
 				D0DC46612A92699F0097CFF3 /* Assets.xcassets in Resources */,
 			);
@@ -721,6 +748,7 @@
 			files = (
 				20FCAAD22AE7242300D2B495 /* DtStepSlider.swift in Sources */,
 				4A4CE2EA2A9B5FB80098FF80 /* DtButton.swift in Sources */,
+				98F536A42AFE4FBD0051D751 /* RegPasswordView.swift in Sources */,
 				4A4CE2D42A9B44280098FF80 /* RegistrationFlow.swift in Sources */,
 				2020736A2AB378B200CBBE42 /* DtCustomDatePicker.swift in Sources */,
 				2076AF302AB085F400AF5E11 /* Image+extension.swift in Sources */,
@@ -735,9 +763,11 @@
 				2081F0232AF1493900B9659E /* NotificationsDataService.swift in Sources */,
 				632A7F5E2AAC897B005DA819 /* DtCustomTFView+extension.swift in Sources */,
 				634EF72A2ADC48010061E13A /* TabItem.swift in Sources */,
+				98F536A22AFE4B380051D751 /* SMSView.swift in Sources */,
 				4A4CE2DC2A9B485B0098FF80 /* WelcomeView.swift in Sources */,
 				63A5B8B52AC5F0BA00DEB54A /* CountryAndCityView.swift in Sources */,
 				63A7295F2AA3A30E00AC60E3 /* SecureTFView.swift in Sources */,
+				98E38EB62AB358F8007FC35A /* RegPhotoViewModel.swift in Sources */,
 				201878B32AB2F8B20029C66C /* RegBirthdayView.swift in Sources */,
 				4A4CE2E82A9B58590098FF80 /* DtTypography.swift in Sources */,
 				63203C712AAC6B2600F8803A /* UIApplication+extension.swift in Sources */,
@@ -773,6 +803,8 @@
 				638D1E882ABAB45C0001CED4 /* LocationManager.swift in Sources */,
 				634EF7342ADC48220061E13A /* DatingView.swift in Sources */,
 				4A4CE2D62A9B44C20098FF80 /* LoginFlow.swift in Sources */,
+				98E38EB42AB351A0007FC35A /* RegPhotoView.swift in Sources */,
+				98F536A62AFE52700051D751 /* RegRecordView.swift in Sources */,
 				20C081072AB1E1D400BB2910 /* RegEnterNameView.swift in Sources */,
 				20FD2D2F2ADDCD060051C894 /* DtCheckBoxButton.swift in Sources */,
 				20551DE52AE6A84F0018D2D9 /* UIPickerView+extension.swift in Sources */,
@@ -791,9 +823,11 @@
 				2002C9F62AB465540043B51E /* DtCustomPicker.swift in Sources */,
 				63A365A32AA04FFB00CBF5CD /* DtCustomTF.swift in Sources */,
 				4A4CE2C62A9B3A5F0098FF80 /* AppRoute.swift in Sources */,
+				9888E78B2AC5B20100F5B86F /* DtCropView.swift in Sources */,
 				4A4CE2DA2A9B47650098FF80 /* LoginViewModel.swift in Sources */,
 				D050B1B12AA84AA0008EC0AB /* DividerLine.swift in Sources */,
 				63A729672AA48CAA00AC60E3 /* Regex.swift in Sources */,
+				9888E7862AC4747400F5B86F /* DtLimitedPhotoPicker.swift in Sources */,
 				205C6D8B2AE0010A0051FB77 /* DtXMarkButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -959,11 +993,14 @@
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/Datify-mobile-shared/shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)";
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Datify-iOS-Core/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Datify;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Our geolocation-based dating app helps you find suitable partners both in your local area and beyond. We utilize geopositioning to generate more precise and personalized recommendations, taking your location into consideration.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1000,11 +1037,14 @@
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/Datify-mobile-shared/shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)";
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Datify-iOS-Core/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Datify;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Our geolocation-based dating app helps you find suitable partners both in your local area and beyond. We utilize geopositioning to generate more precise and personalized recommendations, taking your location into consideration.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

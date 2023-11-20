@@ -28,16 +28,26 @@ struct MainAppView: View {
         case .tabbar: navViewBuilder.createTabbarView()
         case .registrationSex: navViewBuilder.createRegSexView()
         case .registrationEmail: navViewBuilder.createRegEmailView()
+        case .registrationPhoto:
+            navViewBuilder.createRegPhotoView()
         case .registrationLocation: navViewBuilder.createRegLocationView()
         case .registrationRecord: navViewBuilder.createRegRecordView()
         case .registrationFinish: navViewBuilder.createRegFinishView()
-        case .location: navViewBuilder.createRegLocationView()
+//        case .location: navViewBuilder.createRegLocationView()
         case .countryAndCity(let isCountrySelection, let viewModel):
                 navViewBuilder.createRegLocationCountryAndCityView(
                     viewModel: viewModel,
                     isCountrySelection: isCountrySelection
                 )
         case .notifications: navViewBuilder.createNotificationsView()
+        case .registrationName: navViewBuilder.createRegEnterNameView()
+        case .registrationBirthday: navViewBuilder.createRegBirthdayView()
+        case .registrationOccupation:
+            navViewBuilder.createRegOccupationView()
+        case .sms:
+            navViewBuilder.createSMSView()
+        case .registrationPassword:
+            navViewBuilder.createRegPasswordView()
         }
     }
 }

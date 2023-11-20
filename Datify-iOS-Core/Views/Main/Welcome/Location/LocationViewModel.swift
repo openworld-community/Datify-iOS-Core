@@ -11,7 +11,7 @@ import Foundation
 final class LocationViewModel: ObservableObject {
     @Published var location: LocationModel?
     @Published var locationSetByGeo: Bool = false
-    @Published var showAlert = false
+    @Published var showAlert: Bool = false
     @Published var isCountrySelection: Bool?
     @Published var selectedLocation: String?
     @Published var errorMessage: String?
