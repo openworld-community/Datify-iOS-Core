@@ -27,6 +27,7 @@ struct RegEmailView: View {
 
                     Text("This is necessary to regain access to the account")
                         .dtTypo(.p2Regular, color: .textSecondary)
+                        .multilineTextAlignment(.center)
                 }
 
                 VStack(spacing: 4) {
@@ -40,12 +41,14 @@ struct RegEmailView: View {
                         }
                     }
 
-                    if viewModel.isWrongFormat {
-                        Text("Wrong format")
-                            .dtTypo(.p4Regular, color: .accentsError)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(.leading)
-                    }
+                  Text(
+                    viewModel.isWrongFormat ?
+                    "Wrong format" :
+                      " "
+                  )
+                    .dtTypo(.p4Regular, color: .accentsError)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.leading)
                 }
             }
 
