@@ -29,6 +29,7 @@ struct RegPasswordView: View {
                         .dtTypo(.h3Medium, color: .textPrimary)
                     Text("The password must be at least 8 characters long and must not be used anywhere else")
                         .dtTypo(.p2Regular, color: .textSecondary)
+                        .multilineTextAlignment(.center)
                 }
 
                 VStack(spacing: 8) {
