@@ -32,6 +32,8 @@
 		20C081052AB1E1B200BB2910 /* RegEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C081042AB1E1B200BB2910 /* RegEmailView.swift */; };
 		20C081072AB1E1D400BB2910 /* RegEnterNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C081062AB1E1D400BB2910 /* RegEnterNameView.swift */; };
 		20E518332ADDF63100A0463A /* DtStepSliderSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E518322ADDF63100A0463A /* DtStepSliderSegment.swift */; };
+		20EC257B2B0BF91200703C6C /* ChatRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20EC257A2B0BF91200703C6C /* ChatRowView.swift */; };
+		20EC257D2B0BF9DB00703C6C /* ChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20EC257C2B0BF9DB00703C6C /* ChatModel.swift */; };
 		20FCAAD22AE7242300D2B495 /* DtStepSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20FCAAD12AE7242300D2B495 /* DtStepSlider.swift */; };
 		20FD2D2D2ADDCCF90051C894 /* DtSegmentedPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20FD2D2C2ADDCCF90051C894 /* DtSegmentedPicker.swift */; };
 		20FD2D2F2ADDCD060051C894 /* DtCheckBoxButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20FD2D2E2ADDCD060051C894 /* DtCheckBoxButton.swift */; };
@@ -142,6 +144,8 @@
 		20C081042AB1E1B200BB2910 /* RegEmailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegEmailView.swift; sourceTree = "<group>"; };
 		20C081062AB1E1D400BB2910 /* RegEnterNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegEnterNameView.swift; sourceTree = "<group>"; };
 		20E518322ADDF63100A0463A /* DtStepSliderSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtStepSliderSegment.swift; sourceTree = "<group>"; };
+		20EC257A2B0BF91200703C6C /* ChatRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRowView.swift; sourceTree = "<group>"; };
+		20EC257C2B0BF9DB00703C6C /* ChatModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatModel.swift; sourceTree = "<group>"; };
 		20FCAAD12AE7242300D2B495 /* DtStepSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtStepSlider.swift; sourceTree = "<group>"; };
 		20FD2D2C2ADDCCF90051C894 /* DtSegmentedPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DtSegmentedPicker.swift; sourceTree = "<group>"; };
 		20FD2D2E2ADDCD060051C894 /* DtCheckBoxButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DtCheckBoxButton.swift; sourceTree = "<group>"; };
@@ -360,8 +364,8 @@
 			children = (
 				634EF7322ADC48220061E13A /* DatingView.swift */,
 				634EF7332ADC48220061E13A /* DatingViewModel.swift */,
-				2081F01B2AF1493900B9659E /* DatingNotifications */,
 				207BFD852AE6ACBB00D6FB99 /* DatingFilter */,
+				2081F01B2AF1493900B9659E /* DatingNotifications */,
 			);
 			path = Dating;
 			sourceTree = "<group>";
@@ -370,6 +374,8 @@
 			isa = PBXGroup;
 			children = (
 				634EF72E2ADC48100061E13A /* ChatView.swift */,
+				20EC257A2B0BF91200703C6C /* ChatRowView.swift */,
+				20EC257C2B0BF9DB00703C6C /* ChatModel.swift */,
 				634EF72F2ADC48100061E13A /* ChatViewModel.swift */,
 			);
 			path = Chat;
@@ -801,6 +807,7 @@
 				634EF7312ADC48100061E13A /* ChatViewModel.swift in Sources */,
 				D0DC465D2A92699D0097CFF3 /* DatifyiOSCoreApp.swift in Sources */,
 				638D1E882ABAB45C0001CED4 /* LocationManager.swift in Sources */,
+				20EC257D2B0BF9DB00703C6C /* ChatModel.swift in Sources */,
 				634EF7342ADC48220061E13A /* DatingView.swift in Sources */,
 				4A4CE2D62A9B44C20098FF80 /* LoginFlow.swift in Sources */,
 				98E38EB42AB351A0007FC35A /* RegPhotoView.swift in Sources */,
@@ -809,6 +816,7 @@
 				20FD2D2F2ADDCD060051C894 /* DtCheckBoxButton.swift in Sources */,
 				20551DE52AE6A84F0018D2D9 /* UIPickerView+extension.swift in Sources */,
 				20C081052AB1E1B200BB2910 /* RegEmailView.swift in Sources */,
+				20EC257B2B0BF91200703C6C /* ChatRowView.swift in Sources */,
 				20FD2D2D2ADDCCF90051C894 /* DtSegmentedPicker.swift in Sources */,
 				205C6D872ADFF4D30051FB77 /* FilterModel.swift in Sources */,
 				98553B0A2AAE4A43005C80B3 /* View+extension.swift in Sources */,
