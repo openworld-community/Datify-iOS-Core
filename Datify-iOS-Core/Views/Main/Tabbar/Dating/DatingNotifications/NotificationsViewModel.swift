@@ -151,7 +151,7 @@ final class NotificationsViewModel: ObservableObject {
         return (lastUser, penultUser)
     }
 
-    func viewNotofications() {
+    func viewNotifications() {
         // TODO: Func to change "isNew" on viewed notifications to false
         guard let dataService = notificationsDataService else { return }
         for id in viewedNotifications {
