@@ -8,52 +8,106 @@
 import SwiftUI
 
 struct ChatRowView: View {
-    let chatModel: ChatModel
+    private let chatModel: ChatModel
+    @ObservedObject var viewModel: ChatViewModel
+    private let interlocutor: TempUserModel?
+
+    init(chatModel: ChatModel, viewModel: ChatViewModel) {
+        self.chatModel = chatModel
+        _viewModel = ObservedObject(wrappedValue: viewModel)
+        self.interlocutor = viewModel.fetchInterlocutor(for: chatModel)
+    }
 
     var body: some View {
-        HStack {
-            Image(chatModel.chatUser.photoURL)
-                .resizableFill()
-                .clipShape(.circle)
-                .frame(width: 56, height: 56)
-            VStack(alignment: .leading) {
-                HStack {
-                    Text(chatModel.chatUser.name + ", " + String(chatModel.chatUser.age))
-                        .dtTypo(.p2Medium, color: .textPrimary)
-                    if chatModel.chatUser.isOnline {
-                        Circle().frame(width: 6).foregroundStyle(.green)
-                    }
-                    Spacer()
-                    Text(chatModel.messages.last?.dateToTimeString() ?? Date().dateToTimeString())
-                        .dtTypo(.p4Medium, color: .textSecondary)
-                }
-
-                HStack {
-                    Text(chatModel.messages.last?.message ?? "Meow me hard, as hard as you can i know you want it you dirty pervert")
-                        .dtTypo(.p3Medium, color: .textSecondary)
-                        .lineLimit(2)
-                        .padding(.trailing, 40)
-                    Spacer()
-                    Text(String(chatModel.messages.filter({ $0.isRead }).count))
-                        .dtTypo(.p4Medium, color: .accentsWhite)
-                        .padding(.horizontal, 5)
-                        .background {
-                            RoundedRectangle(cornerRadius: 6)
-                                .frame(height: 16)
-                                .foregroundStyle(Color.DtGradient.brandDark)
+        if let interlocutor {
+            HStack {
+                let lastMessage = chatModel.messages.last
+                Image(interlocutor.photoURL)
+                    .resizableFill()
+                    .clipShape(.circle)
+                    .frame(width: 56, height: 56)
+                VStack(alignment: .leading, spacing: 6) {
+                    HStack {
+                        Text(interlocutor.name + ", " + String(interlocutor.age))
+                            .dtTypo(.p2Medium, color: .textPrimary)
+                        if interlocutor.isOnline {
+                            Circle().frame(width: 6).foregroundStyle(.green)
                         }
+                        Spacer()
+                        HStack {
+
+                            switch lastMessage?.status {
+                            case .sending:
+                                Image(systemName: "timelapse")
+                                    .resizableFit()
+                                    .frame(width: 8)
+
+                            case .sent:
+                                Image(systemName: "checkmark")
+                                    .resizableFit()
+                                    .frame(width: 8)
+
+                            case .received:
+                                Image(systemName: "checkmark")
+                                    .resizableFit()
+                                    .frame(width: 8)
+                                    .overlay {
+                                        Image(systemName: "checkmark")
+                                            .resizableFit()
+                                            .frame(width: 8)
+                                            .offset(x: -5)
+                                    }
+
+                            case .read:
+                                Image(systemName: "checkmark")
+                                    .resizableFit()
+                                    .frame(width: 8)
+                                    .foregroundStyle(Color.accentsBlue)
+                                    .overlay {
+                                        Image(systemName: "checkmark")
+                                            .resizableFit()
+                                            .frame(width: 8)
+                                            .offset(x: -5)
+                                            .foregroundStyle(Color.accentsBlue)
+                                    }
+                            case nil:
+                                EmptyView()
+                            }
+                            Text(lastMessage?.dateToTimeString() ?? Date().dateToTimeString())
+                                .dtTypo(.p4Medium, color: .textSecondary)
+                        }
+                    }
+
+                    HStack {
+                        Text(lastMessage?.message ?? "Start conversation by just saying Hello!")
+                            .dtTypo(.p3Medium, color: .textSecondary)
+                            .lineLimit(2)
+                            .padding(.trailing, 40)
+                        Spacer()
+                        let unreadMessages = chatModel.messages.filter({ $0.status != .read && $0.sender == interlocutor.id }).count
+                        if  unreadMessages != 0 {
+                            Text(String(unreadMessages))
+                                .dtTypo(.p4Medium, color: .accentsWhite)
+                                .padding(.horizontal, 5)
+                                .background {
+                                    RoundedRectangle(cornerRadius: 6)
+                                        .frame(height: 16)
+                                        .foregroundStyle(Color.DtGradient.brandDark)
+                                }
+
+                        }
+                    }
                 }
+                .frame(height: 56)
             }
+
         }
+
     }
 }
 
 #Preview {
-    ChatRowView(chatModel: ChatModel(chatUser: TempUserModel(id: "1",
-                                                             name: "Alexandra",
-                                                             age: 21,
-                                                             isOnline: true,
-                                                             photoURL: "AvatarPhoto")))
+    ChatView(router: Router())
 }
 
 extension Date {

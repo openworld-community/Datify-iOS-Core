@@ -9,8 +9,9 @@ import Foundation
 
 struct ChatModel: Identifiable {
     let id: String = UUID().uuidString
-    let chatUser: TempUserModel
-    let messages: [MessageModel] = []
+    let participantId1: String
+    let participantId2: String
+    let messages: [MessageModel]
 }
 
 struct MessageModel: Identifiable {
@@ -18,8 +19,11 @@ struct MessageModel: Identifiable {
     let sender: String
     let message: String
     let date: Date
-    let isSent: Bool
-    let isRead: Bool
+    let status: MessageStatus
+
+    enum MessageStatus: CaseIterable {
+        case sending, sent, received, read
+    }
 
     func dateToTimeString() -> String {
         let formatter = DateFormatter()

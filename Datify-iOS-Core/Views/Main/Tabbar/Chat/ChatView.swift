@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ChatView: View {
-    @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel: ChatViewModel
 
     init(router: Router<AppRoute>) {
@@ -16,13 +15,34 @@ struct ChatView: View {
     }
 
     var body: some View {
-        ZStack {
-            Text("ChatView")
-                .dtTypo(.h1Medium, color: .customBlack)
+        List {
+            ForEach(viewModel.allChats) { chat in
+                ChatRowView(chatModel: chat, viewModel: viewModel)
+                    .listRowInsets(.init(top: 6, leading: 12, bottom: 6, trailing: 12))
+                    .onTapGesture {
+                        print(chat.messages.last?.sender ?? "No message")
+                        print(chat.messages.last?.status ?? "No message")
+                    }
+            }
         }
+        .listStyle(.plain)
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Image(systemName: "person.fill")
+            }
+            ToolbarItem(placement: .topBarTrailing) {
+                Button(action: {}, label: {
+                    Image(systemName: "magnifyingglass")
+                })
+            }
+        }
+        .navigationTitle("Chats")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
 #Preview {
-    ChatView(router: Router())
+    NavigationStack {
+        ChatView(router: Router())
+    }
 }
