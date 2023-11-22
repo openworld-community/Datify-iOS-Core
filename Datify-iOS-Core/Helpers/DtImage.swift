@@ -22,4 +22,6 @@ enum DtImage {
     static let checkmark = "checkMark"
     static let favouriteStarWhite = "favouriteStarWhite"
     static let favouriteStar = "favouriteStar"
+    static let messageSent = "accentCheckMark"
+    static let messageRead = "doubleAccentCheckMark"
 }

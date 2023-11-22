@@ -48,7 +48,7 @@ struct TempUserModel: Identifiable {
     var isOnline: Bool
     var photoURL: String
     var newMessages: Int = 0
-    var newLikes: [String] = []
+    var likes: [LikeModel] = []
     var favouriteNotifications: Set<String> = []
 
     static let defaultUser: TempUserModel = TempUserModel(id: "0",
@@ -57,6 +57,6 @@ struct TempUserModel: Identifiable {
                                                           isOnline: true,
                                                           photoURL: "AvatarPhoto",
                                                           newMessages: 4,
-                                                          newLikes: ["1", "3"],
+                                                          likes: LikeModel.likeExamples,
                                                           favouriteNotifications: ["02"])
 }

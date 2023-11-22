@@ -63,6 +63,11 @@ final class ChatViewModel: ObservableObject {
             .store(in: &cancellables)
     }
 
+    func fetchUserForID(for id: String) -> TempUserModel? {
+        // TODO: Func to fetch user from database
+        return self.allUsers.first(where: { $0.id == id })
+    }
+
     func fetchInterlocutor(for chatModel: ChatModel) -> TempUserModel? {
         // TODO: Func to fetch user from database
         guard let user else { return nil }

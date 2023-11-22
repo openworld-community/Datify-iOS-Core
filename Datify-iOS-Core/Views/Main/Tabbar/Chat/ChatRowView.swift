@@ -37,40 +37,11 @@ struct ChatRowView: View {
                         HStack {
 
                             switch lastMessage?.status {
-                            case .sending:
-                                Image(systemName: "timelapse")
-                                    .resizableFit()
-                                    .frame(width: 8)
-
                             case .sent:
-                                Image(systemName: "checkmark")
-                                    .resizableFit()
-                                    .frame(width: 8)
-
-                            case .received:
-                                Image(systemName: "checkmark")
-                                    .resizableFit()
-                                    .frame(width: 8)
-                                    .overlay {
-                                        Image(systemName: "checkmark")
-                                            .resizableFit()
-                                            .frame(width: 8)
-                                            .offset(x: -5)
-                                    }
-
+                                Image(DtImage.messageSent)
                             case .read:
-                                Image(systemName: "checkmark")
-                                    .resizableFit()
-                                    .frame(width: 8)
-                                    .foregroundStyle(Color.accentsBlue)
-                                    .overlay {
-                                        Image(systemName: "checkmark")
-                                            .resizableFit()
-                                            .frame(width: 8)
-                                            .offset(x: -5)
-                                            .foregroundStyle(Color.accentsBlue)
-                                    }
-                            case nil:
+                                Image(DtImage.messageRead)
+                            default:
                                 EmptyView()
                             }
                             Text(lastMessage?.dateToTimeString() ?? Date().dateToTimeString())
@@ -92,7 +63,7 @@ struct ChatRowView: View {
                                 .background {
                                     RoundedRectangle(cornerRadius: 6)
                                         .frame(height: 16)
-                                        .foregroundStyle(Color.DtGradient.brandDark)
+                                        .foregroundStyle(Color.accentsPrimary)
                                 }
 
                         }

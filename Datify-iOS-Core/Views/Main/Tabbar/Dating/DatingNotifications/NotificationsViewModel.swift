@@ -145,9 +145,9 @@ final class NotificationsViewModel: ObservableObject {
     }
 
     func getLastLikeUsers() -> (last: TempUserModel?, penult: TempUserModel?) {
-        guard let localUser = user, localUser.newLikes.count > 0 else { return (nil, nil) }
-        let lastUser = fetchUserForID(for: localUser.newLikes.last ?? "")
-        let penultUser = fetchUserForID(for: localUser.newLikes.penultimate ?? "")
+        guard let localUser = user, localUser.likes.count > 0 else { return (nil, nil) }
+        let lastUser = fetchUserForID(for: localUser.likes.last?.senderId ?? "")
+        let penultUser = fetchUserForID(for: localUser.likes.penultimate?.senderId ?? "")
         return (lastUser, penultUser)
     }
 

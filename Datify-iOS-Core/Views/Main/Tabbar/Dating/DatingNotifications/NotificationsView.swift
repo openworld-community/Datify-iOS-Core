@@ -20,7 +20,7 @@ struct NotificationsView: View {
 
     var body: some View {
             VStack(spacing: 0) {
-                if !(viewModel.user?.newLikes.isEmpty ?? true) {
+                if !(viewModel.user?.likes.filter({ $0.isNew }).isEmpty ?? true) {
                     likeSegment
                 }
                 if viewModel.allNotifications.isEmpty {
@@ -172,7 +172,7 @@ private extension NotificationsView {
                                 RoundedRectangle(cornerRadius: 6)
                                     .frame(width: 22, height: 16)
                                     .foregroundStyle(Color.DtGradient.brandDark)
-                                Text(String(viewModel.user?.newLikes.count ?? 0))
+                                Text(String(viewModel.user?.likes.filter({$0.isNew}).count ?? 0))
                                     .dtTypo(.p4Medium, color: .accentsWhite)
                             }
                         }

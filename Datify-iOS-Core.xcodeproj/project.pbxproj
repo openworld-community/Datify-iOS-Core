@@ -28,9 +28,11 @@
 		208A426D2AB9061000E90C94 /* RegFinalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208A426C2AB9061000E90C94 /* RegFinalView.swift */; };
 		208D05502AB8F5EB0071E1B7 /* RegOccupationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208D054F2AB8F5EB0071E1B7 /* RegOccupationView.swift */; };
 		208D05522AB903790071E1B7 /* DtSelectorButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208D05512AB903790071E1B7 /* DtSelectorButton.swift */; };
+		20912EBB2B0E863700EB2367 /* LikeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20912EBA2B0E863700EB2367 /* LikeModel.swift */; };
 		20BF9D932AB1BE85008B3CEB /* RegSelectGenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20BF9D922AB1BE85008B3CEB /* RegSelectGenderView.swift */; };
 		20C081052AB1E1B200BB2910 /* RegEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C081042AB1E1B200BB2910 /* RegEmailView.swift */; };
 		20C081072AB1E1D400BB2910 /* RegEnterNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C081062AB1E1D400BB2910 /* RegEnterNameView.swift */; };
+		20C35AF32B0E529000AFC46D /* LikeCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C35AF22B0E529000AFC46D /* LikeCircleView.swift */; };
 		20E518332ADDF63100A0463A /* DtStepSliderSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E518322ADDF63100A0463A /* DtStepSliderSegment.swift */; };
 		20EB7F122B0CFA0E002B9BC7 /* ChatsDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20EB7F112B0CFA0E002B9BC7 /* ChatsDataService.swift */; };
 		20EC257B2B0BF91200703C6C /* ChatRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20EC257A2B0BF91200703C6C /* ChatRowView.swift */; };
@@ -141,9 +143,11 @@
 		208A426C2AB9061000E90C94 /* RegFinalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegFinalView.swift; sourceTree = "<group>"; };
 		208D054F2AB8F5EB0071E1B7 /* RegOccupationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegOccupationView.swift; sourceTree = "<group>"; };
 		208D05512AB903790071E1B7 /* DtSelectorButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtSelectorButton.swift; sourceTree = "<group>"; };
+		20912EBA2B0E863700EB2367 /* LikeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeModel.swift; sourceTree = "<group>"; };
 		20BF9D922AB1BE85008B3CEB /* RegSelectGenderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegSelectGenderView.swift; sourceTree = "<group>"; };
 		20C081042AB1E1B200BB2910 /* RegEmailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegEmailView.swift; sourceTree = "<group>"; };
 		20C081062AB1E1D400BB2910 /* RegEnterNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegEnterNameView.swift; sourceTree = "<group>"; };
+		20C35AF22B0E529000AFC46D /* LikeCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeCircleView.swift; sourceTree = "<group>"; };
 		20E518322ADDF63100A0463A /* DtStepSliderSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtStepSliderSegment.swift; sourceTree = "<group>"; };
 		20EB7F112B0CFA0E002B9BC7 /* ChatsDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsDataService.swift; sourceTree = "<group>"; };
 		20EC257A2B0BF91200703C6C /* ChatRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRowView.swift; sourceTree = "<group>"; };
@@ -380,6 +384,8 @@
 				20EC257C2B0BF9DB00703C6C /* ChatModel.swift */,
 				634EF72F2ADC48100061E13A /* ChatViewModel.swift */,
 				20EB7F112B0CFA0E002B9BC7 /* ChatsDataService.swift */,
+				20C35AF22B0E529000AFC46D /* LikeCircleView.swift */,
+				20912EBA2B0E863700EB2367 /* LikeModel.swift */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -795,8 +801,10 @@
 				20BF9D932AB1BE85008B3CEB /* RegSelectGenderView.swift in Sources */,
 				205C6D8D2AE00F870051FB77 /* FilterDataService.swift in Sources */,
 				2081F0252AF1493900B9659E /* NotificationsViewModel.swift in Sources */,
+				20912EBB2B0E863700EB2367 /* LikeModel.swift in Sources */,
 				4A4CE2E32A9B53E70098FF80 /* Color+extension.swift in Sources */,
 				201DC0512AF826C900DA0E69 /* DtDoubleAvatar.swift in Sources */,
+				20C35AF32B0E529000AFC46D /* LikeCircleView.swift in Sources */,
 				205C6D892ADFFAB20051FB77 /* DatingFilterViewModel.swift in Sources */,
 				208A426D2AB9061000E90C94 /* RegFinalView.swift in Sources */,
 				2076AF2E2AB080DB00AF5E11 /* String+extension.swift in Sources */,
