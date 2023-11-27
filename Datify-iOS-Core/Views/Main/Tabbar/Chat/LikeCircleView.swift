@@ -9,7 +9,7 @@ import SwiftUI
 
 struct LikeCircleView: View {
     let user: TempUserModel?
-    let isViewed: Bool = false
+    let isNew: Bool
 
     var body: some View {
         if let user {
@@ -21,7 +21,7 @@ struct LikeCircleView: View {
                     Circle()
                         .stroke(Color.DtGradient.brandLight, lineWidth: 2)
                         .frame(width: 78)
-                        .opacity(isViewed ? 0 : 1)
+                        .opacity(isNew ? 1 : 0)
                     Image(user.photoURL)
                         .resizableFill()
                         .clipShape(.circle)
@@ -40,5 +40,5 @@ struct LikeCircleView: View {
                                        name: "Alexandra",
                                        age: 21,
                                        isOnline: true,
-                                       photoURL: "AvatarPhoto"))
+                                       photoURL: "AvatarPhoto"), isNew: false)
 }

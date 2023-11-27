@@ -15,7 +15,7 @@ struct ChatRowView: View {
     init(chatModel: ChatModel, viewModel: ChatViewModel) {
         self.chatModel = chatModel
         _viewModel = ObservedObject(wrappedValue: viewModel)
-        self.interlocutor = viewModel.fetchInterlocutor(for: chatModel)
+        self.interlocutor = viewModel.userDataService.fetchInterlocutor(for: chatModel)
     }
 
     var body: some View {

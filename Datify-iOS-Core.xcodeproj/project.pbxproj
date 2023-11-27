@@ -33,6 +33,7 @@
 		20C081052AB1E1B200BB2910 /* RegEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C081042AB1E1B200BB2910 /* RegEmailView.swift */; };
 		20C081072AB1E1D400BB2910 /* RegEnterNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C081062AB1E1D400BB2910 /* RegEnterNameView.swift */; };
 		20C35AF32B0E529000AFC46D /* LikeCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C35AF22B0E529000AFC46D /* LikeCircleView.swift */; };
+		20CAC0C92B0F9E8C001673A2 /* UserDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CAC0C82B0F9E8C001673A2 /* UserDataService.swift */; };
 		20E518332ADDF63100A0463A /* DtStepSliderSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E518322ADDF63100A0463A /* DtStepSliderSegment.swift */; };
 		20EB7F122B0CFA0E002B9BC7 /* ChatsDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20EB7F112B0CFA0E002B9BC7 /* ChatsDataService.swift */; };
 		20EC257B2B0BF91200703C6C /* ChatRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20EC257A2B0BF91200703C6C /* ChatRowView.swift */; };
@@ -148,6 +149,7 @@
 		20C081042AB1E1B200BB2910 /* RegEmailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegEmailView.swift; sourceTree = "<group>"; };
 		20C081062AB1E1D400BB2910 /* RegEnterNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegEnterNameView.swift; sourceTree = "<group>"; };
 		20C35AF22B0E529000AFC46D /* LikeCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeCircleView.swift; sourceTree = "<group>"; };
+		20CAC0C82B0F9E8C001673A2 /* UserDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataService.swift; sourceTree = "<group>"; };
 		20E518322ADDF63100A0463A /* DtStepSliderSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtStepSliderSegment.swift; sourceTree = "<group>"; };
 		20EB7F112B0CFA0E002B9BC7 /* ChatsDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsDataService.swift; sourceTree = "<group>"; };
 		20EC257A2B0BF91200703C6C /* ChatRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRowView.swift; sourceTree = "<group>"; };
@@ -381,11 +383,12 @@
 			children = (
 				634EF72E2ADC48100061E13A /* ChatView.swift */,
 				20EC257A2B0BF91200703C6C /* ChatRowView.swift */,
-				20EC257C2B0BF9DB00703C6C /* ChatModel.swift */,
 				634EF72F2ADC48100061E13A /* ChatViewModel.swift */,
+				20EC257C2B0BF9DB00703C6C /* ChatModel.swift */,
 				20EB7F112B0CFA0E002B9BC7 /* ChatsDataService.swift */,
 				20C35AF22B0E529000AFC46D /* LikeCircleView.swift */,
 				20912EBA2B0E863700EB2367 /* LikeModel.swift */,
+				20CAC0C82B0F9E8C001673A2 /* UserDataService.swift */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -793,6 +796,7 @@
 				634EF7352ADC48220061E13A /* DatingViewModel.swift in Sources */,
 				D0C8965A2AA217630084FA62 /* DtImage.swift in Sources */,
 				634EF7392ADC48300061E13A /* MenuViewModel.swift in Sources */,
+				20CAC0C92B0F9E8C001673A2 /* UserDataService.swift in Sources */,
 				D0DC465F2A92699D0097CFF3 /* MainAppView.swift in Sources */,
 				634EF7382ADC48300061E13A /* MenuView.swift in Sources */,
 				634EF7282ADC48010061E13A /* TabbarViewModel.swift in Sources */,

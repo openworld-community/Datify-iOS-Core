@@ -36,22 +36,6 @@ final class NotificationsViewModel: ObservableObject {
     // Temporary allUsers database
     @Published var allUsers: [TempUserModel] = []
 
-    private let alexandra = TempUserModel(id: "1",
-                                  name: "Alexandra",
-                                  age: 21,
-                                  isOnline: true,
-                                  photoURL: "AvatarPhoto")
-    private let evgeniya = TempUserModel(id: "2",
-                                 name: "Evgeniya",
-                                 age: 18,
-                                 isOnline: true,
-                                 photoURL: "AvatarPhoto2")
-    private let anna = TempUserModel(id: "3",
-                             name: "Anna",
-                             age: 24,
-                             isOnline: false,
-                             photoURL: "AvatarPhoto3")
-
     init(router: Router<AppRoute>) {
         self.router = router
         // TODO: Func to fetch current user
@@ -63,7 +47,7 @@ final class NotificationsViewModel: ObservableObject {
             self.notificationsDataService = NotificationsDataService(userID: user.id)
             addSubscribers()
             // Fetching array of UserModels that appear in User's notifications
-            allUsers = [alexandra, evgeniya, anna]
+            allUsers = TempUserModel.defaultUserArray
             self.isLoading = false
         }
     }

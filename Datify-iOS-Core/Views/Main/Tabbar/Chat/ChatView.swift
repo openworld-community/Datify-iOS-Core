@@ -29,13 +29,13 @@ struct ChatView: View {
                     }
                     .padding(.horizontal, 12)
                     ScrollView(.horizontal, showsIndicators: false) {
-                        if let user = viewModel.user {
+                        if let user = viewModel.currentUser {
                             HStack {
                                 // Если переходим на iOS 17 - заменить на safeArea
                                 Color.clear
                                     .frame(width: 4)
                                 ForEach(user.likes) { likeModel in
-                                    LikeCircleView(user: viewModel.fetchUserForID(for: likeModel.senderId))
+                                    LikeCircleView(user: viewModel.userDataService.getUserForID(for: likeModel.senderId), isNew: likeModel.isNew)
                                 }
                             }
                         }

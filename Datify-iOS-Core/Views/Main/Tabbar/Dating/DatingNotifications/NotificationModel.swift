@@ -59,4 +59,27 @@ struct TempUserModel: Identifiable {
                                                           newMessages: 4,
                                                           likes: LikeModel.likeExamples,
                                                           favouriteNotifications: ["02"])
+
+    static let defaultUserArray: [TempUserModel] = [
+        TempUserModel(id: "3",
+                      name: "Anna",
+                      age: 24,
+                      isOnline: false,
+                      photoURL: "AvatarPhoto3"),
+        TempUserModel(id: "2",
+                      name: "Evgeniya",
+                      age: 18,
+                      isOnline: true,
+                      photoURL: "AvatarPhoto2"),
+        TempUserModel(id: "1",
+                      name: "Alexandra",
+                      age: 21,
+                      isOnline: true,
+                      photoURL: "AvatarPhoto")
+    ]
+
+    static let userNotFound: TempUserModel = TempUserModel(id: "0000", name: "User not found",
+                                                           age: 0, isOnline: false, photoURL: "",
+                                                           newMessages: 0, likes: [],
+                                                           favouriteNotifications: [])
 }
