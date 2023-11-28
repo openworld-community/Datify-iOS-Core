@@ -8,9 +8,15 @@
 import Foundation
 import Combine
 
+enum LoadingState {
+    case idle, loading, success, error
+}
+
 @MainActor
 final class NotificationsViewModel: ObservableObject {
     unowned let router: Router<AppRoute>
+    @Published var loadingState: LoadingState = .idle
+    @Published var isError: Bool = false
     @Published var allNotifications: [NotificationModel] = []
     @Published var todayNotifications: [NotificationModel] = []
     @Published var yesterdayNotifications: [NotificationModel] = []
@@ -19,7 +25,6 @@ final class NotificationsViewModel: ObservableObject {
     @Published var user: TempUserModel?
     @Published var viewedNotifications: Set<String> = []
     @Published var minYUpdateTimer: Timer?
-    @Published var isLoading: Bool = true
     private var cancellables = Set<AnyCancellable>()
     private var notificationsDataService: NotificationsDataService?
 
@@ -54,18 +59,6 @@ final class NotificationsViewModel: ObservableObject {
 
     init(router: Router<AppRoute>) {
         self.router = router
-        // TODO: Func to fetch current user
-        Task {
-            // Fetching current user
-            await fetchUser()
-            guard let user = user else { return }
-            // Fetching notifications for current user
-            self.notificationsDataService = NotificationsDataService(userID: user.id)
-            addSubscribers()
-            // Fetching array of UserModels that appear in User's notifications
-            allUsers = [alexandra, evgeniya, anna]
-            self.isLoading = false
-        }
     }
 
     // MARK: Private
@@ -129,10 +122,25 @@ final class NotificationsViewModel: ObservableObject {
     }
 
     // MARK: Public
+    func loadData() async throws {
+        Task {
+            self.loadingState = .loading
+            // Fetching current user
+            await fetchUser()
+            guard let user = user else { return }
+            // Fetching notifications for current user
+            self.notificationsDataService = NotificationsDataService(userID: user.id)
+            addSubscribers()
+            // Fetching array of UserModels that appear in User's notifications
+            allUsers = [alexandra, evgeniya, anna]
+            self.loadingState = .success
+        }
+    }
+
     func toggleFavourite(id: String) {
         // TODO: Func to add notification to User's favourites
         guard let user = user else { return }
-        if user.favouriteNotifications.contains(id) == true {
+        if user.favouriteNotifications.contains(id) {
             self.user?.favouriteNotifications.remove(id)
         } else {
             self.user?.favouriteNotifications.insert(id)

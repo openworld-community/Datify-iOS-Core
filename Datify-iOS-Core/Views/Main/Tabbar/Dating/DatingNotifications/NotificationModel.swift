@@ -34,10 +34,7 @@ struct NotificationModel: Identifiable {
 
 extension NotificationModel {
     var shouldBlur: Bool {
-        if case .newMessages = notificationType {
-            return true
-        }
-        return false
+        notificationType == .newMessages
     }
 }
 
