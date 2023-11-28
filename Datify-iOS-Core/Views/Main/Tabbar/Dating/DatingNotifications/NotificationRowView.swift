@@ -191,7 +191,7 @@ private extension NotificationRowView {
                 Circle().frame(width: 6).foregroundStyle(.green)
             }
             Spacer()
-            Text(notification.dateToTimeString())
+            Text(DtDateFormatter.basicTime(date: notification.date))
                 .dtTypo(.p4Medium, color: .textSecondary)
         }
     }
