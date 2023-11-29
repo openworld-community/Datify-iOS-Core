@@ -19,6 +19,7 @@ final class RegEmailViewModel: ObservableObject {
 
     func validateEmail() {
         if validate(email) {
+            isWrongFormat = false
             router.push(.registrationLocation)
         } else {
             isWrongFormat = true

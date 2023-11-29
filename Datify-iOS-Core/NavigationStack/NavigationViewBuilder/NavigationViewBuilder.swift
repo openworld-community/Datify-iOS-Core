@@ -19,7 +19,7 @@ final class NavigationViewBuilder {
         WelcomeView(router: router)
     }
     func createSMSView() -> some View {
-        SMSView(router: router)
+        SmsView(router: router)
     }
 
     /// Temp View
