@@ -35,10 +35,9 @@ struct SmsView: View {
                                 router.push(.registrationSex)
                             }
 
-                        if isError {
-                            Text("Wrong code")
-                                .dtTypo(.p4Regular, color: .accentsError)
-                        }
+                        Text("Wrong code")
+                            .dtTypo(.p4Regular, color: .accentsError)
+                            .opacity(isError ? 1 : 0)
                     }
 
                     Button {
@@ -47,19 +46,20 @@ struct SmsView: View {
                         Text("Send the code again")
                             .dtTypo(.p3Medium, color: .textPrimaryLink)
                     }
+                    .offset(x: 0, y: isError ? 0 : -16)
                 }
             }
 
             Spacer()
 
             VStack(spacing: 8) {
-                DtButton(title: "Continue", style: .main) {
+                DtButton(title: "Continue".localize(), style: .main) {
                     // TODO: code processing action
                     validateCode()
                 }
                 .disabled(smsCode.isEmpty)
 
-                DtButton(title: "Choose another way", style: .other) {
+                DtButton(title: "Choose another way".localize(), style: .other) {
                     router.popToRoot()
                 }
             }

@@ -47,49 +47,6 @@ struct LoginView: View {
             }
             .padding(.bottom, 40)
 
-            VStack(spacing: 12) {
-                // TODO: replace with code from Login-new-design branch
-//                // TODO: use DtCustomTF here
-//                RegularTextFieldView(
-//                    style: .phoneAndEmail,
-//                    input: $viewModel.email,
-//                    placeholder: String(localized: "Phone number or Email"),
-//                    keyboardType: .emailAddress,
-//                    submitLabel: .continue,
-//                    textAlignment: .leading,
-//                    width: .infinity,
-//                    height: AppConstants.Visual.buttonHeight) {
-//                        focusedField = .secureField
-//                    }
-//
-//                // TODO: use DtCustomTF here
-//                SecureTextFieldView(
-//                    style: .password,
-//                    input: $viewModel.password,
-//                    placeholder: String(localized: "Password"),
-//                    keyboardType: .default,
-//                    submitLabel: .done,
-//                    textAlignment: .leading,
-//                    width: .infinity,
-//                    height: AppConstants.Visual.buttonHeight) {
-//                        if !viewModel.isButtonDisabled {
-//                            viewModel.authenticate()
-//                        }
-//                    }
-//                    .focused($focusedField, equals: .secureField)
-//
-//                HStack {
-//                    Spacer()
-//
-//                    Button {
-//                        viewModel.forgotPassword()
-//                    } label: {
-//                        Text("Forgot your password?")
-//                            .dtTypo(.p3Medium, color: .textPrimaryLink)
-//                    }
-//                }
-            }
-
             Spacer()
 
             DtButton(
