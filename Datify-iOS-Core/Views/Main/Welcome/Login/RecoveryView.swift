@@ -36,18 +36,17 @@ struct RecoveryView: View {
                     isError: $viewModel.isError
                 )
 
-                if viewModel.isError {
-                    Text("Wrong password")
-                        .dtTypo(.p4Regular, color: .accentsError)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.leading)
-                }
+                Text("Wrong password")
+                    .dtTypo(.p4Regular, color: .accentsError)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.leading)
+                    .opacity(viewModel.isError ? 1 : 0)
             }
 
             Spacer()
 
             DtButton(
-                title: String(localized: "Sign in"),
+                title: "Sign in".localize(),
                 style: .main
             ) {
                 viewModel.validateReceivedPassword()

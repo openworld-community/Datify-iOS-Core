@@ -54,12 +54,11 @@ struct LoginView: View {
                         }
                     }
 
-                    if viewModel.isError {
-                        Text("Wrong password")
-                            .dtTypo(.p4Regular, color: .accentsError)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(.leading)
-                    }
+                    Text("Wrong password")
+                        .dtTypo(.p4Regular, color: .accentsError)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.leading)
+                        .opacity(viewModel.isError ? 1 : 0)
                 }
 
                 Button {
@@ -72,6 +71,7 @@ struct LoginView: View {
                     maxWidth: .infinity,
                     alignment: .trailing
                 )
+                .offset(x: 0, y: viewModel.isError ? 0 : -16)
             }
 
             Spacer()
