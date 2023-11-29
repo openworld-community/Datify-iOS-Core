@@ -115,7 +115,7 @@ struct DtCustomTF: View {
                         style: style,
                         input: $input,
                         isError: $isError,
-                        placeholder: style.stringValue,
+                        placeholder: textPlaceholder != nil ? textPlaceholder! : style.stringValue,
                         keyboardType: style.keyboardStyle,
                         submitLabel: style.submitLabel,
                         textAlignment: style.textAlignment,

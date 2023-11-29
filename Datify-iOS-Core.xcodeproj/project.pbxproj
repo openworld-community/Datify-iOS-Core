@@ -81,6 +81,7 @@
 		98F536A22AFE4B380051D751 /* SMSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F536A12AFE4B380051D751 /* SMSView.swift */; };
 		98F536A42AFE4FBD0051D751 /* RegPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F536A32AFE4FBD0051D751 /* RegPasswordView.swift */; };
 		98F536A62AFE52700051D751 /* RegRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F536A52AFE52700051D751 /* RegRecordView.swift */; };
+		98FA18E72B0A4497003EE71A /* RegPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98FA18E62B0A4497003EE71A /* RegPasswordViewModel.swift */; };
 		98FA18E52B0A34C5003EE71A /* RecoveryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98FA18E42B0A34C5003EE71A /* RecoveryView.swift */; };
 		D050B1B12AA84AA0008EC0AB /* DividerLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D050B1B02AA84AA0008EC0AB /* DividerLine.swift */; };
 		D0C185302AA1D0E1000D71E5 /* SignInWithButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C1852F2AA1D0E1000D71E5 /* SignInWithButton.swift */; };
@@ -188,6 +189,7 @@
 		98F536A32AFE4FBD0051D751 /* RegPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegPasswordView.swift; sourceTree = "<group>"; };
 		98F536A52AFE52700051D751 /* RegRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegRecordView.swift; sourceTree = "<group>"; };
 		98F9F2062AB0C80A00F7DAB8 /* RegEmailViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegEmailViewModel.swift; sourceTree = "<group>"; };
+		98FA18E62B0A4497003EE71A /* RegPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegPasswordViewModel.swift; sourceTree = "<group>"; };
 		98FA18E42B0A34C5003EE71A /* RecoveryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryView.swift; sourceTree = "<group>"; };
 		B9D98C0D2AC425F400F0F4B8 /* Datifysharedcore */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Datifysharedcore; path = ../Datifysharedcore; sourceTree = "<group>"; };
 		D050B1B02AA84AA0008EC0AB /* DividerLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerLine.swift; sourceTree = "<group>"; };
@@ -475,6 +477,7 @@
 				201878B22AB2F8B20029C66C /* RegBirthdayView.swift */,
 				98F536A32AFE4FBD0051D751 /* RegPasswordView.swift */,
 				98F536A52AFE52700051D751 /* RegRecordView.swift */,
+				98FA18E62B0A4497003EE71A /* RegPasswordViewModel.swift */,
 			);
 			path = Registration;
 			sourceTree = "<group>";
@@ -790,6 +793,7 @@
 				4A4CE2ED2A9B60A60098FF80 /* AppConstants.swift in Sources */,
 				2012EF642AAF479400B01688 /* DtBackButton.swift in Sources */,
 				634EF7302ADC48100061E13A /* ChatView.swift in Sources */,
+				98FA18E72B0A4497003EE71A /* RegPasswordViewModel.swift in Sources */,
 				4A4CE2F12A9B67B90098FF80 /* Text+extension.swift in Sources */,
 				4A4CE2EF2A9B66DC0098FF80 /* TempView.swift in Sources */,
 				2002C9F62AB465540043B51E /* DtCustomPicker.swift in Sources */,

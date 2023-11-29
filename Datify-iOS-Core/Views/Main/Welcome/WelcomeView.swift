@@ -31,6 +31,7 @@ struct WelcomeView: View {
             VStack(spacing: 16) {
                 textField
                 buttonsSection
+                    .offset(x: 0, y: isError ? 0 : -16)
             }
             Spacer()
         }
@@ -74,12 +75,12 @@ private extension WelcomeView {
                         signIn()
                     }
                 }
-            if isError {
-                Text("Wrong number")
-                    .dtTypo(.p4Regular, color: .accentsError)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.leading)
-            }
+
+            Text("Wrong number")
+                .dtTypo(.p4Regular, color: .accentsError)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.leading)
+                .opacity(isError ? 1 : 0)
         }
     }
 
@@ -115,7 +116,7 @@ private extension WelcomeView {
         }
         isError = false
 
-        router.push(.login)
+        router.push(.sms)
     }
 
     func isPhoneNumberValid() -> Bool {
