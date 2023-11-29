@@ -19,6 +19,58 @@ struct NotificationsView: View {
     }
 
     var body: some View {
+        switchState(loadingState: viewModel.loadingState)
+            .task {
+                viewModel.minYUpdateTimer?.invalidate()
+                do {
+                    try await viewModel.loadData()
+                } catch {
+                    viewModel.loadingState = .error
+                    viewModel.isError = true
+                }
+            }
+            .alert("Some error occured", isPresented: $viewModel.isError) {
+                Button("Ok") {
+                    viewModel.loadingState = .idle
+                }
+            }
+
+            .navigationTitle("Notifications")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                dtToolbarButton(placement: .topBarLeading, image: DtImage.backButton) {
+                    viewModel.viewNotifications()
+                    dismiss()
+                }
+
+                // TODO: Replace with image from assets
+                dtToolbarButton(placement: .topBarTrailing, image: DtImage.arrowRight) {
+                    withAnimation {
+                        showFilters.toggle()
+                    }
+                }
+            }
+            .navigationBarBackButtonHidden()
+            .overlay(alignment: .center) {
+                if viewModel.loadingState == .loading {
+                    DtSpinnerView(size: 56)
+                }
+            }
+        }
+}
+
+#Preview {
+    NavigationStack {
+        NotificationsView(router: Router())
+    }
+}
+
+private extension NotificationsView {
+
+    @ViewBuilder
+    func switchState(loadingState: LoadingState) -> some View {
+        switch loadingState {
+        case .success:
             VStack(spacing: 0) {
                 if !(viewModel.user?.likes.filter({ $0.isNew }).isEmpty ?? true) {
                     likeSegment
@@ -36,9 +88,6 @@ struct NotificationsView: View {
                     }
                 }
             }
-            .task {
-                viewModel.minYUpdateTimer?.invalidate()
-            }
             .blur(radius: blurRadius)
             .onChange(of: showFilters) { newValue in
                 withAnimation {
@@ -48,49 +97,9 @@ struct NotificationsView: View {
             .sheet(isPresented: $showFilters) {
                 filterSheetView
             }
-            .navigationTitle("Notifications")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Button(action: {
-                        viewModel.viewNotofications()
-                        dismiss()
-                    }, label: {
-                        Image(DtImage.backButton)
-                            .resizableFit()
-                            .frame(width: 24, height: 24)
-                            .foregroundStyle(Color.primary)
-                    })
-                }
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button(action: {
-                        withAnimation {
-                            showFilters.toggle()
-                        }
-                    }, label: {
-                        Image(systemName: "gear")
-                            .resizableFit()
-                            .frame(width: 24, height: 24)
-                            .foregroundStyle(Color.primary)
-                    })
-                }
-            }
-            .navigationBarBackButtonHidden()
-            .overlay(alignment: .center) {
-                if viewModel.isLoading {
-                    DtSpinnerView(size: 56)
-                }
-            }
+        default: DtSpinnerView(size: 56)
         }
-}
-
-#Preview {
-    NavigationStack {
-        NotificationsView(router: Router())
     }
-}
-
-private extension NotificationsView {
 
     @ViewBuilder
     func createSection(title: String,
@@ -151,15 +160,15 @@ private extension NotificationsView {
         Button {
             // TODO: Like segment tap action
             // Temporary to test on device
-            viewModel.viewNotofications()
+            viewModel.viewNotifications()
         } label: {
             ZStack {
                 Rectangle()
                     .frame(height: 72)
                     .foregroundStyle(Color.backgroundSpecial)
                 HStack {
-                    DtDoubleAvatar(user1: viewModel.getLastLikeUsers().last,
-                                   user2: viewModel.getLastLikeUsers().penult)
+                    DtUserCircleImage.doubleUserImage(user1: viewModel.getLastLikeUsers().last,
+                                                      user2: viewModel.getLastLikeUsers().penult)
                     VStack(alignment: .leading, spacing: 5) {
                         Text("You have new likes!")
                             .dtTypo(.p2Medium, color: .textPrimary)

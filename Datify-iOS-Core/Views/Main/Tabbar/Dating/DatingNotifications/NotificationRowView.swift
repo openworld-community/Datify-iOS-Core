@@ -99,11 +99,8 @@ private extension NotificationRowView {
     }
 
     var userPhoto: some View {
-        Image(sender?.photoURL ?? "photoPlaceholder")
-            .resizableFill()
-            .blur(radius: notification.shouldBlur ? 3 : 0)
-            .clipShape(.circle)
-            .frame(width: 56, height: 56)
+        DtUserCircleImage(photoURL: sender?.photoURL ?? "photoPlaceholder",
+                          blurRadius: notification.shouldBlur ? 3 : 0)
             .overlay {
                 Text(
                     notification.shouldBlur ? "+\(String(viewModel.user?.newMessages ?? 0))" : "")
@@ -135,9 +132,9 @@ private extension NotificationRowView {
                 notificationTitle(title: title)
             }
             let secondaryText = switch notification.notificationType {
-            case.callForAction: "You've visited \(sender?.name ?? "")'s profile twice, want to start chatting?"
-            case.newMessages: "Look at messages from new people, maybe you will like someone"
-            case.visitedProfile: "Visited your profile"
+            case.callForAction: "You've visited \(sender?.name ?? "")'s profile twice, want to start chatting?".localize()
+            case.newMessages: "Look at messages from new people, maybe you will like someone".localize()
+            case.visitedProfile: "Visited your profile".localize()
             }
             Text(secondaryText)
                 .dtTypo(.p3Medium, color: .textSecondary)
@@ -194,7 +191,7 @@ private extension NotificationRowView {
                 Circle().frame(width: 6).foregroundStyle(.green)
             }
             Spacer()
-            Text(notification.dateToTimeString())
+            Text(DtDateFormatter.basicTime(date: notification.date))
                 .dtTypo(.p4Medium, color: .textSecondary)
         }
     }

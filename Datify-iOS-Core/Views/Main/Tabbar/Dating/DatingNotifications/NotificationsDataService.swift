@@ -46,10 +46,10 @@ final class NotificationsDataService {
 
     func notificationIsViewed(id: String) {
         // Function to send update to database 
-        guard let allNotifications = allNotifications,
-        var localNotification = allNotifications.first(where: {$0.id == id}) else { return }
+        guard let allNotifications,
+        var localNotification = allNotifications.first(where: { $0.id == id }) else { return }
         localNotification.isViewed()
-        if let index = allNotifications.firstIndex(where: {$0.id == id}) {
+        if let index = allNotifications.firstIndex(where: { $0.id == id }) {
             self.allNotifications?[index] = localNotification
         }
     }

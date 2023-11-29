@@ -21,12 +21,6 @@ struct NotificationModel: Identifiable {
     let date: Date
     private(set) var isNew: Bool = true
 
-    func dateToTimeString() -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm"
-        return formatter.string(from: date)
-    }
-
     mutating func isViewed() {
         self.isNew = false
     }
@@ -34,10 +28,7 @@ struct NotificationModel: Identifiable {
 
 extension NotificationModel {
     var shouldBlur: Bool {
-        if case .newMessages = notificationType {
-            return true
-        }
-        return false
+        notificationType == .newMessages
     }
 }
 
