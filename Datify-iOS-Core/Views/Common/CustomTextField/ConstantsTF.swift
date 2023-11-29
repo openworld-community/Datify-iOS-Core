@@ -13,8 +13,8 @@ enum CountryCodePhoneTF: CaseIterable {
 
     var stringValue: String {
         switch self {
-        case .russia: return "Ru +7"
-        case .usa: return "US +1"
+        case .russia: return "+7"
+        case .usa: return "+1"
         }
     }
 }
