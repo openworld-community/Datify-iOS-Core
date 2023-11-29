@@ -37,7 +37,7 @@ struct DtCustomTFViewModifier: ViewModifier {
         .cornerRadius(AppConstants.Visual.cornerRadius)
         .overlay(
             RoundedRectangle(cornerRadius: AppConstants.Visual.cornerRadius)
-                .stroke(isError ? Color.accentsError : .backgroundStroke, lineWidth: 1)
+                    .stroke(isError ? Color.accentsError : .backgroundStroke, lineWidth: 1)
         )
         .submitLabel(submitLabel)
         .onSubmit {

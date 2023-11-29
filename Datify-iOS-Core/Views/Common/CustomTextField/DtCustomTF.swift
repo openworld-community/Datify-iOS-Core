@@ -114,6 +114,7 @@ struct DtCustomTF: View {
                     SecureTextFieldView(
                         style: style,
                         input: $input,
+                        isError: $isError,
                         placeholder: style.stringValue,
                         keyboardType: style.keyboardStyle,
                         submitLabel: style.submitLabel,

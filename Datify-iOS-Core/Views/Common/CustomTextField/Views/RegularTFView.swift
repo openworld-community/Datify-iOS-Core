@@ -23,6 +23,7 @@ struct RegularTextFieldView: View {
     var body: some View {
         HStack {
             TextField(placeholder, text: $input)
+                .padding(.leading, textAlignment == .center ? input.isEmpty ? 0 : 40 : 0)
             if !input.isEmpty {
                 Button(action: {
                     withAnimation {
