@@ -37,14 +37,14 @@ struct RegPasswordView: View {
                         style: .password,
                         input: $viewModel.password,
                         isError: $viewModel.isError,
-                        textPlaceholder: "Enter password") {
+                        textPlaceholder: "Enter password".localize()) {
                             focusedField = .checkPasswordField
                         }
                     DtCustomTF(
                         style: .password,
                         input: $viewModel.checkPassword,
                         isError: $viewModel.isError,
-                        textPlaceholder: "Confirm password") {
+                        textPlaceholder: "Confirm password".localize()) {
                             if !viewModel.isButtonDisabled {
                                 viewModel.validatePassword()
                             }
