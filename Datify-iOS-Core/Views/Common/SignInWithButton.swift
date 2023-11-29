@@ -19,7 +19,7 @@ struct SignInWithButton: View {
     }
 
     var body: some View {
-        VStack(spacing: 15) {
+        VStack(spacing: 8) {
             customButton(isApple: false)
             customButton(isApple: true)
         }
@@ -40,7 +40,7 @@ extension SignInWithButton {
                 await action()
             }
         } label: {
-            HStack {
+            HStack(spacing: 10) {
                 Group {
                     if isApple {
                         Image(systemName: DtImage.appleLogo)
@@ -57,10 +57,8 @@ extension SignInWithButton {
                     .dtTypo(.p2Medium, color: .textPrimary)
             }
         }
-        .padding()
         .frame(maxWidth: .infinity)
         .frame(height: AppConstants.Visual.buttonHeight)
-        .padding(.horizontal, 15)
         .background(
             RoundedRectangle(cornerRadius: AppConstants.Visual.cornerRadius)
                 .stroke(Color.secondary, lineWidth: 1)

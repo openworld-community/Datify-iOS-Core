@@ -27,14 +27,28 @@ struct RegEmailView: View {
 
                     Text("This is necessary to regain access to the account")
                         .dtTypo(.p2Regular, color: .textSecondary)
+                        .multilineTextAlignment(.center)
                 }
 
-                VStack(spacing: 16) {
-                    DtCustomTF(style: .email, input: $viewModel.email) {
+                VStack(spacing: 4) {
+                    DtCustomTF(
+                        style: .email,
+                        input: $viewModel.email,
+                        isError: $viewModel.isWrongFormat
+                    ) {
                         if !viewModel.isButtonDisabled {
                             viewModel.validateEmail()
                         }
                     }
+
+                  Text(
+                    viewModel.isWrongFormat ?
+                    "Wrong format" :
+                      " "
+                  )
+                    .dtTypo(.p4Regular, color: .accentsError)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.leading)
                 }
             }
 
@@ -58,11 +72,6 @@ struct RegEmailView: View {
                 DtLogoView()
             }
         }
-        .alert(
-            "Wrong format of email address. Please try again!",
-            isPresented: $viewModel.isWrongFormat,
-            actions: {}
-        )
         .hideKeyboardTapOutside()
     }
 }
