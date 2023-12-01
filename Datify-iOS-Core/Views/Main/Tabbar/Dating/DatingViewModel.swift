@@ -13,6 +13,10 @@ final class DatingViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     var filterDataService = FilterDataService()
     @Published var userFilterModel: FilterModel?
+    @Published var sheetIsPresented: Bool = false
+    @Published var blockingMenuIsPresented: Bool = false
+    @Published var blockingSheetIsPresented: Bool = false
+    @Published var complainSheetIsPresented: Bool = false
 
     init(router: Router<AppRoute>) {
         self.router = router
@@ -25,5 +29,13 @@ final class DatingViewModel: ObservableObject {
                 self?.userFilterModel = fetchedFilterModel
             }
             .store(in: &cancellables)
+    }
+
+    func block() {
+        blockingSheetIsPresented = true
+    }
+
+    func complain() {
+        complainSheetIsPresented = true
     }
 }

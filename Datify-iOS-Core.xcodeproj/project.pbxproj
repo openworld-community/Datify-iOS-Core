@@ -75,14 +75,16 @@
 		9888E7862AC4747400F5B86F /* DtLimitedPhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9888E7852AC4747400F5B86F /* DtLimitedPhotoPicker.swift */; };
 		9888E78B2AC5B20100F5B86F /* DtCropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9888E78A2AC5B20100F5B86F /* DtCropView.swift */; };
 		9898B2BF2AAA49DE007CA714 /* RegEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9898B2BE2AAA49DE007CA714 /* RegEmailViewModel.swift */; };
+		98C55E9C2B1A74D200BD0450 /* DTGroupBoxStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C55E9B2B1A74D200BD0450 /* DTGroupBoxStyle.swift */; };
+		98C55E9E2B1A75A300BD0450 /* DtConfirmationDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C55E9D2B1A75A300BD0450 /* DtConfirmationDialog.swift */; };
 		98E38EB42AB351A0007FC35A /* RegPhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E38EB32AB351A0007FC35A /* RegPhotoView.swift */; };
 		98E38EB62AB358F8007FC35A /* RegPhotoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E38EB52AB358F8007FC35A /* RegPhotoViewModel.swift */; };
 		98F3B6D62A9E4F9D0097B5C0 /* DtLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F3B6D52A9E4F9D0097B5C0 /* DtLogoView.swift */; };
 		98F536A22AFE4B380051D751 /* SMSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F536A12AFE4B380051D751 /* SMSView.swift */; };
 		98F536A42AFE4FBD0051D751 /* RegPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F536A32AFE4FBD0051D751 /* RegPasswordView.swift */; };
 		98F536A62AFE52700051D751 /* RegRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F536A52AFE52700051D751 /* RegRecordView.swift */; };
-		98FA18E72B0A4497003EE71A /* RegPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98FA18E62B0A4497003EE71A /* RegPasswordViewModel.swift */; };
 		98FA18E52B0A34C5003EE71A /* RecoveryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98FA18E42B0A34C5003EE71A /* RecoveryView.swift */; };
+		98FA18E72B0A4497003EE71A /* RegPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98FA18E62B0A4497003EE71A /* RegPasswordViewModel.swift */; };
 		D050B1B12AA84AA0008EC0AB /* DividerLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D050B1B02AA84AA0008EC0AB /* DividerLine.swift */; };
 		D0C185302AA1D0E1000D71E5 /* SignInWithButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C1852F2AA1D0E1000D71E5 /* SignInWithButton.swift */; };
 		D0C8965A2AA217630084FA62 /* DtImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C896592AA217630084FA62 /* DtImage.swift */; };
@@ -182,6 +184,8 @@
 		9888E7872AC55E3600F5B86F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		9888E78A2AC5B20100F5B86F /* DtCropView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtCropView.swift; sourceTree = "<group>"; };
 		9898B2BE2AAA49DE007CA714 /* RegEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RegEmailViewModel.swift; path = "Datify-iOS-Core/Views/Main/Welcome/Registration/RegEmailViewModel.swift"; sourceTree = SOURCE_ROOT; };
+		98C55E9B2B1A74D200BD0450 /* DTGroupBoxStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTGroupBoxStyle.swift; sourceTree = "<group>"; };
+		98C55E9D2B1A75A300BD0450 /* DtConfirmationDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtConfirmationDialog.swift; sourceTree = "<group>"; };
 		98E38EB32AB351A0007FC35A /* RegPhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegPhotoView.swift; sourceTree = "<group>"; };
 		98E38EB52AB358F8007FC35A /* RegPhotoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegPhotoViewModel.swift; sourceTree = "<group>"; };
 		98F3B6D52A9E4F9D0097B5C0 /* DtLogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtLogoView.swift; sourceTree = "<group>"; };
@@ -189,8 +193,8 @@
 		98F536A32AFE4FBD0051D751 /* RegPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegPasswordView.swift; sourceTree = "<group>"; };
 		98F536A52AFE52700051D751 /* RegRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegRecordView.swift; sourceTree = "<group>"; };
 		98F9F2062AB0C80A00F7DAB8 /* RegEmailViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegEmailViewModel.swift; sourceTree = "<group>"; };
-		98FA18E62B0A4497003EE71A /* RegPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegPasswordViewModel.swift; sourceTree = "<group>"; };
 		98FA18E42B0A34C5003EE71A /* RecoveryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryView.swift; sourceTree = "<group>"; };
+		98FA18E62B0A4497003EE71A /* RegPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegPasswordViewModel.swift; sourceTree = "<group>"; };
 		B9D98C0D2AC425F400F0F4B8 /* Datifysharedcore */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Datifysharedcore; path = ../Datifysharedcore; sourceTree = "<group>"; };
 		D050B1B02AA84AA0008EC0AB /* DividerLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerLine.swift; sourceTree = "<group>"; };
 		D0C1852F2AA1D0E1000D71E5 /* SignInWithButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInWithButton.swift; sourceTree = "<group>"; };
@@ -285,6 +289,8 @@
 				2002C9F52AB465540043B51E /* DtCustomPicker.swift */,
 				20FD2D2C2ADDCCF90051C894 /* DtSegmentedPicker.swift */,
 				205C6D8A2AE0010A0051FB77 /* DtXMarkButton.swift */,
+				98C55E9B2B1A74D200BD0450 /* DTGroupBoxStyle.swift */,
+				98C55E9D2B1A75A300BD0450 /* DtConfirmationDialog.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -741,6 +747,7 @@
 				634EF72B2ADC48010061E13A /* TabbarView.swift in Sources */,
 				D0C185302AA1D0E1000D71E5 /* SignInWithButton.swift in Sources */,
 				632A7F5E2AAC897B005DA819 /* DtCustomTFView+extension.swift in Sources */,
+				98C55E9C2B1A74D200BD0450 /* DTGroupBoxStyle.swift in Sources */,
 				634EF72A2ADC48010061E13A /* TabItem.swift in Sources */,
 				98F536A22AFE4B380051D751 /* SMSView.swift in Sources */,
 				4A4CE2DC2A9B485B0098FF80 /* WelcomeView.swift in Sources */,
@@ -757,6 +764,7 @@
 				D0C8965A2AA217630084FA62 /* DtImage.swift in Sources */,
 				634EF7392ADC48300061E13A /* MenuViewModel.swift in Sources */,
 				D0DC465F2A92699D0097CFF3 /* MainAppView.swift in Sources */,
+				98C55E9E2B1A75A300BD0450 /* DtConfirmationDialog.swift in Sources */,
 				634EF7382ADC48300061E13A /* MenuView.swift in Sources */,
 				634EF7282ADC48010061E13A /* TabbarViewModel.swift in Sources */,
 				63A729592AA3937500AC60E3 /* RegularTFView.swift in Sources */,
