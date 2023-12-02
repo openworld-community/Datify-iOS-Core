@@ -37,9 +37,12 @@ struct DtConfirmationDialogModifier<A>: ViewModifier where A: View {
                         Spacer()
 
                         GroupBox {
-                            actions()
+                            VStack(spacing: 0) {
+                                actions()
+                            }
                         }
-                        .groupBoxStyle(DTGroupBoxStyle())
+                        .groupBoxStyle(DtGroupBoxStyle())
+                        .clipShape(RoundedRectangle(cornerRadius: AppConstants.Visual.cornerRadius))
 
                         GroupBox {
                             Button(role: .cancel) {
@@ -47,10 +50,12 @@ struct DtConfirmationDialogModifier<A>: ViewModifier where A: View {
                             } label: {
                                 Text("Cancel")
                                     .frame(maxWidth: .infinity)
+                                    .padding(.vertical)
                             }
                             .dtTypo(.p2Medium, color: .textPrimary)
                         }
-                        .groupBoxStyle(DTGroupBoxStyle())
+                        .groupBoxStyle(DtGroupBoxStyle())
+                        .clipShape(RoundedRectangle(cornerRadius: AppConstants.Visual.cornerRadius))
                     }
                     .padding(.horizontal, 24)
                     .transition(.move(edge: .bottom))

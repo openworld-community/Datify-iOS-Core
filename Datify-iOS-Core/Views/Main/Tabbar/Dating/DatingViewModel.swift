@@ -16,6 +16,7 @@ final class DatingViewModel: ObservableObject {
     @Published var sheetIsPresented: Bool = false
     @Published var blockingMenuIsPresented: Bool = false
     @Published var blockingSheetIsPresented: Bool = false
+    @Published var blockConfirmSheetIsPresented: Bool = false
     @Published var complainSheetIsPresented: Bool = false
 
     init(router: Router<AppRoute>) {
@@ -33,6 +34,11 @@ final class DatingViewModel: ObservableObject {
 
     func block() {
         blockingSheetIsPresented = true
+    }
+
+    func confirmBlock() {
+        blockingSheetIsPresented = false
+        blockConfirmSheetIsPresented = true
     }
 
     func complain() {

@@ -59,16 +59,35 @@ struct DatingView: View {
         .dtConfirmationDialog(
             isPresented: $viewModel.blockingMenuIsPresented
         ) {
+            confirmationDialogView()
+        }
+        .dtSheet(isPresented: $viewModel.blockingSheetIsPresented) {
+            blockView
+        }
+        .sheet(isPresented: $viewModel.complainSheetIsPresented) {
+            Text("Complain sheet")
+                .presentationDetents([.medium])
+        }
+        .dtSheet(isPresented: $viewModel.blockConfirmSheetIsPresented) {
+            confirmBlockView
+        }
+    }
+}
+
+private extension DatingView {
+    func confirmationDialogView() -> some View {
+        Group {
             Button {
                 viewModel.blockingMenuIsPresented = false
                 viewModel.blockingSheetIsPresented = true
             } label: {
                 Text("Block")
                     .frame(maxWidth: .infinity)
+                    .padding(.vertical)
             }
             .dtTypo(.p2Medium, color: .textPrimary)
 
-            Divider().padding(.vertical, 4)
+            Divider()
 
             Button {
                 viewModel.blockingMenuIsPresented = false
@@ -76,17 +95,101 @@ struct DatingView: View {
             } label: {
                 Text("Complain")
                     .frame(maxWidth: .infinity)
+                    .padding(.vertical)
             }
             .dtTypo(.p2Medium, color: .accentsPink)
         }
-        .sheet(isPresented: $viewModel.blockingSheetIsPresented) {
-            Text("Blocking sheet")
-                .presentationDetents([.medium])
+    }
+
+    var blockView: some View {
+        VStack(spacing: 16) {
+            ZStack {
+                Color.accentsPink
+                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                Image(systemName: "exclamationmark.circle")
+                    .resizable()
+                    .frame(width: 24, height: 24)
+                    .foregroundStyle(Color.iconsPrimary)
+                    .colorScheme(.dark)
+
+            }
+            .frame(width: 48, height: 48)
+            .clipped()
+            .shadow(color: Color(hex: 0x14282A52).opacity(0.2), radius: 8, y: 2)
+
+            VStack(spacing: 32) {
+                VStack(spacing: 12) {
+                    Text("Do you want to block this user?")
+                        .dtTypo(.h3Medium, color: .textPrimary)
+                        .multilineTextAlignment(.center)
+                    Text("The user will be blocked and will no longer be able to find your profile on Datify")
+                        .dtTypo(.p2Regular, color: .textSecondary)
+                        .multilineTextAlignment(.center)
+                }
+
+                VStack(spacing: 8) {
+                    DtButton(
+                        title: "Yes, block",
+                        style: .main) {
+                            viewModel.confirmBlock()
+                        }
+                    Button {
+                        viewModel.blockingSheetIsPresented = false
+                    } label: {
+                        Text("No, cancel")
+                            .dtTypo(.p2Medium, color: .textPrimary)
+                            .frame(maxWidth: .infinity, maxHeight: AppConstants.Visual.buttonHeight)
+                            .background(
+                                RoundedRectangle(cornerRadius: 16)
+                                    .fill(Color.backgroundSecondary)
+                            )
+                    }
+                    .clipShape(
+                        RoundedRectangle(cornerRadius: 16)
+                    )
+                }
+            }
         }
-        .sheet(isPresented: $viewModel.complainSheetIsPresented) {
-            Text("Complain sheet")
-                .presentationDetents([.medium])
+        .padding(
+            EdgeInsets(
+                top: 32,
+                leading: 16,
+                bottom: 16,
+                trailing: 16
+            )
+        )
+    }
+
+    var confirmBlockView: some View {
+        ZStack(alignment: .top) {
+            Image("flowerIcon")
+                .shadow(color: Color(hex: 0x14282A52).opacity(0.2), radius: 8, y: 2)
+
+            VStack(spacing: 32) {
+                VStack(spacing: 12) {
+                    Text("User successfully blocked")
+                        .dtTypo(.h3Medium, color: .textPrimary)
+                        .multilineTextAlignment(.center)
+                    Text("Thanks for the appeal, now this user won't bother you anymore").dtTypo(.p2Regular, color: .textSecondary)
+                        .multilineTextAlignment(.center)
+                }
+
+                DtButton(
+                    title: "Got it",
+                    style: .main) {
+                        viewModel.blockConfirmSheetIsPresented = false
+                    }
+            }
+            .padding(.top, 90)
         }
+        .padding(
+            EdgeInsets(
+                top: 20,
+                leading: 16,
+                bottom: 16,
+                trailing: 16
+            )
+        )
     }
 }
 
