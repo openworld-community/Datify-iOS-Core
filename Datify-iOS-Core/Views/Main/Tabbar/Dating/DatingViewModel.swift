@@ -16,7 +16,11 @@ final class DatingViewModel: ObservableObject {
     @Published var playbackProgress: Double = 0.0
     @Published var playCurrentTime: Int = 0
     @Published var totalDuration: Double = 0.0
-    @Published var audioSamples: [BarChartDataPoint] = []
+    @Published var audioSamples: [BarChartDataPoint] = [] {
+        didSet {
+            print("Обновлены audioSamples, количество элементов: \(audioSamples.count)")
+        }
+    }
 
     @Published var liked: Bool = false
     @Published var bookmarked: Bool = false

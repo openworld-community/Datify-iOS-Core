@@ -88,6 +88,8 @@ class DtAudioPlayerManager: NSObject, ObservableObject, AVAudioPlayerDelegate {
     }
 
     func loadAudioData(for resource: String, ofType type: String) {
+        print("Загрузка файла: \(resource).\(type)")
+
         if let path = Bundle.main.path(forResource: resource, ofType: type) {
             let url = URL(fileURLWithPath: path)
             do {
@@ -134,6 +136,15 @@ class DtAudioPlayerManager: NSObject, ObservableObject, AVAudioPlayerDelegate {
                 self.errorSubject.send(error)
             }
         }
+    }
+
+    func stopPlayback() {
+        audioPlayer?.stop()
+        audioPlayer?.currentTime = 0
+        audioPlayer = nil
+        playbackProgress = 0.0
+        isPlaying = false
+        stopProgressUpdates()
     }
 
     func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?) {

@@ -13,7 +13,7 @@ struct DatingView: View {
 
     @StateObject private var viewModel: DatingViewModel
 
-    @State private var currentUserIndex: Int = 0
+    @State private var currentUserIndex: Int?
 
     @State private var showLikedAnimation = false
     @State private var showBookmarkedAnimation = false
@@ -38,7 +38,7 @@ struct DatingView: View {
 
     var body: some View {
         GeometryReader { geometry in
-            ScrollView {
+            ScrollView(.vertical) {
                 LazyVStack(spacing: 0.0) {
                     ForEach($viewModel.users.indices, id: \.self) { index in
                         ZStack {
@@ -57,7 +57,6 @@ struct DatingView: View {
                                     selectedPhotoIndex: selectedPhotoIndex
                                 )
                                 .position(x: geometry.size.width / 2, y: geometry.size.height - 170), alignment: .center)
-
                             if showLikedAnimation {
                                 AnimatedIconView(show: $showLikedAnimation, icon: Image(DtImage.mainSelectedHeart))
                                     .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
@@ -106,22 +105,35 @@ struct DatingView: View {
                                 }
                                 .padding(.bottom)
                             }
-                            .gesture(DragGesture().onEnded { _ in
-                                currentUserIndex = index
-                                print("currentUserIndex = index: \(index)")
-                            })
                             .padding(.horizontal)
                         }
                         .navigationBarHidden(true)
                         .background(Color.customBlack)
                         .id(index)
-                        .onAppear {
-                                // Обновление текущего индекса
-                            currentUserIndex = index
-                            print("currentUserIndex: \(currentUserIndex)")
-                        }
                     }
-                    .scrollTargetLayout()
+                }
+                .scrollTargetLayout()
+            }
+            .disabled(selectedPhotoIndex != 0)
+            .scrollPosition(id: $currentUserIndex)
+            .onChange(of: currentUserIndex) { _, newValue in
+                viewModel.isPlaying = false
+                viewModel.playbackFinished = true
+                viewModel.audioPlayerManager.stopPlayback()
+
+                showLikedAnimation = false
+                showBookmarkedAnimation = false
+                isSwipeAndIndicatorsDisabled = false
+                showDescription = false
+                selectedPhotoIndex = 0
+
+                isAlertPresented = false
+                print(newValue ?? "")
+
+                if let currentIndex = newValue {
+                    viewModel.currentUserIndex = currentIndex
+                    let newAudioFile = viewModel.users[currentIndex].audiofile
+                    viewModel.audioPlayerManager.loadAudioData(for: newAudioFile, ofType: "mp3")
                 }
             }
         }
@@ -146,17 +158,6 @@ struct DatingView: View {
                     showBookmarkedAnimation = false
                 }
             }
-        }
-        .onChange(of: viewModel.currentUserIndexBinding.wrappedValue) { _ in
-            showLikedAnimation = false
-            showBookmarkedAnimation = false
-            selectedPhotoIndex = 0
-
-            print("viewModel.currentUserIndexBinding.wrappedValue: \(viewModel.currentUserIndexBinding.wrappedValue)")
-        }
-        .onAppear {
-            currentUserIndex = viewModel.currentUserIndex
-            print("viewModel.currentUserIndex: \(viewModel.currentUserIndex)")
         }
         .alert(isPresented: $viewModel.showAlert) {
             Alert(
