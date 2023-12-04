@@ -30,13 +30,13 @@ class RecordManager: ObservableObject {
     @Published var heightVoiceGraph: CGFloat
     @Published var wightVoiceGraph: CGFloat
 
+    private let deleteAnimationDuration: Double = Constant.deleteAnimationDuration
+    private let maxRecordingDuration: Double = Constant.maxRecordingDuration
+    private let minRecordingDuration: Double = Constant.minRecordingDuration
+    private let factorAmplitudes: Float = Constant.factorAmplitudes
     private var maxHeightBar: CGFloat = 0
     private var minHeightBar: CGFloat = 0
-    private var deleteAnimationDuration: Double = Constant.deleteAnimationDuration
-    private var maxRecordingDuration: Double = Constant.maxRecordingDuration
-    private var minRecordingDuration: Double = Constant.minRecordingDuration
     private var barsCount = 0
-    private var factorAmplitudes: Float = Constant.factorAmplitudes
     private var currentRecordingTime = 0.0
     private var index = 0
     private var audioDuration: Double = 0.0

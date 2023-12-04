@@ -68,8 +68,9 @@ struct DtCircleButton: View {
                     .foregroundColor(disableImage ? Color.iconsSecondary : Color.iconsPrimary)
             }
             .background(
-                RoundedRectangle(cornerRadius: style.sizeButton()/2)
-                        .stroke(Color.iconsTertiary, lineWidth: 0.33)
+                Circle()
+                    .stroke(Color.iconsTertiary, lineWidth: 0.33)
+                    .frame(width: style.sizeButton(), height: style.sizeButton())
             )
     }
 }

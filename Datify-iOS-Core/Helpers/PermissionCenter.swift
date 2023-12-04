@@ -18,7 +18,7 @@ enum PermissionCenter {
 
         var errorDescription: String? {
             switch self {
-            case .microphoneAccessDenied: return NSLocalizedString("No access to microphone", comment: "")
+            case .microphoneAccessDenied: return "No access to microphone".localize()
             }
         }
     }
