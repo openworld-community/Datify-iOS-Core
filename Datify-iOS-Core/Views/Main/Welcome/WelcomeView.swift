@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct WelcomeView: View {
+    @State private var phoneNumber: String = .init()
+    @State private var isError: Bool = false
     // titles
     private let appTitle: String = "Datify"
     private let mainText: String = "Find new acquaintance"
     private let mainTextGradient: String = "right now"
     private let orTitle: String = "or"
-    private let alreadyHaveAnAccountTitle: String = "Already have an account?"
     // buttons
-    private let signUpButtonTitle: String = "Sign up"
     private let signInButtonTitle: String = "Sign in"
 
     private unowned let router: Router<AppRoute>
@@ -25,13 +25,18 @@ struct WelcomeView: View {
     }
 
     var body: some View {
-        VStack {
+        VStack(spacing: 40) {
             Spacer()
             largeTitle
+            VStack(spacing: 16) {
+                textField
+                buttonsSection
+                    .offset(x: 0, y: isError ? 0 : -16)
+            }
             Spacer()
-            buttonsSection
-            alreadyHaveAnAccountSection
         }
+        .hideKeyboardTapOutside()
+        .padding()
         .toolbar {
             ToolbarItem(placement: .principal) {
                 DtLogoView()
@@ -46,8 +51,8 @@ struct WelcomView_Previews: PreviewProvider {
     }
 }
 
-extension WelcomeView {
-    private var largeTitle: some View {
+private extension WelcomeView {
+    var largeTitle: some View {
         VStack(alignment: .center) {
             Text(mainText)
                 .multilineTextAlignment(.center)
@@ -59,21 +64,40 @@ extension WelcomeView {
         .padding()
     }
 
-    private var buttonsSection: some View {
-        VStack {
-            SignInWithButton {
-                router.push(.sms)
-            }
-            .padding()
-            orLine
-            DtButton(title: signUpButtonTitle, style: .main) {
-                router.push(.sms)
-            }
-            .padding()
+    var textField: some View {
+        VStack(spacing: 4) {
+            DtCustomTF(
+                style: .phone,
+                input: $phoneNumber,
+                isError: $isError) {
+                    // Do we need onSubmit action? Keyboard style is .phonePad
+                    if isPhoneNumberValid() {
+                        signIn()
+                    }
+                }
+
+            Text("Wrong number")
+                .dtTypo(.p4Regular, color: .accentsError)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.leading)
+                .opacity(isError ? 1 : 0)
         }
     }
 
-    private var orLine: some View {
+    var buttonsSection: some View {
+        VStack(spacing: 16) {
+            DtButton(title: signInButtonTitle, style: .gradient) {
+                signIn()
+            }
+            .disabled(!isPhoneNumberValid())
+            orLine
+            SignInWithButton {
+                router.push(.login)
+            }
+        }
+    }
+
+    var orLine: some View {
         HStack(spacing: 4) {
             DividerLine()
             Text(orTitle)
@@ -82,16 +106,21 @@ extension WelcomeView {
         }
     }
 
-    private var alreadyHaveAnAccountSection: some View {
-        Button {
-            router.push(.sms)
-        } label: {
-            HStack {
-                Text(alreadyHaveAnAccountTitle)
-                    .dtTypo(.p2Regular, color: .textSecondary)
-                Text(signInButtonTitle)
-                    .dtTypo(.p2Regular, color: .textPrimaryLink)
-            }
+    func signIn() {
+        // TODO: processing phone number
+
+        // to demonstrate an error case
+        guard phoneNumber.count > 14 else {
+            isError = true
+            return
         }
+        isError = false
+
+        router.push(.sms)
+    }
+
+    func isPhoneNumberValid() -> Bool {
+        // TODO: create validation
+        phoneNumber.count > 10
     }
 }

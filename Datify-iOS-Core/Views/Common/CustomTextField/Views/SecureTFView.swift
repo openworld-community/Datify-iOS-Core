@@ -12,6 +12,7 @@ struct SecureTextFieldView: View {
 
     let style: DtCustomTF.Style
     @Binding var input: String
+    @Binding var isError: Bool
     let placeholder: String
     let keyboardType: UIKeyboardType
     let submitLabel: SubmitLabel
@@ -40,6 +41,7 @@ struct SecureTextFieldView: View {
         }
         .disableAutocorrection(true)
         .modifier(DtCustomTFViewModifier(
+            isError: isError,
             style: style,
             keyboardType: keyboardType,
             submitLabel: submitLabel,

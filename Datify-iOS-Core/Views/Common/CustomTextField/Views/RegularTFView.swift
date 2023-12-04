@@ -11,6 +11,7 @@ struct RegularTextFieldView: View {
 
     let style: DtCustomTF.Style
     @Binding var input: String
+    @Binding var isError: Bool
     let placeholder: String
     let keyboardType: UIKeyboardType
     let submitLabel: SubmitLabel
@@ -22,6 +23,7 @@ struct RegularTextFieldView: View {
     var body: some View {
         HStack {
             TextField(placeholder, text: $input)
+                .padding(.leading, textAlignment == .center ? input.isEmpty ? 0 : 40 : 0)
             if !input.isEmpty {
                 Button(action: {
                     withAnimation {
@@ -35,6 +37,7 @@ struct RegularTextFieldView: View {
             }
         }
         .modifier(DtCustomTFViewModifier(
+            isError: isError,
             style: style,
             keyboardType: keyboardType,
             submitLabel: submitLabel,

@@ -46,8 +46,8 @@ struct DtCustomTF: View {
 
         var textAlignment: TextAlignment {
             switch self {
-            case .email, .phoneAndEmail, .password: return .leading
-            case .phone, .sms: return .center
+            case .email, .phoneAndEmail, .password, .phone: return .leading
+            case .sms: return .center
             case .text(_, let alignment): return alignment ?? .center
             }
         }
@@ -56,6 +56,7 @@ struct DtCustomTF: View {
     @State private var isEditing = false
     private let style: DtCustomTF.Style
     @Binding var input: String
+    @Binding var isError: Bool
     private let width: CGFloat
     private let height: CGFloat
     private let textPlaceholder: String?
@@ -65,6 +66,7 @@ struct DtCustomTF: View {
     init(
         style: DtCustomTF.Style,
         input: Binding<String>,
+        isError: Binding<Bool> = .constant(false),
         width: CGFloat = .infinity,
         height: CGFloat = AppConstants.Visual.buttonHeight,
         textPlaceholder: String? = nil,
@@ -72,6 +74,7 @@ struct DtCustomTF: View {
     ) {
         self.style = style
         self._input = input
+        self._isError = isError
         self.width = width
         self.height = height
         self.textPlaceholder = textPlaceholder
@@ -85,6 +88,7 @@ struct DtCustomTF: View {
                     RegularTextFieldView(
                         style: style,
                         input: $input,
+                        isError: $isError,
                         placeholder: style.stringValue,
                         keyboardType: style.keyboardStyle,
                         submitLabel: style.submitLabel,
@@ -97,6 +101,7 @@ struct DtCustomTF: View {
                     RegularTextFieldView(
                         style: style,
                         input: $input,
+                        isError: $isError,
                         placeholder: style.stringValue,
                         keyboardType: style.keyboardStyle,
                         submitLabel: style.submitLabel,
@@ -109,7 +114,8 @@ struct DtCustomTF: View {
                     SecureTextFieldView(
                         style: style,
                         input: $input,
-                        placeholder: style.stringValue,
+                        isError: $isError,
+                        placeholder: textPlaceholder != nil ? textPlaceholder! : style.stringValue,
                         keyboardType: style.keyboardStyle,
                         submitLabel: style.submitLabel,
                         textAlignment: style.textAlignment,
@@ -118,34 +124,32 @@ struct DtCustomTF: View {
                         action: action
                     )
             case .phone:
-                    HStack {
-                        CountryCodeButton()
-                        RegularTextFieldView(
-                            style: style,
-                            input: $input,
-                            placeholder: style.stringValue,
-                            keyboardType: style.keyboardStyle,
-                            submitLabel: style.submitLabel,
-                            textAlignment: style.textAlignment,
-                            width: width,
-                            height: height,
-                            action: action
-                        )
-                        .onChange(of: input) { newValue in
-                            let digits = newValue.filter { $0.isNumber }
-                            if digits.count >= 10 {
-                                input = String(digits.prefix(10))
-                            } else {
-                                input = String(digits)
-                            }
-                            formatPhoneNumber()
-
-                        }
+                RegularTextFieldView(
+                    style: style,
+                    input: $input,
+                    isError: $isError,
+                    placeholder: style.stringValue,
+                    keyboardType: style.keyboardStyle,
+                    submitLabel: style.submitLabel,
+                    textAlignment: style.textAlignment,
+                    width: width,
+                    height: height,
+                    action: action
+                )
+                .onChange(of: input) { newValue in
+                    let digits = newValue.filter { $0.isNumber }
+                    if digits.count >= 10 {
+                        input = String(digits.prefix(10))
+                    } else {
+                        input = String(digits)
                     }
+                    formatPhoneNumber()
+                }
             case .sms:
                     RegularTextFieldView(
                         style: style,
                         input: $input,
+                        isError: $isError,
                         placeholder: style.stringValue,
                         keyboardType: style.keyboardStyle,
                         submitLabel: style.submitLabel,
@@ -166,6 +170,7 @@ struct DtCustomTF: View {
                     RegularTextFieldView(
                         style: style,
                         input: $input,
+                        isError: $isError,
                         placeholder: style.stringValue,
                         keyboardType: style.keyboardStyle,
                         submitLabel: style.submitLabel,

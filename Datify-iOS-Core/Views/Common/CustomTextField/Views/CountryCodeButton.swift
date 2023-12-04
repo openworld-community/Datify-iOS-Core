@@ -12,30 +12,18 @@ struct CountryCodeButton: View {
     @State private var buttonText: String = CountryCodePhoneTF.russia.stringValue
 
     var body: some View {
-        Button {
-            print("button country code tapped")
-        } label: {
-            Text(buttonText)
-                .dtTypo(.p2Regular, color: Color.textPrimary)
-        }
-        .contextMenu {
+        Menu {
             ForEach(CountryCodePhoneTF.allCases, id: \.self) { countryCode in
                 Button(action: {
-                    print("\(countryCode.stringValue) selected")
                     buttonText = countryCode.stringValue
                     selectedCountryCode = countryCode
                 }) {
                     Text(countryCode.stringValue)
                 }
             }
+        } label: {
+            Text(buttonText)
+                .dtTypo(.p2Regular, color: Color.textPrimary)
         }
-        .frame(height: AppConstants.Visual.buttonHeight)
-        .padding(.horizontal)
-        .background(Color.backgroundSecondary)
-        .cornerRadius(AppConstants.Visual.cornerRadius)
-        .overlay(
-            RoundedRectangle(cornerRadius: AppConstants.Visual.cornerRadius)
-                .stroke(Color.backgroundStroke, lineWidth: 1)
-        )
     }
 }

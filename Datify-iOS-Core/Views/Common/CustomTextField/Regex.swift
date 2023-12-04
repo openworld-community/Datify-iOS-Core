@@ -10,5 +10,7 @@ import Foundation
 enum Regex: String {
   case email = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
   case name = "^[A-Za-z\\s]{1,20}$"
-  case password = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$"
+//  case password = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$"
+    // Because of we have requirements only for the number of characters
+  case password = "[A-Za-z\\d]{8,}$"
 }
