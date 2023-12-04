@@ -19,6 +19,7 @@ struct DatingView: View {
     @State private var showBookmarkedAnimation = false
     @State private var isSwipeAndIndicatorsDisabled = false
     @State private var showDescription = false
+
     @State private var selectedPhotoIndex = 0
 
     @State private var isAlertPresented = false
@@ -57,6 +58,7 @@ struct DatingView: View {
                                     selectedPhotoIndex: selectedPhotoIndex
                                 )
                                 .position(x: geometry.size.width / 2, y: geometry.size.height - 170), alignment: .center)
+
                             if showLikedAnimation {
                                 AnimatedIconView(show: $showLikedAnimation, icon: Image(DtImage.mainSelectedHeart))
                                     .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
@@ -100,6 +102,7 @@ struct DatingView: View {
                                         isPlaying: $viewModel.isPlaying,
                                         playCurrentTime: $viewModel.playCurrentTime,
                                         playbackFinished: $viewModel.playbackFinished,
+                                        totalDuration: $viewModel.totalDuration,
                                         viewModel: viewModel
                                     )
                                 }
@@ -114,28 +117,36 @@ struct DatingView: View {
                 }
                 .scrollTargetLayout()
             }
-            .disabled(selectedPhotoIndex != 0)
             .scrollPosition(id: $currentUserIndex)
             .onChange(of: currentUserIndex) { _, newValue in
+                if showDescription {
+                    showDescription = false
+                    print("showDescription is now4: \(showDescription)")
+                }
+
                 viewModel.isPlaying = false
                 viewModel.playbackFinished = true
+
                 viewModel.audioPlayerManager.stopPlayback()
+                viewModel.startProgressUpdates()
 
                 showLikedAnimation = false
                 showBookmarkedAnimation = false
-                isSwipeAndIndicatorsDisabled = false
-                showDescription = false
-                selectedPhotoIndex = 0
+                print("showDescription is now3: \(showDescription)")
+
+//                selectedPhotoIndex = 0
 
                 isAlertPresented = false
                 print(newValue ?? "")
 
                 if let currentIndex = newValue {
                     viewModel.currentUserIndex = currentIndex
-                    let newAudioFile = viewModel.users[currentIndex].audiofile
-                    viewModel.audioPlayerManager.loadAudioData(for: newAudioFile, ofType: "mp3")
+                    viewModel.loadingAudioData()
                 }
             }
+        }
+        .onChange(of: showDescription) { newValue in
+            print("showDescription изменен10: \(newValue)")
         }
         .edgesIgnoringSafeArea(.top)
         .scrollTargetBehavior(.paging)

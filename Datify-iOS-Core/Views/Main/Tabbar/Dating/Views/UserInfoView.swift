@@ -53,7 +53,15 @@ struct UserInfoView: View {
                     .dtTypo(.p3Regular, color: .textInverted)
                     .padding(.bottom, 10)
                 Button(action: {
-                    showDescription.toggle()
+                    if showDescription {
+                        showDescription = false
+                        print("showDescription is now1: \(showDescription)")
+
+                    } else {
+                        showDescription = true
+                        print("showDescription is now2: \(showDescription)")
+
+                    }
                     isSwipeAndIndicatorsDisabled.toggle()
                 }, label: {
                     Text("Hide")
@@ -61,7 +69,15 @@ struct UserInfoView: View {
                 })
             } else {
                 Button(action: {
-                    showDescription.toggle()
+                    if showDescription {
+                        showDescription = false
+                        print("showDescription is now4: \(showDescription)")
+
+                    } else {
+                        showDescription = true
+                        print("showDescription is now5: \(showDescription)")
+
+                    }
                     isSwipeAndIndicatorsDisabled.toggle()
                 }, label: {
                     Text("Show more")

@@ -16,6 +16,7 @@ struct DtAudioPlayerView: View {
     @Binding var isPlaying: Bool
     @Binding var playCurrentTime: Int
     @Binding var playbackFinished: Bool
+    @Binding var totalDuration: Double
 
     var viewModel: DatingViewModel
 
@@ -29,7 +30,7 @@ struct DtAudioPlayerView: View {
                 .opacity(0.64)
 
             HStack {
-                let totalSeconds = playbackFinished ? Int(viewModel.totalDuration) : viewModel.remainingTime
+                let totalSeconds = playbackFinished ? Int(totalDuration) : viewModel.remainingTime
                 Text(String(format: "%02d:%02d", totalSeconds.minutes, totalSeconds.seconds))
 
                     .frame(width: 50, alignment: .leading)

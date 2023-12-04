@@ -30,7 +30,9 @@ class DtAudioPlayerManager: NSObject, ObservableObject, AVAudioPlayerDelegate {
     }
 
     func togglePlayback(for resource: String, ofType type: String) {
+
         if let player = audioPlayer {
+
             if player.isPlaying {
                 player.pause()
                 stopProgressUpdates()
@@ -49,7 +51,7 @@ class DtAudioPlayerManager: NSObject, ObservableObject, AVAudioPlayerDelegate {
                     audioPlayer?.delegate = self
                     audioPlayer?.prepareToPlay()
                     totalDuration = audioPlayer?.duration ?? 0.0
-                    totalDuration = totalDuration
+//                    totalDuration = totalDuration
 
                     audioPlayer?.play()
                     startProgressUpdates()
@@ -89,6 +91,8 @@ class DtAudioPlayerManager: NSObject, ObservableObject, AVAudioPlayerDelegate {
 
     func loadAudioData(for resource: String, ofType type: String) {
         print("Загрузка файла: \(resource).\(type)")
+        audioPlayer?.stop()
+        audioPlayer = nil
 
         if let path = Bundle.main.path(forResource: resource, ofType: type) {
             let url = URL(fileURLWithPath: path)

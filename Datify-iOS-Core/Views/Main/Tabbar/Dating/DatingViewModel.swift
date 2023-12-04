@@ -16,11 +16,7 @@ final class DatingViewModel: ObservableObject {
     @Published var playbackProgress: Double = 0.0
     @Published var playCurrentTime: Int = 0
     @Published var totalDuration: Double = 0.0
-    @Published var audioSamples: [BarChartDataPoint] = [] {
-        didSet {
-            print("Обновлены audioSamples, количество элементов: \(audioSamples.count)")
-        }
-    }
+    @Published var audioSamples: [BarChartDataPoint] = []
 
     @Published var liked: Bool = false
     @Published var bookmarked: Bool = false
@@ -43,6 +39,14 @@ final class DatingViewModel: ObservableObject {
         )
     }
 
+    var remainingTime: Int {
+        if playbackFinished {
+            return 0
+        } else {
+            return max(Int(totalDuration) - playCurrentTime, 0)
+        }
+    }
+
     var error: Error? {
         didSet {
             if let error = error {
@@ -56,9 +60,9 @@ final class DatingViewModel: ObservableObject {
 
     init(router: Router<AppRoute>) {
         self.router = router
-        loadingAudioData()
         setupBindings()
         loadInitialData()
+        loadingAudioData()
     }
 
     deinit {
@@ -89,6 +93,8 @@ final class DatingViewModel: ObservableObject {
         audioPlayerManager.$totalDuration
             .sink { [weak self] totalDuration in
                 self?.totalDuration = totalDuration
+                print("totalDuration: \(totalDuration)")
+
             }
             .store(in: &cancellables)
 
@@ -150,21 +156,6 @@ final class DatingViewModel: ObservableObject {
         let currentUser = users[currentUserIndexBinding.wrappedValue]
         print("currentUser: \(currentUser.name)")
         print("audiofile loadingAudioData: \(currentUser.audiofile)")
-
         audioPlayerManager.loadAudioData(for: currentUser.audiofile, ofType: "mp3")
-    }
-
-    func updateCurrentUserIndex(_ newIndex: Int) {
-        print("updateCurrentUserIndex called with newIndex: \(newIndex)")
-        currentUserIndex = newIndex
-        loadingAudioData()
-    }
-
-    var remainingTime: Int {
-        if playbackFinished {
-            return 0
-        } else {
-            return max(Int(totalDuration) - playCurrentTime, 0)
-        }
     }
 }
