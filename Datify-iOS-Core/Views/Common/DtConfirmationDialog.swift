@@ -12,12 +12,11 @@ struct DtConfirmationDialogModifier<A>: ViewModifier where A: View {
     @ViewBuilder let actions: () -> A
 
     func body(content: Content) -> some View {
-        ZStack {
+        ZStack(alignment: .bottom) {
             content
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .blur(radius: isPresented ? 10 : 0)
 
-            ZStack(alignment: .bottom) {
                 if isPresented {
                     LinearGradient(
                         stops: [
@@ -31,11 +30,8 @@ struct DtConfirmationDialogModifier<A>: ViewModifier where A: View {
                     .onTapGesture {
                         isPresented = false
                     }
-                    .transition(.opacity)
 
                     VStack(spacing: 12) {
-                        Spacer()
-
                         GroupBox {
                             VStack(spacing: 0) {
                                 actions()
@@ -60,7 +56,6 @@ struct DtConfirmationDialogModifier<A>: ViewModifier where A: View {
                     .padding(.horizontal, 24)
                     .transition(.move(edge: .bottom))
                 }
-            }
         }
         .animation(.easeOut(duration: 0.3), value: isPresented)
     }

@@ -12,14 +12,23 @@ protocol MainFlow {
     associatedtype Chat: View
     associatedtype Menu: View
 
-    func createDatingView() -> Dating
+    func createDatingView(
+        dtConfDialogIsPresented: Binding<Bool>,
+        complainSheetIsPresented: Binding<Bool>) -> Dating
     func createChatView() -> Chat
     func createMenuView() -> Menu
 }
 
 extension NavigationViewBuilder: MainFlow {
-    func createDatingView() -> some View {
-        DatingView(router: router)
+    func createDatingView(
+        dtConfDialogIsPresented: Binding<Bool>,
+        complainSheetIsPresented: Binding<Bool>
+    ) -> some View {
+        DatingView(
+            router: router,
+            dtConfDialogIsPresented: dtConfDialogIsPresented,
+            complainSheetIsPresented: complainSheetIsPresented
+        )
     }
     func createChatView() -> some View {
         ChatView(router: router)

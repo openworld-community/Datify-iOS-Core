@@ -12,7 +12,7 @@ struct DtSheet<LabelContent: View>: ViewModifier {
     let label: () -> LabelContent
 
     func body(content: Content) -> some View {
-        ZStack {
+        ZStack(alignment: .bottom) {
             content
                 .blur(radius: isPresented ? 10 : 0)
                 .disabled(isPresented)
@@ -31,15 +31,12 @@ struct DtSheet<LabelContent: View>: ViewModifier {
                     isPresented = false
                 }
 
-                VStack {
-                    Spacer()
-                    GroupBox {
-                        label()
-                            .frame(maxWidth: .infinity)
-                    }
-                    .clipShape(RoundedRectangle(cornerRadius: 32))
-                    .groupBoxStyle(DtGroupBoxStyle())
+                GroupBox {
+                    label()
+                        .frame(maxWidth: .infinity)
                 }
+                .clipShape(RoundedRectangle(cornerRadius: 32))
+                .groupBoxStyle(DtGroupBoxStyle())
                 .padding(.horizontal, 8)
                 .transition(.move(edge: .bottom))
             }
