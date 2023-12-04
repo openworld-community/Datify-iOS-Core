@@ -32,7 +32,9 @@ struct DatingView: View {
                     label: {
                         Image(systemName: "line.3.horizontal.decrease.circle.fill").resizableFit().frame(width: 24)
                     }
-                    Button {}
+                    Button {
+                        viewModel.router.push(.notifications)
+                    }
                     label: {
                         Image(systemName: "bell.fill").resizableFit().frame(width: 24)
                     }

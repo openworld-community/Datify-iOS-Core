@@ -39,6 +39,7 @@ struct MainAppView: View {
                     viewModel: viewModel,
                     isCountrySelection: isCountrySelection
                 )
+        case .notifications: navViewBuilder.createNotificationsView()
         case .registrationName: navViewBuilder.createRegEnterNameView()
         case .registrationBirthday: navViewBuilder.createRegBirthdayView()
         case .registrationOccupation:
