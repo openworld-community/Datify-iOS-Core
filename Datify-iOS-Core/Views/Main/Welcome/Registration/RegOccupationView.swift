@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum Occupation: CaseIterable, Equatable {
+enum Occupation: CaseIterable, Equatable, Codable {
 
     case goOnDates, communication, findLove
 
@@ -25,6 +25,7 @@ enum Occupation: CaseIterable, Equatable {
 
 struct RegOccupationView: View {
     @State private var selectedOccupation: Occupation?
+    unowned let router: Router<AppRoute>
 
     var body: some View {
         VStack(spacing: 40) {
@@ -34,20 +35,22 @@ struct RegOccupationView: View {
             Spacer()
             HStack(spacing: 8) {
                 DtBackButton {
-                    // TODO: - Back button action
+                    router.pop()
                 }
-                DtButton(title: "Proceed".localize(), style: .main) {
+                DtButton(title: "Continue".localize(), style: .main) {
                     // TODO: - Proceed button action
+                    router.push(.registrationPassword)
                 }
             }
         }
+        .navigationBarBackButtonHidden()
         .toolbar {
             ToolbarItem(placement: .principal) {
                 DtLogoView()
             }
         }
         .padding(.horizontal)
-        .padding(.bottom, 8)
+        .padding(.bottom)
 
     }
 }
@@ -55,7 +58,7 @@ struct RegOccupationView: View {
 struct RegOccupationView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            RegOccupationView()
+            RegOccupationView(router: Router())
         }
     }
 }

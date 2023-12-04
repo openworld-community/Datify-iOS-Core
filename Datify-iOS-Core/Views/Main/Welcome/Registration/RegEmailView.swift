@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// TODO: delete this View?
+
 struct RegEmailView: View {
     @StateObject private var viewModel: RegEmailViewModel
 
@@ -23,48 +25,53 @@ struct RegEmailView: View {
                     Text("Enter your email")
                         .dtTypo(.h3Medium, color: .textPrimary)
 
-                    Text("This is required to create an account")
+                    Text("This is necessary to regain access to the account")
                         .dtTypo(.p2Regular, color: .textSecondary)
+                        .multilineTextAlignment(.center)
                 }
 
-                VStack(spacing: 16) {
-                    DtCustomTF(style: .email, input: $viewModel.email) {
+                VStack(spacing: 4) {
+                    DtCustomTF(
+                        style: .email,
+                        input: $viewModel.email,
+                        isError: $viewModel.isWrongFormat
+                    ) {
                         if !viewModel.isButtonDisabled {
                             viewModel.validateEmail()
                         }
                     }
 
-                    Button {
-                        // TODO: viewModel.router.push...
-                    } label: {
-                        Text("Registration by phone number")
-                            .dtTypo(.p3Medium, color: .textPrimaryLink)
-                    }
+                  Text(
+                    viewModel.isWrongFormat ?
+                    "Wrong format" :
+                      " "
+                  )
+                    .dtTypo(.p4Regular, color: .accentsError)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.leading)
                 }
             }
 
             Spacer()
 
-            DtButton(
-                title: String(localized: "Continue"),
-                style: .main
-            ) {
-                viewModel.validateEmail()
+            HStack(spacing: 8) {
+                DtBackButton {
+                    viewModel.router.pop()
+                }
+                DtButton(title: "Continue".localize(), style: .main) {
+                    // TODO: - Proceed button action
+                    viewModel.validateEmail()
+                }
+                .disabled(viewModel.isButtonDisabled)
             }
-            .disabled(viewModel.isButtonDisabled)
         }
-        .padding(.horizontal)
-        .padding(.bottom, 8)
+        .navigationBarBackButtonHidden()
+        .padding()
         .toolbar {
             ToolbarItem(placement: .principal) {
                 DtLogoView()
             }
         }
-        .alert(
-            "Wrong format of email address. Please try again!",
-            isPresented: $viewModel.isWrongFormat,
-            actions: {}
-        )
         .hideKeyboardTapOutside()
     }
 }
