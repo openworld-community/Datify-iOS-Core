@@ -22,4 +22,9 @@ enum DtImage {
     static let checkmark = "checkMark"
     static let favouriteStarWhite = "favouriteStarWhite"
     static let favouriteStar = "favouriteStar"
+    static let record = "record"
+    static let stopRecord = "stopRecord"
+    static let play = "play"
+    static let pause = "pause"
+    static let delete = "delete"
 }

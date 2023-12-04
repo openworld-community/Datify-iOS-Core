@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DividerLine: View {
-    private let color: Color = .textSecondary
+    private let color: Color = .backgroundStroke
     private let width: CGFloat = 1
 
     var body: some View {

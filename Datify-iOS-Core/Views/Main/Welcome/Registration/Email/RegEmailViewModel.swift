@@ -19,6 +19,7 @@ final class RegEmailViewModel: ObservableObject {
 
     func validateEmail() {
         if validate(email) {
+            isWrongFormat = false
             router.push(.registrationLocation)
         } else {
             isWrongFormat = true
@@ -26,7 +27,7 @@ final class RegEmailViewModel: ObservableObject {
     }
 
     private func validate(_ emailAddress: String) -> Bool {
-        let REGEX: String = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        let REGEX: String = Regex.email.rawValue // "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
         return NSPredicate(format: "SELF MATCHES %@", REGEX).evaluate(with: emailAddress)
     }
 }
