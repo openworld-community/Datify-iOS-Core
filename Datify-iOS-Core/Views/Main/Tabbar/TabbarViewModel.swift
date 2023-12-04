@@ -19,6 +19,11 @@ final class TabbarViewModel: ObservableObject {
     private var subscriptions: Set<AnyCancellable> = []
     @Published var alarmsUnreadCountState: UnreadCountState = .noAlarms
 
+    @Published var dtConfDialogIsPresented: Bool = false
+    @Published var blockingSheetIsPresented: Bool = false
+    @Published var blockConfirmSheetIsPresented: Bool = false
+    @Published var complainSheetIsPresented: Bool = false
+
     init(selectedTab: TabItem, initialUnreadCount: Int? = nil) {
         self.selectedTab = selectedTab
         if let initialUnreadCount = initialUnreadCount {
@@ -28,5 +33,24 @@ final class TabbarViewModel: ObservableObject {
 
     func updateAlarmsUnreadCount(_ newCount: Int) {
         self.alarmsUnreadCountState = .count(newCount)
+    }
+
+    func askToBlock() {
+        dtConfDialogIsPresented = false
+        blockingSheetIsPresented = true
+    }
+
+    func complain() {
+        dtConfDialogIsPresented = false
+        complainSheetIsPresented = true
+    }
+
+    func confirmBock() {
+        blockingSheetIsPresented = false
+        blockConfirmSheetIsPresented = true
+    }
+
+    func cancel(for value: inout Bool ) {
+        value = false
     }
 }

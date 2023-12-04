@@ -13,13 +13,13 @@ final class DatingViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     var filterDataService = FilterDataService()
     @Published var userFilterModel: FilterModel?
-    @Published var sheetIsPresented: Bool = false
-    @Published var blockingMenuIsPresented: Bool = false
-    @Published var blockingSheetIsPresented: Bool = false
-    @Published var blockConfirmSheetIsPresented: Bool = false
+    @Published var filterSheetIsPresented: Bool = false
+    @Published var dtConfDialogIsPresented: Bool = false
     @Published var complainSheetIsPresented: Bool = false
 
-    init(router: Router<AppRoute>) {
+    init(
+        router: Router<AppRoute>
+    ) {
         self.router = router
         self.addSubscribers()
     }
@@ -30,18 +30,5 @@ final class DatingViewModel: ObservableObject {
                 self?.userFilterModel = fetchedFilterModel
             }
             .store(in: &cancellables)
-    }
-
-    func block() {
-        blockingSheetIsPresented = true
-    }
-
-    func confirmBlock() {
-        blockingSheetIsPresented = false
-        blockConfirmSheetIsPresented = true
-    }
-
-    func complain() {
-        complainSheetIsPresented = true
     }
 }

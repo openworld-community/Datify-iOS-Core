@@ -29,7 +29,7 @@ struct DatingView: View {
                 Spacer()
                 Button {
                     withAnimation(.linear(duration: 0.2)) {
-                        viewModel.sheetIsPresented.toggle()
+                        viewModel.filterSheetIsPresented.toggle()
                     }
                 }
             label: {
@@ -44,46 +44,26 @@ struct DatingView: View {
             .padding(.horizontal)
             Spacer()
         }
+        .navigationBarBackButtonHidden()
         .background(
             Image("exampleImage")
                 .resizableFill()
                 .ignoresSafeArea()
                 .onLongPressGesture {
-//                    viewModel.blockingMenuIsPresented.toggle()
                     dtConfDialogIsPresented = true
                 }
         )
-        .blur(radius: viewModel.sheetIsPresented ? 10 : 0)
-        .scaleEffect(viewModel.sheetIsPresented ? 1.2 : 1)
-        .sheet(isPresented: $viewModel.sheetIsPresented) {
+        .blur(radius: viewModel.filterSheetIsPresented ? 10 : 0)
+        .scaleEffect(viewModel.filterSheetIsPresented ? 1.2 : 1)
+        .sheet(isPresented: $viewModel.filterSheetIsPresented) {
             if let userFilterModel = viewModel.userFilterModel {
                 DatingFilterView(userFilterModel: userFilterModel,
                                  filterDataService: $viewModel.filterDataService,
-                                 sheetIsDisplayed: $viewModel.sheetIsPresented)
+                                 sheetIsDisplayed: $viewModel.filterSheetIsPresented)
                 .presentationDetents([.fraction(0.99)])
             }
 
         }
-//        .dtConfirmationDialog(
-//            isPresented: $viewModel.blockingMenuIsPresented
-//        ) {
-//            confirmationDialogView()
-//        }
-//        .dtSheet(isPresented: $viewModel.blockingSheetIsPresented) {
-//            BlockView(
-//                onConfirm: {
-//                    viewModel.confirmBlock()
-//                },
-//                onCancel: {
-//                    viewModel.blockingSheetIsPresented = false
-//                }
-//            )
-//        }
-//        .dtSheet(isPresented: $viewModel.blockConfirmSheetIsPresented) {
-//            ConfirmBlockView {
-//                viewModel.blockConfirmSheetIsPresented = false
-//            }
-//        }
         .sheet(isPresented: $complainSheetIsPresented) {
             Text("Complain sheet")
                 .presentationDetents([.medium])
