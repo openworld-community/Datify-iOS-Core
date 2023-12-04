@@ -13,7 +13,7 @@ struct BottomDarkGradientView: View {
     var body: some View {
         LinearGradient(gradient: Gradient(colors: [Color.clear, Color.black.opacity(0.6)]),
                        startPoint: .top, endPoint: .bottom)
-        .frame(width: geometry.size.width, height: 320)
+        .frame(width: geometry.size.width, height: 300)
         .position(x: geometry.size.width / 2, y: geometry.size.height - 150)
     }
 }

@@ -13,6 +13,8 @@ struct DatingView: View {
 
     @StateObject private var viewModel: DatingViewModel
 
+    @State private var currentUserIndex: Int = 0
+
     @State private var showLikedAnimation = false
     @State private var showBookmarkedAnimation = false
     @State private var isSwipeAndIndicatorsDisabled = false
@@ -21,7 +23,6 @@ struct DatingView: View {
 
     @State private var isAlertPresented = false
     @State private var alertMessage = ""
-    @State private var currentUserIndex: Int = 0
 
     var safeAreaTopInset: CGFloat
 
@@ -38,7 +39,7 @@ struct DatingView: View {
     var body: some View {
         GeometryReader { geometry in
             ScrollView {
-                LazyVStack(spacing: 0) {
+                LazyVStack(spacing: 0.0) {
                     ForEach($viewModel.users.indices, id: \.self) { index in
                         ZStack {
                             PhotoSliderView(
@@ -105,15 +106,24 @@ struct DatingView: View {
                                 }
                                 .padding(.bottom)
                             }
+                            .gesture(DragGesture().onEnded { _ in
+                                currentUserIndex = index
+                                print("currentUserIndex = index: \(index)")
+                            })
                             .padding(.horizontal)
                         }
                         .navigationBarHidden(true)
                         .background(Color.customBlack)
+                        .id(index)
+                        .onAppear {
+                                // Обновление текущего индекса
+                            currentUserIndex = index
+                            print("currentUserIndex: \(currentUserIndex)")
+                        }
                     }
+                    .scrollTargetLayout()
                 }
-                .scrollTargetLayout()
             }
-
         }
         .edgesIgnoringSafeArea(.top)
         .scrollTargetBehavior(.paging)
@@ -137,11 +147,16 @@ struct DatingView: View {
                 }
             }
         }
-        .onChange(of: viewModel.currentUserIndex) { _ in
-            withAnimation {
-                showLikedAnimation = false
-                showBookmarkedAnimation = false
-            }
+        .onChange(of: viewModel.currentUserIndexBinding.wrappedValue) { _ in
+            showLikedAnimation = false
+            showBookmarkedAnimation = false
+            selectedPhotoIndex = 0
+
+            print("viewModel.currentUserIndexBinding.wrappedValue: \(viewModel.currentUserIndexBinding.wrappedValue)")
+        }
+        .onAppear {
+            currentUserIndex = viewModel.currentUserIndex
+            print("viewModel.currentUserIndex: \(viewModel.currentUserIndex)")
         }
         .alert(isPresented: $viewModel.showAlert) {
             Alert(

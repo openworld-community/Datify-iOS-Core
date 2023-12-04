@@ -29,6 +29,16 @@ final class DatingViewModel: ObservableObject {
     var audioPlayerManager = DtAudioPlayerManager()
     var updateTimer: Timer?
 
+    var currentUserIndexBinding: Binding<Int> {
+        Binding(
+            get: { self.currentUserIndex },
+            set: {
+                print("Setting currentUserIndex to \($0)")
+                self.currentUserIndex = $0
+            }
+        )
+    }
+
     var error: Error? {
         didSet {
             if let error = error {
@@ -90,7 +100,7 @@ final class DatingViewModel: ObservableObject {
             .dropFirst()
             .sink { [weak self] newValue in
                 guard let self = self else { return }
-                self.users[self.currentUserIndex].liked = newValue
+                self.users[self.currentUserIndexBinding.wrappedValue].liked = newValue
             }
             .store(in: &cancellables)
 
@@ -98,7 +108,8 @@ final class DatingViewModel: ObservableObject {
             .dropFirst()
             .sink { [weak self] newValue in
                 guard let self = self else { return }
-                self.users[self.currentUserIndex].bookmarked = newValue
+                self.users[self.currentUserIndexBinding.wrappedValue].bookmarked = newValue
+                print("currentUserIndexBinding.wrappedValue11: \(currentUserIndexBinding.wrappedValue)")
             }
             .store(in: &cancellables)
 
@@ -112,15 +123,14 @@ final class DatingViewModel: ObservableObject {
     }
 
     func loadInitialData() {
-        let currentUser = users[currentUserIndex]
-
+        let currentUser = users[currentUserIndexBinding.wrappedValue]
         self.liked = currentUser.liked
         self.bookmarked = currentUser.bookmarked
     }
 
     func togglePlayback() {
-        let currentUser = users[currentUserIndex]
-        print("currentUser: \(currentUser.name)")
+        let currentUser = users[currentUserIndexBinding.wrappedValue]
+        print("currentUser: \(currentUser.audiofile)")
         audioPlayerManager.togglePlayback(for: currentUser.audiofile, ofType: "mp3")
     }
 
@@ -133,9 +143,17 @@ final class DatingViewModel: ObservableObject {
     }
 
     func loadingAudioData() {
-        let currentUser = users[currentUserIndex]
+        let currentUser = users[currentUserIndexBinding.wrappedValue]
         print("currentUser: \(currentUser.name)")
+        print("audiofile loadingAudioData: \(currentUser.audiofile)")
+
         audioPlayerManager.loadAudioData(for: currentUser.audiofile, ofType: "mp3")
+    }
+
+    func updateCurrentUserIndex(_ newIndex: Int) {
+        print("updateCurrentUserIndex called with newIndex: \(newIndex)")
+        currentUserIndex = newIndex
+        loadingAudioData()
     }
 
     var remainingTime: Int {

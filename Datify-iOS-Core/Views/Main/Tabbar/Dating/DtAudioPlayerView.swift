@@ -19,9 +19,7 @@ struct DtAudioPlayerView: View {
 
     var viewModel: DatingViewModel
 
-    var desiredNumberOfBars: Int {
-        return 60
-    }
+    var desiredNumberOfBars = 60
 
     var body: some View {
         ZStack(alignment: .center) {
