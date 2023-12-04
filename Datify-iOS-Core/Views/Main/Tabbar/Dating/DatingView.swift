@@ -11,15 +11,21 @@ struct DatingView: View {
     @StateObject private var viewModel: DatingViewModel
     @Binding var dtConfDialogIsPresented: Bool
     @Binding var complainSheetIsPresented: Bool
+    @Binding var confirmationSheetIsPresented: Bool
+    @Binding var confirmationType: ConfirmationView.ConfirmationType
 
     init(
         router: Router<AppRoute>,
         dtConfDialogIsPresented: Binding<Bool>,
-        complainSheetIsPresented: Binding<Bool>
+        complainSheetIsPresented: Binding<Bool>,
+        confirmationSheetIsPresented: Binding<Bool>,
+        confirmationType: Binding<ConfirmationView.ConfirmationType>
     ) {
         _viewModel = StateObject(wrappedValue: DatingViewModel(router: router))
         _dtConfDialogIsPresented = dtConfDialogIsPresented
         _complainSheetIsPresented = complainSheetIsPresented
+        _confirmationSheetIsPresented = confirmationSheetIsPresented
+        _confirmationType = confirmationType
     }
 
     var body: some View {
@@ -65,8 +71,18 @@ struct DatingView: View {
 
         }
         .sheet(isPresented: $complainSheetIsPresented) {
-            Text("Complain sheet")
-                .presentationDetents([.medium])
+            ComplainView(
+                isPresented: $complainSheetIsPresented,
+                onCompleted: {
+                    confirmationType = .complain
+                    confirmationSheetIsPresented = true
+                }
+            )
+            .readSize { newSize in
+                viewModel.sheetSize = newSize
+            }
+            .presentationDetents([.height(viewModel.sheetSize.height)])
+            .presentationDragIndicator(.visible)
         }
     }
 }
@@ -74,7 +90,9 @@ struct DatingView: View {
 #Preview {
     DatingView(
         router: Router(),
-        dtConfDialogIsPresented: .constant(true),
-        complainSheetIsPresented: .constant(true)
+        dtConfDialogIsPresented: .constant(false),
+        complainSheetIsPresented: .constant(true),
+        confirmationSheetIsPresented: .constant(false),
+        confirmationType: .constant(.complain)
     )
 }

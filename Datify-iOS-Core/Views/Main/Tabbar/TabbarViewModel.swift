@@ -21,7 +21,8 @@ final class TabbarViewModel: ObservableObject {
 
     @Published var dtConfDialogIsPresented: Bool = false
     @Published var blockingSheetIsPresented: Bool = false
-    @Published var blockConfirmSheetIsPresented: Bool = false
+    @Published var confirmationSheetIsPresented: Bool = false
+    @Published var confirmationType: ConfirmationView.ConfirmationType = .block
     @Published var complainSheetIsPresented: Bool = false
 
     init(selectedTab: TabItem, initialUnreadCount: Int? = nil) {
@@ -45,12 +46,17 @@ final class TabbarViewModel: ObservableObject {
         complainSheetIsPresented = true
     }
 
-    func confirmBock() {
+    func confirmBlock() {
+        confirmationType = .block
         blockingSheetIsPresented = false
-        blockConfirmSheetIsPresented = true
+        confirmationSheetIsPresented = true
     }
 
-    func cancel(for value: inout Bool ) {
-        value = false
+    func cancelBlock() {
+        blockingSheetIsPresented = false
+    }
+
+    func finish() {
+        confirmationSheetIsPresented = false
     }
 }

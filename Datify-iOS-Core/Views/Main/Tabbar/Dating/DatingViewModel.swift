@@ -16,6 +16,7 @@ final class DatingViewModel: ObservableObject {
     @Published var filterSheetIsPresented: Bool = false
     @Published var dtConfDialogIsPresented: Bool = false
     @Published var complainSheetIsPresented: Bool = false
+    @Published var sheetSize: CGSize = .zero
 
     init(
         router: Router<AppRoute>

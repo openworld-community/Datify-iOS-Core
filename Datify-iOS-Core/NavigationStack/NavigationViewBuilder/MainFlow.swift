@@ -14,7 +14,9 @@ protocol MainFlow {
 
     func createDatingView(
         dtConfDialogIsPresented: Binding<Bool>,
-        complainSheetIsPresented: Binding<Bool>) -> Dating
+        complainSheetIsPresented: Binding<Bool>,
+        confirmationSheetIsPresented: Binding<Bool>,
+        confirmationType: Binding<ConfirmationView.ConfirmationType>) -> Dating
     func createChatView() -> Chat
     func createMenuView() -> Menu
 }
@@ -22,12 +24,16 @@ protocol MainFlow {
 extension NavigationViewBuilder: MainFlow {
     func createDatingView(
         dtConfDialogIsPresented: Binding<Bool>,
-        complainSheetIsPresented: Binding<Bool>
+        complainSheetIsPresented: Binding<Bool>,
+        confirmationSheetIsPresented: Binding<Bool>,
+        confirmationType: Binding<ConfirmationView.ConfirmationType>
     ) -> some View {
         DatingView(
             router: router,
             dtConfDialogIsPresented: dtConfDialogIsPresented,
-            complainSheetIsPresented: complainSheetIsPresented
+            complainSheetIsPresented: complainSheetIsPresented,
+            confirmationSheetIsPresented: confirmationSheetIsPresented,
+            confirmationType: confirmationType
         )
     }
     func createChatView() -> some View {

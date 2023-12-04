@@ -71,9 +71,10 @@
 		63A729692AA4A94B00AC60E3 /* CountryCodeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A729682AA4A94B00AC60E3 /* CountryCodeButton.swift */; };
 		980895BA2A9F4A5700F82F02 /* DtSpinnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980895B92A9F4A5700F82F02 /* DtSpinnerView.swift */; };
 		9809ACCF2B1CA50600F19B52 /* DtConfirmationDialogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9809ACCE2B1CA50600F19B52 /* DtConfirmationDialogView.swift */; };
+		9809ACD12B1E099700F19B52 /* ComplainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9809ACD02B1E099700F19B52 /* ComplainView.swift */; };
 		98553B0A2AAE4A43005C80B3 /* View+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98553B092AAE4A43005C80B3 /* View+extension.swift */; };
 		9856CC982B1BB191007B3C49 /* BlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9856CC972B1BB191007B3C49 /* BlockView.swift */; };
-		9856CC9A2B1BB4EB007B3C49 /* ConfirmBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9856CC992B1BB4EB007B3C49 /* ConfirmBlockView.swift */; };
+		9856CC9A2B1BB4EB007B3C49 /* ConfirmationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9856CC992B1BB4EB007B3C49 /* ConfirmationView.swift */; };
 		98747F902AFE271E005618CB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98747F8F2AFE271E005618CB /* LaunchScreen.storyboard */; };
 		9888E7862AC4747400F5B86F /* DtLimitedPhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9888E7852AC4747400F5B86F /* DtLimitedPhotoPicker.swift */; };
 		9888E78B2AC5B20100F5B86F /* DtCropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9888E78A2AC5B20100F5B86F /* DtCropView.swift */; };
@@ -184,9 +185,10 @@
 		63A729682AA4A94B00AC60E3 /* CountryCodeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCodeButton.swift; sourceTree = "<group>"; };
 		980895B92A9F4A5700F82F02 /* DtSpinnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtSpinnerView.swift; sourceTree = "<group>"; };
 		9809ACCE2B1CA50600F19B52 /* DtConfirmationDialogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtConfirmationDialogView.swift; sourceTree = "<group>"; };
+		9809ACD02B1E099700F19B52 /* ComplainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplainView.swift; sourceTree = "<group>"; };
 		98553B092AAE4A43005C80B3 /* View+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+extension.swift"; sourceTree = "<group>"; };
 		9856CC972B1BB191007B3C49 /* BlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockView.swift; sourceTree = "<group>"; };
-		9856CC992B1BB4EB007B3C49 /* ConfirmBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmBlockView.swift; sourceTree = "<group>"; };
+		9856CC992B1BB4EB007B3C49 /* ConfirmationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationView.swift; sourceTree = "<group>"; };
 		98747F8F2AFE271E005618CB /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9888E7852AC4747400F5B86F /* DtLimitedPhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtLimitedPhotoPicker.swift; sourceTree = "<group>"; };
 		9888E7872AC55E3600F5B86F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -478,8 +480,9 @@
 			isa = PBXGroup;
 			children = (
 				9856CC972B1BB191007B3C49 /* BlockView.swift */,
-				9856CC992B1BB4EB007B3C49 /* ConfirmBlockView.swift */,
+				9856CC992B1BB4EB007B3C49 /* ConfirmationView.swift */,
 				9809ACCE2B1CA50600F19B52 /* DtConfirmationDialogView.swift */,
+				9809ACD02B1E099700F19B52 /* ComplainView.swift */,
 			);
 			path = "Report&Block";
 			sourceTree = "<group>";
@@ -785,6 +788,7 @@
 				4A4CE2E82A9B58590098FF80 /* DtTypography.swift in Sources */,
 				63203C712AAC6B2600F8803A /* UIApplication+extension.swift in Sources */,
 				638D1E862ABAB45C0001CED4 /* LocationView.swift in Sources */,
+				9809ACD12B1E099700F19B52 /* ComplainView.swift in Sources */,
 				638D1E892ABAB45C0001CED4 /* CountryModel.swift in Sources */,
 				634EF7352ADC48220061E13A /* DatingViewModel.swift in Sources */,
 				D0C8965A2AA217630084FA62 /* DtImage.swift in Sources */,
@@ -806,7 +810,7 @@
 				98F3B6D62A9E4F9D0097B5C0 /* DtLogoView.swift in Sources */,
 				634EF73B2ADC51EB0061E13A /* MainFlow.swift in Sources */,
 				208D05522AB903790071E1B7 /* DtSelectorButton.swift in Sources */,
-				9856CC9A2B1BB4EB007B3C49 /* ConfirmBlockView.swift in Sources */,
+				9856CC9A2B1BB4EB007B3C49 /* ConfirmationView.swift in Sources */,
 				63A729692AA4A94B00AC60E3 /* CountryCodeButton.swift in Sources */,
 				634EF7292ADC48010061E13A /* DtTabbar.swift in Sources */,
 				638D1E872ABAB45C0001CED4 /* LocationViewModel.swift in Sources */,

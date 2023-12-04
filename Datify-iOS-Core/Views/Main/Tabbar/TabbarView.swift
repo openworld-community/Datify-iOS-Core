@@ -35,16 +35,17 @@ struct TabbarView: View {
         .dtSheet(isPresented: $viewModel.blockingSheetIsPresented) {
             BlockView(
                 onConfirm: {
-                    viewModel.confirmBock()
+                    viewModel.confirmBlock()
                 },
                 onCancel: {
-                    viewModel.cancel(for: &viewModel.blockingSheetIsPresented)
+                    viewModel.cancelBlock()
                 }
             )
         }
-        .dtSheet(isPresented: $viewModel.blockConfirmSheetIsPresented) {
-            ConfirmBlockView {
-                viewModel.cancel(for: &viewModel.blockConfirmSheetIsPresented)
+        .dtSheet(isPresented: $viewModel.confirmationSheetIsPresented) {
+            ConfirmationView(
+                confirmationType: viewModel.confirmationType) {
+                viewModel.finish()
             }
         }
     }
@@ -54,7 +55,9 @@ struct TabbarView: View {
         switch tab {
         case .dating: viewBuilder.createDatingView(
             dtConfDialogIsPresented: $viewModel.dtConfDialogIsPresented,
-            complainSheetIsPresented: $viewModel.complainSheetIsPresented
+            complainSheetIsPresented: $viewModel.complainSheetIsPresented,
+            confirmationSheetIsPresented: $viewModel.confirmationSheetIsPresented,
+            confirmationType: $viewModel.confirmationType
         )
         case .chat: viewBuilder.createChatView()
         case .menu: viewBuilder.createMenuView()
