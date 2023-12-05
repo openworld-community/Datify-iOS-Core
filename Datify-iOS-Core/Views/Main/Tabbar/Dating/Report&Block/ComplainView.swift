@@ -12,6 +12,7 @@ struct ComplainView: View {
     @State private var complaintStage: ComplaintStages = .start
     @State private var complainCase: ComplainCases?
     @State private var complainText: String = .init()
+    @FocusState private var textFieldIsFocused: Bool
     let onCompleted: () -> Void
 
     var body: some View {
@@ -128,7 +129,7 @@ private extension ComplainView {
             .frame(maxWidth: .infinity, alignment: .leading)
         case .finish:
             VStack(alignment: .leading, spacing: 12) {
-                TextField("Describe your case in detail...", text: $complainText)
+                TextField("Describe your case in detail...", text: $complainText, axis: .vertical)
                     .dtTypo(.p2Regular, color: .textPrimary)
                     .frame(height: 188, alignment: .topLeading)
                     .padding()
@@ -140,14 +141,19 @@ private extension ComplainView {
                         )
                         .stroke(Color.backgroundStroke, lineWidth: 1)
                     )
-                DtButton(title: "Send a complaint", style: .main) {
-                    // TODO: action
-                    Task { @MainActor in
-                        isPresented = false
-                        onCompleted()
+                    .focused($textFieldIsFocused)
+
+                if !textFieldIsFocused {
+                    DtButton(title: "Send a complaint", style: .main) {
+                        // TODO: action
+                        Task { @MainActor in
+                            isPresented = false
+                            onCompleted()
+                        }
                     }
                 }
             }
+            .hideKeyboardTapOutside()
         }
     }
 }

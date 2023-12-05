@@ -59,7 +59,10 @@ struct DatingView: View {
                     dtConfDialogIsPresented = true
                 }
         )
-        .blur(radius: viewModel.filterSheetIsPresented ? 10 : 0)
+        .blur(
+            radius: viewModel.filterSheetIsPresented ||
+                    complainSheetIsPresented ? 10 : 0
+        )
         .scaleEffect(viewModel.filterSheetIsPresented ? 1.2 : 1)
         .sheet(isPresented: $viewModel.filterSheetIsPresented) {
             if let userFilterModel = viewModel.userFilterModel {

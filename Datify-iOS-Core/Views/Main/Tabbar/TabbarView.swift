@@ -22,6 +22,7 @@ struct TabbarView: View {
         DtTabbar(tabsData: TabItem.allCases, selectedTab: $selectedTab, viewModel: viewModel) { item in
             createTabView(tab: item)
         }
+        .ignoresSafeArea(.keyboard)
         .dtConfirmationDialog(isPresented: $viewModel.dtConfDialogIsPresented) {
             DtConfirmationDialogView(
                 onBlock: {
