@@ -9,10 +9,10 @@ import SwiftUI
 
 struct DatingView: View {
     @StateObject private var viewModel: DatingViewModel
-    @Binding var dtConfDialogIsPresented: Bool
-    @Binding var complainSheetIsPresented: Bool
-    @Binding var confirmationSheetIsPresented: Bool
-    @Binding var confirmationType: ConfirmationView.ConfirmationType
+    @Binding private var dtConfDialogIsPresented: Bool
+    @Binding private var complainSheetIsPresented: Bool
+    @Binding private var confirmationSheetIsPresented: Bool
+    @Binding private var confirmationType: ConfirmationView.ConfirmationType
 
     init(
         router: Router<AppRoute>,
