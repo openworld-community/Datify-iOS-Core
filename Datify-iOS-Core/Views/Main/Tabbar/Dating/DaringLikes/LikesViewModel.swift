@@ -10,6 +10,11 @@ import Combine
 
 enum SortOption: String, CaseIterable, Equatable {
     case lastDay, lastWeek, lastMonth, allTime
+    var title: String {
+        return self.rawValue
+            .capitalized
+            .localize()
+    }
 }
 
 enum LikeTage: CaseIterable {
@@ -151,9 +156,9 @@ class LikesViewModel: ObservableObject {
     }
 
     private func fetchSelectedUser() {
-        selectedReceivedLikes = receivedLikes.first?.senderID ?? ""
-        selectedMutualLikes = mutualLikes.first?.receiverID ?? ""
-        selectedMyLikes = myLikes.first?.receiverID ?? ""
+        selectedReceivedLikes = receivedLikes.first?.senderID ?? "1"
+        selectedMutualLikes = mutualLikes.first?.receiverID ?? "1"
+        selectedMyLikes = myLikes.first?.receiverID ?? "1"
 //        Task {
 //            let receivedFirst = await fetchUserData(userId: receivedLikes.first?.senderID ?? "199")
 //            let mutualFirst = await fetchUserData(userId: mutualLikes.first?.receiverID ?? "199")

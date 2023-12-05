@@ -16,7 +16,7 @@ struct BigUserCardView: View {
         _selected = selectedItem
         self.size = size
         vm = UserCardViewModel(dataServise: UserDataService.shared, likeServise: LikesDataService.shared)
-        vm.getUser(userId: selected ?? "")
+        vm.getUser(userId: selected ?? "1")
     }
 
     var body: some View {
@@ -30,5 +30,3 @@ struct BigUserCardView: View {
         }
     }
 }
-
-// #Previ 

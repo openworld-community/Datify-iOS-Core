@@ -15,6 +15,9 @@ struct LikesView: View {
     @StateObject private var viewModel: LikesViewModel
     @State private var tag: LikeTage = .receivedLikes
     @State private var displayMode: DisplayMode = .gallery
+    @State private var showFilters: Bool = false
+    @State private var blurRadius: CGFloat = 0
+
     init(router: Router<AppRoute>) {
         _viewModel = StateObject(wrappedValue: LikesViewModel(router: router, userDataService: UserDataService.shared, likesDataService: LikesDataService.shared))
     }
@@ -65,6 +68,15 @@ struct LikesView: View {
                     }
                 }
             }
+            .blur(radius: blurRadius)
+            .onChange(of: showFilters) { newValue in
+                withAnimation {
+                    blurRadius = newValue ? 10.0 : 0
+                }
+            }
+            .sheet(isPresented: $showFilters) {
+                filterSheetView
+            }
             .onAppear {
                 Task {
                     await viewModel.fecthData()
@@ -84,11 +96,7 @@ struct LikesView: View {
                 ToolbarItem(placement: .topBarTrailing) {
                     HStack {
                         Button(action: {
-                            if case .allTime = viewModel.sortOption {
-                                viewModel.sortOption = .lastMonth
-                            } else {
-                                viewModel.sortOption = .allTime
-                            }
+                            showFilters.toggle()
                         }, label: {
                             Image("likeFilter")
                                 .resizableFit()
@@ -178,6 +186,42 @@ struct LikesView: View {
             return true
         }
         return false
+    }
+}
+
+extension LikesView {
+    var filterSheetView: some View {
+        NavigationStack {
+            GeometryReader { geometry in
+                ZStack {
+                    Color.backgroundPrimary.ignoresSafeArea()
+                    VStack(spacing: 8) {
+                        ForEach(SortOption.allCases, id: \.self) { option in
+                            DtSelectorButton(isSelected: viewModel.sortOption == option, title: option.title) {
+                                viewModel.sortOption = option
+                            }
+                        }
+                    }
+                    .padding(.horizontal, 12)
+                    .toolbar {
+                        ToolbarItem(placement: .topBarTrailing) {
+                            DtXMarkButton()
+                        }
+                        ToolbarItem(placement: .topBarLeading) {
+                            Text("Filters")
+                                .dtTypo(.h3Medium, color: .textPrimary)
+                        }
+                    }
+                }
+                .onChange(of: geometry.frame(in: .global).minY) { _ in
+                    withAnimation {
+//                        blurRadius = interpolatedValue(for: minY)
+                    }
+                }
+            }
+        }
+        .presentationDetents([.height(350)])
+        .presentationDragIndicator(.visible)
     }
 }
 
