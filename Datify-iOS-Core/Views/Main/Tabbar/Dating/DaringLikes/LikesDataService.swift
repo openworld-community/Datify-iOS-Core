@@ -38,7 +38,7 @@ class LikesDataService: ObservableObject {
 
     func getMyLikes(userID: String) {
         var myLike: [LikeModel] = []
-        for i in 1...20 {
+        for i in 8...20 {
             let like = LikeModel(
                 senderID: userID,
                 receiverID: String(i),

@@ -31,13 +31,31 @@ struct LikesView: View {
                                          currentUser: currentUser, size: geometry.size)
                     } else {
                         ScrollView(showsIndicators: false) {
-                            ForEach(chunkedArray(elements: 2), id: \.self) { likes in
-                                HStack {
+                            ForEach(chunkedArray(elements: 2).indices, id: \.self) { index in
+                                HStack(alignment: index == 0 ? .top  :  .bottom) {
                                     if let currentUser = viewModel.currentUser {
-                                        MediumUserCardView(like: likes[0], currentUser: currentUser)
-                                        if likes.count > 1 {
-                                            MediumUserCardView(like: likes[1], currentUser: currentUser)
-                                                .offset(y: -50)
+                                        MediumUserCardView(like: chunkedArray(elements: 2)[index][0],
+                                                           currentUser: currentUser,
+                                                           isCrop: isCrop(indexOne: index,
+                                                                          indexTwo: 0,
+                                                                          count: chunkedArray(elements: 2).count),
+                                                           myLikes: viewModel.myLikes)
+                                        .offset(y: isCrop(indexOne: index, indexTwo: 0,
+                                                          count: chunkedArray(elements: 2).count) ? -50 : 0)
+                                        if chunkedArray(elements: 2)[index].count > 1 {
+                                            MediumUserCardView(like: chunkedArray(elements: 2)[index][1],
+                                                               currentUser: currentUser,
+                                                               isCrop: isCrop(indexOne: index, indexTwo: 1,
+                                                                              count: chunkedArray(elements: 2).count),
+                                                               myLikes: viewModel.myLikes)
+                                            .offset(y: isCrop(indexOne: index,
+                                                              indexTwo: 1,
+                                                              count: chunkedArray(elements: 2).count) ? 0 : -50)
+
+                                        } else {
+                                            Rectangle()
+                                                .frame(width: 176, height: 288)
+                                                .foregroundStyle(.clear)
                                         }
                                     }
                                     Spacer()
@@ -121,7 +139,7 @@ struct LikesView: View {
         size: CGSize) -> some View {
         VStack {
             Spacer()
-//            BigUserCardView(selectedItem: data.selected, size: size)
+            BigUserCardView(selectedItem: data.selected, size: size)
             Spacer()
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 2) {
@@ -146,6 +164,16 @@ struct LikesView: View {
             }
         }
         .frame(width: size.width*0.92)
+    }
+
+    func isCrop(indexOne: Int, indexTwo: Int, count: Int) -> Bool {
+        if indexTwo == 1, indexOne == 0 {
+            return true
+        }
+        if indexTwo == 0, indexOne == (count - 1) {
+            return true
+        }
+        return false
     }
 }
 

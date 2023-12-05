@@ -26,12 +26,10 @@ class UserDataService {
     }
 
     func createRandomUser() {
-        let userPhotos: [[String]] = [["user1", "user1", "user1"],
-                                     ["user2", "user2", "user2"],
+        let userPhotos: [[String]] = [["user2", "user2", "user2"],
                                      ["user3", "user3", "user3"],
                                      ["user4", "user4", "user4"],
                                      ["user5", "user5", "user5"],
-                                     ["user6", "user6", "user6"],
                                      ["user7", "user7", "user7"],
                                      ["user8", "user8", "user8"]]
         let userLabel: [String] = ["Label1", "Label2", "Label3", "Label4", "Label5", "Label6", "Label7", "Label8"]
@@ -39,10 +37,10 @@ class UserDataService {
         let userName: [String] = ["Michael", "Sarah", "David", "Emily", "William", "Olivia", "John", "Sophia"]
         let userColor: [Color] = [.red, .green, .blue, .yellow, .pink, .purple]
 
-        for i in 1...30 {
+        for i in 1...20 {
             let user = UserModel(
                 userId: String(i),
-                photos: userPhotos.randomElement() ?? ["user1", "user1", "user1"],
+                photos: userPhotos.randomElement() ?? ["user2", "user2", "user2"],
                 label: userLabel.randomElement() ?? "Label1",
                 colorLabel: userColor.randomElement() ?? .red,
                 location: userLocation.randomElement() ?? "New York",
