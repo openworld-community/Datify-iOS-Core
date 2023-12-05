@@ -24,7 +24,6 @@ class UserDataService {
         }
         return user
     }
-
 }
 
 private extension UserDataService {

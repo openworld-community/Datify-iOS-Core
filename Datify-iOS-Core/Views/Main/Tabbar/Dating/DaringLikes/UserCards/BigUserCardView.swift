@@ -25,13 +25,9 @@ struct BigUserCardView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .frame(width: size.width*0.92, height: size.height*0.81)
-//                .frame(width: 30, height: 45)
                 .cornerRadius(10)
-//                .animation(.none, value: selected?.userId)
+                .animation(.none, value: selected)
         }
-//        .onAppear {
-//            vm.getUser(userId: selected ?? "")
-//        }
     }
 }
 

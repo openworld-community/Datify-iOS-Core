@@ -18,7 +18,7 @@ class UserCardViewModel: ObservableObject {
     }
 
     func getUser(userId: String) {
-        let userTemp =  dataService.getUserData(for: userId)!
+        let userTemp = dataService.getUserData(for: userId)!
         //  await MainActor.run {
         user = userTemp
         //  }
@@ -34,5 +34,9 @@ class UserCardViewModel: ObservableObject {
         if let user {
             likeServise.createLike(senderID: senderID, receiverID: user.userId)
         }
+    }
+
+    func likeIsViewed(likeId: String) {
+        likeServise.likeIsViewed(likeId: likeId)
     }
 }

@@ -85,6 +85,9 @@ struct MediumUserCardView: View {
                 }
                 .frame(width: 176, height: isCrop ? 288 - 50 : 288)
             }
+            .onAppear {
+                vm.likeIsViewed(likeId: like.id)
+            }
         }
     }
 

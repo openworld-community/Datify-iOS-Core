@@ -92,7 +92,7 @@ class LikesViewModel: ObservableObject {
 
     func fetchUserData(userId: String) async -> UserModel? {
         // TODO: Func to fetch UserData by userID from database
-            await self.userDataService?.getUserData(for: userId)
+            self.userDataService?.getUserData(for: userId)
     }
 
     private func addSubscribers() {

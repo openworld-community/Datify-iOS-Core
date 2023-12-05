@@ -596,14 +596,30 @@
 				79D591142B1F26350097C05B /* LikeModel.swift */,
 				79D591162B1F264C0097C05B /* LikesView.swift */,
 				79D591182B1F26790097C05B /* LikesViewModel.swift */,
+				79E8479B2B1F9B710086F932 /* UserCards */,
+				79E8479C2B1F9B8B0086F932 /* DataServices */,
+			);
+			path = DaringLikes;
+			sourceTree = "<group>";
+		};
+		79E8479B2B1F9B710086F932 /* UserCards */ = {
+			isa = PBXGroup;
+			children = (
 				79D5911A2B1F26990097C05B /* SmallUserCardView.swift */,
 				79D5911F2B1F26CC0097C05B /* BigUserCardView.swift */,
 				79D591212B1F26DF0097C05B /* MediumUserCardView.swift */,
 				79D5911D2B1F26BA0097C05B /* UserCardViewModel.swift */,
+			);
+			path = UserCards;
+			sourceTree = "<group>";
+		};
+		79E8479C2B1F9B8B0086F932 /* DataServices */ = {
+			isa = PBXGroup;
+			children = (
 				79D591232B1F26F20097C05B /* LikesDataService.swift */,
 				79D591252B1F270A0097C05B /* UserDataService.swift */,
 			);
-			path = DaringLikes;
+			path = DataServices;
 			sourceTree = "<group>";
 		};
 		98553B0B2AAF0CF3005C80B3 /* CustomTextField */ = {

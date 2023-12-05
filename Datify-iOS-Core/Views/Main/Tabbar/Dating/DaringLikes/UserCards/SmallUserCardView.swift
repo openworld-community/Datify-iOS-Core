@@ -27,11 +27,12 @@ struct SmallUserCardView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .frame(width: size.width*0.07, height: size.height*0.06)
-//                .frame(width: 29, height: 43)
                 .cornerRadius(3)
         }
         .onTapGesture {
-            selected = vm.user?.userId
+            withAnimation {
+                selected = vm.user?.userId
+            }
         }
         .padding(.horizontal, addPadding() ? 6 : 0)
     }

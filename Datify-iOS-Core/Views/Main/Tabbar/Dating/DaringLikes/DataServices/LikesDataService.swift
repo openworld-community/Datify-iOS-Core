@@ -18,7 +18,7 @@ class LikesDataService: ObservableObject {
     }
 
     func deleteLike(likeId: String) {
-        // TODO: func delete like
+        // TODO: Func delete like
         if let allLikes {
             for index in allLikes.indices {
                 if allLikes[index].id == likeId {
@@ -29,8 +29,20 @@ class LikesDataService: ObservableObject {
     }
 
     func createLike(senderID: String, receiverID: String) {
+        // TODO: Func create like
         var newLike = LikeModel(senderID: senderID, receiverID: receiverID, date: Date())
         allLikes?.append(newLike)
+    }
+
+    func likeIsViewed(likeId: String) {
+        // TODO: Func changes like to viewed
+        if let allLikes {
+            for index in allLikes.indices {
+                if allLikes[index].id == likeId {
+                    self.allLikes?[index].isViewed()
+               }
+           }
+        }
     }
 }
 
