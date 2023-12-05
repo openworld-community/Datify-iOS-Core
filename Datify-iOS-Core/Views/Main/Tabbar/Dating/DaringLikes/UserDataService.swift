@@ -25,6 +25,9 @@ class UserDataService {
         return user
     }
 
+}
+
+private extension UserDataService {
     func createRandomUser() {
         let userPhotos: [[String]] = [["user2", "user2", "user2"],
                                      ["user3", "user3", "user3"],

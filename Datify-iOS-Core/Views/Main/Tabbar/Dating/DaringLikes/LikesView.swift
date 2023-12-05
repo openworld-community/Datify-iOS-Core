@@ -16,7 +16,7 @@ struct LikesView: View {
     @State private var tag: LikeTage = .receivedLikes
     @State private var displayMode: DisplayMode = .gallery
     init(router: Router<AppRoute>) {
-        _viewModel = StateObject(wrappedValue: LikesViewModel(router: router))
+        _viewModel = StateObject(wrappedValue: LikesViewModel(router: router, userDataService: UserDataService.shared, likesDataService: LikesDataService.shared))
     }
 
     var body: some View {
@@ -51,7 +51,6 @@ struct LikesView: View {
                                             .offset(y: isCrop(indexOne: index,
                                                               indexTwo: 1,
                                                               count: chunkedArray(elements: 2).count) ? 0 : -50)
-
                                         } else {
                                             Rectangle()
                                                 .frame(width: 176, height: 288)
@@ -64,6 +63,11 @@ struct LikesView: View {
                         }
                         .padding(.horizontal)
                     }
+                }
+            }
+            .onAppear {
+                Task {
+                    await viewModel.fecthData()
                 }
             }
             .navigationTitle("Likes")
@@ -157,7 +161,7 @@ struct LikesView: View {
     }
 
     @ViewBuilder
-    func categoriesFilter(size: CGSize) -> some View {
+    private func categoriesFilter(size: CGSize) -> some View {
         VStack {
             DtSegmentedPicker(selectedItem: $viewModel.categories, items: LikeTage.allCases) {
                 Text($0.title)
@@ -166,11 +170,11 @@ struct LikesView: View {
         .frame(width: size.width*0.92)
     }
 
-    func isCrop(indexOne: Int, indexTwo: Int, count: Int) -> Bool {
+    private func isCrop(indexOne: Int, indexTwo: Int, count: Int) -> Bool {
         if indexTwo == 1, indexOne == 0 {
             return true
         }
-        if indexTwo == 0, indexOne == (count - 1) {
+        if indexTwo == 0, indexOne == (count - 1), count != 1 {
             return true
         }
         return false

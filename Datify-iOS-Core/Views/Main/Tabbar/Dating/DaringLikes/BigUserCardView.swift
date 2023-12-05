@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct BigUserCardView: View {
-    @ObservedObject var vm: SmallUserCardViewModel
+    @ObservedObject var vm: UserCardViewModel
     @Binding var selected: String?
     var size: CGSize
 
     init(selectedItem: Binding<String?>, size: CGSize) {
         _selected = selectedItem
         self.size = size
-        vm = SmallUserCardViewModel()
+        vm = UserCardViewModel(dataServise: UserDataService.shared, likeServise: LikesDataService.shared)
         vm.getUser(userId: selected ?? "")
     }
 

@@ -8,16 +8,18 @@
 import SwiftUI
 
 struct MediumUserCardView: View {
-    @ObservedObject var vm: SmallUserCardViewModel
+    @ObservedObject var vm: UserCardViewModel
     private var currentUser: UserModel
     private var isCrop: Bool
     private var myLikes: [LikeModel]
+    private var like: LikeModel
 
     init(like: LikeModel, currentUser: UserModel, isCrop: Bool, myLikes: [LikeModel]) {
         self.myLikes = myLikes
         self.isCrop = isCrop
+        self.like = like
         self.currentUser = currentUser
-        vm = SmallUserCardViewModel()
+        vm = UserCardViewModel(dataServise: UserDataService.shared, likeServise: LikesDataService.shared)
         getUser(by: like)
     }
 
@@ -48,16 +50,19 @@ struct MediumUserCardView: View {
                             .frame(height: 24)
                             .cornerRadius(12)
                             .padding(.leading, 4)
-
                             Spacer()
                             Button(action: {
-
+                                if isLiked().bool {
+                                    vm.deleteLike(likeId: isLiked().myLike?.id)
+                                } else {
+                                    vm.createNewLike(senderID: currentUser.userId)
+                                }
                             }, label: {
                                 ZStack {
                                     Circle()
                                         .frame(width: 32, height: 32)
-                                        .foregroundStyle(isLiked() ? .ultraThickMaterial : .ultraThinMaterial)
-                                    Image(isLiked() ? "heartRed" : "heartWhite")
+                                        .foregroundStyle(isLiked().bool ? .ultraThickMaterial : .ultraThinMaterial)
+                                    Image(isLiked().bool ? "heartRed" : "heartWhite")
                                         .frame(width: 16, height: 16)
                                 }
                             })
@@ -66,7 +71,6 @@ struct MediumUserCardView: View {
                         .padding(.horizontal, 5)
                         Spacer()
                         HStack {
-
                             Text("\(user.name), " + "\(user.age) ")
                                 .dtTypo(.p2Medium, color: .textInverted)
                                 .padding(.leading)
@@ -84,19 +88,19 @@ struct MediumUserCardView: View {
         }
     }
 
-    func getUser(by like: LikeModel) {
+    private func getUser(by like: LikeModel) {
         vm.getUser(userId: isThisMyLike(for: like) ? like.receiverID : like.senderID)
     }
 
-    func isThisMyLike(for like: LikeModel) -> Bool {
+    private func isThisMyLike(for like: LikeModel) -> Bool {
         currentUser.userId == like.senderID
     }
 
-    func isLiked() -> Bool {
-    var result: Bool = false
+    private func isLiked() -> (bool: Bool, myLike: LikeModel?) {
+        var result: (bool: Bool, myLike: LikeModel?) = (bool: false, myLike: nil)
         for myLike in myLikes {
             if myLike.receiverID == vm.user?.userId {
-               result = true
+                result = (bool: true, myLike: myLike)
             }
         }
         return result

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SmallUserCardView: View {
-    @ObservedObject var vm: SmallUserCardViewModel
+    @ObservedObject var vm: UserCardViewModel
     @Binding var selected: String?
     private var currentUser: UserModel
     var size: CGSize
@@ -17,7 +17,7 @@ struct SmallUserCardView: View {
         _selected = selectedItem
         self.size = size
         self.currentUser = currentUser
-        vm = SmallUserCardViewModel()
+        vm = UserCardViewModel(dataServise: UserDataService.shared, likeServise: LikesDataService.shared)
         getUser(by: like)
     }
 

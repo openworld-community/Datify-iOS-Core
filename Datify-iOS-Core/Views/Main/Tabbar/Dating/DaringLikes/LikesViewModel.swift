@@ -1,5 +1,5 @@
 //
-//  UserModel.swift
+//  LikesViewModel.swift
 //  Datify-iOS-Core
 //
 //  Created by Алексей Баранов on 05.12.2023.
@@ -65,20 +65,21 @@ class LikesViewModel: ObservableObject {
     @Published var selectedReceivedLikes: String?
     @Published var selectedMutualLikes: String?
     @Published var selectedMyLikes: String?
-    @Published var isLoading: Bool = true
     private var likesDataService: LikesDataService?
     private var userDataService: UserDataService?
     private var cancellables = Set<AnyCancellable>()
 
-    init(router: Router<AppRoute>) {
+    init(router: Router<AppRoute>, userDataService: UserDataService, likesDataService: LikesDataService) {
         self.router = router
-        userDataService = UserDataService.shared
-        Task {
-            await fetchCurrentUser()
-            guard let currentUser = currentUser else {return}
-                self.likesDataService = LikesDataService(userID: currentUser.userId)
-                addSubscribers()
-        }
+        self.userDataService = userDataService
+        self.likesDataService = likesDataService
+    }
+
+    func fecthData() async {
+        await fetchCurrentUser()
+        guard let currentUser = currentUser else {return}
+        await likesDataService?.getData(userID: currentUser.userId)
+            addSubscribers()
     }
 
     private func fetchCurrentUser() async {
@@ -103,10 +104,9 @@ class LikesViewModel: ObservableObject {
             .sink { [weak self] allLikes in
                 self?.allLikes = allLikes
                 self?.splitLikesByCategory()
-                self?.fetchData()
+                self?.fetchSelectedUser()
             }
             .store(in: &cancellables)
-
     }
 
     private func sortAndFilterLikes(likes: [LikeModel]?, sortOption: SortOption) -> [LikeModel] {
@@ -150,11 +150,10 @@ class LikesViewModel: ObservableObject {
 
     }
 
-    func fetchData() {
+    private func fetchSelectedUser() {
         selectedReceivedLikes = receivedLikes.first?.senderID ?? ""
         selectedMutualLikes = mutualLikes.first?.receiverID ?? ""
         selectedMyLikes = myLikes.first?.receiverID ?? ""
-
 //        Task {
 //            let receivedFirst = await fetchUserData(userId: receivedLikes.first?.senderID ?? "199")
 //            let mutualFirst = await fetchUserData(userId: mutualLikes.first?.receiverID ?? "199")

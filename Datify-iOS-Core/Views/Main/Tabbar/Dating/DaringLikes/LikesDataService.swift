@@ -9,26 +9,42 @@ import Foundation
 import Combine
 
 class LikesDataService: ObservableObject {
+    static var shared = LikesDataService()
     @Published var allLikes: [LikeModel]?
-    private var cancellables: Set<AnyCancellable>?
-
-    init(userID: String) {
-        Task {
-            await getData(userID: userID)
-        }
-    }
 
     func getData(userID: String) async {
         // TODO: Func of receiving user likes from the server where the user is the sender and recipient
-        getReceivedLikes(userID: userID)
-        getMyLikes(userID: userID)
+        createTempLikes(userID: userID)
     }
 
-    func getReceivedLikes(userID: String) {
+    func deleteLike(likeId: String) {
+        // TODO: func delete like
+        if let allLikes {
+            for index in allLikes.indices {
+                if allLikes[index].id == likeId {
+                    self.allLikes?.remove(at: index)
+               }
+           }
+        }
+    }
+
+    func createLike(senderID: String, receiverID: String) {
+        var newLike = LikeModel(senderID: senderID, receiverID: receiverID, date: Date())
+        allLikes?.append(newLike)
+    }
+}
+
+private extension LikesDataService {
+    func createTempLikes(userID: String) {
+        createReceivedLikes(userID: userID)
+        createMyLikes(userID: userID)
+    }
+
+    func createReceivedLikes(userID: String) {
         var receivedLikes: [LikeModel] = []
-        for i in 1...10 {
+        for id in 1...10 {
             let like = LikeModel(
-                senderID: String(i),
+                senderID: String(id),
                 receiverID: userID,
                 date: randomDate())
             receivedLikes.append(like)
@@ -36,12 +52,12 @@ class LikesDataService: ObservableObject {
         allLikes = receivedLikes
     }
 
-    func getMyLikes(userID: String) {
+    func createMyLikes(userID: String) {
         var myLike: [LikeModel] = []
-        for i in 8...20 {
+        for id in 8...20 {
             let like = LikeModel(
                 senderID: userID,
-                receiverID: String(i),
+                receiverID: String(id),
                 date: randomDate())
             myLike.append(like)
         }
