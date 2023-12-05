@@ -1,0 +1,38 @@
+//
+//  BigUserCardView.swift
+//  Datify-iOS-Core
+//
+//  Created by Алексей Баранов on 05.12.2023.
+//
+
+import SwiftUI
+
+struct BigUserCardView: View {
+    @ObservedObject var vm: SmallUserCardViewModel
+    @Binding var selected: String?
+    var size: CGSize
+
+    init(selectedItem: Binding<String?>, size: CGSize) {
+        _selected = selectedItem
+        self.size = size
+        vm = SmallUserCardViewModel()
+        vm.getUser(userId: selected ?? "")
+    }
+
+    var body: some View {
+        HStack {
+            Image(vm.user?.photos.first ?? "user5")
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(width: size.width*0.92, height: size.height*0.81)
+//                .frame(width: 30, height: 45)
+                .cornerRadius(10)
+//                .animation(.none, value: selected?.userId)
+        }
+//        .onAppear {
+//            vm.getUser(userId: selected ?? "")
+//        }
+    }
+}
+
+// #Previ 
