@@ -21,7 +21,8 @@ struct DtSelectorButton: View {
     var body: some View {
         Button {
             // Не уверен что нужно withAnimation, но мне так больше нравится)
-            withAnimation(.spring()) { action() }
+//            withAnimation(.spring()) { action() }
+           action()
 //            withAnimation { action() }
         } label: {
             HStack {

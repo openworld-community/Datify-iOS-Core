@@ -9,38 +9,39 @@ import SwiftUI
 
 struct MediumUserCardView: View {
     @ObservedObject var vm: UserCardViewModel
-    private var currentUser: UserModel
     private var isCrop: Bool
-    private var myLikes: [LikeModel]
-    private var like: LikeModel
+    private var size: CGSize
+    private var spacing: CGFloat
 
-    init(like: LikeModel, currentUser: UserModel, isCrop: Bool, myLikes: [LikeModel]) {
-        self.myLikes = myLikes
+    init(like: LikeModel, currentUser: UserModel, isCrop: Bool, myLikes: [LikeModel], size: CGSize, spacing: CGFloat) {
         self.isCrop = isCrop
-        self.like = like
-        self.currentUser = currentUser
-        vm = UserCardViewModel(dataServise: UserDataService.shared, likeServise: LikesDataService.shared)
-        getUser(by: like)
+        self.size = size
+        self.spacing = spacing
+        vm = UserCardViewModel(dataServise: UserDataService.shared,
+                               likeServise: LikesDataService.shared,
+                               myLikes: myLikes,
+                               like: like,
+                               currentUser: currentUser)
+        vm.getUser()
     }
 
     var body: some View {
         VStack {
-            ZStack {
-                    Image(vm.user?.photos.first ?? "AvatarPhoto3")
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 176, height: isCrop ? 288 - 50 : 288)
+            if let user = vm.user {
+                ZStack {
+                    Image(user.photos.first ?? "AvatarPhoto3")
+                        .resizableFill()
+                        .frame(width: size.width*0.92 / 2 - spacing / 2,
+                               height: isCrop ? size.height * 0.4 - size.height * 0.07 : size.height * 0.4)
                         .blur(radius: 10)
                         .cornerRadius(20)
-
-                    Image(vm.user?.photos.first ?? "AvatarPhoto3")
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 176, height: isCrop ? 288 - 50 : 288 )
-                        .mask(Rectangle().offset(y: -50))
+                    Image(user.photos.first ?? "AvatarPhoto3")
+                        .resizableFill()
+                        .frame(width: size.width*0.92 / 2 - spacing / 2,
+                               height: isCrop ? size.height * 0.4 - size.height * 0.07 : size.height * 0.4)
+                        .mask(Rectangle().offset(y: -size.height * 0.07))
                         .cornerRadius(20)
-                VStack {
-                    if let user = vm.user {
+                    VStack {
                         HStack {
                             HStack {
                                 Text("\(user.label)")
@@ -52,17 +53,17 @@ struct MediumUserCardView: View {
                             .padding(.leading, 4)
                             Spacer()
                             Button(action: {
-                                if isLiked().bool {
-                                    vm.deleteLike(likeId: isLiked().myLike?.id)
+                                if vm.isLiked().bool {
+                                    vm.deleteLike(likeId: vm.isLiked().myLike?.id)
                                 } else {
-                                    vm.createNewLike(senderID: currentUser.userId)
+                                    vm.createNewLike(senderID: vm.currentUser.userId)
                                 }
                             }, label: {
                                 ZStack {
                                     Circle()
                                         .frame(width: 32, height: 32)
-                                        .foregroundStyle(isLiked().bool ? .ultraThickMaterial : .ultraThinMaterial)
-                                    Image(isLiked().bool ? "heartRed" : "heartWhite")
+                                        .foregroundStyle(vm.isLiked().bool ? .ultraThickMaterial : .ultraThinMaterial)
+                                    Image(vm.isLiked().bool ? "heartRed" : "heartWhite")
                                         .frame(width: 16, height: 16)
                                 }
                             })
@@ -80,33 +81,18 @@ struct MediumUserCardView: View {
                             Spacer()
 
                         }
-                        .frame(height: 50)
+                        .frame(height: size.height * 0.07)
                     }
+                    .frame(width: size.width*0.92 / 2 - spacing / 2,
+                           height: isCrop ? size.height * 0.4 - size.height * 0.07 : size.height * 0.4)
                 }
-                .frame(width: 176, height: isCrop ? 288 - 50 : 288)
-            }
-            .onAppear {
-                vm.likeIsViewed(likeId: like.id)
-            }
-        }
-    }
-
-    private func getUser(by like: LikeModel) {
-        vm.getUser(userId: isThisMyLike(for: like) ? like.receiverID : like.senderID)
-    }
-
-    private func isThisMyLike(for like: LikeModel) -> Bool {
-        currentUser.userId == like.senderID
-    }
-
-    private func isLiked() -> (bool: Bool, myLike: LikeModel?) {
-        var result: (bool: Bool, myLike: LikeModel?) = (bool: false, myLike: nil)
-        for myLike in myLikes {
-            if myLike.receiverID == vm.user?.userId {
-                result = (bool: true, myLike: myLike)
+                .onAppear {
+                    vm.likeIsViewed(likeId: vm.like.id)
+                }
+            } else {
+                NoLikesYetView(width: size.width * 0.92, height: size.height * 0.85)
             }
         }
-        return result
     }
 }
 
@@ -126,8 +112,11 @@ struct MediumUserCardView: View {
                             bookmarked: false,
                             audiofile: "audio.mp3"
                         ),
-                        isCrop: false, myLikes: [LikeModel(senderID: "1000", receiverID: "1", date: Date()),
-                                                 LikeModel(senderID: "1000", receiverID: "2", date: Date()),
-                                                 LikeModel(senderID: "1000", receiverID: "3", date: Date()),
-                                                 LikeModel(senderID: "1000", receiverID: "4", date: Date())])
+                        isCrop: false,
+                        myLikes: [LikeModel(senderID: "1000", receiverID: "1", date: Date()),
+                                  LikeModel(senderID: "1000", receiverID: "2", date: Date()),
+                                  LikeModel(senderID: "1000", receiverID: "3", date: Date()),
+                                  LikeModel(senderID: "1000", receiverID: "4", date: Date())],
+                        size: CGSize(width: 400, height: 800),
+                        spacing: 6)
  }

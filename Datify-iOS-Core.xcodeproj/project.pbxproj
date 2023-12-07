@@ -81,6 +81,8 @@
 		797CA5562AE86519004DACFA /* VoiceGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797CA5552AE86519004DACFA /* VoiceGraphView.swift */; };
 		797CA5582AE86584004DACFA /* VoiceGraphViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797CA5572AE86584004DACFA /* VoiceGraphViewModel.swift */; };
 		797D6D462AFB6BEC0087829A /* RecordManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797D6D452AFB6BEC0087829A /* RecordManager.swift */; };
+		79ADA25B2B22068000C62B17 /* SmallUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79ADA25A2B22068000C62B17 /* SmallUserViewModel.swift */; };
+		79ADA2602B2214C900C62B17 /* NoLikesYetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79ADA25F2B2214C900C62B17 /* NoLikesYetView.swift */; };
 		79BE96E72AF7689E008E943C /* DtCircleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BE96E62AF7689E008E943C /* DtCircleButton.swift */; };
 		79C5F14D2B1DDD1700FF43EF /* RegEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F9F2062AB0C80A00F7DAB8 /* RegEmailViewModel.swift */; };
 		79D591152B1F26350097C05B /* LikeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D591142B1F26350097C05B /* LikeModel.swift */; };
@@ -211,6 +213,8 @@
 		797CA5552AE86519004DACFA /* VoiceGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceGraphView.swift; sourceTree = "<group>"; };
 		797CA5572AE86584004DACFA /* VoiceGraphViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceGraphViewModel.swift; sourceTree = "<group>"; };
 		797D6D452AFB6BEC0087829A /* RecordManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordManager.swift; sourceTree = "<group>"; };
+		79ADA25A2B22068000C62B17 /* SmallUserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallUserViewModel.swift; sourceTree = "<group>"; };
+		79ADA25F2B2214C900C62B17 /* NoLikesYetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoLikesYetView.swift; sourceTree = "<group>"; };
 		79BE96E62AF7689E008E943C /* DtCircleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtCircleButton.swift; sourceTree = "<group>"; };
 		79D591142B1F26350097C05B /* LikeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeModel.swift; sourceTree = "<group>"; };
 		79D591162B1F264C0097C05B /* LikesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikesView.swift; sourceTree = "<group>"; };
@@ -523,6 +527,32 @@
 			path = Voice;
 			sourceTree = "<group>";
 		};
+		79ADA25C2B2211D400C62B17 /* MediumCard */ = {
+			isa = PBXGroup;
+			children = (
+				79D591212B1F26DF0097C05B /* MediumUserCardView.swift */,
+				79D5911D2B1F26BA0097C05B /* UserCardViewModel.swift */,
+			);
+			path = MediumCard;
+			sourceTree = "<group>";
+		};
+		79ADA25D2B2211EB00C62B17 /* SmallCard */ = {
+			isa = PBXGroup;
+			children = (
+				79ADA25A2B22068000C62B17 /* SmallUserViewModel.swift */,
+				79D5911A2B1F26990097C05B /* SmallUserCardView.swift */,
+			);
+			path = SmallCard;
+			sourceTree = "<group>";
+		};
+		79ADA25E2B22120400C62B17 /* BigCard */ = {
+			isa = PBXGroup;
+			children = (
+				79D5911F2B1F26CC0097C05B /* BigUserCardView.swift */,
+			);
+			path = BigCard;
+			sourceTree = "<group>";
+		};
 		79C5F14A2B1DDB3500FF43EF /* Gender */ = {
 			isa = PBXGroup;
 			children = (
@@ -605,10 +635,10 @@
 		79E8479B2B1F9B710086F932 /* UserCards */ = {
 			isa = PBXGroup;
 			children = (
-				79D5911A2B1F26990097C05B /* SmallUserCardView.swift */,
-				79D5911F2B1F26CC0097C05B /* BigUserCardView.swift */,
-				79D591212B1F26DF0097C05B /* MediumUserCardView.swift */,
-				79D5911D2B1F26BA0097C05B /* UserCardViewModel.swift */,
+				79ADA25D2B2211EB00C62B17 /* SmallCard */,
+				79ADA25C2B2211D400C62B17 /* MediumCard */,
+				79ADA25E2B22120400C62B17 /* BigCard */,
+				79ADA25F2B2214C900C62B17 /* NoLikesYetView.swift */,
 			);
 			path = UserCards;
 			sourceTree = "<group>";
@@ -909,6 +939,7 @@
 				4A4CE2D42A9B44280098FF80 /* RegistrationFlow.swift in Sources */,
 				2020736A2AB378B200CBBE42 /* DtCustomDatePicker.swift in Sources */,
 				2076AF302AB085F400AF5E11 /* Image+extension.swift in Sources */,
+				79ADA2602B2214C900C62B17 /* NoLikesYetView.swift in Sources */,
 				980895BA2A9F4A5700F82F02 /* DtSpinnerView.swift in Sources */,
 				20E518332ADDF63100A0463A /* DtStepSliderSegment.swift in Sources */,
 				797CA5522AE85184004DACFA /* RegRecordView.swift in Sources */,
@@ -925,6 +956,7 @@
 				632A7F5E2AAC897B005DA819 /* DtCustomTFView+extension.swift in Sources */,
 				634EF72A2ADC48010061E13A /* TabItem.swift in Sources */,
 				98F536A22AFE4B380051D751 /* SMSView.swift in Sources */,
+				79ADA25B2B22068000C62B17 /* SmallUserViewModel.swift in Sources */,
 				4A4CE2DC2A9B485B0098FF80 /* WelcomeView.swift in Sources */,
 				63A5B8B52AC5F0BA00DEB54A /* CountryAndCityView.swift in Sources */,
 				63A7295F2AA3A30E00AC60E3 /* SecureTFView.swift in Sources */,

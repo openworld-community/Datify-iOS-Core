@@ -156,9 +156,9 @@ class LikesViewModel: ObservableObject {
     }
 
     private func fetchSelectedUser() {
-        selectedReceivedLikes = receivedLikes.first?.senderID ?? "1"
-        selectedMutualLikes = mutualLikes.first?.receiverID ?? "1"
-        selectedMyLikes = myLikes.first?.receiverID ?? "1"
+        selectedReceivedLikes = receivedLikes.first?.senderID
+        selectedMutualLikes = mutualLikes.first?.receiverID
+        selectedMyLikes = myLikes.first?.receiverID
 //        Task {
 //            let receivedFirst = await fetchUserData(userId: receivedLikes.first?.senderID ?? "199")
 //            let mutualFirst = await fetchUserData(userId: mutualLikes.first?.receiverID ?? "199")

@@ -11,14 +11,20 @@ class UserCardViewModel: ObservableObject {
     @Published var user: UserModel?
     private var dataService: UserDataService
     private var likeServise: LikesDataService
+    var myLikes: [LikeModel]
+    var like: LikeModel
+    var currentUser: UserModel
 
-    init(dataServise: UserDataService, likeServise: LikesDataService) {
+    init(dataServise: UserDataService, likeServise: LikesDataService, myLikes: [LikeModel], like: LikeModel, currentUser: UserModel) {
         self.dataService = dataServise
         self.likeServise = likeServise
+        self.myLikes = myLikes
+        self.like = like
+        self.currentUser = currentUser
     }
 
-    func getUser(userId: String) {
-        let userTemp = dataService.getUserData(for: userId)!
+    func getUser() {
+        let userTemp = dataService.getUserData(for: isThisMyLike() ? like.receiverID : like.senderID)!
         //  await MainActor.run {
         user = userTemp
         //  }
@@ -39,4 +45,19 @@ class UserCardViewModel: ObservableObject {
     func likeIsViewed(likeId: String) {
         likeServise.likeIsViewed(likeId: likeId)
     }
+
+    func isLiked() -> (bool: Bool, myLike: LikeModel?) {
+        var result: (bool: Bool, myLike: LikeModel?) = (bool: false, myLike: nil)
+        for myLike in myLikes {
+            if myLike.receiverID == user?.userId {
+                result = (bool: true, myLike: myLike)
+            }
+        }
+        return result
+    }
+
+    private func isThisMyLike() -> Bool {
+        currentUser.userId == like.senderID
+    }
+
 }

@@ -8,15 +8,16 @@
 import SwiftUI
 
 enum DisplayMode {
-    case gallery, miniIcon
+    case gallery, carousel
 }
 
 struct LikesView: View {
     @StateObject private var viewModel: LikesViewModel
     @State private var tag: LikeTage = .receivedLikes
-    @State private var displayMode: DisplayMode = .gallery
+    @State private var displayMode: DisplayMode = .carousel
     @State private var showFilters: Bool = false
     @State private var blurRadius: CGFloat = 0
+    private var spacingGalleryCard: CGFloat = 6
 
     init(router: Router<AppRoute>) {
         _viewModel = StateObject(wrappedValue: LikesViewModel(router: router, userDataService: UserDataService.shared, likesDataService: LikesDataService.shared))
@@ -26,47 +27,14 @@ struct LikesView: View {
         // TODO: delete NavigationStack
         NavigationStack {
             GeometryReader { geometry in
-                VStack {
+                VStack(alignment: .center) {
                     categoriesFilter(size: geometry.size)
-
-                    if case .gallery = displayMode, let currentUser = viewModel.currentUser {
-                        galleryUserLikes(data: getLikesAndSelectedItem(),
-                                         currentUser: currentUser, size: geometry.size)
-                    } else {
-                        ScrollView(showsIndicators: false) {
-                            ForEach(chunkedArray(elements: 2).indices, id: \.self) { index in
-                                HStack(alignment: index == 0 ? .top  :  .bottom) {
-                                    if let currentUser = viewModel.currentUser {
-                                        MediumUserCardView(like: chunkedArray(elements: 2)[index][0],
-                                                           currentUser: currentUser,
-                                                           isCrop: isCrop(indexOne: index,
-                                                                          indexTwo: 0,
-                                                                          count: chunkedArray(elements: 2).count),
-                                                           myLikes: viewModel.myLikes)
-                                        .offset(y: isCrop(indexOne: index, indexTwo: 0,
-                                                          count: chunkedArray(elements: 2).count) ? -50 : 0)
-                                        if chunkedArray(elements: 2)[index].count > 1 {
-                                            MediumUserCardView(like: chunkedArray(elements: 2)[index][1],
-                                                               currentUser: currentUser,
-                                                               isCrop: isCrop(indexOne: index, indexTwo: 1,
-                                                                              count: chunkedArray(elements: 2).count),
-                                                               myLikes: viewModel.myLikes)
-                                            .offset(y: isCrop(indexOne: index,
-                                                              indexTwo: 1,
-                                                              count: chunkedArray(elements: 2).count) ? 0 : -50)
-                                        } else {
-                                            Rectangle()
-                                                .frame(width: 176, height: 288)
-                                                .foregroundStyle(.clear)
-                                        }
-                                    }
-                                    Spacer()
-                                }
-                            }
-                        }
-                        .padding(.horizontal)
+                    switch displayMode {
+                    case .carousel: carouselUserLikes(size: geometry.size)
+                    case .gallery: gallerylUserLikes(size: geometry.size)
                     }
                 }
+                .animation(.none, value: showFilters)
             }
             .blur(radius: blurRadius)
             .onChange(of: showFilters) { newValue in
@@ -105,13 +73,12 @@ struct LikesView: View {
                         })
                         Button(action: {
                             if case .gallery = displayMode {
-
-                                displayMode = .miniIcon
+                                displayMode = .carousel
                             } else {
                                 displayMode = .gallery
                             }
                         }, label: {
-                            Image(displayMode == .miniIcon ? "likeGallery" : "likeIcons")
+                            Image(displayMode == .carousel ? "likeGallery" : "likeIcons")
                                 .resizableFit()
                                 .frame(width: 24, height: 24)
                                 .foregroundStyle(Color.primary)
@@ -145,27 +112,82 @@ struct LikesView: View {
         }
     }
 
-    private func galleryUserLikes(
-        data: (likes: [LikeModel], selected: Binding<String?>),
-        currentUser: UserModel,
-        size: CGSize) -> some View {
+    @ViewBuilder
+    private func carouselUserLikes(size: CGSize) -> some View {
         VStack {
             Spacer()
-            BigUserCardView(selectedItem: data.selected, size: size)
+            BigUserCardView(selectedItem: getLikesAndSelectedItem().selected, size: size)
             Spacer()
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 2) {
                     HStack {Text("")}
-                        .frame(width: UIScreen.main.bounds.width / 2 - 27)
-                    ForEach(data.likes) { like in
-                        SmallUserCardView(like: like, selectedItem: data.selected, currentUser: currentUser, size: size)
+                        .frame(width: size.width / 2 - (size.width*0.07) / 2)
+                    ForEach(getLikesAndSelectedItem().likes) { like in
+                        if let currentUser = viewModel.currentUser {
+                            SmallUserCardView(like: like,
+                                              selectedItem: getLikesAndSelectedItem().selected,
+                                              currentUser: currentUser,
+                                              size: size)
+                        }
                     }
                     HStack {Text("")}
-                        .frame(width: UIScreen.main.bounds.width / 2 - 27)
+                        .frame(width: size.width / 2 - (size.width*0.07) / 2)
                 }
             }
             .padding(.bottom)
         }
+    }
+
+    @ViewBuilder
+    private func gallerylUserLikes(size: CGSize) -> some View {
+        VStack {
+            if getLikesAndSelectedItem().likes.isNotEmpty {
+                ScrollView(showsIndicators: false) {
+                    ForEach(chunkedArray(elements: 2).indices, id: \.self) { index in
+                        HStack(alignment: index == 0 ? .top  :  .bottom, spacing: spacingGalleryCard) {
+                            if let currentUser = viewModel.currentUser {
+                                MediumUserCardView(like: chunkedArray(elements: 2)[index][0],
+                                                   currentUser: currentUser,
+                                                   isCrop: isCrop(index: index,
+                                                                  indexNestedArray: 0,
+                                                                  count: chunkedArray(elements: 2).count),
+                                                   myLikes: viewModel.myLikes,
+                                                   size: size,
+                                                   spacing: spacingGalleryCard)
+                                .offset(y: isCrop(index: index,
+                                                  indexNestedArray: 0,
+                                                  count: chunkedArray(elements: 2).count) ? -size.height * 0.07 : 0)
+                                if chunkedArray(elements: 2)[index].count > 1 {
+                                    MediumUserCardView(like: chunkedArray(elements: 2)[index][1],
+                                                       currentUser: currentUser,
+                                                       isCrop: isCrop(index: index,
+                                                                      indexNestedArray: 1,
+                                                                      count: chunkedArray(elements: 2).count),
+                                                       myLikes: viewModel.myLikes,
+                                                       size: size,
+                                                       spacing: spacingGalleryCard)
+                                    .offset(y: isCrop(index: index,
+                                                      indexNestedArray: 1,
+                                                      count: chunkedArray(elements: 2).count) ? 0 : -size.height * 0.07)
+                                } else {
+                                    Rectangle()
+                                        .frame(height: size.height * 0.4)
+                                        .foregroundStyle(.clear)
+                                    Spacer()
+                                }
+                            }
+                        }
+                        .frame(width: size.width*0.92)
+                    }
+                }
+
+            } else {
+                NoLikesYetView(width: size.width * 0.92, height: size.height * 0.85)
+                DtButton(title: "Continue".localize(), style: .main) { }
+                .frame(width: size.width * 0.92)
+            }
+        }
+        .frame(width: size.width)
     }
 
     @ViewBuilder
@@ -178,11 +200,11 @@ struct LikesView: View {
         .frame(width: size.width*0.92)
     }
 
-    private func isCrop(indexOne: Int, indexTwo: Int, count: Int) -> Bool {
-        if indexTwo == 1, indexOne == 0 {
+    private func isCrop(index: Int, indexNestedArray: Int, count: Int) -> Bool {
+        if indexNestedArray == 1, index == 0 {
             return true
         }
-        if indexTwo == 0, indexOne == (count - 1), count != 1 {
+        if indexNestedArray == 0, index == (count - 1), count != 1 {
             return true
         }
         return false
@@ -213,15 +235,33 @@ extension LikesView {
                         }
                     }
                 }
-                .onChange(of: geometry.frame(in: .global).minY) { _ in
+                .onChange(of: geometry.frame(in: .global).minY) { minY in
                     withAnimation {
-//                        blurRadius = interpolatedValue(for: minY)
+                        blurRadius = interpolatedValue(for: minY)
                     }
                 }
             }
         }
         .presentationDetents([.height(350)])
         .presentationDragIndicator(.visible)
+    }
+
+    func interpolatedValue(for height: CGFloat) -> CGFloat {
+        // TODO: Replace with View extension
+        let screenHeight = UIScreen.main.bounds.height
+        let startHeight = screenHeight
+        let endHeight = screenHeight - 350
+        let startValue: CGFloat = 0.0
+        let endValue: CGFloat = 10.0
+
+        if height >= startHeight || height <= 100 {
+            return startValue
+        } else if height <= endHeight {
+            return endValue
+        }
+
+        let slope = (endValue - startValue) / (endHeight - startHeight)
+        return startValue + slope * (height - startHeight)
     }
 }
 
