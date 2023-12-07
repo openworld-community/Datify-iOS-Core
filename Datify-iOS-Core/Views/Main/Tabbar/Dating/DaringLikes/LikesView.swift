@@ -16,27 +16,42 @@ struct LikesView: View {
     @State private var tag: LikeTage = .receivedLikes
     @State private var displayMode: DisplayMode = .carousel
     @State private var showFilters: Bool = false
+    @State private var showInformationView: Bool = false
     @State private var blurRadius: CGFloat = 0
     private var spacingGalleryCard: CGFloat = 6
 
     init(router: Router<AppRoute>) {
-        _viewModel = StateObject(wrappedValue: LikesViewModel(router: router, userDataService: UserDataService.shared, likesDataService: LikesDataService.shared))
+        _viewModel = StateObject(wrappedValue: LikesViewModel(router: router,
+                                                              userDataService: UserDataService.shared,
+                                                              likesDataService: LikesDataService.shared))
     }
 
     var body: some View {
         // TODO: delete NavigationStack
         NavigationStack {
             GeometryReader { geometry in
-                VStack(alignment: .center) {
-                    categoriesFilter(size: geometry.size)
-                    switch displayMode {
-                    case .carousel: carouselUserLikes(size: geometry.size)
-                    case .gallery: gallerylUserLikes(size: geometry.size)
+                ZStack(alignment: .bottom) {
+                    VStack(alignment: .center) {
+                        categoriesFilter(size: geometry.size)
+                        switch displayMode {
+                        case .carousel: carouselUserLikes(size: geometry.size)
+                        case .gallery: gallerylUserLikes(size: geometry.size)
+                        }
+                    }
+                    .blur(radius: blurRadius)
+                    InformationView(showView: $showInformationView,
+                                    width: geometry.size.width,
+                                    title: "Restore chat?",
+                                    text: "The chat with this user has been deleted, are you sure you want to restore it?",
+                                    titleButton: "Yes, restore") {
+                        // TODO: func restore chat
+                        showInformationView = false
+                        withAnimation {
+                            blurRadius = 0
+                        }
                     }
                 }
-                .animation(.none, value: showFilters)
             }
-            .blur(radius: blurRadius)
             .onChange(of: showFilters) { newValue in
                 withAnimation {
                     blurRadius = newValue ? 10.0 : 0
@@ -116,7 +131,10 @@ struct LikesView: View {
     private func carouselUserLikes(size: CGSize) -> some View {
         VStack {
             Spacer()
-            BigUserCardView(selectedItem: getLikesAndSelectedItem().selected, size: size)
+            BigUserCardView(selectedItem: getLikesAndSelectedItem().selected,
+                            size: size,
+                            showInformationView: $showInformationView,
+                            blurRadius: $blurRadius)
             Spacer()
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 2) {

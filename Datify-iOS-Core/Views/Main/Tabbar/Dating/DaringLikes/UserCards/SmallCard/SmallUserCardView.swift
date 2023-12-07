@@ -50,11 +50,22 @@ struct SmallUserCardView: View {
     }
 }
 
-// #Preview {
-//    SmallUserCardView(like:
-//                        LikeModel(senderID: "1",
-//                                  receiverID: "1000",
-//                                  date: Date()
-//                                 ),
-//                      viewModel: LikesViewModel(router: Router()))
-// }
+ #Preview {
+    SmallUserCardView(like: LikeModel(senderID: "1", receiverID: "1000", date: Date()),
+                      selectedItem: .constant("1"),
+                      currentUser: UserModel(
+                        userId: "1000",
+                        photos: ["user1", "user1", "user1"],
+                        label: "Label1",
+                        colorLabel: .red,
+                        location: "New York",
+                        name: "Michael",
+                        age: 25,
+                        star: true,
+                        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                        liked: true,
+                        bookmarked: false,
+                        audiofile: "audio.mp3"
+                    ),
+                      size: CGSize(width: 400, height: 800))
+ }

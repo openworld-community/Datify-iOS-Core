@@ -83,6 +83,7 @@
 		797D6D462AFB6BEC0087829A /* RecordManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797D6D452AFB6BEC0087829A /* RecordManager.swift */; };
 		79ADA25B2B22068000C62B17 /* SmallUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79ADA25A2B22068000C62B17 /* SmallUserViewModel.swift */; };
 		79ADA2602B2214C900C62B17 /* NoLikesYetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79ADA25F2B2214C900C62B17 /* NoLikesYetView.swift */; };
+		79ADA2622B224C6700C62B17 /* InformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79ADA2612B224C6700C62B17 /* InformationView.swift */; };
 		79BE96E72AF7689E008E943C /* DtCircleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BE96E62AF7689E008E943C /* DtCircleButton.swift */; };
 		79C5F14D2B1DDD1700FF43EF /* RegEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F9F2062AB0C80A00F7DAB8 /* RegEmailViewModel.swift */; };
 		79D591152B1F26350097C05B /* LikeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D591142B1F26350097C05B /* LikeModel.swift */; };
@@ -215,6 +216,7 @@
 		797D6D452AFB6BEC0087829A /* RecordManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordManager.swift; sourceTree = "<group>"; };
 		79ADA25A2B22068000C62B17 /* SmallUserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallUserViewModel.swift; sourceTree = "<group>"; };
 		79ADA25F2B2214C900C62B17 /* NoLikesYetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoLikesYetView.swift; sourceTree = "<group>"; };
+		79ADA2612B224C6700C62B17 /* InformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationView.swift; sourceTree = "<group>"; };
 		79BE96E62AF7689E008E943C /* DtCircleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtCircleButton.swift; sourceTree = "<group>"; };
 		79D591142B1F26350097C05B /* LikeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeModel.swift; sourceTree = "<group>"; };
 		79D591162B1F264C0097C05B /* LikesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikesView.swift; sourceTree = "<group>"; };
@@ -626,6 +628,7 @@
 				79D591142B1F26350097C05B /* LikeModel.swift */,
 				79D591162B1F264C0097C05B /* LikesView.swift */,
 				79D591182B1F26790097C05B /* LikesViewModel.swift */,
+				79ADA2612B224C6700C62B17 /* InformationView.swift */,
 				79E8479B2B1F9B710086F932 /* UserCards */,
 				79E8479C2B1F9B8B0086F932 /* DataServices */,
 			);
@@ -941,6 +944,7 @@
 				2076AF302AB085F400AF5E11 /* Image+extension.swift in Sources */,
 				79ADA2602B2214C900C62B17 /* NoLikesYetView.swift in Sources */,
 				980895BA2A9F4A5700F82F02 /* DtSpinnerView.swift in Sources */,
+				79ADA2622B224C6700C62B17 /* InformationView.swift in Sources */,
 				20E518332ADDF63100A0463A /* DtStepSliderSegment.swift in Sources */,
 				797CA5522AE85184004DACFA /* RegRecordView.swift in Sources */,
 				63A7295D2AA395A200AC60E3 /* ConstantsTF.swift in Sources */,
@@ -1221,7 +1225,7 @@
 					"-framework",
 					shared,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "acom.a.pride.Datify-iOS-Core";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.a.pride.Datify-iOS-Core";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -1266,7 +1270,7 @@
 					"-framework",
 					shared,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "acom.a.pride.Datify-iOS-Core";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.a.pride.Datify-iOS-Core";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
