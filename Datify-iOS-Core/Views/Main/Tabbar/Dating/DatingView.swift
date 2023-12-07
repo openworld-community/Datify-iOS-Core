@@ -57,19 +57,33 @@ struct DatingView: View {
                                     photos: viewModel.users[index].photos,
                                     selectedPhotoIndex: selectedPhotoIndex
                                 )
-                                .position(x: geometry.size.width / 2, y: geometry.size.height - 170), alignment: .center)
+                                .position(
+                                    x: geometry.size.width / 2,
+                                    y: geometry.size.height - 170
+                                ), alignment: .center
+                            )
 
                             if showLikedAnimation {
-                                AnimatedIconView(show: $showLikedAnimation, icon: Image(DtImage.mainSelectedHeart))
-                                    .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
+                                AnimatedIconView(
+                                    show: $showLikedAnimation,
+                                    icon: Image(DtImage.mainSelectedHeart)
+                                )
+                                .position(
+                                    x: geometry.size.width / 2,
+                                    y: geometry.size.height / 2
+                                )
                             }
 
                             if showBookmarkedAnimation {
-                                AnimatedIconView(show: $showBookmarkedAnimation, icon: Image(DtImage.mainSelectedBookmark))
-                                    .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
+                                AnimatedIconView(
+                                    show: $showBookmarkedAnimation,
+                                    icon: Image(DtImage.mainSelectedBookmark)
+                                )
+                                .position(
+                                    x: geometry.size.width / 2,
+                                    y: geometry.size.height / 2
+                                )
                             }
-
-                            BottomDarkGradientView(geometry: geometry)
 
                             VStack {
                                 HStack {
@@ -97,6 +111,8 @@ struct DatingView: View {
                                         index: index
                                     )
                                 }
+                                .padding(.bottom, 12)
+
                                 HStack {
                                     DtAudioPlayerView(
                                         isPlaying: $viewModel.isPlaying,
@@ -117,8 +133,10 @@ struct DatingView: View {
                 }
                 .scrollTargetLayout()
             }
+            .environment(\.colorScheme, .light)
             .scrollPosition(id: $currentUserIndex)
             .onChange(of: currentUserIndex) { _, newValue in
+                selectedPhotoIndex = 0
                 if showDescription {
                     showDescription = false
                     print("showDescription is now4: \(showDescription)")
@@ -134,8 +152,6 @@ struct DatingView: View {
                 showBookmarkedAnimation = false
                 print("showDescription is now3: \(showDescription)")
 
-//                selectedPhotoIndex = 0
-
                 isAlertPresented = false
                 print(newValue ?? "")
 
@@ -145,12 +161,9 @@ struct DatingView: View {
                 }
             }
         }
-        .onChange(of: showDescription) { newValue in
-            print("showDescription изменен10: \(newValue)")
-        }
         .edgesIgnoringSafeArea(.top)
         .scrollTargetBehavior(.paging)
-        .onChange(of: viewModel.liked) { newValue in
+        .onChange(of: viewModel.liked) { _, newValue in
             if newValue {
                 withAnimation {
                     showLikedAnimation = true
@@ -160,7 +173,7 @@ struct DatingView: View {
                 }
             }
         }
-        .onChange(of: viewModel.bookmarked) { newValue in
+        .onChange(of: viewModel.bookmarked) { _, newValue in
             if newValue {
                 withAnimation {
                     showBookmarkedAnimation = true
@@ -169,6 +182,9 @@ struct DatingView: View {
                     showBookmarkedAnimation = false
                 }
             }
+        }
+        .onTapGesture(count: 2) {
+            
         }
         .alert(isPresented: $viewModel.showAlert) {
             Alert(
@@ -179,5 +195,15 @@ struct DatingView: View {
                 }
             )
         }
+    }
+
+    func getSafeAreaTop() -> CGFloat? {
+        let keyWindow = UIApplication.shared.connectedScenes
+            .filter({$0.activationState == .foregroundActive})
+            .map({$0 as? UIWindowScene})
+            .compactMap({$0})
+            .first?.windows
+            .filter({$0.isKeyWindow}).first
+        return (keyWindow?.safeAreaInsets.top)
     }
 }

@@ -66,6 +66,7 @@ struct UserInfoView: View {
                 }, label: {
                     Text("Hide")
                         .dtTypo(.p3Regular, color: .textInverted)
+                        .opacity(0.56)
                 })
             } else {
                 Button(action: {
@@ -82,6 +83,7 @@ struct UserInfoView: View {
                 }, label: {
                     Text("Show more")
                         .dtTypo(.p3Regular, color: .textInverted)
+                        .opacity(0.56)
                 })
             }
         }

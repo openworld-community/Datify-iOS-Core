@@ -33,7 +33,9 @@ struct DtBarChartView: View {
             ForEach(dataPoints.indices, id: \.self) { index in
                 let gradientFraction = Double(index) / Double(dataPoints.count - 1)
                 let color = viewModel.playbackFinished ? Color.gray :
-                            (gradientFraction < viewModel.playbackProgress || (gradientFraction == 0 && viewModel.playbackProgress > 0)) ? interpolatedColor(for: gradientFraction) : Color.gray
+                (gradientFraction < viewModel.playbackProgress || (gradientFraction == 0 && viewModel.playbackProgress > 0))
+                ? interpolatedColor(for: gradientFraction)
+                : Color(red: 235/255, green: 235/255, blue: 245/255, opacity: 0.3)
 
                 Rectangle()
                     .fill(color)

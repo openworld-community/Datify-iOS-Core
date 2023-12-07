@@ -28,13 +28,11 @@ struct UserActionsView: View {
              }, label: {
                  ZStack {
                      Rectangle()
-                         .frame(width: 48, height: 48)
-                         .foregroundColor(Color.iconsSecondary)
-                         .opacity(0.64)
-                         .clipShape(RoundedRectangle(cornerRadius: 16))
+                         .modifier(DtButtonsModifier())
                      Image(viewModel.users[index].liked ? DtImage.mainSelectedHeart : DtImage.mainHeart)
                  }
              })
+
              Button(action: {
                  withAnimation {
                      bookmarked.toggle()
@@ -44,10 +42,7 @@ struct UserActionsView: View {
              }, label: {
                  ZStack {
                      Rectangle()
-                         .frame(width: 48, height: 48)
-                         .foregroundColor(Color.iconsSecondary)
-                         .opacity(0.64)
-                         .clipShape(RoundedRectangle(cornerRadius: 16))
+                         .modifier(DtButtonsModifier())
                      Image(viewModel.users[index].bookmarked ? DtImage.mainSelectedBookmark : DtImage.mainBookmark)
                  }
              })
@@ -57,12 +52,8 @@ struct UserActionsView: View {
             }, label: {
                 ZStack {
                     Rectangle()
-                        .frame(width: 48, height: 48)
-                        .foregroundColor(Color.iconsSecondary)
-                        .opacity(0.64)
-                        .clipShape(RoundedRectangle(cornerRadius: 16))
+                        .modifier(DtButtonsModifier())
                     Image(DtImage.mainProfile)
-
                 }
             })
         }

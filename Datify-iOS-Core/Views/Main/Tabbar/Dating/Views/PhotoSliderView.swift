@@ -16,18 +16,21 @@ struct PhotoSliderView: View {
     let photos: [String]
 
     var body: some View {
-        TabView(selection: $selectedPhotoIndex) {
-            ForEach(photos.indices, id: \.self) { index in
-                Image(photos[index])
-                    .resizable()
-                    .scaledToFill()
-                    .frame(maxWidth: geometry.size.width)
-                    .blur(radius: showDescription ? 2 : 0)
-                    .animation(.easeInOut(duration: 0.4))
-                    .tag(index)
+        ZStack {
+            TabView(selection: $selectedPhotoIndex) {
+                ForEach(photos.indices, id: \.self) { index in
+                    Image(photos[index])
+                        .resizable()
+                        .scaledToFill()
+                        .frame(maxWidth: geometry.size.width)
+                        .blur(radius: showDescription ? 2 : 0)
+                        .animation(.easeInOut(duration: 0.4))
+                        .tag(index)
+                }
             }
+            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+            .disabled(isSwipeAndIndicatorsDisabled)
+            BottomDarkGradientView(geometry: geometry, showDescription: $showDescription)
         }
-        .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-        .disabled(isSwipeAndIndicatorsDisabled)
     }
 }
