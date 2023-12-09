@@ -10,6 +10,7 @@ import SwiftUI
 struct UserInfoView: View {
     @Binding var showDescription: Bool
     @Binding var isSwipeAndIndicatorsDisabled: Bool
+    @State private var isAnimated = false
 
     var viewModel: DatingViewModel
     var selectedPhotoIndex: Int
@@ -18,21 +19,19 @@ struct UserInfoView: View {
 
         VStack(alignment: .leading) {
             Spacer()
-
             ZStack {
-                    HStack(alignment: .center) {
-                        ZStack {
-                            Rectangle()
-                                .frame(width: 120, height: 24)
-                                .foregroundColor(viewModel.users[index].colorLabel)
-                                .clipShape(RoundedRectangle(cornerRadius: 16))
-                            Text(viewModel.users[index].label)
-                                .dtTypo(.p4Medium, color: .textInverted)
-                        }
-                        Spacer()
+                HStack(alignment: .center) {
+                    ZStack {
+                        Rectangle()
+                            .frame(width: 120, height: 24)
+                            .foregroundColor(viewModel.users[index].colorLabel)
+                            .clipShape(RoundedRectangle(cornerRadius: 16))
+                        Text(viewModel.users[index].label)
+                            .dtTypo(.p4Medium, color: .textInverted)
                     }
+                    Spacer()
                 }
-
+            }
             HStack {
                 Image(DtImage.mainLocation)
                     .resizable()
@@ -56,11 +55,9 @@ struct UserInfoView: View {
                     if showDescription {
                         showDescription = false
                         print("showDescription is now1: \(showDescription)")
-
                     } else {
                         showDescription = true
                         print("showDescription is now2: \(showDescription)")
-
                     }
                     isSwipeAndIndicatorsDisabled.toggle()
                 }, label: {
@@ -73,11 +70,9 @@ struct UserInfoView: View {
                     if showDescription {
                         showDescription = false
                         print("showDescription is now4: \(showDescription)")
-
                     } else {
                         showDescription = true
                         print("showDescription is now5: \(showDescription)")
-
                     }
                     isSwipeAndIndicatorsDisabled.toggle()
                 }, label: {
@@ -87,5 +82,17 @@ struct UserInfoView: View {
                 })
             }
         }
+        .animation(.easeInOut(duration: 0.3), value: isAnimated)
+        .onChange(of: showDescription) { _, newValue in
+            withAnimation {
+                isAnimated = !newValue
+            }
+        }
+    }
+
+    private func toggleDescription() {
+        showDescription.toggle()
+        isSwipeAndIndicatorsDisabled.toggle()
+        isAnimated = false
     }
 }

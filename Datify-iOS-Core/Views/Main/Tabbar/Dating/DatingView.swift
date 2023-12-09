@@ -59,7 +59,7 @@ struct DatingView: View {
                                 )
                                 .position(
                                     x: geometry.size.width / 2,
-                                    y: geometry.size.height - 170
+                                    y: geometry.size.height - 175
                                 ), alignment: .center
                             )
 
@@ -74,16 +74,16 @@ struct DatingView: View {
                                 )
                             }
 
-                            if showBookmarkedAnimation {
-                                AnimatedIconView(
-                                    show: $showBookmarkedAnimation,
-                                    icon: Image(DtImage.mainSelectedBookmark)
-                                )
-                                .position(
-                                    x: geometry.size.width / 2,
-                                    y: geometry.size.height / 2
-                                )
-                            }
+//                            if showBookmarkedAnimation {
+//                                AnimatedIconView(
+//                                    show: $showBookmarkedAnimation,
+//                                    icon: Image(DtImage.mainSelectedBookmark)
+//                                )
+//                                .position(
+//                                    x: geometry.size.width / 2,
+//                                    y: geometry.size.height / 2
+//                                )
+//                            }
 
                             VStack {
                                 HStack {
@@ -101,6 +101,7 @@ struct DatingView: View {
                                         selectedPhotoIndex: selectedPhotoIndex,
                                         index: index
                                     )
+
                                     Spacer()
                                     UserActionsView(
                                         liked: $viewModel.liked,
@@ -136,6 +137,7 @@ struct DatingView: View {
             .environment(\.colorScheme, .light)
             .scrollPosition(id: $currentUserIndex)
             .onChange(of: currentUserIndex) { _, newValue in
+                showDescription = false
                 selectedPhotoIndex = 0
                 if showDescription {
                     showDescription = false
@@ -184,7 +186,15 @@ struct DatingView: View {
             }
         }
         .onTapGesture(count: 2) {
-            
+            if !viewModel.liked {
+                withAnimation {
+                    showLikedAnimation = true
+                    viewModel.liked = true
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    showLikedAnimation = false
+                }
+            }
         }
         .alert(isPresented: $viewModel.showAlert) {
             Alert(
