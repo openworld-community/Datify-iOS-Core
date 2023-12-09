@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct SmallUserCardView: View {
-    @ObservedObject var vm: SmallUserViewModel
-    @Binding var selected: String?
+    @ObservedObject private var vm: SmallUserViewModel
+    @Binding private var selected: String?
     private var currentUser: UserModel
-    var size: CGSize
+    private var size: CGSize
 
     init(like: LikeModel, selectedItem: Binding<String?>, currentUser: UserModel, size: CGSize) {
         _selected = selectedItem

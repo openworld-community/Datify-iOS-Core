@@ -8,7 +8,7 @@
 import SwiftUI
 import Combine
 
-enum SortOption: String, CaseIterable, Equatable {
+enum LikeSortOption: String, CaseIterable, Equatable, FilterProtocol {
     case lastDay, lastWeek, lastMonth, allTime
     var title: String {
         return self.rawValue
@@ -64,7 +64,7 @@ class LikesViewModel: ObservableObject {
     @Published var receivedLikes: [LikeModel] = []
     @Published var mutualLikes: [LikeModel] = []
     @Published var myLikes: [LikeModel] = []
-    @Published var sortOption: SortOption = .allTime
+    @Published var sortOption: LikeSortOption = .allTime
     @Published var currentUser: UserModel?
     @Published var categories: LikeTage = .receivedLikes
     @Published var selectedReceivedLikes: String?
@@ -114,7 +114,7 @@ class LikesViewModel: ObservableObject {
             .store(in: &cancellables)
     }
 
-    private func sortAndFilterLikes(likes: [LikeModel]?, sortOption: SortOption) -> [LikeModel] {
+    private func sortAndFilterLikes(likes: [LikeModel]?, sortOption: LikeSortOption) -> [LikeModel] {
         guard let likes else { return [] }
         switch sortOption {
         case .lastDay:
@@ -159,15 +159,5 @@ class LikesViewModel: ObservableObject {
         selectedReceivedLikes = receivedLikes.first?.senderID
         selectedMutualLikes = mutualLikes.first?.receiverID
         selectedMyLikes = myLikes.first?.receiverID
-//        Task {
-//            let receivedFirst = await fetchUserData(userId: receivedLikes.first?.senderID ?? "199")
-//            let mutualFirst = await fetchUserData(userId: mutualLikes.first?.receiverID ?? "199")
-//            let myFirst = await fetchUserData(userId: myLikes.first?.receiverID ?? "199")
-//            await MainActor.run {
-//                selectedReceivedLikes = receivedFirst
-//                selectedMutualLikes = mutualFirst
-//                selectedMyLikes = myFirst
-//            }
-//        }
     }
 }

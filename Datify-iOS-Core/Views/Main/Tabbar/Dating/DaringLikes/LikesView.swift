@@ -12,13 +12,14 @@ enum DisplayMode {
 }
 
 struct LikesView: View {
+    @Environment (\.dismiss) private var dismiss
     @StateObject private var viewModel: LikesViewModel
     @State private var tag: LikeTage = .receivedLikes
     @State private var displayMode: DisplayMode = .carousel
     @State private var showFilters: Bool = false
     @State private var showInformationView: Bool = false
     @State private var blurRadius: CGFloat = 0
-    private var spacingGalleryCard: CGFloat = 6
+    @State private var spacingGalleryCard: CGFloat = 6
 
     init(router: Router<AppRoute>) {
         _viewModel = StateObject(wrappedValue: LikesViewModel(router: router,
@@ -58,7 +59,9 @@ struct LikesView: View {
                 }
             }
             .sheet(isPresented: $showFilters) {
-                filterSheetView
+                FilterSheetView(blurRadius: $blurRadius) {
+                    FilterView(sortOption: $viewModel.sortOption)
+                }
             }
             .onAppear {
                 Task {
@@ -67,37 +70,21 @@ struct LikesView: View {
             }
             .navigationTitle("Likes")
             .navigationBarTitleDisplayMode(.inline)
+            
             .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Button(action: {}, label: {
-                        Image(DtImage.backButton)
-                            .resizableFit()
-                            .frame(width: 24, height: 24)
-                            .foregroundStyle(Color.primary)
-                    })
+                dtToolbarButton(placement: .topBarLeading, image: DtImage.backButton) {
+                    dismiss()
                 }
-                ToolbarItem(placement: .topBarTrailing) {
-                    HStack {
-                        Button(action: {
-                            showFilters.toggle()
-                        }, label: {
-                            Image("likeFilter")
-                                .resizableFit()
-                                .frame(width: 24, height: 24)
-                                .foregroundStyle(Color.primary)
-                        })
-                        Button(action: {
-                            if case .gallery = displayMode {
-                                displayMode = .carousel
-                            } else {
-                                displayMode = .gallery
-                            }
-                        }, label: {
-                            Image(displayMode == .carousel ? "likeGallery" : "likeIcons")
-                                .resizableFit()
-                                .frame(width: 24, height: 24)
-                                .foregroundStyle(Color.primary)
-                        })
+                // TODO: Replace with image from assets
+                dtToolbarButton(placement: .topBarTrailing, image: DtImage.likeFilter) {
+                    showFilters.toggle()
+                }
+                dtToolbarButton(placement: .topBarTrailing, 
+                                image: displayMode == .carousel ? DtImage.likeGallery : DtImage.likeIcons) {
+                    if case .gallery = displayMode {
+                        displayMode = .carousel
+                    } else {
+                        displayMode = .gallery
                     }
                 }
             }
@@ -236,7 +223,7 @@ extension LikesView {
                 ZStack {
                     Color.backgroundPrimary.ignoresSafeArea()
                     VStack(spacing: 8) {
-                        ForEach(SortOption.allCases, id: \.self) { option in
+                        ForEach(LikeSortOption.allCases, id: \.self) { option in
                             DtSelectorButton(isSelected: viewModel.sortOption == option, title: option.title) {
                                 viewModel.sortOption = option
                             }

@@ -16,14 +16,14 @@ extension View {
         background(
             GeometryReader { geometryProxy in
                 Color.clear
-                    .preference(key: SizePreferenceKey.self, value: geometryProxy.size)
+                    .preference(key: FilterSizePreferenceKey.self, value: geometryProxy.size)
             }
         )
-        .onPreferenceChange(SizePreferenceKey.self, perform: onChange)
+        .onPreferenceChange(FilterSizePreferenceKey.self, perform: onChange)
     }
 }
 
-private struct SizePreferenceKey: PreferenceKey {
+struct NewSizePreferenceKey: PreferenceKey {
     static var defaultValue: CGSize = .zero
     static func reduce(value: inout CGSize, nextValue: () -> CGSize) {}
 }

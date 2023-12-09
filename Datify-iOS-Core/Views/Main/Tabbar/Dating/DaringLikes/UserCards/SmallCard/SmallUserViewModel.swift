@@ -19,8 +19,6 @@ class SmallUserViewModel: ObservableObject {
 
     func getUser(userId: String) {
         let userTemp = dataService.getUserData(for: userId)!
-        //  await MainActor.run {
         user = userTemp
-        //  }
     }
 }

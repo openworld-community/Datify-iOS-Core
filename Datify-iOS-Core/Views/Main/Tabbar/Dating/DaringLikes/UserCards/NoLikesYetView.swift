@@ -33,5 +33,5 @@ struct NoLikesYetView: View {
 }
 
 #Preview {
-    NoLikesYetView(width: 40, height: 80)
+    NoLikesYetView(width: 350, height: 750)
 }

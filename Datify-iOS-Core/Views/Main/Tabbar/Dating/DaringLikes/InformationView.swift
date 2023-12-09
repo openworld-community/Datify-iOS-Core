@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct InformationView: View {
-    @Binding var showView: Bool
+    @Binding private var showView: Bool
     private var widthScreen: CGFloat
     private var title: String
     private var text: String
@@ -28,7 +28,7 @@ struct InformationView: View {
         self.titleButton = titleButton
         self.action = action
     }
-
+    
     var body: some View {
         if showView {
             VStack {
@@ -40,7 +40,7 @@ struct InformationView: View {
                         .resizableFill()
                         .frame(width: 32, height: 32)
                 }
-                .padding(.bottom)
+                .padding(.vertical)
                 Text(title)
                     .dtTypo(.p2Medium, color: .textPrimary)
                     .padding(.bottom, 7)
@@ -51,11 +51,11 @@ struct InformationView: View {
                 DtButton(title: titleButton, style: .main, action: {
                     action()
                 })
-                    .padding(.bottom)
+                .padding(.bottom)
             }
             .padding()
             .frame(width: widthScreen * 0.98)
-            .background(.white)
+            .background(Color.backgroundSpecial)
             .cornerRadius(32)
         }
     }
@@ -63,7 +63,7 @@ struct InformationView: View {
 
 #Preview {
     InformationView(showView: .constant(true),
-                    width: 300,
+                    width: 390,
                     title: "Restore chat?",
                     text: "The chat with this user has been deleted, are you sure you want to restore it?",
                     titleButton: "Yes, restore") {

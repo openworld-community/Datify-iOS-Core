@@ -11,9 +11,9 @@ class UserCardViewModel: ObservableObject {
     @Published var user: UserModel?
     private var dataService: UserDataService
     private var likeServise: LikesDataService
-    var myLikes: [LikeModel]
-    var like: LikeModel
-    var currentUser: UserModel
+    private var myLikes: [LikeModel]
+    private var like: LikeModel
+    private var currentUser: UserModel
 
     init(dataServise: UserDataService, likeServise: LikesDataService, myLikes: [LikeModel], like: LikeModel, currentUser: UserModel) {
         self.dataService = dataServise

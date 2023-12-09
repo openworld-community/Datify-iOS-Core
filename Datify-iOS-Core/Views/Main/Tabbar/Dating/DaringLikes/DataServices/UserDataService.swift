@@ -9,7 +9,7 @@ import SwiftUI
 
 class UserDataService {
     static var shared = UserDataService()
-    var tempUsers: [UserModel] = []
+    private var tempUsers: [UserModel] = []
 
     init() {
         createRandomUser()

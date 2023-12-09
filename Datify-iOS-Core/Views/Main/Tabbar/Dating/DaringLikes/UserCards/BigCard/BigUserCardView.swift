@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct BigUserCardView: View {
-    @ObservedObject var vm: SmallUserViewModel
-    @Binding var selected: String?
-    @Binding var blurRadius: CGFloat
-    @Binding var showInformationView: Bool
-    var size: CGSize
+    @ObservedObject private var vm: SmallUserViewModel
+    @Binding private var selected: String?
+    @Binding private var blurRadius: CGFloat
+    @Binding private var showInformationView: Bool
+    private var size: CGSize
 
     init(selectedItem: Binding<String?>,
          size: CGSize,
@@ -38,10 +38,10 @@ struct BigUserCardView: View {
                         .animation(.none, value: selected)
                     Button(action: {
                         // TODO: Create a function to check whether a chat exists with a user
-                        withAnimation {
                             showInformationView = true
+                        withAnimation {
+                            blurRadius = 10
                         }
-                        blurRadius = 10
                     }, label: {
                         Image("chatIcon")
                             .frame(width: 48, height: 48)
