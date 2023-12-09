@@ -28,7 +28,7 @@ struct InformationView: View {
         self.titleButton = titleButton
         self.action = action
     }
-    
+
     var body: some View {
         if showView {
             VStack {

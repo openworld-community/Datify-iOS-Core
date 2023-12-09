@@ -8,26 +8,6 @@
 import SwiftUI
 import Combine
 
-enum LikeSortOption: String, CaseIterable, Equatable, FilterProtocol {
-    case lastDay, lastWeek, lastMonth, allTime
-    var title: String {
-        return self.rawValue
-            .capitalized
-            .localize()
-    }
-}
-
-enum LikeTage: CaseIterable {
-    case receivedLikes, mutualLikes, myLikes
-    var title: String {
-        switch self {
-        case .mutualLikes: return "mutual".localize()
-        case .myLikes: return "my".localize()
-        case .receivedLikes: return "received".localize()
-        }
-    }
-}
-
 struct UserModel {
     let userId: String
     let photos: [String]

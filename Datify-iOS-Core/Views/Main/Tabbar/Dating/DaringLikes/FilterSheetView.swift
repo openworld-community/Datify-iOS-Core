@@ -6,16 +6,31 @@
 //
 
 import SwiftUI
+import UIKit
 
-protocol FilterProtocol: CaseIterable, Equatable, Hashable {
-    var title: String {get}
+extension View {
+    func sheetFilter<Content: View>(isPresented: Binding<Bool>,
+                                    blurRadius: Binding<CGFloat>,
+                                    content: @escaping () -> Content) -> some View {
+        return self.modifier(FilterSheetModifier(isPresented: isPresented,
+                                                 blurRadius: blurRadius,
+                                                 content: content))
+    }
 }
 
-struct FilterSizePreferenceKey: PreferenceKey {
-    static var defaultValue: CGSize = .zero
+struct FilterSheetModifier<T: View>: ViewModifier {
+    @Binding var isPresented: Bool
+    @Binding var blurRadius: CGFloat
+    let content: () -> T
 
-    static func reduce(value: inout CGSize, nextValue: () -> CGSize) {
-        value = nextValue()
+    func body(content: Content) -> some View {
+        content
+            .blur(radius: blurRadius)
+            .sheet(isPresented: $isPresented) {
+                FilterSheetView(blurRadius: $blurRadius) {
+                    self.content()
+                }
+            }
     }
 }
 

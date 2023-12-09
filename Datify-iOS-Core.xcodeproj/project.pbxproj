@@ -78,6 +78,7 @@
 		63A729672AA48CAA00AC60E3 /* Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A729662AA48CAA00AC60E3 /* Regex.swift */; };
 		63A729692AA4A94B00AC60E3 /* CountryCodeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A729682AA4A94B00AC60E3 /* CountryCodeButton.swift */; };
 		7977FF972B24D743006FB9B4 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7977FF962B24D743006FB9B4 /* FilterView.swift */; };
+		7977FF992B24E451006FB9B4 /* LikeEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7977FF982B24E451006FB9B4 /* LikeEnums.swift */; };
 		797CA5522AE85184004DACFA /* RegRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797CA5512AE85184004DACFA /* RegRecordView.swift */; };
 		797CA5562AE86519004DACFA /* VoiceGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797CA5552AE86519004DACFA /* VoiceGraphView.swift */; };
 		797CA5582AE86584004DACFA /* VoiceGraphViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797CA5572AE86584004DACFA /* VoiceGraphViewModel.swift */; };
@@ -213,6 +214,7 @@
 		63A729662AA48CAA00AC60E3 /* Regex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Regex.swift; sourceTree = "<group>"; };
 		63A729682AA4A94B00AC60E3 /* CountryCodeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCodeButton.swift; sourceTree = "<group>"; };
 		7977FF962B24D743006FB9B4 /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
+		7977FF982B24E451006FB9B4 /* LikeEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeEnums.swift; sourceTree = "<group>"; };
 		797CA5512AE85184004DACFA /* RegRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegRecordView.swift; sourceTree = "<group>"; };
 		797CA5552AE86519004DACFA /* VoiceGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceGraphView.swift; sourceTree = "<group>"; };
 		797CA5572AE86584004DACFA /* VoiceGraphViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceGraphViewModel.swift; sourceTree = "<group>"; };
@@ -635,6 +637,7 @@
 				79ADA2612B224C6700C62B17 /* InformationView.swift */,
 				79F9BEC82B231CB00082C7F1 /* FilterSheetView.swift */,
 				7977FF962B24D743006FB9B4 /* FilterView.swift */,
+				7977FF982B24E451006FB9B4 /* LikeEnums.swift */,
 				79E8479B2B1F9B710086F932 /* UserCards */,
 				79E8479C2B1F9B8B0086F932 /* DataServices */,
 			);
@@ -1000,6 +1003,7 @@
 				20FD2D312ADDCEAA0051C894 /* DatingFilterView.swift in Sources */,
 				79C5F14D2B1DDD1700FF43EF /* RegEmailViewModel.swift in Sources */,
 				98F3B6D62A9E4F9D0097B5C0 /* DtLogoView.swift in Sources */,
+				7977FF992B24E451006FB9B4 /* LikeEnums.swift in Sources */,
 				634EF73B2ADC51EB0061E13A /* MainFlow.swift in Sources */,
 				208D05522AB903790071E1B7 /* DtSelectorButton.swift in Sources */,
 				63A729692AA4A94B00AC60E3 /* CountryCodeButton.swift in Sources */,

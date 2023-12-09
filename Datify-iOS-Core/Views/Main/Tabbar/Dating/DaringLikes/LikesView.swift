@@ -58,10 +58,8 @@ struct LikesView: View {
                     blurRadius = newValue ? 10.0 : 0
                 }
             }
-            .sheet(isPresented: $showFilters) {
-                FilterSheetView(blurRadius: $blurRadius) {
-                    FilterView(sortOption: $viewModel.sortOption)
-                }
+            .sheetFilter(isPresented: $showFilters, blurRadius: $blurRadius) {
+                FilterView(sortOption: $viewModel.sortOption)
             }
             .onAppear {
                 Task {
@@ -70,7 +68,6 @@ struct LikesView: View {
             }
             .navigationTitle("Likes")
             .navigationBarTitleDisplayMode(.inline)
-            
             .toolbar {
                 dtToolbarButton(placement: .topBarLeading, image: DtImage.backButton) {
                     dismiss()
@@ -79,7 +76,7 @@ struct LikesView: View {
                 dtToolbarButton(placement: .topBarTrailing, image: DtImage.likeFilter) {
                     showFilters.toggle()
                 }
-                dtToolbarButton(placement: .topBarTrailing, 
+                dtToolbarButton(placement: .topBarTrailing,
                                 image: displayMode == .carousel ? DtImage.likeGallery : DtImage.likeIcons) {
                     if case .gallery = displayMode {
                         displayMode = .carousel
