@@ -137,7 +137,9 @@ struct DatingView: View {
             .environment(\.colorScheme, .light)
             .scrollPosition(id: $currentUserIndex)
             .onChange(of: currentUserIndex) { _, newValue in
-                showDescription = false
+                print("showDescription in DatingView onChange: \(showDescription)")
+                isSwipeAndIndicatorsDisabled.toggle()
+
                 selectedPhotoIndex = 0
                 if showDescription {
                     showDescription = false
