@@ -16,7 +16,7 @@ struct DatingView: View {
     @State private var currentUserIndex: Int?
 
     @State private var showLikedAnimation = false
-    @State private var showBookmarkedAnimation = false
+
     @State private var isSwipeAndIndicatorsDisabled = false
     @State private var showDescription = false
 
@@ -35,6 +35,7 @@ struct DatingView: View {
         } else {
             safeAreaTopInset = 0
         }
+
     }
 
     var body: some View {
@@ -59,7 +60,7 @@ struct DatingView: View {
                                 )
                                 .position(
                                     x: geometry.size.width / 2,
-                                    y: geometry.size.height - 175
+                                    y: geometry.size.height - 180
                                 ), alignment: .center
                             )
 
@@ -73,17 +74,6 @@ struct DatingView: View {
                                     y: geometry.size.height / 2
                                 )
                             }
-
-//                            if showBookmarkedAnimation {
-//                                AnimatedIconView(
-//                                    show: $showBookmarkedAnimation,
-//                                    icon: Image(DtImage.mainSelectedBookmark)
-//                                )
-//                                .position(
-//                                    x: geometry.size.width / 2,
-//                                    y: geometry.size.height / 2
-//                                )
-//                            }
 
                             VStack {
                                 HStack {
@@ -99,15 +89,13 @@ struct DatingView: View {
                                         isSwipeAndIndicatorsDisabled: $isSwipeAndIndicatorsDisabled,
                                         viewModel: viewModel,
                                         selectedPhotoIndex: selectedPhotoIndex,
-                                        index: index
+                                        index: index,
+                                        geometry: geometry
                                     )
 
                                     Spacer()
                                     UserActionsView(
                                         liked: $viewModel.liked,
-                                        bookmarked: $viewModel.bookmarked,
-                                        showLikedAnimation: $showLikedAnimation,
-                                        showBookmarkedAnimation: $showBookmarkedAnimation,
                                         viewModel: viewModel,
                                         index: index
                                     )
@@ -137,13 +125,21 @@ struct DatingView: View {
             .environment(\.colorScheme, .light)
             .scrollPosition(id: $currentUserIndex)
             .onChange(of: currentUserIndex) { _, newValue in
-                print("showDescription in DatingView onChange: \(showDescription)")
-                isSwipeAndIndicatorsDisabled.toggle()
+                if let currentIndex = newValue {
+                    viewModel.currentUserIndex = currentIndex
+                    viewModel.loadingAudioData()
+                }
 
                 selectedPhotoIndex = 0
+
+                showLikedAnimation = false
+
+                if isSwipeAndIndicatorsDisabled {
+                    isSwipeAndIndicatorsDisabled = false
+                }
+
                 if showDescription {
                     showDescription = false
-                    print("showDescription is now4: \(showDescription)")
                 }
 
                 viewModel.isPlaying = false
@@ -152,47 +148,21 @@ struct DatingView: View {
                 viewModel.audioPlayerManager.stopPlayback()
                 viewModel.startProgressUpdates()
 
-                showLikedAnimation = false
-                showBookmarkedAnimation = false
-                print("showDescription is now3: \(showDescription)")
-
                 isAlertPresented = false
-                print(newValue ?? "")
 
-                if let currentIndex = newValue {
-                    viewModel.currentUserIndex = currentIndex
-                    viewModel.loadingAudioData()
-                }
             }
         }
         .edgesIgnoringSafeArea(.top)
         .scrollTargetBehavior(.paging)
-        .onChange(of: viewModel.liked) { _, newValue in
-            if newValue {
-                withAnimation {
-                    showLikedAnimation = true
-                }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    showLikedAnimation = false
-                }
-            }
-        }
-        .onChange(of: viewModel.bookmarked) { _, newValue in
-            if newValue {
-                withAnimation {
-                    showBookmarkedAnimation = true
-                }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    showBookmarkedAnimation = false
-                }
-            }
-        }
         .onTapGesture(count: 2) {
-            if !viewModel.liked {
+            if viewModel.liked {
+                viewModel.liked = false
+            } else {
                 withAnimation {
                     showLikedAnimation = true
                     viewModel.liked = true
                 }
+                
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     showLikedAnimation = false
                 }

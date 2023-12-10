@@ -47,7 +47,6 @@
 		634EF73B2ADC51EB0061E13A /* MainFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634EF73A2ADC51EB0061E13A /* MainFlow.swift */; };
 		634EF7412ADC62B30061E13A /* DtBarChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634EF7402ADC62B30061E13A /* DtBarChartView.swift */; };
 		634EF7432ADC63810061E13A /* Shape+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634EF7422ADC63810061E13A /* Shape+extension.swift */; };
-		634EF7452ADC63A50061E13A /* Array+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634EF7442ADC63A50061E13A /* Array+extension.swift */; };
 		634EF7472ADC64120061E13A /* DtAudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634EF7462ADC64120061E13A /* DtAudioManager.swift */; };
 		634EF74C2AE419C80061E13A /* recording.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 634EF74B2AE419C80061E13A /* recording.mp3 */; };
 		634EF74E2AE422AD0061E13A /* DtAudioPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634EF74D2AE422AD0061E13A /* DtAudioPlayerView.swift */; };
@@ -147,7 +146,6 @@
 		634EF73A2ADC51EB0061E13A /* MainFlow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainFlow.swift; sourceTree = "<group>"; };
 		634EF7402ADC62B30061E13A /* DtBarChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtBarChartView.swift; sourceTree = "<group>"; };
 		634EF7422ADC63810061E13A /* Shape+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Shape+extension.swift"; sourceTree = "<group>"; };
-		634EF7442ADC63A50061E13A /* Array+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+extension.swift"; sourceTree = "<group>"; };
 		634EF7462ADC64120061E13A /* DtAudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtAudioManager.swift; sourceTree = "<group>"; };
 		634EF74A2AE414740061E13A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		634EF74B2AE419C80061E13A /* recording.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = recording.mp3; sourceTree = "<group>"; };
@@ -374,7 +372,6 @@
 				63203C702AAC6B2600F8803A /* UIApplication+extension.swift */,
 				632A7F5D2AAC897B005DA819 /* DtCustomTFView+extension.swift */,
 				634EF7422ADC63810061E13A /* Shape+extension.swift */,
-				634EF7442ADC63A50061E13A /* Array+extension.swift */,
 				638718662AF7CDFB008C7F54 /* Int+extension.swift */,
 			);
 			path = Extensions;
@@ -737,7 +734,6 @@
 				638D1E892ABAB45C0001CED4 /* CountryModel.swift in Sources */,
 				634EF7352ADC48220061E13A /* DatingViewModel.swift in Sources */,
 				D0C8965A2AA217630084FA62 /* DtImage.swift in Sources */,
-				634EF7452ADC63A50061E13A /* Array+extension.swift in Sources */,
 				638718742AF7ECF2008C7F54 /* PhotoSliderView.swift in Sources */,
 				634EF7392ADC48300061E13A /* MenuViewModel.swift in Sources */,
 				D0DC465F2A92699D0097CFF3 /* MainAppView.swift in Sources */,

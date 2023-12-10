@@ -19,7 +19,6 @@ final class DatingViewModel: ObservableObject {
     @Published var audioSamples: [BarChartDataPoint] = []
 
     @Published var liked: Bool = false
-    @Published var bookmarked: Bool = false
 
     @Published var showAlert = false
     @Published var errorMessage: String?
@@ -114,15 +113,6 @@ final class DatingViewModel: ObservableObject {
             }
             .store(in: &cancellables)
 
-        $bookmarked
-            .dropFirst()
-            .sink { [weak self] newValue in
-                guard let self = self else { return }
-                self.users[self.currentUserIndexBinding.wrappedValue].bookmarked = newValue
-                print("currentUserIndexBinding.wrappedValue11: \(currentUserIndexBinding.wrappedValue)")
-            }
-            .store(in: &cancellables)
-
         audioPlayerManager.errorSubject
             .receive(on: DispatchQueue.main)
             .sink { [weak self] error in
@@ -135,7 +125,6 @@ final class DatingViewModel: ObservableObject {
     func loadInitialData() {
         let currentUser = users[currentUserIndexBinding.wrappedValue]
         self.liked = currentUser.liked
-        self.bookmarked = currentUser.bookmarked
     }
 
     func togglePlayback() {

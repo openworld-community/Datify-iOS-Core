@@ -30,6 +30,7 @@ struct PhotoSliderView: View {
             }
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
             .disabled(isSwipeAndIndicatorsDisabled)
+
             BottomDarkGradientView(geometry: geometry, showDescription: $showDescription)
         }
     }
