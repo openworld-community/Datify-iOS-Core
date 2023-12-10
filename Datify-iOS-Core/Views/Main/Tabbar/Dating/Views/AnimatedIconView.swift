@@ -14,8 +14,7 @@ struct AnimatedIconView: View {
 
     var body: some View {
         icon
-            .resizable()
-            .scaledToFit()
+            .resizableFit()
             .frame(width: 80, height: 80)
             .scaleEffect(show ? 1 : 0)
             .opacity(show ? 1 : 0)

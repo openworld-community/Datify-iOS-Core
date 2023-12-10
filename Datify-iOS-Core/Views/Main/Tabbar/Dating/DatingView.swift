@@ -13,7 +13,7 @@ struct DatingView: View {
 
     @StateObject private var viewModel: DatingViewModel
 
-    @State private var currentUserIndex: Int?
+    @State private var currentUserIndex: Int? = .init()
 
     @State private var showLikedAnimation = false
 
@@ -23,9 +23,9 @@ struct DatingView: View {
     @State private var selectedPhotoIndex = 0
 
     @State private var isAlertPresented = false
-    @State private var alertMessage = ""
+    @State private var alertMessage: String = .init()
 
-    var safeAreaTopInset: CGFloat
+    var safeAreaTopInset: CGFloat = .init()
 
     init(router: Router<AppRoute>) {
         _viewModel = StateObject(wrappedValue: DatingViewModel(router: router))
@@ -162,8 +162,8 @@ struct DatingView: View {
                     showLikedAnimation = true
                     viewModel.liked = true
                 }
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                Task {
+                    try await Task.sleep(for: .seconds(1))
                     showLikedAnimation = false
                 }
             }

@@ -10,8 +10,8 @@ import SwiftUI
 struct IndicatorsView: View {
     @Binding var isSwipeAndIndicatorsDisabled: Bool
 
-    var photos: [String]
-    var selectedPhotoIndex: Int
+    var photos: [String]  = .init()
+    var selectedPhotoIndex: Int = .init()
 
     var body: some View {
         HStack(spacing: 8) {

@@ -22,8 +22,8 @@ class DtAudioPlayerManager: NSObject, ObservableObject, AVAudioPlayerDelegate {
 
     let errorSubject = PassthroughSubject<Error, Never>()
 
-    var audioPlayer: AVAudioPlayer?
-    var updateTimer: Timer?
+    var audioPlayer: AVAudioPlayer? = .init()
+    var updateTimer: Timer? = .init()
 
     override init() {
         super.init()
@@ -90,7 +90,6 @@ class DtAudioPlayerManager: NSObject, ObservableObject, AVAudioPlayerDelegate {
     }
 
     func loadAudioData(for resource: String, ofType type: String) {
-        print("Загрузка файла: \(resource).\(type)")
         audioPlayer?.stop()
         audioPlayer = nil
 

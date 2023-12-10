@@ -13,8 +13,8 @@ struct UserInfoView: View {
     @State private var isAnimated = false
 
     var viewModel: DatingViewModel
-    var selectedPhotoIndex: Int
-    var index: Int
+    var selectedPhotoIndex: Int = .init()
+    var index: Int = .init()
     var geometry: GeometryProxy
 
     var body: some View {
@@ -75,7 +75,8 @@ struct UserInfoView: View {
                     if showDescription {
                         showDescription = false
                         isSwipeAndIndicatorsDisabled = false
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                        Task {
+                            try await Task.sleep(nanoseconds: 300_000_000)
                             isAnimated = false
                         }
                     } else {

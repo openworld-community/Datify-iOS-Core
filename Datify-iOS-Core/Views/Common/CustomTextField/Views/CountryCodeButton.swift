@@ -21,7 +21,6 @@ struct CountryCodeButton: View {
         .contextMenu {
             ForEach(CountryCodePhoneTF.allCases, id: \.self) { countryCode in
                 Button(action: {
-                    print("\(countryCode.stringValue) selected")
                     buttonText = countryCode.stringValue
                     selectedCountryCode = countryCode
                 }) {

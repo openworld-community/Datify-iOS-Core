@@ -11,7 +11,7 @@ struct UserActionsView: View {
     @Binding var liked: Bool
 
     var viewModel: DatingViewModel
-    var index: Int
+    var index: Int  = .init()
 
     var body: some View {
         VStack(spacing: 12) {

@@ -26,7 +26,7 @@ final class DatingViewModel: ObservableObject {
     @Published var currentUserIndex = 0
 
     var audioPlayerManager = DtAudioPlayerManager()
-    var updateTimer: Timer?
+    var updateTimer: Timer? = .init()
 
     var currentUserIndexBinding: Binding<Int> {
         Binding(
@@ -92,8 +92,6 @@ final class DatingViewModel: ObservableObject {
         audioPlayerManager.$totalDuration
             .sink { [weak self] totalDuration in
                 self?.totalDuration = totalDuration
-                print("totalDuration: \(totalDuration)")
-
             }
             .store(in: &cancellables)
 
@@ -129,7 +127,6 @@ final class DatingViewModel: ObservableObject {
 
     func togglePlayback() {
         let currentUser = users[currentUserIndexBinding.wrappedValue]
-        print("currentUser: \(currentUser.audiofile)")
         audioPlayerManager.togglePlayback(for: currentUser.audiofile, ofType: "mp3")
     }
 
@@ -143,8 +140,6 @@ final class DatingViewModel: ObservableObject {
 
     func loadingAudioData() {
         let currentUser = users[currentUserIndexBinding.wrappedValue]
-        print("currentUser: \(currentUser.name)")
-        print("audiofile loadingAudioData: \(currentUser.audiofile)")
         audioPlayerManager.loadAudioData(for: currentUser.audiofile, ofType: "mp3")
     }
 }

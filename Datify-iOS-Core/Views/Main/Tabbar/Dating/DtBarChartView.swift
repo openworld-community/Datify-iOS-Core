@@ -16,8 +16,8 @@ struct BarChartDataPoint: Identifiable {
 struct DtBarChartView: View {
     @ObservedObject var viewModel: DatingViewModel
 
-    var dataPoints: [BarChartDataPoint]
-    var barWidth: CGFloat
+    var dataPoints: [BarChartDataPoint] = .init()
+    var barWidth: CGFloat = .init()
 
     var gradientColors: [(Double, Color)] {
         return [

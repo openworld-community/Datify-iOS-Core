@@ -24,21 +24,12 @@ struct DtLogoView: View {
 
     var body: some View {
         HStack {
-            if !blackAndWhiteColor {
-                Image("logoImageBrand")
-                    .resizable()
-                    .frame(
-                        width: 24,
-                        height: 24
-                    )
-            } else {
-                Image("logoImageBrandBW")
-                    .resizable()
-                    .frame(
-                        width: 24,
-                        height: 24
-                    )
-            }
+            Image(blackAndWhiteColor ? "logoImageBrandBW" : "logoImageBrand")
+                .resizable()
+                .frame(
+                    width: 24,
+                    height: 24
+                )
             Text(title)
                 .dtTypo(.h3Semibold, color: fontTextColor)
         }

@@ -20,10 +20,9 @@ struct PhotoSliderView: View {
             TabView(selection: $selectedPhotoIndex) {
                 ForEach(photos.indices, id: \.self) { index in
                     Image(photos[index])
-                        .resizable()
-                        .scaledToFill()
+                        .resizableFill()
                         .frame(maxWidth: geometry.size.width)
-                        .blur(radius: showDescription ? 2 : 0)
+                        .blur(radius: showDescription ? 3 : 0)
                         .animation(.easeInOut(duration: 0.4))
                         .tag(index)
                 }
@@ -32,6 +31,7 @@ struct PhotoSliderView: View {
             .disabled(isSwipeAndIndicatorsDisabled)
 
             BottomDarkGradientView(geometry: geometry, showDescription: $showDescription)
+                .allowsHitTesting(false)
         }
     }
 }
