@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct MediumUserCardView: View {
-    @ObservedObject var vm: UserCardViewModel
+struct GalleryItemView: View {
+    @ObservedObject var vm: GalleryItemViewModel
     private var isCrop: Bool
     private var size: CGSize
     private var spacing: CGFloat
@@ -17,7 +17,7 @@ struct MediumUserCardView: View {
         self.isCrop = isCrop
         self.size = size
         self.spacing = spacing
-        vm = UserCardViewModel(dataServise: UserDataService.shared,
+        vm = GalleryItemViewModel(dataServise: UserDataService.shared,
                                likeServise: LikesDataService.shared,
                                myLikes: myLikes,
                                like: like,
@@ -97,7 +97,7 @@ struct MediumUserCardView: View {
 }
 
  #Preview {
-     MediumUserCardView(like: LikeModel(senderID: "1", receiverID: "2", date: Date()),
+     GalleryItemView(like: LikeModel(senderID: "1", receiverID: "2", date: Date()),
                         currentUser: UserModel(
                             userId: "1000",
                             photos: ["user1", "user1", "user1"],

@@ -16,10 +16,20 @@ extension View {
         background(
             GeometryReader { geometryProxy in
                 Color.clear
-                    .preference(key: FilterSizePreferenceKey.self, value: geometryProxy.size)
+                    .preference(key: NewSizePreferenceKey.self, value: geometryProxy.size)
             }
         )
-        .onPreferenceChange(FilterSizePreferenceKey.self, perform: onChange)
+        .onPreferenceChange(NewSizePreferenceKey.self, perform: onChange)
+    }
+
+    func sheetFilter<Content: View>(isPresented: Binding<Bool>,
+                                    blurRadius: Binding<CGFloat>,
+                                    title: String,
+                                    content: @escaping () -> Content) -> some View {
+        return self.modifier(FilterSheetViewModifier(isPresented: isPresented,
+                                             blurRadius: blurRadius,
+                                             title: title,
+                                             content: content))
     }
 }
 

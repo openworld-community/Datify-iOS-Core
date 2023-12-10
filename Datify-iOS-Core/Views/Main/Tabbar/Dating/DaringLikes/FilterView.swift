@@ -7,6 +7,10 @@
 
 import SwiftUI
 
+protocol FilterProtocol: CaseIterable, Equatable, Hashable {
+    var title: String {get}
+}
+
 struct FilterView<T: FilterProtocol>: View {
     @Binding var sortOption: T
     private var title: String?
@@ -15,6 +19,7 @@ struct FilterView<T: FilterProtocol>: View {
         _sortOption = sortOption
         self.title = titleOne
     }
+
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             if let title {

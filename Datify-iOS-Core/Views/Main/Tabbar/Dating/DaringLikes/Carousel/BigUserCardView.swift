@@ -28,7 +28,6 @@ struct BigUserCardView: View {
 
     var body: some View {
         VStack {
-            if selected != nil {
                 ZStack(alignment: .topTrailing) {
                     Image(vm.user?.photos.first ?? "user5")
                         .resizable()
@@ -48,11 +47,6 @@ struct BigUserCardView: View {
                             .padding()
                     })
                 }
-            } else {
-                NoLikesYetView(width: size.width * 0.92, height: size.height * 0.85)
-                DtButton(title: "Continue".localize(), style: .main) { }
-                .frame(width: size.width * 0.92)
-            }
         }
     }
 }

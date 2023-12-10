@@ -7,7 +7,7 @@
 
 import Foundation
 
-class UserCardViewModel: ObservableObject {
+class GalleryItemViewModel: ObservableObject {
     @Published var user: UserModel?
     private var dataService: UserDataService
     private var likeServise: LikesDataService

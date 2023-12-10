@@ -38,6 +38,31 @@ struct UserModel {
     )
 }
 
+enum LikeSortOption: String, CaseIterable, Equatable, FilterProtocol {
+    case lastDay, lastWeek, lastMonth, allTime
+
+    var title: String {
+        switch self {
+        case .lastDay: return "Last day".localize()
+        case .lastWeek: return "Last week".localize()
+        case .lastMonth: return "Last month".localize()
+        case .allTime: return "All time".localize()
+        }
+    }
+}
+
+enum LikeTage: CaseIterable {
+    case receivedLikes, mutualLikes, myLikes
+
+    var title: String {
+        switch self {
+        case .mutualLikes: return "mutual".localize()
+        case .myLikes: return "my".localize()
+        case .receivedLikes: return "received".localize()
+        }
+    }
+}
+
 class LikesViewModel: ObservableObject {
     unowned let router: Router<AppRoute>
     @Published var allLikes: [LikeModel] = []
