@@ -33,32 +33,49 @@ private extension ComplainView {
         case start, intermediate, finish
     }
 
-    enum ComplainCases: String, CaseIterable {
-        case fake = "Fake"
-        case unacceptableContent = "Unacceptable content"
-        case age = "Age"
-        case insults = "Insults"
-        case behavior = "Behavior outside of Datify"
-        case scamSpam = "Scam or spam"
+    enum ComplainCases: CaseIterable {
+        case fake
+        case unacceptableContent
+        case age
+        case insults
+        case behavior
+        case scamSpam
+
+        var title: LocalizedStringKey {
+            switch self {
+            case .fake:
+                "Fake"
+            case .unacceptableContent:
+                "Unacceptable content"
+            case .age:
+                "Age"
+            case .insults:
+                "Insults"
+            case .behavior:
+                "Behavior outside of Datify"
+            case .scamSpam:
+                "Scam or spam"
+            }
+        }
 
         var complainDetails: [String] {
             switch self {
             case .fake:
-                ["Some 'Fake' details"]
+                ["Some 'Fake' details".localize()]
             case .unacceptableContent:
-                ["Some 'Unacceptable content' details"]
+                ["Some 'Unacceptable content' details".localize()]
             case .age:
-                ["Some Age details"]
+                ["Some Age details".localize()]
             case .insults:
-                ["Some 'Insults' details"]
+                ["Some 'Insults' details".localize()]
             case .behavior:
-                ["Some 'Behavior outside of Datify' details"]
+                ["Some 'Behavior outside of Datify' details".localize()]
             case .scamSpam:
                 [
-                    "Sends spam and suspicious links",
-                    "Sells goods or services",
-                    "Promotes social media accounts",
-                    "Other"
+                    "Sends spam and suspicious links".localize(),
+                    "Sells goods or services".localize(),
+                    "Promotes social media accounts".localize(),
+                    "Other".localize()
                 ]
             }
         }
@@ -98,13 +115,13 @@ private extension ComplainView {
         switch complaintStage {
         case .start:
             VStack(alignment: .leading, spacing: 24) {
-                ForEach(ComplainCases.allCases, id: \.rawValue) { complainCase in
+                ForEach(ComplainCases.allCases, id: \.self) { complainCase in
                     Button {
                         self.complainCase = complainCase
                         complaintStage = .intermediate
                     } label: {
                         HStack {
-                            Text(complainCase.rawValue)
+                            Text(complainCase.title)
                                 .dtTypo(.p2Medium, color: .textPrimary)
                             Spacer()
                             Image(DtImage.arrowRight)

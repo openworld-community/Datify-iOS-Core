@@ -19,8 +19,7 @@ struct BlockView: View {
                 Image(systemName: "exclamationmark.circle")
                     .resizable()
                     .frame(width: 24, height: 24)
-                    .foregroundStyle(Color.iconsPrimary)
-                    .colorScheme(.dark)
+                    .foregroundStyle(.white)
 
             }
             .frame(width: 48, height: 48)
