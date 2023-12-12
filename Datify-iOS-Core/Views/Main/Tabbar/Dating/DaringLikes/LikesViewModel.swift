@@ -8,7 +8,7 @@
 import SwiftUI
 import Combine
 
-struct UserModel {
+struct UserTempModel {
     let userId: String
     let photos: [String]
     let label: String
@@ -21,8 +21,9 @@ struct UserModel {
     var liked: Bool
     var bookmarked: Bool
     let audiofile: String
+    let online: Bool
 
-    static let currentUser = UserModel(
+    static let currentUser = UserTempModel(
         userId: "1000",
         photos: ["user1", "user1", "user1"],
         label: "Label1",
@@ -34,11 +35,12 @@ struct UserModel {
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
         liked: true,
         bookmarked: false,
-        audiofile: "audio.mp3"
+        audiofile: "audio.mp3",
+        online: true
     )
 }
 
-enum LikeSortOption: String, CaseIterable, Equatable, FilterProtocol {
+enum LikeSortOption: CaseIterable, FilterProtocol {
     case lastDay, lastWeek, lastMonth, allTime
 
     var title: String {
@@ -70,11 +72,11 @@ class LikesViewModel: ObservableObject {
     @Published var mutualLikes: [LikeModel] = []
     @Published var myLikes: [LikeModel] = []
     @Published var sortOption: LikeSortOption = .allTime
-    @Published var currentUser: UserModel?
+    @Published var currentUser: UserTempModel?
     @Published var categories: LikeTage = .receivedLikes
-    @Published var selectedReceivedLikes: String?
-    @Published var selectedMutualLikes: String?
-    @Published var selectedMyLikes: String?
+    @Published var selectedReceivedLikesId: String?
+    @Published var selectedMutualLikesId: String?
+    @Published var selectedMyLikesId: String?
     private var likesDataService: LikesDataService?
     private var userDataService: UserDataService?
     private var cancellables = Set<AnyCancellable>()
@@ -95,14 +97,8 @@ class LikesViewModel: ObservableObject {
     private func fetchCurrentUser() async {
         // TODO: Func to fetch current user from database
         await MainActor.run {
-            self.currentUser = UserModel.currentUser
+            self.currentUser = UserTempModel.currentUser
         }
-
-    }
-
-    func fetchUserData(userId: String) async -> UserModel? {
-        // TODO: Func to fetch UserData by userID from database
-            self.userDataService?.getUserData(for: userId)
     }
 
     private func addSubscribers() {
@@ -123,13 +119,13 @@ class LikesViewModel: ObservableObject {
         guard let likes else { return [] }
         switch sortOption {
         case .lastDay:
-            let oneDayAgo = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
+            let oneDayAgo = Calendar.current.date(byAdding: .day, value: -1, to: Date()) ?? Date()
             return  likes.filter({ $0.date > oneDayAgo}).sorted(by: { $0.date < $1.date })
         case .lastWeek:
-            let oneWeekAgo = Calendar.current.date(byAdding: .day, value: -7, to: Date())!
+            let oneWeekAgo = Calendar.current.date(byAdding: .day, value: -7, to: Date()) ?? Date()
             return likes.filter({ $0.date > oneWeekAgo}).sorted(by: { $0.date < $1.date })
         case .lastMonth:
-            let oneMonthAgo = Calendar.current.date(byAdding: .month, value: -1, to: Date())!
+            let oneMonthAgo = Calendar.current.date(byAdding: .month, value: -1, to: Date()) ?? Date()
             return likes.filter({ $0.date > oneMonthAgo}).sorted(by: { $0.date < $1.date })
         case .allTime:
             return likes.sorted(by: { $0.date < $1.date })
@@ -148,10 +144,8 @@ class LikesViewModel: ObservableObject {
             }
         }
         for myLike in myLikes {
-            for receivedLike in receivedLikes {
-                if myLike.receiverID == receivedLike.senderID {
-                    mutualLikes.append(myLike)
-                }
+            for receivedLike in receivedLikes where myLike.receiverID == receivedLike.senderID {
+                mutualLikes.append(myLike)
             }
         }
         self.receivedLikes = receivedLikes
@@ -161,8 +155,8 @@ class LikesViewModel: ObservableObject {
     }
 
     private func fetchSelectedUser() {
-        selectedReceivedLikes = receivedLikes.first?.senderID
-        selectedMutualLikes = mutualLikes.first?.receiverID
-        selectedMyLikes = myLikes.first?.receiverID
+        selectedReceivedLikesId = receivedLikes.first?.senderID
+        selectedMutualLikesId = mutualLikes.first?.receiverID
+        selectedMyLikesId = myLikes.first?.receiverID
     }
 }

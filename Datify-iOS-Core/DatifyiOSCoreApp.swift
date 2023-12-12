@@ -15,7 +15,8 @@ struct DatifyiOSCoreApp: App {
 
         WindowGroup {
 //            MainAppView(router: router, navViewBuilder: builder)
-            LikesView(router: router)
+//            LikesView(router: router)
+            NotificationsView(router: router)
 //            RestoreChatSheetView(width: 300)
         }
     }

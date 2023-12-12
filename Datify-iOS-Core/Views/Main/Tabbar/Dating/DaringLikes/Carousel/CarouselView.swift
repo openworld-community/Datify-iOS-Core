@@ -8,12 +8,26 @@
 import SwiftUI
 
 struct CarouselView: View {
-    var size: CGSize
-    var currentUser: UserModel
-    var likes: [LikeModel]
-    @Binding var selectedItem: String?
-    @Binding var showInformationView: Bool
-    @Binding var blurRadius: CGFloat
+    @Binding private var selectedItem: String?
+    @Binding private var showInformationView: Bool
+    @Binding private var blurRadius: CGFloat
+    private var size: CGSize
+    private var currentUser: UserTempModel
+    private var likes: [LikeModel]
+
+    init(selectedItem: Binding<String?>,
+         showInformationView: Binding<Bool>,
+         blurRadius: Binding<CGFloat>,
+         size: CGSize,
+         currentUser: UserTempModel,
+         likes: [LikeModel]) {
+        _selectedItem = selectedItem
+        _showInformationView = showInformationView
+        _blurRadius = blurRadius
+        self.size = size
+        self.currentUser = currentUser
+        self.likes = likes
+    }
 
     var body: some View {
         VStack {
@@ -38,17 +52,34 @@ struct CarouselView: View {
                                 .frame(width: size.width / 2 - (size.width*0.07) / 2)
                         }
                     }
-//                    .padding(.bottom)
                 }
             } else {
                 NoLikesYetView(width: size.width * 0.92, height: size.height * 0.85)
             }
-
         }
         .frame(width: size.width)
     }
 }
 
-// #Preview {
-//    CarouselUserView()
-// }
+ #Preview {
+     CarouselView(selectedItem: .constant("1"),
+                  showInformationView: .constant(false),
+                  blurRadius: .constant(0), size: CGSize(width: 400, height: 800),
+                  currentUser: UserTempModel(
+        userId: "1000",
+        photos: ["user1", "user1", "user1"],
+        label: "Label1",
+        colorLabel: .red,
+        location: "New York",
+        name: "Michael",
+        age: 25,
+        star: true,
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        liked: true,
+        bookmarked: false,
+        audiofile: "audio.mp3",
+        online: true
+    ), likes: [LikeModel(senderID: "2", receiverID: "1000", date: Date()),
+               LikeModel(senderID: "3", receiverID: "1000", date: Date()),
+               LikeModel(senderID: "5", receiverID: "1000", date: Date())])
+ }

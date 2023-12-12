@@ -8,39 +8,46 @@
 import SwiftUI
 
 struct GalleryItemView: View {
-    @ObservedObject var vm: GalleryItemViewModel
+    @ObservedObject var viewModel: GalleryItemViewModel
     private var isCrop: Bool
     private var size: CGSize
     private var spacing: CGFloat
 
-    init(like: LikeModel, currentUser: UserModel, isCrop: Bool, myLikes: [LikeModel], size: CGSize, spacing: CGFloat) {
+    init(like: LikeModel,
+         currentUser: UserTempModel,
+         isCrop: Bool,
+         myLikes: [LikeModel],
+         size: CGSize,
+         spacing: CGFloat) {
         self.isCrop = isCrop
         self.size = size
         self.spacing = spacing
-        vm = GalleryItemViewModel(dataServise: UserDataService.shared,
-                               likeServise: LikesDataService.shared,
-                               myLikes: myLikes,
-                               like: like,
-                               currentUser: currentUser)
-        vm.getUser()
+        viewModel = GalleryItemViewModel(dataServise: UserDataService.shared,
+                                         likeServise: LikesDataService.shared,
+                                         myLikes: myLikes,
+                                         like: like,
+                                         currentUser: currentUser)
+        viewModel.getUser()
     }
 
     var body: some View {
         VStack {
-            if let user = vm.user {
+            if let user = viewModel.user {
                 ZStack {
-                    Image(user.photos.first ?? "AvatarPhoto3")
-                        .resizableFill()
-                        .frame(width: size.width*0.92 / 2 - spacing / 2,
-                               height: isCrop ? size.height * 0.4 - size.height * 0.07 : size.height * 0.4)
-                        .blur(radius: 10)
-                        .cornerRadius(20)
-                    Image(user.photos.first ?? "AvatarPhoto3")
-                        .resizableFill()
-                        .frame(width: size.width*0.92 / 2 - spacing / 2,
-                               height: isCrop ? size.height * 0.4 - size.height * 0.07 : size.height * 0.4)
-                        .mask(Rectangle().offset(y: -size.height * 0.07))
-                        .cornerRadius(20)
+                    if let photo = user.photos.first {
+                        Image(photo)
+                            .resizableFill()
+                            .frame(width: size.width*0.92 / 2 - spacing / 2,
+                                   height: isCrop ? size.height * 0.4 - size.height * 0.07 : size.height * 0.4)
+                            .blur(radius: 10)
+                            .cornerRadius(20)
+                        Image(photo)
+                            .resizableFill()
+                            .frame(width: size.width*0.92 / 2 - spacing / 2,
+                                   height: isCrop ? size.height * 0.4 - size.height * 0.07 : size.height * 0.4)
+                            .mask(Rectangle().offset(y: -size.height * 0.07))
+                            .cornerRadius(20)
+                    }
                     VStack {
                         HStack {
                             HStack {
@@ -53,17 +60,19 @@ struct GalleryItemView: View {
                             .padding(.leading, 4)
                             Spacer()
                             Button(action: {
-                                if vm.isLiked().bool {
-                                    vm.deleteLike(likeId: vm.isLiked().myLike?.id)
+                                if viewModel.isLiked().bool {
+                                    viewModel.deleteLike(likeId: viewModel.isLiked().myLike?.id)
                                 } else {
-                                    vm.createNewLike(senderID: vm.currentUser.userId)
+                                    viewModel.createNewLike(senderID: viewModel.currentUser.userId)
                                 }
                             }, label: {
                                 ZStack {
                                     Circle()
                                         .frame(width: 32, height: 32)
-                                        .foregroundStyle(vm.isLiked().bool ? .ultraThickMaterial : .ultraThinMaterial)
-                                    Image(vm.isLiked().bool ? "heartRed" : "heartWhite")
+                                        .foregroundStyle(viewModel.isLiked().bool ? .ultraThickMaterial : .ultraThinMaterial)
+                                    Image(DtImage.heart)
+                                        .renderingMode(.template)
+                                        .foregroundColor(viewModel.isLiked().bool ? .red : .white)
                                         .frame(width: 16, height: 16)
                                 }
                             })
@@ -77,7 +86,7 @@ struct GalleryItemView: View {
                                 .padding(.leading)
                             Circle()
                                 .frame(width: 6, height: 6)
-                                .foregroundStyle(.green)
+                                .foregroundStyle(user.online ? .green : .gray )
                             Spacer()
 
                         }
@@ -87,7 +96,7 @@ struct GalleryItemView: View {
                            height: isCrop ? size.height * 0.4 - size.height * 0.07 : size.height * 0.4)
                 }
                 .onAppear {
-                    vm.likeIsViewed(likeId: vm.like.id)
+                    viewModel.likeIsViewed(likeId: viewModel.like.id)
                 }
             } else {
                 NoLikesYetView(width: size.width * 0.92, height: size.height * 0.85)
@@ -98,7 +107,7 @@ struct GalleryItemView: View {
 
  #Preview {
      GalleryItemView(like: LikeModel(senderID: "1", receiverID: "2", date: Date()),
-                        currentUser: UserModel(
+                        currentUser: UserTempModel(
                             userId: "1000",
                             photos: ["user1", "user1", "user1"],
                             label: "Label1",
@@ -110,7 +119,8 @@ struct GalleryItemView: View {
                             description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
                             liked: true,
                             bookmarked: false,
-                            audiofile: "audio.mp3"
+                            audiofile: "audio.mp3",
+                            online: true
                         ),
                         isCrop: false,
                         myLikes: [LikeModel(senderID: "1000", receiverID: "1", date: Date()),

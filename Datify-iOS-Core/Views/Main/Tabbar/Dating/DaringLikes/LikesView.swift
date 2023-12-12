@@ -35,12 +35,12 @@ struct LikesView: View {
                         if let currentUser = viewModel.currentUser {
                             categoriesFilter(size: geometry.size)
                             switch displayMode {
-                            case .carousel: CarouselView(size: geometry.size,
-                                                             currentUser: currentUser,
-                                                             likes: getLikesAndSelectedItem().likes,
-                                                             selectedItem: getLikesAndSelectedItem().selected,
-                                                             showInformationView: $showInformationView,
-                                                             blurRadius: $blurRadius)
+                            case .carousel: CarouselView(selectedItem: getLikesAndSelectedItem().selected,
+                                                         showInformationView: $showInformationView,
+                                                         blurRadius: $blurRadius,
+                                                         size: geometry.size,
+                                                         currentUser: currentUser,
+                                                         likes: getLikesAndSelectedItem().likes)
                             case .gallery: GallaryView(size: geometry.size,
                                                            likes: chunkedArray(elements: 2),
                                                            currentUser: currentUser,
@@ -110,11 +110,11 @@ struct LikesView: View {
     private func getLikesAndSelectedItem() -> (likes: [LikeModel], selected: Binding<String?>) {
         switch viewModel.categories {
         case .receivedLikes:
-            return (viewModel.receivedLikes, $viewModel.selectedReceivedLikes)
+            return (viewModel.receivedLikes, $viewModel.selectedReceivedLikesId)
         case .mutualLikes:
-            return (viewModel.mutualLikes, $viewModel.selectedMutualLikes)
+            return (viewModel.mutualLikes, $viewModel.selectedMutualLikesId)
         case .myLikes:
-            return (viewModel.myLikes, $viewModel.selectedMyLikes)
+            return (viewModel.myLikes, $viewModel.selectedMyLikesId)
         }
     }
 
@@ -126,70 +126,6 @@ struct LikesView: View {
             }
         }
         .frame(width: size.width*0.92)
-    }
-
-    private func isCrop(index: Int, indexNestedArray: Int, count: Int) -> Bool {
-        if indexNestedArray == 1, index == 0 {
-            return true
-        }
-        if indexNestedArray == 0, index == (count - 1), count != 1 {
-            return true
-        }
-        return false
-    }
-}
-
-private extension LikesView {
-    var filterSheetView: some View {
-        NavigationStack {
-            GeometryReader { geometry in
-                ZStack {
-                    Color.backgroundPrimary.ignoresSafeArea()
-                    VStack(spacing: 8) {
-                        ForEach(LikeSortOption.allCases, id: \.self) { option in
-                            DtSelectorButton(isSelected: viewModel.sortOption == option, title: option.title) {
-                                viewModel.sortOption = option
-                            }
-                        }
-                    }
-                    .padding(.horizontal, 12)
-                    .toolbar {
-                        ToolbarItem(placement: .topBarTrailing) {
-                            DtXMarkButton()
-                        }
-                        ToolbarItem(placement: .topBarLeading) {
-                            Text("Filters")
-                                .dtTypo(.h3Medium, color: .textPrimary)
-                        }
-                    }
-                }
-                .onChange(of: geometry.frame(in: .global).minY) { minY in
-                    withAnimation {
-                        blurRadius = interpolatedValue(for: minY)
-                    }
-                }
-            }
-        }
-        .presentationDetents([.height(350)])
-        .presentationDragIndicator(.visible)
-    }
-
-    func interpolatedValue(for height: CGFloat) -> CGFloat {
-        // TODO: Replace with View extension
-        let screenHeight = UIScreen.main.bounds.height
-        let startHeight = screenHeight
-        let endHeight = screenHeight - 350
-        let startValue: CGFloat = 0.0
-        let endValue: CGFloat = 10.0
-
-        if height >= startHeight || height <= 100 {
-            return startValue
-        } else if height <= endHeight {
-            return endValue
-        }
-
-        let slope = (endValue - startValue) / (endHeight - startHeight)
-        return startValue + slope * (height - startHeight)
     }
 }
 

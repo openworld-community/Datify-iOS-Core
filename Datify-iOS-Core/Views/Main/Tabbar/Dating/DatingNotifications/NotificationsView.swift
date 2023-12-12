@@ -94,9 +94,9 @@ private extension NotificationsView {
                     blurRadius = newValue ? 10.0 : 0
                 }
             }
-            .sheet(isPresented: $showFilters) {
-                filterSheetView
-            }
+            .sheetFilter(isPresented: $showFilters, blurRadius: $blurRadius, title: "Filters", content: {
+                FilterView(sortOption: $viewModel.sortOption)
+            })
         default: DtSpinnerView(size: 56)
         }
     }
@@ -120,40 +120,6 @@ private extension NotificationsView {
                     .padding(.horizontal)
             }
         }
-    }
-
-    var filterSheetView: some View {
-        NavigationStack {
-            GeometryReader { geometry in
-                ZStack {
-                    Color.backgroundPrimary.ignoresSafeArea()
-                    VStack(spacing: 8) {
-                        ForEach(NotificationsViewModel.SortOption.allCases, id: \.self) { option in
-                            DtSelectorButton(isSelected: viewModel.sortOption == option, title: option.title) {
-                                viewModel.sortOption = option
-                            }
-                        }
-                    }
-                    .padding(.horizontal, 12)
-                    .toolbar {
-                        ToolbarItem(placement: .topBarTrailing) {
-                            DtXMarkButton()
-                        }
-                        ToolbarItem(placement: .topBarLeading) {
-                            Text("Filters")
-                                .dtTypo(.h3Medium, color: .textPrimary)
-                        }
-                    }
-                }
-                .onChange(of: geometry.frame(in: .global).minY) { minY in
-                    withAnimation {
-                        blurRadius = interpolatedValue(for: minY)
-                    }
-                }
-            }
-        }
-        .presentationDetents([.height(350)])
-        .presentationDragIndicator(.visible)
     }
 
     var likeSegment: some View {

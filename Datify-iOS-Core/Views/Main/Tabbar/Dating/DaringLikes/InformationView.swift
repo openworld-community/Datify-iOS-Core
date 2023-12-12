@@ -36,7 +36,7 @@ struct InformationView: View {
                     RoundedRectangle(cornerRadius: 15)
                         .frame(width: 56, height: 56)
                         .foregroundColor(.green)
-                    Image("exclamationPoint")
+                    Image(DtImage.exclamationPoint)
                         .resizableFill()
                         .frame(width: 32, height: 32)
                 }

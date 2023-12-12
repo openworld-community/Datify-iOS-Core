@@ -7,8 +7,8 @@
 
 import Foundation
 
-class SmallUserViewModel: ObservableObject {
-    @Published var user: UserModel?
+class UserViewModel: ObservableObject {
+    @Published var user: UserTempModel?
     private var dataService: UserDataService
     private var likeServise: LikesDataService
 
@@ -18,7 +18,7 @@ class SmallUserViewModel: ObservableObject {
     }
 
     func getUser(userId: String) {
-        let userTemp = dataService.getUserData(for: userId)!
+        let userTemp = dataService.getUserData(for: userId)
         user = userTemp
     }
 }

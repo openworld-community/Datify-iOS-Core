@@ -17,8 +17,8 @@ struct FilterSizePreferenceKey: PreferenceKey {
 }
 
 struct FilterSheetViewModifier<T: View>: ViewModifier {
-    @Binding var isPresented: Bool
-    @Binding var blurRadius: CGFloat
+    @Binding private var isPresented: Bool
+    @Binding private var blurRadius: CGFloat
     @State private var sizes: CGSize = .zero
     private var title: String
     private let viewBilder: () -> T
@@ -75,7 +75,6 @@ struct FilterSheetViewModifier<T: View>: ViewModifier {
 
 private extension FilterSheetViewModifier {
     func interpolatedValue(for height: CGFloat) -> CGFloat {
-        // TODO: Replace with View extension
         let screenHeight = UIScreen.main.bounds.height
         let startHeight = screenHeight
         let endHeight = screenHeight - 350

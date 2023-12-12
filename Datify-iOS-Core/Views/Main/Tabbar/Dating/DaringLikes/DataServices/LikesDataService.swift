@@ -20,27 +20,23 @@ class LikesDataService: ObservableObject {
     func deleteLike(likeId: String) {
         // TODO: Func delete like
         if let allLikes {
-            for index in allLikes.indices {
-                if allLikes[index].id == likeId {
-                    self.allLikes?.remove(at: index)
-               }
-           }
+            for index in allLikes.indices where allLikes[index].id == likeId {
+                self.allLikes?.remove(at: index)
+            }
         }
     }
 
     func createLike(senderID: String, receiverID: String) {
         // TODO: Func create like
-        var newLike = LikeModel(senderID: senderID, receiverID: receiverID, date: Date())
+        let newLike = LikeModel(senderID: senderID, receiverID: receiverID, date: Date())
         allLikes?.append(newLike)
     }
 
     func likeIsViewed(likeId: String) {
         // TODO: Func changes like to viewed
         if let allLikes {
-            for index in allLikes.indices {
-                if allLikes[index].id == likeId {
-                    self.allLikes?[index].isViewed()
-               }
+            for index in allLikes.indices where allLikes[index].id == likeId {
+                self.allLikes?[index].isViewed()
            }
         }
     }
@@ -48,11 +44,11 @@ class LikesDataService: ObservableObject {
 
 private extension LikesDataService {
     func createTempLikes(userID: String) {
-        createReceivedLikes(userID: userID)
-        createMyLikes(userID: userID)
+        createTempReceivedLikes(userID: userID)
+        createTempMyLikes(userID: userID)
     }
 
-    func createReceivedLikes(userID: String) {
+    func createTempReceivedLikes(userID: String) {
         var receivedLikes: [LikeModel] = []
         for id in 1...10 {
             let like = LikeModel(
@@ -64,7 +60,7 @@ private extension LikesDataService {
         allLikes = receivedLikes
     }
 
-    func createMyLikes(userID: String) {
+    func createTempMyLikes(userID: String) {
         var myLike: [LikeModel] = []
         for id in 8...20 {
             let like = LikeModel(

@@ -28,7 +28,7 @@ final class NotificationsViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     private var notificationsDataService: NotificationsDataService?
 
-    enum SortOption: String, CaseIterable, Equatable {
+    enum SortOption: String, CaseIterable, Equatable, FilterProtocol {
         case earliest, unread, visitors, favourite
 
         var title: String {

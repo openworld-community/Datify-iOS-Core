@@ -8,14 +8,18 @@
 import Foundation
 
 class GalleryItemViewModel: ObservableObject {
-    @Published var user: UserModel?
+    @Published var user: UserTempModel?
     private var dataService: UserDataService
     private var likeServise: LikesDataService
     private var myLikes: [LikeModel]
     var like: LikeModel
-    var currentUser: UserModel
+    var currentUser: UserTempModel
 
-    init(dataServise: UserDataService, likeServise: LikesDataService, myLikes: [LikeModel], like: LikeModel, currentUser: UserModel) {
+    init(dataServise: UserDataService,
+         likeServise: LikesDataService,
+         myLikes: [LikeModel],
+         like: LikeModel,
+         currentUser: UserTempModel) {
         self.dataService = dataServise
         self.likeServise = likeServise
         self.myLikes = myLikes
@@ -24,10 +28,8 @@ class GalleryItemViewModel: ObservableObject {
     }
 
     func getUser() {
-        let userTemp = dataService.getUserData(for: isThisMyLike() ? like.receiverID : like.senderID)!
-        //  await MainActor.run {
+        let userTemp = dataService.getUserData(for: isThisMyLike() ? like.receiverID : like.senderID)
         user = userTemp
-        //  }
     }
 
     func deleteLike(likeId: String?) {
@@ -48,10 +50,8 @@ class GalleryItemViewModel: ObservableObject {
 
     func isLiked() -> (bool: Bool, myLike: LikeModel?) {
         var result: (bool: Bool, myLike: LikeModel?) = (bool: false, myLike: nil)
-        for myLike in myLikes {
-            if myLike.receiverID == user?.userId {
-                result = (bool: true, myLike: myLike)
-            }
+        for myLike in myLikes where myLike.receiverID == user?.userId {
+            result = (bool: true, myLike: myLike)
         }
         return result
     }
