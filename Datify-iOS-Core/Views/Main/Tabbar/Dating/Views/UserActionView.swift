@@ -11,7 +11,7 @@ struct UserActionsView: View {
     @Binding var liked: Bool
 
     var viewModel: DatingViewModel
-    var index: Int  = .init()
+    @Binding var user: DatingModel
 
     var body: some View {
         VStack(spacing: 12) {
@@ -19,16 +19,16 @@ struct UserActionsView: View {
             Button(action: {
                  withAnimation {
                      liked.toggle()
-                     viewModel.users[index].liked = liked
+                     user.liked = liked
                  }
              }, label: {
                  ZStack {
                      Rectangle()
                          .modifier(DtButtonsModifier())
-                     Image(viewModel.users[index].liked ? DtImage.mainSelectedHeart : DtImage.mainHeart)
+                     Image(user.liked ? DtImage.mainSelectedHeart : DtImage.mainHeart)
                  }
-                 .onChange(of: viewModel.users[index].liked) { _, newValue in
-                     viewModel.users[index].liked = newValue
+                 .onChange(of: user.liked) { _, newValue in
+                     user.liked = newValue
                  }
              })
 

@@ -11,6 +11,7 @@ struct DtTabbar<Content: View>: View {
     let tabsData: [TabItem]
     @Binding var selectedTab: TabItem
     @ObservedObject var viewModel: TabbarViewModel
+    var screenSizeProvider: ScreenSizeProvider
     let tabView: (TabItem) -> Content
 
     var body: some View {
@@ -23,7 +24,7 @@ struct DtTabbar<Content: View>: View {
                         DtTabItem(
                             tabItem: datum,
                             selectedTab: $selectedTab,
-                            itemWidth: UIScreen.main.bounds.width / CGFloat(tabsData.count))
+                            itemWidth: screenSizeProvider.screenWidth / CGFloat(tabsData.count))
                         if case .chat = datum {
                             alarmUnreadCountView()
                         }

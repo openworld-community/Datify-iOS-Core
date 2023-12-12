@@ -73,3 +73,47 @@ extension Color {
     static let customWhite = Color.white
     static let customGray = Color(red: 114/255, green: 114/255, blue: 114/255)
 }
+
+extension Color {
+    init(hex: String) {
+        let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
+        var int: UInt64 = 0
+
+        Scanner(string: hex).scanHexInt64(&int)
+        let a, r, g, b: UInt64
+        switch hex.count {
+            case 6: a = 255; r = int >> 16; g = int >> 8 & 0xFF; b = int & 0xFF
+            case 8: a = int >> 24; r = int >> 16 & 0xFF; g = int >> 8 & 0xFF; b = int & 0xFF
+            default: (a, r, g, b) = (255, 0, 0, 0)
+        }
+
+        self.init(
+            .sRGB,
+            red: Double(r) / 255,
+            green: Double(g) / 255,
+            blue: Double(b) / 255,
+            opacity: Double(a) / 255
+        )
+    }
+
+    var redComponent: Double {
+        if let components = UIColor(self).cgColor.components, components.count >= 3 {
+            return Double(components[0])
+        }
+        return 0.0
+    }
+
+    var greenComponent: Double {
+        if let components = UIColor(self).cgColor.components, components.count >= 3 {
+            return Double(components[1])
+        }
+        return 0.0
+    }
+
+    var blueComponent: Double {
+        if let components = UIColor(self).cgColor.components, components.count >= 3 {
+            return Double(components[2])
+        }
+        return 0.0
+    }
+}

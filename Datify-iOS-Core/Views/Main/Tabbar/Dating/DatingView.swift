@@ -13,56 +13,43 @@ struct DatingView: View {
 
     @StateObject private var viewModel: DatingViewModel
 
-    @State private var currentUserIndex: Int? = .init()
-
+    @State private var currentUserID: DatingModel.ID?
+    @State private var selectedPhotoIndex: Int = 0
     @State private var showLikedAnimation = false
 
     @State private var isSwipeAndIndicatorsDisabled = false
     @State private var showDescription = false
 
-    @State private var selectedPhotoIndex = 0
-
     @State private var isAlertPresented = false
     @State private var alertMessage: String = .init()
 
-    var safeAreaTopInset: CGFloat = .init()
+    var safeAreaTopInset: CGFloat? = .init()
+    private let application: UIApplication
 
-    init(router: Router<AppRoute>) {
+    init(
+        router: Router<AppRoute>,
+        application: UIApplication = UIApplication.shared
+    ) {
         _viewModel = StateObject(wrappedValue: DatingViewModel(router: router))
-
-        if let safeAreaInsets = UIApplication.shared.windows.first?.safeAreaInsets {
-            safeAreaTopInset = safeAreaInsets.top
-        } else {
-            safeAreaTopInset = 0
-        }
-
+        self.application = application
+        safeAreaTopInset = getSafeAreaTop()
     }
 
     var body: some View {
         GeometryReader { geometry in
             ScrollView(.vertical) {
                 LazyVStack(spacing: 0.0) {
-                    ForEach($viewModel.users.indices, id: \.self) { index in
+                    ForEach($viewModel.users) { user in
                         ZStack {
                             PhotoSliderView(
                                 selectedPhotoIndex: $selectedPhotoIndex,
+                                currentUserIndex: $currentUserID,
                                 showDescription: $showDescription,
                                 isSwipeAndIndicatorsDisabled: $isSwipeAndIndicatorsDisabled,
                                 geometry: geometry,
-                                photos: viewModel.users[index].photos
+                                photos: user.photos
                             )
                             .frame(width: geometry.size.width, height: geometry.size.height)
-                            .overlay(
-                                IndicatorsView(
-                                    isSwipeAndIndicatorsDisabled: $isSwipeAndIndicatorsDisabled,
-                                    photos: viewModel.users[index].photos,
-                                    selectedPhotoIndex: selectedPhotoIndex
-                                )
-                                .position(
-                                    x: geometry.size.width / 2,
-                                    y: geometry.size.height - 180
-                                ), alignment: .center
-                            )
 
                             if showLikedAnimation {
                                 AnimatedIconView(
@@ -88,8 +75,7 @@ struct DatingView: View {
                                         showDescription: $showDescription,
                                         isSwipeAndIndicatorsDisabled: $isSwipeAndIndicatorsDisabled,
                                         viewModel: viewModel,
-                                        selectedPhotoIndex: selectedPhotoIndex,
-                                        index: index,
+                                        user: user,
                                         geometry: geometry
                                     )
 
@@ -97,7 +83,7 @@ struct DatingView: View {
                                     UserActionsView(
                                         liked: $viewModel.liked,
                                         viewModel: viewModel,
-                                        index: index
+                                        user: user
                                     )
                                 }
                                 .padding(.bottom, 12)
@@ -108,7 +94,8 @@ struct DatingView: View {
                                         playCurrentTime: $viewModel.playCurrentTime,
                                         playbackFinished: $viewModel.playbackFinished,
                                         totalDuration: $viewModel.totalDuration,
-                                        viewModel: viewModel
+                                        viewModel: viewModel,
+                                        screenSizeProvider: DtScreenSizeProvider()
                                     )
                                 }
                                 .padding(.bottom)
@@ -117,20 +104,18 @@ struct DatingView: View {
                         }
                         .navigationBarHidden(true)
                         .background(Color.customBlack)
-                        .id(index)
+                        .id(user.id)
                     }
                 }
                 .scrollTargetLayout()
             }
             .environment(\.colorScheme, .light)
-            .scrollPosition(id: $currentUserIndex)
-            .onChange(of: currentUserIndex) { _, newValue in
-                if let currentIndex = newValue {
-                    viewModel.currentUserIndex = currentIndex
+            .scrollPosition(id: $currentUserID)
+            .onChange(of: currentUserID) { _, newValue in
+                if let currentUserID = newValue {
+                    viewModel.currentUserID = currentUserID
                     viewModel.loadingAudioData()
                 }
-
-                selectedPhotoIndex = 0
 
                 showLikedAnimation = false
 
@@ -177,10 +162,11 @@ struct DatingView: View {
                 }
             )
         }
+
     }
 
     func getSafeAreaTop() -> CGFloat? {
-        let keyWindow = UIApplication.shared.connectedScenes
+        let keyWindow = application.connectedScenes
             .filter({$0.activationState == .foregroundActive})
             .map({$0 as? UIWindowScene})
             .compactMap({$0})

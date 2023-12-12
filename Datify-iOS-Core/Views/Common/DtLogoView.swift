@@ -14,7 +14,7 @@ struct DtLogoView: View {
 
     init() {
         self.blackAndWhiteColor = false
-        self.fontTextColor = .textTertiary
+        self.fontTextColor = .textPrimary
     }
 
     init(blackAndWhiteColor: Bool, fontTextColor: Color) {

@@ -13,8 +13,7 @@ struct UserInfoView: View {
     @State private var isAnimated = false
 
     var viewModel: DatingViewModel
-    var selectedPhotoIndex: Int = .init()
-    var index: Int = .init()
+    @Binding var user: DatingModel
     var geometry: GeometryProxy
 
     var body: some View {
@@ -22,13 +21,13 @@ struct UserInfoView: View {
             VStack(alignment: .leading) {
                 Spacer()
                 HStack(alignment: .center) {
-                    Text(viewModel.users[index].label)
+                    Text(user.label)
                         .dtTypo(.p4Medium, color: .textInverted)
                         .padding(.horizontal)
                         .padding(.vertical, 4)
                         .background(
                             RoundedRectangle(cornerRadius: 16)
-                                .foregroundColor(viewModel.users[index].colorLabel)
+                                .foregroundColor(user.colorLabel)
                         )
                         .frame(height: 24)
                     Spacer()
@@ -39,13 +38,13 @@ struct UserInfoView: View {
                         Image(DtImage.mainLocation)
                             .resizable()
                             .frame(width: 16, height: 16)
-                        Text(viewModel.users[index].location)
+                        Text(user.location)
                             .dtTypo(.p3Regular, color: .textInverted)
                     }
                     .frame(height: 20)
 
                     HStack {
-                        Text("\(viewModel.users[index].name), \(viewModel.users[index].age)")
+                        Text("\(user.name), \(user.age)")
                             .dtTypo(.h3Medium, color: .textInverted)
                         Image(DtImage.mainLabel)
                             .resizable()
@@ -56,7 +55,7 @@ struct UserInfoView: View {
                 .padding(.bottom, 8)
 
                 if showDescription && isAnimated {
-                    Text(viewModel.users[index].description)
+                    Text(user.description)
                         .dtTypo(.p3Regular, color: .textInverted)
                         .padding(.bottom, 10)
                         .transition(

@@ -19,6 +19,7 @@ struct DtAudioPlayerView: View {
     @Binding var totalDuration: Double
 
     var viewModel: DatingViewModel
+    var screenSizeProvider: ScreenSizeProvider
 
     var desiredNumberOfBars = 60
 
@@ -56,7 +57,7 @@ struct DtAudioPlayerView: View {
     func computeBarWidth() -> CGFloat {
         let totalSpacing: CGFloat = CGFloat(desiredNumberOfBars - 1) * 2
         let labelWidths: CGFloat = 50 + 30 + 4 * 16
-        let availableWidth = UIScreen.main.bounds.width - totalSpacing - labelWidths
+        let availableWidth = screenSizeProvider.screenWidth - totalSpacing - labelWidths
         return availableWidth / CGFloat(desiredNumberOfBars)
     }
 }

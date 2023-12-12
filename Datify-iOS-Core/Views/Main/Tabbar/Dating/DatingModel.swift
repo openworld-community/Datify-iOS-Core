@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct DatingModel {
-    let userId: UUID
-    let photos: [String]
+struct DatingModel: Identifiable {
+    let id: String
+    var photos: [String]
     let label: String
     let colorLabel: Color
     let location: String
@@ -21,36 +21,9 @@ struct DatingModel {
     var bookmarked: Bool
     let audiofile: String
 
-    init(
-        userId: UUID = UUID(),
-        photos: [String],
-        label: String,
-        colorLabel: Color,
-        location: String,
-        name: String,
-        age: Int,
-        star: Bool,
-        description: String,
-        liked: Bool,
-        bookmarked: Bool,
-        audiofile: String
-    ) {
-        self.userId = userId
-        self.photos = photos
-        self.label = label
-        self.colorLabel = colorLabel
-        self.location = location
-        self.name = name
-        self.age = age
-        self.star = star
-        self.description = description
-        self.liked = liked
-        self.bookmarked = bookmarked
-        self.audiofile = audiofile
-    }
-
-    static let defaultUsers: [DatingModel] = [
+    static var defaultUsers: [DatingModel] = [
         DatingModel(
+            id: UUID().uuidString,
             photos: ["user1Photo1", "user1Photo2"],
             label: "Looking for love",
             colorLabel: .red,
@@ -65,6 +38,7 @@ struct DatingModel {
             audiofile: "recording"
         ),
         DatingModel(
+            id: UUID().uuidString,
             photos: ["user2Photo1", "user2Photo2", "user2Photo3"],
             label: "Adventurous Soul",
             colorLabel: .blue,
@@ -78,6 +52,7 @@ struct DatingModel {
             audiofile: "recording5sec"
         ),
         DatingModel(
+            id: UUID().uuidString,
             photos: ["user3Photo1", "user3Photo2", "user3Photo3"],
             label: "Music Lover",
             colorLabel: .green,

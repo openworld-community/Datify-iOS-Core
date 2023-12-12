@@ -9,11 +9,12 @@ import SwiftUI
 
 struct PhotoSliderView: View {
     @Binding var selectedPhotoIndex: Int
+    @Binding var currentUserIndex: DatingModel.ID?
     @Binding var showDescription: Bool
     @Binding var isSwipeAndIndicatorsDisabled: Bool
     var geometry: GeometryProxy
 
-    let photos: [String]
+    @Binding var photos: [String]
 
     var body: some View {
         ZStack {
@@ -24,6 +25,7 @@ struct PhotoSliderView: View {
                         .frame(maxWidth: geometry.size.width)
                         .blur(radius: showDescription ? 3 : 0)
                         .animation(.easeInOut(duration: 0.4))
+                        .clipped()
                         .tag(index)
                 }
             }
@@ -32,6 +34,20 @@ struct PhotoSliderView: View {
 
             BottomDarkGradientView(geometry: geometry, showDescription: $showDescription)
                 .allowsHitTesting(false)
+        }
+        .overlay(
+            IndicatorsView(
+                isSwipeAndIndicatorsDisabled: $isSwipeAndIndicatorsDisabled,
+                photos: photos,
+                selectedPhotoIndex: selectedPhotoIndex
+            )
+            .position(
+                x: geometry.size.width / 2,
+                y: geometry.size.height * 0.76
+            ), alignment: .center
+        )
+        .onChange(of: currentUserIndex) { _ in
+            selectedPhotoIndex = 0
         }
     }
 }

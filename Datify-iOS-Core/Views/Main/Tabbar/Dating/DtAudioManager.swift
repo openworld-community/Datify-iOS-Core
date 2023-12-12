@@ -9,6 +9,13 @@ import Foundation
 import Combine
 import AVFoundation
 
+enum AudioPlayerError: Error {
+    case bufferCreationFailed
+    case fileNotFound
+    case audioPlayerInitializationFailed
+    case audioFileReadingFailed
+}
+
 class DtAudioPlayerManager: NSObject, ObservableObject, AVAudioPlayerDelegate {
     @Published var isPlaying: Bool = false
 
@@ -51,14 +58,13 @@ class DtAudioPlayerManager: NSObject, ObservableObject, AVAudioPlayerDelegate {
                     audioPlayer?.delegate = self
                     audioPlayer?.prepareToPlay()
                     totalDuration = audioPlayer?.duration ?? 0.0
-//                    totalDuration = totalDuration
 
                     audioPlayer?.play()
                     startProgressUpdates()
                     playbackFinished = false
                     isPlaying = true
                 } catch {
-                    self.errorSubject.send(error)
+                    self.errorSubject.send(AudioPlayerError.fileNotFound)
                     playbackFinished = true
                 }
             }
@@ -80,7 +86,7 @@ class DtAudioPlayerManager: NSObject, ObservableObject, AVAudioPlayerDelegate {
     }
 
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        DispatchQueue.main.async { [weak self] in
+        Task { [weak self] in
             self?.playbackProgress = 0.0
             self?.playCurrentTime = Int(self?.audioPlayer?.duration ?? 0)
             self?.playbackFinished = true
@@ -106,8 +112,7 @@ class DtAudioPlayerManager: NSObject, ObservableObject, AVAudioPlayerDelegate {
                     pcmFormat: audioFile.processingFormat,
                     frameCapacity: AVAudioFrameCount(audioFile.length)
                 ) else {
-                    let bufferError = NSError(domain: "AudioError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Error creating buffer"])
-                    self.errorSubject.send(bufferError)
+                    self.errorSubject.send(AudioPlayerError.bufferCreationFailed)
                     return
                 }
 
@@ -136,7 +141,7 @@ class DtAudioPlayerManager: NSObject, ObservableObject, AVAudioPlayerDelegate {
                         }
                     }
             } catch {
-                self.errorSubject.send(error)
+                self.errorSubject.send(AudioPlayerError.audioPlayerInitializationFailed)
             }
         }
     }

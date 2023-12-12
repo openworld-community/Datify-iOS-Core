@@ -23,27 +23,13 @@ final class DatingViewModel: ObservableObject {
     @Published var showAlert = false
     @Published var errorMessage: String?
     @Published var users: [DatingModel] = DatingModel.defaultUsers
-    @Published var currentUserIndex = 0
+    @Published var currentUserID: DatingModel.ID?
 
     var audioPlayerManager = DtAudioPlayerManager()
-    var updateTimer: Timer? = .init()
-
-    var currentUserIndexBinding: Binding<Int> {
-        Binding(
-            get: { self.currentUserIndex },
-            set: {
-                print("Setting currentUserIndex to \($0)")
-                self.currentUserIndex = $0
-            }
-        )
-    }
+    var updateTimer: Timer?  = .init()
 
     var remainingTime: Int {
-        if playbackFinished {
-            return 0
-        } else {
-            return max(Int(totalDuration) - playCurrentTime, 0)
-        }
+        playbackFinished ? 0 : max(Int(totalDuration) - playCurrentTime, 0)
     }
 
     var error: Error? {
@@ -62,6 +48,7 @@ final class DatingViewModel: ObservableObject {
         setupBindings()
         loadInitialData()
         loadingAudioData()
+
     }
 
     deinit {
@@ -82,10 +69,16 @@ final class DatingViewModel: ObservableObject {
             .store(in: &cancellables)
 
         audioPlayerManager.$playbackProgress
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] newProgress in
-                DispatchQueue.main.async {
-                    self?.playbackProgress = newProgress
-                }
+                self?.playbackProgress = newProgress
+            }
+            .store(in: &cancellables)
+
+        audioPlayerManager.$playCurrentTime
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] newTime in
+                self?.playCurrentTime = newTime
             }
             .store(in: &cancellables)
 
@@ -95,24 +88,18 @@ final class DatingViewModel: ObservableObject {
             }
             .store(in: &cancellables)
 
-        audioPlayerManager.$playCurrentTime
-            .sink { [weak self] newTime in
-                DispatchQueue.main.async {
-                    self?.playCurrentTime = newTime
+        $liked
+            .dropFirst()
+            .sink { [weak self] newValue in
+                guard let self = self, let currentUserId = self.currentUserID else { return }
+                if let userIndex = self.users.firstIndex(where: { $0.id == currentUserId }) {
+                    self.users[userIndex].liked = newValue
                 }
             }
             .store(in: &cancellables)
 
-        $liked
-            .dropFirst()
-            .sink { [weak self] newValue in
-                guard let self = self else { return }
-                self.users[self.currentUserIndexBinding.wrappedValue].liked = newValue
-            }
-            .store(in: &cancellables)
-
         audioPlayerManager.errorSubject
-            .receive(on: DispatchQueue.main)
+            .receive(on: DispatchQueue.global())
             .sink { [weak self] error in
                 self?.errorMessage = error.localizedDescription
                 self?.showAlert = true
@@ -121,13 +108,20 @@ final class DatingViewModel: ObservableObject {
     }
 
     func loadInitialData() {
-        let currentUser = users[currentUserIndexBinding.wrappedValue]
-        self.liked = currentUser.liked
+        currentUserID = users.first?.id
+
+        if let currentUserID = currentUserID,
+               let currentUser = users.first(where: {
+                   $0.id == currentUserID }) {
+            self.liked = currentUser.liked
+        }
     }
 
     func togglePlayback() {
-        let currentUser = users[currentUserIndexBinding.wrappedValue]
-        audioPlayerManager.togglePlayback(for: currentUser.audiofile, ofType: "mp3")
+        if let currentUserID = currentUserID,
+               let currentUser = users.first(where: {
+                   $0.id == currentUserID }) {            audioPlayerManager.togglePlayback(for: currentUser.audiofile, ofType: "mp3")
+        }
     }
 
     func startProgressUpdates() {
@@ -139,7 +133,9 @@ final class DatingViewModel: ObservableObject {
     }
 
     func loadingAudioData() {
-        let currentUser = users[currentUserIndexBinding.wrappedValue]
-        audioPlayerManager.loadAudioData(for: currentUser.audiofile, ofType: "mp3")
+        if let currentUserID = currentUserID,
+               let currentUser = users.first(where: {
+                   $0.id == currentUserID }) {            audioPlayerManager.loadAudioData(for: currentUser.audiofile, ofType: "mp3")
+        }
     }
 }

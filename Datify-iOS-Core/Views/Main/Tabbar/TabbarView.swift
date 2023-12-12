@@ -19,7 +19,12 @@ struct TabbarView: View {
     }
 
     var body: some View {
-        DtTabbar(tabsData: TabItem.allCases, selectedTab: $selectedTab, viewModel: viewModel) { item in
+        DtTabbar(
+            tabsData: TabItem.allCases,
+            selectedTab: $selectedTab,
+            viewModel: viewModel,
+            screenSizeProvider: DtScreenSizeProvider()
+        ) { item in
             createTabView(tab: item)
         }
     }
