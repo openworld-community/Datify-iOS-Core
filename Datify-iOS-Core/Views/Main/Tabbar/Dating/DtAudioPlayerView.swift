@@ -10,25 +10,33 @@ import AVFoundation
 import Charts
 
 struct DtAudioPlayerView: View {
+    @StateObject var viewModel: DtAudioPlayerViewModel
+
     @State private var isAlertPresented = false
     @State private var alertMessage = ""
 
-    @Binding var isPlaying: Bool
-    @Binding var playCurrentTime: Int
-    @Binding var playbackFinished: Bool
-    @Binding var totalDuration: Double
+    @State private var isPlaying: Bool = false
+    @State private var playCurrentTime: Int = 0
+    @State private var playbackFinished: Bool = true
+    @State private var totalDuration: Double = 0.0
 
-    var viewModel: DatingViewModel
-    var screenSizeProvider: ScreenSizeProvider
+    @State private var user: DatingModel?
 
     var desiredNumberOfBars = 60
+
+    init(user: DatingModel, audioPlayerManager: DtAudioPlayerManager) {
+        _viewModel = StateObject(wrappedValue: DtAudioPlayerViewModel(user: user, audioPlayerManager: audioPlayerManager))
+    }
 
     var body: some View {
         ZStack(alignment: .center) {
             Rectangle()
                 .modifier(DtPlayerModifier())
             HStack {
-                let totalSeconds = playbackFinished ? Int(totalDuration) : viewModel.remainingTime
+                let totalSeconds = viewModel.playbackFinished
+                ? Int(viewModel.totalDuration)
+                : viewModel.remainingTime
+
                 Text(String(format: "%02d:%02d", totalSeconds.minutes, totalSeconds.seconds))
                     .dtTypo(.p3Regular, color: .white)
                     .frame(width: 48, alignment: .leading)
@@ -43,7 +51,7 @@ struct DtAudioPlayerView: View {
                     viewModel.togglePlayback()
                 }) {
                     Image(
-                        isPlaying
+                        viewModel.isPlaying
                             ? DtImage.mainPause
                             : DtImage.mainPlay
                     )
@@ -57,7 +65,7 @@ struct DtAudioPlayerView: View {
     func computeBarWidth() -> CGFloat {
         let totalSpacing: CGFloat = CGFloat(desiredNumberOfBars - 1) * 2
         let labelWidths: CGFloat = 50 + 30 + 4 * 16
-        let availableWidth = screenSizeProvider.screenWidth - totalSpacing - labelWidths
+        let availableWidth = UIScreen.main.bounds.width - totalSpacing - labelWidths
         return availableWidth / CGFloat(desiredNumberOfBars)
     }
 }

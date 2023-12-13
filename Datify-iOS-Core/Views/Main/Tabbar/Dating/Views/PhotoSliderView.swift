@@ -46,8 +46,6 @@ struct PhotoSliderView: View {
                 y: geometry.size.height * 0.76
             ), alignment: .center
         )
-        .onChange(of: currentUserIndex) { _ in
-            selectedPhotoIndex = 0
-        }
+
     }
 }

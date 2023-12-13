@@ -73,6 +73,7 @@
 		63A729672AA48CAA00AC60E3 /* Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A729662AA48CAA00AC60E3 /* Regex.swift */; };
 		63A729692AA4A94B00AC60E3 /* CountryCodeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A729682AA4A94B00AC60E3 /* CountryCodeButton.swift */; };
 		63E79C3B2B2818A500030DE9 /* DtScreenSizeProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E79C3A2B2818A500030DE9 /* DtScreenSizeProvider.swift */; };
+		63E79C3D2B2841FE00030DE9 /* DtAudioPlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E79C3C2B2841FE00030DE9 /* DtAudioPlayerViewModel.swift */; };
 		980895BA2A9F4A5700F82F02 /* DtSpinnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980895B92A9F4A5700F82F02 /* DtSpinnerView.swift */; };
 		98553B0A2AAE4A43005C80B3 /* View+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98553B092AAE4A43005C80B3 /* View+extension.swift */; };
 		9898B2BF2AAA49DE007CA714 /* RegEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9898B2BE2AAA49DE007CA714 /* RegEmailViewModel.swift */; };
@@ -174,6 +175,7 @@
 		63A729662AA48CAA00AC60E3 /* Regex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Regex.swift; sourceTree = "<group>"; };
 		63A729682AA4A94B00AC60E3 /* CountryCodeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCodeButton.swift; sourceTree = "<group>"; };
 		63E79C3A2B2818A500030DE9 /* DtScreenSizeProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtScreenSizeProvider.swift; sourceTree = "<group>"; };
+		63E79C3C2B2841FE00030DE9 /* DtAudioPlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtAudioPlayerViewModel.swift; sourceTree = "<group>"; };
 		980895B92A9F4A5700F82F02 /* DtSpinnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtSpinnerView.swift; sourceTree = "<group>"; };
 		98553B092AAE4A43005C80B3 /* View+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+extension.swift"; sourceTree = "<group>"; };
 		9898B2BE2AAA49DE007CA714 /* RegEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RegEmailViewModel.swift; path = "Datify-iOS-Core/Views/Main/Welcome/Registration/RegEmailViewModel.swift"; sourceTree = SOURCE_ROOT; };
@@ -310,6 +312,7 @@
 				634EF7322ADC48220061E13A /* DatingView.swift */,
 				634EF7332ADC48220061E13A /* DatingViewModel.swift */,
 				634EF74D2AE422AD0061E13A /* DtAudioPlayerView.swift */,
+				63E79C3C2B2841FE00030DE9 /* DtAudioPlayerViewModel.swift */,
 				634EF7402ADC62B30061E13A /* DtBarChartView.swift */,
 				634EF7462ADC64120061E13A /* DtAudioManager.swift */,
 			);
@@ -744,6 +747,7 @@
 				634EF7382ADC48300061E13A /* MenuView.swift in Sources */,
 				634EF7282ADC48010061E13A /* TabbarViewModel.swift in Sources */,
 				63A729592AA3937500AC60E3 /* RegularTFView.swift in Sources */,
+				63E79C3D2B2841FE00030DE9 /* DtAudioPlayerViewModel.swift in Sources */,
 				20BF9D932AB1BE85008B3CEB /* RegSelectGenderView.swift in Sources */,
 				6387186A2AF7EC24008C7F54 /* AnimatedIconView.swift in Sources */,
 				4A4CE2E32A9B53E70098FF80 /* Color+extension.swift in Sources */,

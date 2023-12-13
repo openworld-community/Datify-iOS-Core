@@ -14,7 +14,7 @@ struct BarChartDataPoint: Identifiable {
 }
 
 struct DtBarChartView: View {
-    @ObservedObject var viewModel: DatingViewModel
+    @ObservedObject var viewModel: DtAudioPlayerViewModel
 
     var dataPoints: [BarChartDataPoint] = .init()
     var barWidth: CGFloat = .init()

@@ -25,6 +25,7 @@ struct DatingView: View {
 
     var safeAreaTopInset: CGFloat? = .init()
     private let application: UIApplication
+    let audioPlayerManager = DtAudioPlayerManager()
 
     init(
         router: Router<AppRoute>,
@@ -49,7 +50,10 @@ struct DatingView: View {
                                 geometry: geometry,
                                 photos: user.photos
                             )
-                            .frame(width: geometry.size.width, height: geometry.size.height)
+                            .frame(
+                                width: geometry.size.width,
+                                height: geometry.size.height
+                            )
 
                             if showLikedAnimation {
                                 AnimatedIconView(
@@ -87,15 +91,10 @@ struct DatingView: View {
                                     )
                                 }
                                 .padding(.bottom, 12)
-
                                 HStack {
                                     DtAudioPlayerView(
-                                        isPlaying: $viewModel.isPlaying,
-                                        playCurrentTime: $viewModel.playCurrentTime,
-                                        playbackFinished: $viewModel.playbackFinished,
-                                        totalDuration: $viewModel.totalDuration,
-                                        viewModel: viewModel,
-                                        screenSizeProvider: DtScreenSizeProvider()
+                                        user: user.wrappedValue,
+                                        audioPlayerManager: audioPlayerManager
                                     )
                                 }
                                 .padding(.bottom)
@@ -108,15 +107,18 @@ struct DatingView: View {
                     }
                 }
                 .scrollTargetLayout()
+                .onAppear {
+                    print("viewModel users: \(viewModel.users)")
+                }
             }
             .environment(\.colorScheme, .light)
             .scrollPosition(id: $currentUserID)
             .onChange(of: currentUserID) { _, newValue in
+
                 if let currentUserID = newValue {
                     viewModel.currentUserID = currentUserID
-                    viewModel.loadingAudioData()
                 }
-
+                selectedPhotoIndex = 0
                 showLikedAnimation = false
 
                 if isSwipeAndIndicatorsDisabled {
@@ -126,15 +128,7 @@ struct DatingView: View {
                 if showDescription {
                     showDescription = false
                 }
-
-                viewModel.isPlaying = false
-                viewModel.playbackFinished = true
-
-                viewModel.audioPlayerManager.stopPlayback()
-                viewModel.startProgressUpdates()
-
                 isAlertPresented = false
-
             }
         }
         .edgesIgnoringSafeArea(.top)
@@ -162,7 +156,6 @@ struct DatingView: View {
                 }
             )
         }
-
     }
 
     func getSafeAreaTop() -> CGFloat? {
