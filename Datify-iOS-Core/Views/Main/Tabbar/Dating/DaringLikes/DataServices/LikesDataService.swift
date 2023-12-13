@@ -62,7 +62,7 @@ private extension LikesDataService {
 
     func createTempMyLikes(userID: String) {
         var myLike: [LikeModel] = []
-        for id in 8...20 {
+        for id in 7...20 {
             let like = LikeModel(
                 senderID: userID,
                 receiverID: String(id),

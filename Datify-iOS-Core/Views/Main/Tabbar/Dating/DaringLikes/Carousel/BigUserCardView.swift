@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct BigUserCardView: View {
-    @ObservedObject private var viewModel: UserViewModel
+    @ObservedObject private var viewModel: UserCardViewModel
     @Binding private var selectedItem: String?
     @Binding private var blurRadius: CGFloat
     @Binding private var showInformationView: Bool
@@ -22,11 +22,10 @@ struct BigUserCardView: View {
         _showInformationView = showInformationView
         _blurRadius = blurRadius
         self.size = size
-        viewModel = UserViewModel(dataServise: UserDataService.shared, likeServise: LikesDataService.shared)
+        viewModel = UserCardViewModel(dataServise: UserDataService.shared, likeServise: LikesDataService.shared)
         if let selected = self.selectedItem {
             viewModel.getUser(userId: selected)
         }
-
     }
 
     var body: some View {
@@ -37,7 +36,7 @@ struct BigUserCardView: View {
                         Image(photo)
                             .resizable()
                             .aspectRatio(contentMode: .fill)
-                            .frame(width: size.width * 0.92, height: size.height * 0.85)
+                            .frame(width: size.width * 0.92, height: size.height * 0.86)
                             .cornerRadius(10)
                             .animation(.none, value: selectedItem)
                     }
@@ -54,7 +53,6 @@ struct BigUserCardView: View {
                     })
                 }
             }
-
         }
     }
 }

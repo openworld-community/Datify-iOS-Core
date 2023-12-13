@@ -64,7 +64,7 @@ struct GallaryView: View {
                     }
                 }
             } else {
-                NoLikesYetView(width: size.width * 0.92, height: size.height * 0.85)
+                NoLikesYetView(width: size.width * 0.92, height: size.height * 0.86)
             }
         }
         .frame(width: size.width)

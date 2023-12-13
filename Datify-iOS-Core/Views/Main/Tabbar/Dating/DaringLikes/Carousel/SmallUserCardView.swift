@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SmallUserCardView: View {
-    @ObservedObject private var viewModel: UserViewModel
+    @ObservedObject private var viewModel: UserCardViewModel
     @Binding private var selectedItem: String?
     private var currentUser: UserTempModel
     private var size: CGSize
@@ -17,7 +17,7 @@ struct SmallUserCardView: View {
         _selectedItem = selectedItem
         self.size = size
         self.currentUser = currentUser
-        viewModel = UserViewModel(dataServise: UserDataService.shared, likeServise: LikesDataService.shared)
+        viewModel = UserCardViewModel(dataServise: UserDataService.shared, likeServise: LikesDataService.shared)
         getUser(by: like)
     }
 
@@ -55,7 +55,9 @@ struct SmallUserCardView: View {
 }
 
  #Preview {
-    SmallUserCardView(like: LikeModel(senderID: "1", receiverID: "1000", date: Date()),
+    SmallUserCardView(like: LikeModel(senderID: "1",
+                                      receiverID: "1000",
+                                      date: Date()),
                       selectedItem: .constant("1"),
                       currentUser: UserTempModel(
                         userId: "1000",

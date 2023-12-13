@@ -82,7 +82,7 @@
 		797CA5562AE86519004DACFA /* VoiceGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797CA5552AE86519004DACFA /* VoiceGraphView.swift */; };
 		797CA5582AE86584004DACFA /* VoiceGraphViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797CA5572AE86584004DACFA /* VoiceGraphViewModel.swift */; };
 		797D6D462AFB6BEC0087829A /* RecordManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797D6D452AFB6BEC0087829A /* RecordManager.swift */; };
-		79ADA25B2B22068000C62B17 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79ADA25A2B22068000C62B17 /* UserViewModel.swift */; };
+		79ADA25B2B22068000C62B17 /* UserCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79ADA25A2B22068000C62B17 /* UserCardViewModel.swift */; };
 		79ADA2602B2214C900C62B17 /* NoLikesYetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79ADA25F2B2214C900C62B17 /* NoLikesYetView.swift */; };
 		79ADA2622B224C6700C62B17 /* InformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79ADA2612B224C6700C62B17 /* InformationView.swift */; };
 		79BE96E72AF7689E008E943C /* DtCircleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BE96E62AF7689E008E943C /* DtCircleButton.swift */; };
@@ -219,7 +219,7 @@
 		797CA5552AE86519004DACFA /* VoiceGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceGraphView.swift; sourceTree = "<group>"; };
 		797CA5572AE86584004DACFA /* VoiceGraphViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceGraphViewModel.swift; sourceTree = "<group>"; };
 		797D6D452AFB6BEC0087829A /* RecordManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordManager.swift; sourceTree = "<group>"; };
-		79ADA25A2B22068000C62B17 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
+		79ADA25A2B22068000C62B17 /* UserCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCardViewModel.swift; sourceTree = "<group>"; };
 		79ADA25F2B2214C900C62B17 /* NoLikesYetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoLikesYetView.swift; sourceTree = "<group>"; };
 		79ADA2612B224C6700C62B17 /* InformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationView.swift; sourceTree = "<group>"; };
 		79BE96E62AF7689E008E943C /* DtCircleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtCircleButton.swift; sourceTree = "<group>"; };
@@ -553,7 +553,7 @@
 				79DD427C2B2635FF009182E8 /* CarouselView.swift */,
 				79D5911A2B1F26990097C05B /* SmallUserCardView.swift */,
 				79D5911F2B1F26CC0097C05B /* BigUserCardView.swift */,
-				79ADA25A2B22068000C62B17 /* UserViewModel.swift */,
+				79ADA25A2B22068000C62B17 /* UserCardViewModel.swift */,
 			);
 			path = Carousel;
 			sourceTree = "<group>";
@@ -966,7 +966,7 @@
 				632A7F5E2AAC897B005DA819 /* DtCustomTFView+extension.swift in Sources */,
 				634EF72A2ADC48010061E13A /* TabItem.swift in Sources */,
 				98F536A22AFE4B380051D751 /* SMSView.swift in Sources */,
-				79ADA25B2B22068000C62B17 /* UserViewModel.swift in Sources */,
+				79ADA25B2B22068000C62B17 /* UserCardViewModel.swift in Sources */,
 				4A4CE2DC2A9B485B0098FF80 /* WelcomeView.swift in Sources */,
 				63A5B8B52AC5F0BA00DEB54A /* CountryAndCityView.swift in Sources */,
 				63A7295F2AA3A30E00AC60E3 /* SecureTFView.swift in Sources */,

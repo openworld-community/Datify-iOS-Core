@@ -15,9 +15,9 @@ struct FilterView<T: FilterProtocol>: View {
     @Binding var sortOption: T
     private var title: String?
 
-    init(sortOption: Binding<T>, titleOne: String? = nil) {
+    init(sortOption: Binding<T>, title: String? = nil) {
         _sortOption = sortOption
-        self.title = titleOne
+        self.title = title
     }
 
     var body: some View {
@@ -37,5 +37,5 @@ struct FilterView<T: FilterProtocol>: View {
 }
 
 #Preview {
-    FilterView(sortOption: .constant(LikeSortOption.allTime), titleOne: "Sort")
+    FilterView(sortOption: .constant(LikeSortOption.allTime), title: "Sort")
 }

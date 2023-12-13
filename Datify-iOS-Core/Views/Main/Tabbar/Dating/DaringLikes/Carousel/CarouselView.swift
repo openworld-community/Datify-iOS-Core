@@ -40,21 +40,23 @@ struct CarouselView: View {
                     Spacer()
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 2) {
-                            HStack {Text("")}
+                            Rectangle()
                                 .frame(width: size.width / 2 - (size.width*0.07) / 2)
+                                .foregroundColor(.clear)
                             ForEach(likes) { like in
                                 SmallUserCardView(like: like,
                                                   selectedItem: $selectedItem,
                                                   currentUser: currentUser,
                                                   size: size)
                             }
-                            HStack {Text("")}
+                            Rectangle()
                                 .frame(width: size.width / 2 - (size.width*0.07) / 2)
+                                .foregroundColor(.clear)
                         }
                     }
                 }
             } else {
-                NoLikesYetView(width: size.width * 0.92, height: size.height * 0.85)
+                NoLikesYetView(width: size.width * 0.92, height: size.height * 0.86)
             }
         }
         .frame(width: size.width)
@@ -79,7 +81,7 @@ struct CarouselView: View {
         bookmarked: false,
         audiofile: "audio.mp3",
         online: true
-    ), likes: [LikeModel(senderID: "2", receiverID: "1000", date: Date()),
-               LikeModel(senderID: "3", receiverID: "1000", date: Date()),
-               LikeModel(senderID: "5", receiverID: "1000", date: Date())])
+    ), likes: [LikeModel(senderID: "1", receiverID: "1000", date: Date()),
+               LikeModel(senderID: "2", receiverID: "1000", date: Date()),
+               LikeModel(senderID: "3", receiverID: "1000", date: Date())])
  }

@@ -12,7 +12,7 @@ class UserDataService {
     private var tempUsers: [UserTempModel] = []
 
     init() {
-        createRandomUser()
+        createTempRandomUser()
     }
 
     func getUserData(for userId: String) -> UserTempModel? {
@@ -25,7 +25,7 @@ class UserDataService {
 }
 
 private extension UserDataService {
-    func createRandomUser() {
+    func createTempRandomUser() {
         let userPhotos: [[String]] = [["user2", "user2", "user2"],
                                      ["user3", "user3", "user3"],
                                      ["user4", "user4", "user4"],
