@@ -42,11 +42,8 @@ struct NoLikesYetView: View {
     }
 
     func colculetHeight(overallHeight: CGFloat) -> Bool {
-        print(overallHeight)
-        print(height)
         var result: Bool = false
         if (overallHeight - 54) < height {
-            print("TTTTT")
             result = true
         }
         return result
