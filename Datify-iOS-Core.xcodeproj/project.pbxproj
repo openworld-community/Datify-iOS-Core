@@ -74,6 +74,8 @@
 		63A729692AA4A94B00AC60E3 /* CountryCodeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A729682AA4A94B00AC60E3 /* CountryCodeButton.swift */; };
 		63E79C3B2B2818A500030DE9 /* DtScreenSizeProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E79C3A2B2818A500030DE9 /* DtScreenSizeProvider.swift */; };
 		63E79C3D2B2841FE00030DE9 /* DtAudioPlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E79C3C2B2841FE00030DE9 /* DtAudioPlayerViewModel.swift */; };
+		63E79C3F2B297F5300030DE9 /* DtAudioProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E79C3E2B297F5300030DE9 /* DtAudioProcessor.swift */; };
+		63E79C412B29816700030DE9 /* DtFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E79C402B29816700030DE9 /* DtFileManager.swift */; };
 		980895BA2A9F4A5700F82F02 /* DtSpinnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980895B92A9F4A5700F82F02 /* DtSpinnerView.swift */; };
 		98553B0A2AAE4A43005C80B3 /* View+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98553B092AAE4A43005C80B3 /* View+extension.swift */; };
 		9898B2BF2AAA49DE007CA714 /* RegEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9898B2BE2AAA49DE007CA714 /* RegEmailViewModel.swift */; };
@@ -176,6 +178,8 @@
 		63A729682AA4A94B00AC60E3 /* CountryCodeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCodeButton.swift; sourceTree = "<group>"; };
 		63E79C3A2B2818A500030DE9 /* DtScreenSizeProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtScreenSizeProvider.swift; sourceTree = "<group>"; };
 		63E79C3C2B2841FE00030DE9 /* DtAudioPlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtAudioPlayerViewModel.swift; sourceTree = "<group>"; };
+		63E79C3E2B297F5300030DE9 /* DtAudioProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtAudioProcessor.swift; sourceTree = "<group>"; };
+		63E79C402B29816700030DE9 /* DtFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtFileManager.swift; sourceTree = "<group>"; };
 		980895B92A9F4A5700F82F02 /* DtSpinnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtSpinnerView.swift; sourceTree = "<group>"; };
 		98553B092AAE4A43005C80B3 /* View+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+extension.swift"; sourceTree = "<group>"; };
 		9898B2BE2AAA49DE007CA714 /* RegEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RegEmailViewModel.swift; path = "Datify-iOS-Core/Views/Main/Welcome/Registration/RegEmailViewModel.swift"; sourceTree = SOURCE_ROOT; };
@@ -315,6 +319,8 @@
 				63E79C3C2B2841FE00030DE9 /* DtAudioPlayerViewModel.swift */,
 				634EF7402ADC62B30061E13A /* DtBarChartView.swift */,
 				634EF7462ADC64120061E13A /* DtAudioManager.swift */,
+				63E79C3E2B297F5300030DE9 /* DtAudioProcessor.swift */,
+				63E79C402B29816700030DE9 /* DtFileManager.swift */,
 			);
 			path = Dating;
 			sourceTree = "<group>";
@@ -764,6 +770,7 @@
 				63E79C3B2B2818A500030DE9 /* DtScreenSizeProvider.swift in Sources */,
 				638D1E872ABAB45C0001CED4 /* LocationViewModel.swift in Sources */,
 				634EF7312ADC48100061E13A /* ChatViewModel.swift in Sources */,
+				63E79C412B29816700030DE9 /* DtFileManager.swift in Sources */,
 				634EF74E2AE422AD0061E13A /* DtAudioPlayerView.swift in Sources */,
 				D0DC465D2A92699D0097CFF3 /* DatifyiOSCoreApp.swift in Sources */,
 				638D1E882ABAB45C0001CED4 /* LocationManager.swift in Sources */,
@@ -774,6 +781,7 @@
 				98553B0A2AAE4A43005C80B3 /* View+extension.swift in Sources */,
 				4A4CE2D82A9B47060098FF80 /* LoginView.swift in Sources */,
 				2012EF662AAF719C00B01688 /* DtTermsAndConditions.swift in Sources */,
+				63E79C3F2B297F5300030DE9 /* DtAudioProcessor.swift in Sources */,
 				4A4CE2ED2A9B60A60098FF80 /* AppConstants.swift in Sources */,
 				2012EF642AAF479400B01688 /* DtBackButton.swift in Sources */,
 				634EF7302ADC48100061E13A /* ChatView.swift in Sources */,

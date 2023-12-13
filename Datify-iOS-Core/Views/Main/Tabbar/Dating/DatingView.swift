@@ -25,6 +25,7 @@ struct DatingView: View {
 
     var safeAreaTopInset: CGFloat? = .init()
     private let application: UIApplication
+
     let audioPlayerManager = DtAudioPlayerManager()
 
     init(
@@ -94,7 +95,8 @@ struct DatingView: View {
                                 HStack {
                                     DtAudioPlayerView(
                                         user: user.wrappedValue,
-                                        audioPlayerManager: audioPlayerManager
+                                        audioPlayerManager: audioPlayerManager,
+                                        currentUserID: currentUserID ?? ""
                                     )
                                 }
                                 .padding(.bottom)

@@ -21,11 +21,16 @@ struct DtAudioPlayerView: View {
     @State private var totalDuration: Double = 0.0
 
     @State private var user: DatingModel?
+    let audioPlayerManager: DtAudioPlayerManager
+    var currentUserID: DatingModel.ID?
 
     var desiredNumberOfBars = 60
 
-    init(user: DatingModel, audioPlayerManager: DtAudioPlayerManager) {
+    init(user: DatingModel, audioPlayerManager: DtAudioPlayerManager, currentUserID: DatingModel.ID) {
         _viewModel = StateObject(wrappedValue: DtAudioPlayerViewModel(user: user, audioPlayerManager: audioPlayerManager))
+        self.audioPlayerManager = audioPlayerManager
+        self.currentUserID = currentUserID
+
     }
 
     var body: some View {
@@ -59,6 +64,14 @@ struct DtAudioPlayerView: View {
                 .frame(width: 24)
             }
             .padding(.horizontal)
+        }
+        .onChange(of: currentUserID) { _, _ in
+            print("currentUserID from DtAudioPlayerView: \(currentUserID)")
+            viewModel.loadingAudioData(audioFile: user?.audiofile ?? "")
+            viewModel.isPlaying = false
+            viewModel.playbackFinished = true
+            viewModel.stopPlayback()
+            viewModel.stopProgressUpdates()
         }
     }
 

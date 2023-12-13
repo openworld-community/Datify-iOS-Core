@@ -28,6 +28,7 @@ class DtAudioPlayerManager: NSObject, ObservableObject, AVAudioPlayerDelegate {
     @Published var playbackFinished: Bool = false
 
     let errorSubject = PassthroughSubject<Error, Never>()
+    let fileManager = DtFileManager()
 
     var audioPlayer: AVAudioPlayer? = .init()
     var updateTimer: Timer? = .init()
@@ -51,22 +52,25 @@ class DtAudioPlayerManager: NSObject, ObservableObject, AVAudioPlayerDelegate {
                 isPlaying = true
             }
         } else {
-            if let path = Bundle.main.path(forResource: resource, ofType: type) {
-                let url = URL(fileURLWithPath: path)
-                do {
-                    audioPlayer = try AVAudioPlayer(contentsOf: url)
-                    audioPlayer?.delegate = self
-                    audioPlayer?.prepareToPlay()
-                    totalDuration = audioPlayer?.duration ?? 0.0
+            guard let path = fileManager.filePath(forResource: resource, ofType: type),
+                  let url = URL(string: path) else {
+                print("Ошибка: файл не найден")
+                return
+            }
 
-                    audioPlayer?.play()
-                    startProgressUpdates()
-                    playbackFinished = false
-                    isPlaying = true
-                } catch {
-                    self.errorSubject.send(AudioPlayerError.fileNotFound)
-                    playbackFinished = true
-                }
+            do {
+                audioPlayer = try AVAudioPlayer(contentsOf: url)
+                audioPlayer?.delegate = self
+                audioPlayer?.prepareToPlay()
+                totalDuration = audioPlayer?.duration ?? 0.0
+
+                audioPlayer?.play()
+                startProgressUpdates()
+                playbackFinished = false
+                isPlaying = true
+            } catch {
+                self.errorSubject.send(AudioPlayerError.fileNotFound)
+                playbackFinished = true
             }
         }
     }
@@ -99,50 +103,53 @@ class DtAudioPlayerManager: NSObject, ObservableObject, AVAudioPlayerDelegate {
         audioPlayer?.stop()
         audioPlayer = nil
 
-        if let path = Bundle.main.path(forResource: resource, ofType: type) {
-            let url = URL(fileURLWithPath: path)
-            do {
-                let audioFile = try AVAudioFile(forReading: url)
-                let totalDurationInSeconds = Double(audioFile.length) / audioFile.fileFormat.sampleRate
-                let durationPerBar = totalDurationInSeconds / 55.0
-                let pointsPerBar = Int(durationPerBar * audioFile.processingFormat.sampleRate)
-                totalDuration = totalDurationInSeconds
+        guard let path = fileManager.filePath(forResource: resource, ofType: type),
+              let url = URL(string: path) else {
+            print("Ошибка: файл не найден")
+            return
+        }
 
-                guard let audioBuffer = AVAudioPCMBuffer(
-                    pcmFormat: audioFile.processingFormat,
-                    frameCapacity: AVAudioFrameCount(audioFile.length)
-                ) else {
-                    self.errorSubject.send(AudioPlayerError.bufferCreationFailed)
-                    return
+        do {
+            let audioFile = try AVAudioFile(forReading: url)
+            let totalDurationInSeconds = Double(audioFile.length) / audioFile.fileFormat.sampleRate
+            let durationPerBar = totalDurationInSeconds / 55.0
+            let pointsPerBar = Int(durationPerBar * audioFile.processingFormat.sampleRate)
+            totalDuration = totalDurationInSeconds
+
+            guard let audioBuffer = AVAudioPCMBuffer(
+                pcmFormat: audioFile.processingFormat,
+                frameCapacity: AVAudioFrameCount(audioFile.length)
+            ) else {
+                self.errorSubject.send(AudioPlayerError.bufferCreationFailed)
+                return
+            }
+
+            try audioFile.read(into: audioBuffer)
+
+            if let floatData = audioBuffer.floatChannelData?.pointee {
+                let floatArray = Array(UnsafeBufferPointer(start: floatData, count: Int(audioFile.length)))
+
+                var compressedData: [Float] = []
+
+                for i in stride(from: 0, to: floatArray.count, by: pointsPerBar) {
+                    let subArray = floatArray[i..<min(i+pointsPerBar, floatArray.count)]
+                    let average = subArray.reduce(0, +) / Float(subArray.count)
+                    compressedData.append(average)
                 }
 
-                try audioFile.read(into: audioBuffer)
+                let maxCompressedValue = compressedData.max() ?? 1.0
 
-                if let floatData = audioBuffer.floatChannelData?.pointee {
-                        let floatArray = Array(UnsafeBufferPointer(start: floatData, count: Int(audioFile.length)))
-
-                        var compressedData: [Float] = []
-
-                        for i in stride(from: 0, to: floatArray.count, by: pointsPerBar) {
-                            let subArray = floatArray[i..<min(i+pointsPerBar, floatArray.count)]
-                            let average = subArray.reduce(0, +) / Float(subArray.count)
-                            compressedData.append(average)
-                        }
-
-                        let maxCompressedValue = compressedData.max() ?? 1.0
-
-                        let desiredMaxHeight = 50.0
-                        let minimumBarHeight = 2.0
-                        audioSamples = compressedData.map { value in
-                            let normalizedValue = value / maxCompressedValue
-                            let barHeight = abs(Double(normalizedValue)) * desiredMaxHeight
-                            let finalBarHeight = barHeight + minimumBarHeight
-                            return BarChartDataPoint(value: finalBarHeight)
-                        }
-                    }
-            } catch {
-                self.errorSubject.send(AudioPlayerError.audioPlayerInitializationFailed)
+                let desiredMaxHeight = 50.0
+                let minimumBarHeight = 2.0
+                audioSamples = compressedData.map { value in
+                    let normalizedValue = value / maxCompressedValue
+                    let barHeight = abs(Double(normalizedValue)) * desiredMaxHeight
+                    let finalBarHeight = barHeight + minimumBarHeight
+                    return BarChartDataPoint(value: finalBarHeight)
+                }
             }
+        } catch {
+            self.errorSubject.send(AudioPlayerError.audioPlayerInitializationFailed)
         }
     }
 

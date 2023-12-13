@@ -35,6 +35,7 @@ final class DatingViewModel: ObservableObject {
         self.router = router
         setupBindings()
         loadInitialData()
+
     }
 
     func setupBindings() {

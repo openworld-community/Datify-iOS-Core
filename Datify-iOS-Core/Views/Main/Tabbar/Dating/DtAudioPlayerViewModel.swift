@@ -9,13 +9,13 @@ import SwiftUI
 import Combine
 
 final class DtAudioPlayerViewModel: ObservableObject {
+    @Published var totalDuration: Double = 0.0
+    @Published var audioSamples: [BarChartDataPoint] = []
 
     @Published var playbackFinished: Bool = false
     @Published var isPlaying: Bool = false
     @Published var playbackProgress: Double = 0.0
     @Published var playCurrentTime: Int = 0
-    @Published var totalDuration: Double = 0.0
-    @Published var audioSamples: [BarChartDataPoint] = []
 
     @Published var showAlert = false
     @Published var errorMessage: String?
@@ -43,7 +43,13 @@ final class DtAudioPlayerViewModel: ObservableObject {
         self.user = user
         self.audioPlayerManager = audioPlayerManager
         setupBindings()
-        loadingAudioData()
+        loadingAudioData(audioFile: user.audiofile)
+        $user
+            .dropFirst()
+            .sink { [weak self] _ in
+                self?.loadingAudioData(audioFile: user.audiofile)
+            }
+            .store(in: &cancellables)
     }
 
     deinit {
@@ -108,8 +114,9 @@ final class DtAudioPlayerViewModel: ObservableObject {
         audioPlayerManager.stopProgressUpdates()
     }
 
-    func loadingAudioData() {
-        audioPlayerManager.loadAudioData(for: user.audiofile, ofType: "mp3")
+    func loadingAudioData(audioFile: String) {
+        print("Вызов loadingAudioData \(user.name) = \(user.audiofile)")
+        audioPlayerManager.loadAudioData(for: audioFile, ofType: "mp3")
     }
 
     func stopPlayback() {
