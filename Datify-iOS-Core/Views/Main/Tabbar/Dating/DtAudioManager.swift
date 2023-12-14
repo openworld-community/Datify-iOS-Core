@@ -17,6 +17,7 @@ enum AudioPlayerError: Error {
 }
 
 class DtAudioPlayerManager: NSObject, ObservableObject, AVAudioPlayerDelegate {
+
     @Published var isPlaying: Bool = false
 
     @Published var playbackProgress: Double = 0.0

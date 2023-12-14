@@ -30,7 +30,6 @@ struct DtAudioPlayerView: View {
         _viewModel = StateObject(wrappedValue: DtAudioPlayerViewModel(user: user, audioPlayerManager: audioPlayerManager))
         self.audioPlayerManager = audioPlayerManager
         self.currentUserID = currentUserID
-
     }
 
     var body: some View {
@@ -67,7 +66,7 @@ struct DtAudioPlayerView: View {
         }
         .onChange(of: currentUserID) { _, _ in
             print("currentUserID from DtAudioPlayerView: \(currentUserID)")
-            viewModel.loadingAudioData(audioFile: user?.audiofile ?? "")
+//            viewModel.loadingAudioData(audioFile: user?.audiofile ?? "")
             viewModel.isPlaying = false
             viewModel.playbackFinished = true
             viewModel.stopPlayback()

@@ -10,6 +10,7 @@ import Combine
 
 final class DatingViewModel: ObservableObject {
     unowned let router: Router<AppRoute>
+    @Published var audioPlayerViewModels: [DatingModel.ID: DtAudioPlayerViewModel] = [:]
 
     @Published var liked: Bool = false
 
@@ -18,7 +19,7 @@ final class DatingViewModel: ObservableObject {
     @Published var users: [DatingModel] = DatingModel.defaultUsers
     @Published var currentUserID: DatingModel.ID?
 
-    var audioPlayerViewModel: DtAudioPlayerViewModel?
+    @Published var audioPlayerViewModel: DtAudioPlayerViewModel?
 
     var error: Error? {
         didSet {
@@ -35,7 +36,10 @@ final class DatingViewModel: ObservableObject {
         self.router = router
         setupBindings()
         loadInitialData()
-
+        
+        for user in users {
+            audioPlayerViewModels[user.id] = DtAudioPlayerViewModel(user: user, audioPlayerManager: audioPlayerManager)
+        }
     }
 
     func setupBindings() {
@@ -49,15 +53,15 @@ final class DatingViewModel: ObservableObject {
             }
             .store(in: &cancellables)
 
-        $currentUserID
-            .dropFirst()
-            .sink { [weak self] _ in
-                guard let self = self else { return }
-                print("currentUserID изменился. Останавливаю воспроизведение.")
-
-                self.audioPlayerViewModel?.stopPlayback()
-            }
-            .store(in: &cancellables)
+//        $currentUserID
+//            .dropFirst()
+//            .sink { [weak self] _ in
+//                guard let self = self else { return }
+//                print("currentUserID изменился. Останавливаю воспроизведение.")
+//
+//                self.audioPlayerViewModel?.stopPlayback()
+//            }
+//            .store(in: &cancellables)
     }
 
     func loadInitialData() {
