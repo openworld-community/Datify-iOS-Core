@@ -27,7 +27,6 @@ struct LikesView: View {
     }
 
     var body: some View {
-        NavigationStack {
             GeometryReader { geometry in
                 ZStack(alignment: .bottom) {
                     VStack {
@@ -92,8 +91,6 @@ struct LikesView: View {
                 }
             }
             .navigationBarBackButtonHidden()
-        }
-
     }
 
     private func chunkedArray(elements: Int) -> [[LikeModel]] {
