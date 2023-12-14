@@ -17,7 +17,7 @@ struct NoLikesYetView: View {
     }
 
     var body: some View {
-        GeometryReader { geometry in
+        GeometryReader { _ in
             VStack {
                 VStack {
                     VStack(spacing: 7) {
@@ -28,7 +28,7 @@ struct NoLikesYetView: View {
                             .multilineTextAlignment(.center)
                             .padding(.horizontal)
                     }
-                    .frame(width: width, height: colculetHeight(overallHeight: geometry.size.height) ? height*0.95 : height)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .background(Color.backgroundSecondary)
                     .cornerRadius(10)
                 }
@@ -38,15 +38,7 @@ struct NoLikesYetView: View {
                     .padding(.bottom)
             }
         }
-        .frame(width: width)
-    }
-
-    func colculetHeight(overallHeight: CGFloat) -> Bool {
-        var result: Bool = false
-        if (overallHeight - 54) < height {
-            result = true
-        }
-        return result
+        .frame(width: width, height: height)
     }
 }
 

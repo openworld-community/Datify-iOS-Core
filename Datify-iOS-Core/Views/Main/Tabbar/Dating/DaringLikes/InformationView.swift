@@ -16,13 +16,13 @@ struct InformationView: View {
     private var action: () -> Void
 
     init(showView: Binding<Bool>,
-         width: CGFloat,
+         widthScreen: CGFloat,
          title: String,
          text: String,
          titleButton: String,
          action: @escaping () -> Void) {
         _showView = showView
-        self.widthScreen = width
+        self.widthScreen = widthScreen
         self.title = title
         self.text = text
         self.titleButton = titleButton
@@ -63,7 +63,7 @@ struct InformationView: View {
 
 #Preview {
     InformationView(showView: .constant(true),
-                    width: 390,
+                    widthScreen: 390,
                     title: "Restore chat?",
                     text: "The chat with this user has been deleted, are you sure you want to restore it?",
                     titleButton: "Yes, restore") {

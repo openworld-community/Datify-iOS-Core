@@ -35,66 +35,16 @@ struct GalleryItemView: View {
             if let user = viewModel.user {
                 ZStack {
                     if let photo = user.photos.first {
-                        Image(photo)
-                            .resizableFill()
-                            .frame(width: size.width*0.92 / 2 - spacing / 2,
-                                   height: isCrop ? size.height * 0.4 - size.height * 0.07 : size.height * 0.4)
-                            .blur(radius: 10)
-                            .cornerRadius(20)
-                        Image(photo)
-                            .resizableFill()
-                            .frame(width: size.width*0.92 / 2 - spacing / 2,
-                                   height: isCrop ? size.height * 0.4 - size.height * 0.07 : size.height * 0.4)
-                            .mask(Rectangle().offset(y: -size.height * 0.07))
-                            .cornerRadius(20)
+                        userPhoto(photo: photo)
                     }
                     VStack {
-                        HStack {
-                            HStack {
-                                Text("\(user.label)")
-                                    .padding()
-                            }
-                            .background(user.colorLabel)
-                            .frame(height: 24)
-                            .cornerRadius(12)
-                            .padding(.leading, 4)
-                            Spacer()
-                            Button(action: {
-                                if viewModel.isLiked().bool {
-                                    viewModel.deleteLike(likeId: viewModel.isLiked().myLike?.id)
-                                } else {
-                                    viewModel.createNewLike(senderID: viewModel.currentUser.userId)
-                                }
-                            }, label: {
-                                ZStack {
-                                    Circle()
-                                        .frame(width: 32, height: 32)
-                                        .foregroundStyle(viewModel.isLiked().bool ? .ultraThickMaterial : .ultraThinMaterial)
-                                    Image(DtImage.heart)
-                                        .renderingMode(.template)
-                                        .foregroundColor(viewModel.isLiked().bool ? .red : .white)
-                                        .frame(width: 16, height: 16)
-                                }
-                            })
-                        }
-                        .padding(.top, 5)
-                        .padding(.horizontal, 5)
+                        userLabalAndLikeIcon(user: user)
                         Spacer()
-                        HStack {
-                            Text("\(user.name), " + "\(user.age) ")
-                                .dtTypo(.p2Medium, color: .textInverted)
-                                .padding(.leading)
-                            Circle()
-                                .frame(width: 6, height: 6)
-                                .foregroundStyle(user.online ? .green : .gray )
-                            Spacer()
-
-                        }
-                        .frame(height: size.height * 0.07)
+                        userDate(user: user)
                     }
-                    .frame(width: size.width*0.92 / 2 - spacing / 2,
-                           height: isCrop ? size.height * 0.4 - size.height * 0.07 : size.height * 0.4)
                 }
+                .frame(width: size.width*0.92 / 2 - spacing / 2,
+                       height: isCrop ? size.height * 0.4 - size.height * 0.07 : size.height * 0.4)
                 .onAppear {
                     viewModel.likeIsViewed(likeId: viewModel.like.id)
                 }
@@ -102,6 +52,73 @@ struct GalleryItemView: View {
                 NoLikesYetView(width: size.width * 0.92, height: size.height * 0.85)
             }
         }
+    }
+}
+
+private extension GalleryItemView {
+    @ViewBuilder
+    func userPhoto(photo: String) -> some View {
+        Image(photo)
+            .resizableFill()
+            .frame(width: size.width*0.92 / 2 - spacing / 2,
+                   height: isCrop ? size.height * 0.4 - size.height * 0.07 : size.height * 0.4)
+            .blur(radius: 10)
+            .cornerRadius(20)
+        Image(photo)
+            .resizableFill()
+            .frame(width: size.width*0.92 / 2 - spacing / 2,
+                   height: isCrop ? size.height * 0.4 - size.height * 0.07 : size.height * 0.4)
+            .mask(Rectangle().offset(y: -size.height * 0.07))
+            .cornerRadius(20)
+    }
+
+    @ViewBuilder
+    func userLabalAndLikeIcon(user: UserTempModel) -> some View {
+        HStack {
+                HStack {
+                    Text("\(user.label)")
+                        .dtTypo(.p3Regular, color: .textInverted)
+                        .padding()
+                }
+                .background(user.colorLabel)
+                .frame(height: 24)
+                .cornerRadius(12)
+                .padding(.leading, 4)
+            Spacer()
+            Button(action: {
+                if viewModel.isLiked().bool {
+                    viewModel.deleteLike(likeId: viewModel.isLiked().myLike?.id)
+                } else {
+                    viewModel.createNewLike(senderID: viewModel.currentUser.userId)
+                }
+            }, label: {
+                ZStack {
+                    Circle()
+                        .frame(width: 32, height: 32)
+                        .foregroundStyle(viewModel.isLiked().bool ? .ultraThickMaterial : .ultraThinMaterial)
+                    Image(DtImage.heart)
+                        .renderingMode(.template)
+                        .foregroundColor(viewModel.isLiked().bool ? .red : .white)
+                        .frame(width: 16, height: 16)
+                }
+            })
+        }
+        .padding(.top, 5)
+        .padding(.horizontal, 5)
+    }
+
+    @ViewBuilder
+    func userDate(user: UserTempModel) -> some View {
+        HStack {
+            Text("\(user.name), " + "\(user.age) ")
+                .dtTypo(.p1Medium, color: .textInverted)
+                .padding(.leading)
+            Circle()
+                .frame(width: 6, height: 6)
+                .foregroundStyle(user.online ? .green : .gray )
+            Spacer()
+        }
+        .frame(height: size.height * 0.07)
     }
 }
 

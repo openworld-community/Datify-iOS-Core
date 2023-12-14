@@ -40,26 +40,29 @@ struct CarouselView: View {
                     Spacer()
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 2) {
-                            Rectangle()
-                                .frame(width: size.width / 2 - (size.width*0.07) / 2)
-                                .foregroundColor(.clear)
+                            getPadding()
                             ForEach(likes) { like in
                                 SmallUserCardView(like: like,
                                                   selectedItem: $selectedItem,
                                                   currentUser: currentUser,
                                                   size: size)
                             }
-                            Rectangle()
-                                .frame(width: size.width / 2 - (size.width*0.07) / 2)
-                                .foregroundColor(.clear)
+                            getPadding()
                         }
                     }
                 }
             } else {
-                NoLikesYetView(width: size.width * 0.92, height: size.height * 0.86)
+                NoLikesYetView(width: size.width * 0.92, height: size.height * 0.96)
             }
         }
         .frame(width: size.width)
+    }
+
+    @ViewBuilder
+    func getPadding() -> some View {
+        Rectangle()
+            .frame(width: size.width / 2 - (size.width*0.07) / 2)
+            .foregroundColor(.clear)
     }
 }
 

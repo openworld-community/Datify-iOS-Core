@@ -64,7 +64,7 @@ struct GallaryView: View {
                     }
                 }
             } else {
-                NoLikesYetView(width: size.width * 0.92, height: size.height * 0.86)
+                NoLikesYetView(width: size.width * 0.92, height: size.height * 0.96)
             }
         }
         .frame(width: size.width)
@@ -72,10 +72,8 @@ struct GallaryView: View {
 
     private func isCrop(indexArray: Int, indexNestedArray: Int, count: Int) -> Bool {
         var result: Bool = false
-        if indexNestedArray == 1, indexArray == 0 {
-            result = true
-        }
-        if indexNestedArray == 0, indexArray == (count - 1), count != 1 {
+        if (indexNestedArray == 1 && indexArray == 0) ||
+            (indexNestedArray == 0 && indexArray == (count - 1) && count != 1) {
             result = true
         }
         return result
