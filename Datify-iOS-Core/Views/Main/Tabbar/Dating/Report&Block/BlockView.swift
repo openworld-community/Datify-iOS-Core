@@ -42,20 +42,9 @@ struct BlockView: View {
                         style: .main) {
                             onConfirm()
                         }
-                    Button {
+                    DtButton(title: "No, cancel", style: .picker) {
                         onCancel()
-                    } label: {
-                        Text("No, cancel")
-                            .dtTypo(.p2Medium, color: .textPrimary)
-                            .frame(maxWidth: .infinity, maxHeight: AppConstants.Visual.buttonHeight)
-                            .background(
-                                RoundedRectangle(cornerRadius: 16)
-                                    .fill(Color.backgroundSecondary)
-                            )
                     }
-                    .clipShape(
-                        RoundedRectangle(cornerRadius: 16)
-                    )
                 }
             }
         }

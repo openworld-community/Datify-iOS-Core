@@ -23,7 +23,7 @@ struct ConfirmationView: View {
                     Image("flowerIcon")
                         .shadow(color: Color(hex: 0x14282A52).opacity(0.2), radius: 8, y: 2)
 
-                    getDescription(for: .block)
+                    getDescription()
                 }
             case .complain:
                 VStack(spacing: 16) {
@@ -40,7 +40,7 @@ struct ConfirmationView: View {
                     .clipped()
                     .shadow(color: Color(hex: 0x14282A52).opacity(0.2), radius: 8, y: 2)
 
-                    getDescription(for: .complain)
+                    getDescription()
                 }
             }
         }
@@ -54,7 +54,7 @@ struct ConfirmationView: View {
         )
     }
 
-    private func getDescription(for type: ConfirmationType) -> some View {
+    private func getDescription() -> some View {
         VStack(spacing: 32) {
             VStack(spacing: 12) {
                 Text(

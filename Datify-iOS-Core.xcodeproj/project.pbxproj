@@ -79,6 +79,7 @@
 		9888E7862AC4747400F5B86F /* DtLimitedPhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9888E7852AC4747400F5B86F /* DtLimitedPhotoPicker.swift */; };
 		9888E78B2AC5B20100F5B86F /* DtCropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9888E78A2AC5B20100F5B86F /* DtCropView.swift */; };
 		9898B2BF2AAA49DE007CA714 /* RegEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9898B2BE2AAA49DE007CA714 /* RegEmailViewModel.swift */; };
+		98A8B0932B27AF7D001E16D0 /* ComplaintModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A8B0922B27AF7D001E16D0 /* ComplaintModel.swift */; };
 		98C55E9C2B1A74D200BD0450 /* DtGroupBoxStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C55E9B2B1A74D200BD0450 /* DtGroupBoxStyle.swift */; };
 		98C55E9E2B1A75A300BD0450 /* DtConfirmationDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C55E9D2B1A75A300BD0450 /* DtConfirmationDialog.swift */; };
 		98C55EA22B1B450300BD0450 /* DtSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C55EA12B1B450300BD0450 /* DtSheet.swift */; };
@@ -194,6 +195,7 @@
 		9888E7872AC55E3600F5B86F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		9888E78A2AC5B20100F5B86F /* DtCropView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtCropView.swift; sourceTree = "<group>"; };
 		9898B2BE2AAA49DE007CA714 /* RegEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RegEmailViewModel.swift; path = "Datify-iOS-Core/Views/Main/Welcome/Registration/RegEmailViewModel.swift"; sourceTree = SOURCE_ROOT; };
+		98A8B0922B27AF7D001E16D0 /* ComplaintModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplaintModel.swift; sourceTree = "<group>"; };
 		98C55E9B2B1A74D200BD0450 /* DtGroupBoxStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtGroupBoxStyle.swift; sourceTree = "<group>"; };
 		98C55E9D2B1A75A300BD0450 /* DtConfirmationDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtConfirmationDialog.swift; sourceTree = "<group>"; };
 		98C55EA12B1B450300BD0450 /* DtSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtSheet.swift; sourceTree = "<group>"; };
@@ -483,6 +485,7 @@
 				9856CC992B1BB4EB007B3C49 /* ConfirmationView.swift */,
 				9809ACCE2B1CA50600F19B52 /* DtConfirmationDialogView.swift */,
 				9809ACD02B1E099700F19B52 /* ComplainView.swift */,
+				98A8B0922B27AF7D001E16D0 /* ComplaintModel.swift */,
 			);
 			path = "Report&Block";
 			sourceTree = "<group>";
@@ -813,6 +816,7 @@
 				9856CC9A2B1BB4EB007B3C49 /* ConfirmationView.swift in Sources */,
 				63A729692AA4A94B00AC60E3 /* CountryCodeButton.swift in Sources */,
 				634EF7292ADC48010061E13A /* DtTabbar.swift in Sources */,
+				98A8B0932B27AF7D001E16D0 /* ComplaintModel.swift in Sources */,
 				638D1E872ABAB45C0001CED4 /* LocationViewModel.swift in Sources */,
 				634EF7312ADC48100061E13A /* ChatViewModel.swift in Sources */,
 				D0DC465D2A92699D0097CFF3 /* DatifyiOSCoreApp.swift in Sources */,

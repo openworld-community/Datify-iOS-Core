@@ -10,10 +10,19 @@ import SwiftUI
 struct ComplainView: View {
     @Binding var isPresented: Bool
     @State private var complaintStage: ComplaintStages = .start
-    @State private var complainCase: ComplainCases?
+    @State private var complaint: ComplaintModel?
     @State private var complainText: String = .init()
     @FocusState private var textFieldIsFocused: Bool
     let onCompleted: () -> Void
+
+    private let complaintData: [ComplaintModel] = [
+        .init(complaintType: .fake, adInfo: Complaint.Fake.allCases),
+        .init(complaintType: .unacceptableContent, adInfo: Complaint.UnacceptableContent.allCases),
+        .init(complaintType: .age, adInfo: Complaint.Age.allCases),
+        .init(complaintType: .insults, adInfo: Complaint.Insults.allCases),
+        .init(complaintType: .behavior, adInfo: Complaint.Behavior.allCases),
+        .init(complaintType: .scamSpam, adInfo: Complaint.ScamSpam.allCases)
+    ]
 
     var body: some View {
         VStack(spacing: 28) {
@@ -31,54 +40,6 @@ struct ComplainView: View {
 private extension ComplainView {
     enum ComplaintStages {
         case start, intermediate, finish
-    }
-
-    enum ComplainCases: CaseIterable {
-        case fake
-        case unacceptableContent
-        case age
-        case insults
-        case behavior
-        case scamSpam
-
-        var title: LocalizedStringKey {
-            switch self {
-            case .fake:
-                "Fake"
-            case .unacceptableContent:
-                "Unacceptable content"
-            case .age:
-                "Age"
-            case .insults:
-                "Insults"
-            case .behavior:
-                "Behavior outside of Datify"
-            case .scamSpam:
-                "Scam or spam"
-            }
-        }
-
-        var complainDetails: [String] {
-            switch self {
-            case .fake:
-                ["Some 'Fake' details".localize()]
-            case .unacceptableContent:
-                ["Some 'Unacceptable content' details".localize()]
-            case .age:
-                ["Some Age details".localize()]
-            case .insults:
-                ["Some 'Insults' details".localize()]
-            case .behavior:
-                ["Some 'Behavior outside of Datify' details".localize()]
-            case .scamSpam:
-                [
-                    "Sends spam and suspicious links".localize(),
-                    "Sells goods or services".localize(),
-                    "Promotes social media accounts".localize(),
-                    "Other".localize()
-                ]
-            }
-        }
     }
 
     var header: some View {
@@ -115,13 +76,13 @@ private extension ComplainView {
         switch complaintStage {
         case .start:
             VStack(alignment: .leading, spacing: 24) {
-                ForEach(ComplainCases.allCases, id: \.self) { complainCase in
+                ForEach(complaintData, id: \.complaintType) { complaint in
                     Button {
-                        self.complainCase = complainCase
+                        self.complaint = complaint
                         complaintStage = .intermediate
                     } label: {
                         HStack {
-                            Text(complainCase.title)
+                            Text(complaint.complaintType.title)
                                 .dtTypo(.p2Medium, color: .textPrimary)
                             Spacer()
                             Image(DtImage.arrowRight)
@@ -131,13 +92,13 @@ private extension ComplainView {
             }
         case .intermediate:
             VStack(alignment: .leading, spacing: 24) {
-                if let complainCase {
-                    ForEach(complainCase.complainDetails, id: \.self) { detail in
+                if let complaint {
+                    ForEach(complaint.adInfo, id: \.hashValue) { adInfo in
                         Button {
                             // TODO: action
                             complaintStage = .finish
                         } label: {
-                            Text(detail)
+                            Text(adInfo.rawValue)
                                 .dtTypo(.p2Medium, color: .textPrimary)
                         }
                     }

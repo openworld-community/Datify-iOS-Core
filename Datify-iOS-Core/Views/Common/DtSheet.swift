@@ -15,6 +15,7 @@ struct DtSheet<LabelContent: View>: ViewModifier {
         ZStack(alignment: .bottom) {
             content
                 .blur(radius: isPresented ? 10 : 0)
+                .scaleEffect(isPresented ? 1.2 : 1)
                 .disabled(isPresented)
 
             if isPresented {
