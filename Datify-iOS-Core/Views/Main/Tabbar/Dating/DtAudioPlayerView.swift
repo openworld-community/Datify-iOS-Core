@@ -13,6 +13,7 @@ struct DtAudioPlayerView: View {
     @State private var isAlertPresented = false
     @State private var alertMessage = ""
 
+    @Binding var user: DatingModel
     @Binding var isPlaying: Bool
     @Binding var playCurrentTime: Int
     @Binding var playbackFinished: Bool
@@ -28,15 +29,15 @@ struct DtAudioPlayerView: View {
             Rectangle()
                 .modifier(DtPlayerModifier())
             HStack {
-                let totalSeconds = playbackFinished ? Int(totalDuration) : viewModel.remainingTime
-                Text(String(format: "%02d:%02d", totalSeconds.minutes, totalSeconds.seconds))
+                let timeDisplay = viewModel.isPlaying ? formatTime(seconds: viewModel.remainingTime) : user.audioFileDuration
+                Text(timeDisplay)
                     .dtTypo(.p3Regular, color: .white)
                     .frame(width: 48, alignment: .leading)
                     .fixedSize(horizontal: true, vertical: false)
 
                 DtBarChartView(
                     viewModel: viewModel,
-                    dataPoints: viewModel.audioSamples,
+                    dataPoints: user.barData,
                     barWidth: computeBarWidth()
                 )
                 Button(action: {
@@ -59,6 +60,12 @@ struct DtAudioPlayerView: View {
         let labelWidths: CGFloat = 50 + 30 + 4 * 16
         let availableWidth = screenSizeProvider.screenWidth - totalSpacing - labelWidths
         return availableWidth / CGFloat(desiredNumberOfBars)
+    }
+
+    func formatTime(seconds: Int) -> String {
+        let minutes = seconds / 60
+        let remainingSeconds = seconds % 60
+        return String(format: "%02d:%02d", minutes, remainingSeconds)
     }
 }
 

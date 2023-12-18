@@ -28,6 +28,8 @@ final class DatingViewModel: ObservableObject {
     var audioPlayerManager = DtAudioPlayerManager()
     var updateTimer: Timer?  = .init()
 
+    private var loadedBarData = [String: [BarChartDataPoint]]()
+
     var remainingTime: Int {
         playbackFinished ? 0 : max(Int(totalDuration) - playCurrentTime, 0)
     }
@@ -47,8 +49,7 @@ final class DatingViewModel: ObservableObject {
         self.router = router
         setupBindings()
         loadInitialData()
-        loadingAudioData()
-
+        preloadBarData()
     }
 
     deinit {
@@ -57,14 +58,17 @@ final class DatingViewModel: ObservableObject {
 
     func setupBindings() {
         audioPlayerManager.$audioSamples
+            .receive(on: DispatchQueue.main)
             .assign(to: \.audioSamples, on: self)
             .store(in: &cancellables)
 
         audioPlayerManager.$playbackFinished
+            .receive(on: DispatchQueue.main)
             .assign(to: \.playbackFinished, on: self)
             .store(in: &cancellables)
 
         audioPlayerManager.$isPlaying
+            .receive(on: DispatchQueue.main)
             .assign(to: \.isPlaying, on: self)
             .store(in: &cancellables)
 
@@ -138,6 +142,28 @@ final class DatingViewModel: ObservableObject {
            let currentUser = users.first(where: {
                $0.id == currentUserID }) {
             audioPlayerManager.loadAudioData(for: currentUser.audiofile, ofType: "mp3")
+        }
+    }
+
+    private func preloadBarData() {
+        for index in users.indices {
+            Task {
+                await loadBarDataForUser(userId: users[index].id)
+            }
+        }
+    }
+
+    private func loadBarDataForUser(userId: DatingModel.ID) async {
+        if let userIndex = users.firstIndex(where: { $0.id == userId }) {
+            if users[userIndex].barData.isEmpty {
+                var user = users[userIndex]
+
+                await audioPlayerManager.loadAudioDataForUI(for: &user, ofType: "mp3")
+
+                DispatchQueue.main.async {
+                    self.users[userIndex] = user
+                }
+            }
         }
     }
 }

@@ -185,6 +185,7 @@ extension DtAudioPlayerManager {
             print("Файл загружен: \(url)")
 
             let totalDurationInSeconds = Double(audioFile.length) / audioFile.fileFormat.sampleRate
+            let formattedDuration = formatDuration(seconds: totalDurationInSeconds)
             let durationPerBar = totalDurationInSeconds / 55.0
             let pointsPerBar = Int(durationPerBar * audioFile.processingFormat.sampleRate)
             print("Длительность файла в секундах: \(totalDurationInSeconds)")
@@ -215,6 +216,8 @@ extension DtAudioPlayerManager {
 
                 let desiredMaxHeight = 50.0
                 let minimumBarHeight = 2.0
+                user.audioFileDuration = formattedDuration
+
                 user.barData = compressedData.map { value in
                     let normalizedValue = value / maxCompressedValue
                     let barHeight = abs(Double(normalizedValue)) * desiredMaxHeight
@@ -230,5 +233,12 @@ extension DtAudioPlayerManager {
         }
         print("Данные баров успешно загружены для пользователя с ID: \(user.id)")
         print(user.barData)
+    }
+
+    func formatDuration(seconds: Double) -> String {
+        let totalSeconds = Int(seconds)
+        let minutes = totalSeconds / 60
+        let remainingSeconds = totalSeconds % 60
+        return String(format: "%02d:%02d", minutes, remainingSeconds)
     }
 }

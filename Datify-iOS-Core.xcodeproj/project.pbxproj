@@ -40,16 +40,12 @@
 		634EF72B2ADC48010061E13A /* TabbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634EF7252ADC48010061E13A /* TabbarView.swift */; };
 		634EF7302ADC48100061E13A /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634EF72E2ADC48100061E13A /* ChatView.swift */; };
 		634EF7312ADC48100061E13A /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634EF72F2ADC48100061E13A /* ChatViewModel.swift */; };
-		634EF7342ADC48220061E13A /* DatingView1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634EF7322ADC48220061E13A /* DatingView1.swift */; };
-		634EF7352ADC48220061E13A /* DatingViewModel1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634EF7332ADC48220061E13A /* DatingViewModel1.swift */; };
 		634EF7382ADC48300061E13A /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634EF7362ADC48300061E13A /* MenuView.swift */; };
 		634EF7392ADC48300061E13A /* MenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634EF7372ADC48300061E13A /* MenuViewModel.swift */; };
 		634EF73B2ADC51EB0061E13A /* MainFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634EF73A2ADC51EB0061E13A /* MainFlow.swift */; };
-		634EF7412ADC62B30061E13A /* DtBarChartView1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634EF7402ADC62B30061E13A /* DtBarChartView1.swift */; };
 		634EF7432ADC63810061E13A /* Shape+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634EF7422ADC63810061E13A /* Shape+extension.swift */; };
 		634EF7472ADC64120061E13A /* DtAudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634EF7462ADC64120061E13A /* DtAudioManager.swift */; };
 		634EF74C2AE419C80061E13A /* recording.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 634EF74B2AE419C80061E13A /* recording.mp3 */; };
-		634EF74E2AE422AD0061E13A /* DtAudioPlayerView1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634EF74D2AE422AD0061E13A /* DtAudioPlayerView1.swift */; };
 		638718622AEA1B7F008C7F54 /* recording5sec.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 638718602AEA1B7F008C7F54 /* recording5sec.mp3 */; };
 		638718632AEA1B7F008C7F54 /* recording15sec.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 638718612AEA1B7F008C7F54 /* recording15sec.mp3 */; };
 		638718652AF7A4EA008C7F54 /* DatingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638718642AF7A4EA008C7F54 /* DatingModel.swift */; };
@@ -77,7 +73,6 @@
 		63A729672AA48CAA00AC60E3 /* Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A729662AA48CAA00AC60E3 /* Regex.swift */; };
 		63A729692AA4A94B00AC60E3 /* CountryCodeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A729682AA4A94B00AC60E3 /* CountryCodeButton.swift */; };
 		63E79C3B2B2818A500030DE9 /* DtScreenSizeProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E79C3A2B2818A500030DE9 /* DtScreenSizeProvider.swift */; };
-		63E79C3D2B2841FE00030DE9 /* DtAudioPlayerViewModel1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E79C3C2B2841FE00030DE9 /* DtAudioPlayerViewModel1.swift */; };
 		63E79C3F2B297F5300030DE9 /* DtAudioProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E79C3E2B297F5300030DE9 /* DtAudioProcessor.swift */; };
 		63E79C412B29816700030DE9 /* DtFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E79C402B29816700030DE9 /* DtFileManager.swift */; };
 		980895BA2A9F4A5700F82F02 /* DtSpinnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980895B92A9F4A5700F82F02 /* DtSpinnerView.swift */; };
@@ -147,17 +142,13 @@
 		634EF7252ADC48010061E13A /* TabbarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabbarView.swift; sourceTree = "<group>"; };
 		634EF72E2ADC48100061E13A /* ChatView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChatView.swift; path = "Datify-iOS-Core/Views/Main/Tabbar/Chat/ChatView.swift"; sourceTree = SOURCE_ROOT; };
 		634EF72F2ADC48100061E13A /* ChatViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChatViewModel.swift; path = "Datify-iOS-Core/Views/Main/Tabbar/Chat/ChatViewModel.swift"; sourceTree = SOURCE_ROOT; };
-		634EF7322ADC48220061E13A /* DatingView1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatingView1.swift; sourceTree = "<group>"; };
-		634EF7332ADC48220061E13A /* DatingViewModel1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatingViewModel1.swift; sourceTree = "<group>"; };
 		634EF7362ADC48300061E13A /* MenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		634EF7372ADC48300061E13A /* MenuViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewModel.swift; sourceTree = "<group>"; };
 		634EF73A2ADC51EB0061E13A /* MainFlow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainFlow.swift; sourceTree = "<group>"; };
-		634EF7402ADC62B30061E13A /* DtBarChartView1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtBarChartView1.swift; sourceTree = "<group>"; };
 		634EF7422ADC63810061E13A /* Shape+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Shape+extension.swift"; sourceTree = "<group>"; };
 		634EF7462ADC64120061E13A /* DtAudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtAudioManager.swift; sourceTree = "<group>"; };
 		634EF74A2AE414740061E13A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		634EF74B2AE419C80061E13A /* recording.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = recording.mp3; sourceTree = "<group>"; };
-		634EF74D2AE422AD0061E13A /* DtAudioPlayerView1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtAudioPlayerView1.swift; sourceTree = "<group>"; };
 		638718602AEA1B7F008C7F54 /* recording5sec.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = recording5sec.mp3; sourceTree = "<group>"; };
 		638718612AEA1B7F008C7F54 /* recording15sec.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = recording15sec.mp3; sourceTree = "<group>"; };
 		638718642AF7A4EA008C7F54 /* DatingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatingModel.swift; sourceTree = "<group>"; };
@@ -185,7 +176,6 @@
 		63A729662AA48CAA00AC60E3 /* Regex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Regex.swift; sourceTree = "<group>"; };
 		63A729682AA4A94B00AC60E3 /* CountryCodeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCodeButton.swift; sourceTree = "<group>"; };
 		63E79C3A2B2818A500030DE9 /* DtScreenSizeProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtScreenSizeProvider.swift; sourceTree = "<group>"; };
-		63E79C3C2B2841FE00030DE9 /* DtAudioPlayerViewModel1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtAudioPlayerViewModel1.swift; sourceTree = "<group>"; };
 		63E79C3E2B297F5300030DE9 /* DtAudioProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtAudioProcessor.swift; sourceTree = "<group>"; };
 		63E79C402B29816700030DE9 /* DtFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtFileManager.swift; sourceTree = "<group>"; };
 		980895B92A9F4A5700F82F02 /* DtSpinnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtSpinnerView.swift; sourceTree = "<group>"; };
@@ -319,7 +309,6 @@
 		4A4CE2CF2A9B41B90098FF80 /* Dating */ = {
 			isa = PBXGroup;
 			children = (
-				639DA3B42B30B09700C265F2 /* Archive */,
 				638718682AF7EC0B008C7F54 /* Views */,
 				638718642AF7A4EA008C7F54 /* DatingModel.swift */,
 				639DA3B22B30B09000C265F2 /* DatingView.swift */,
@@ -438,18 +427,6 @@
 				63A5B8B42AC5F0BA00DEB54A /* CountryAndCityView.swift */,
 			);
 			path = Location;
-			sourceTree = "<group>";
-		};
-		639DA3B42B30B09700C265F2 /* Archive */ = {
-			isa = PBXGroup;
-			children = (
-				634EF7402ADC62B30061E13A /* DtBarChartView1.swift */,
-				634EF7322ADC48220061E13A /* DatingView1.swift */,
-				634EF7332ADC48220061E13A /* DatingViewModel1.swift */,
-				634EF74D2AE422AD0061E13A /* DtAudioPlayerView1.swift */,
-				63E79C3C2B2841FE00030DE9 /* DtAudioPlayerViewModel1.swift */,
-			);
-			path = Archive;
 			sourceTree = "<group>";
 		};
 		63A729572AA3935700AC60E3 /* Views */ = {
@@ -751,7 +728,6 @@
 				4A4CE2C82A9B3B620098FF80 /* Router.swift in Sources */,
 				634EF72B2ADC48010061E13A /* TabbarView.swift in Sources */,
 				634EF7432ADC63810061E13A /* Shape+extension.swift in Sources */,
-				634EF7412ADC62B30061E13A /* DtBarChartView1.swift in Sources */,
 				D0C185302AA1D0E1000D71E5 /* SignInWithButton.swift in Sources */,
 				632A7F5E2AAC897B005DA819 /* DtCustomTFView+extension.swift in Sources */,
 				638718702AF7EC6E008C7F54 /* UserInfoView.swift in Sources */,
@@ -766,7 +742,6 @@
 				638D1E862ABAB45C0001CED4 /* LocationView.swift in Sources */,
 				638718652AF7A4EA008C7F54 /* DatingModel.swift in Sources */,
 				638D1E892ABAB45C0001CED4 /* CountryModel.swift in Sources */,
-				634EF7352ADC48220061E13A /* DatingViewModel1.swift in Sources */,
 				D0C8965A2AA217630084FA62 /* DtImage.swift in Sources */,
 				638718742AF7ECF2008C7F54 /* PhotoSliderView.swift in Sources */,
 				634EF7392ADC48300061E13A /* MenuViewModel.swift in Sources */,
@@ -775,7 +750,6 @@
 				634EF7382ADC48300061E13A /* MenuView.swift in Sources */,
 				634EF7282ADC48010061E13A /* TabbarViewModel.swift in Sources */,
 				63A729592AA3937500AC60E3 /* RegularTFView.swift in Sources */,
-				63E79C3D2B2841FE00030DE9 /* DtAudioPlayerViewModel1.swift in Sources */,
 				20BF9D932AB1BE85008B3CEB /* RegSelectGenderView.swift in Sources */,
 				6387186A2AF7EC24008C7F54 /* AnimatedIconView.swift in Sources */,
 				4A4CE2E32A9B53E70098FF80 /* Color+extension.swift in Sources */,
@@ -794,10 +768,8 @@
 				638D1E872ABAB45C0001CED4 /* LocationViewModel.swift in Sources */,
 				634EF7312ADC48100061E13A /* ChatViewModel.swift in Sources */,
 				63E79C412B29816700030DE9 /* DtFileManager.swift in Sources */,
-				634EF74E2AE422AD0061E13A /* DtAudioPlayerView1.swift in Sources */,
 				D0DC465D2A92699D0097CFF3 /* DatifyiOSCoreApp.swift in Sources */,
 				638D1E882ABAB45C0001CED4 /* LocationManager.swift in Sources */,
-				634EF7342ADC48220061E13A /* DatingView1.swift in Sources */,
 				4A4CE2D62A9B44C20098FF80 /* LoginFlow.swift in Sources */,
 				639DA3B32B30B09000C265F2 /* DatingView.swift in Sources */,
 				20C081072AB1E1D400BB2910 /* RegEnterNameView.swift in Sources */,

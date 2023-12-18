@@ -90,6 +90,7 @@ struct DatingView: View {
 
                                 HStack {
                                     DtAudioPlayerView(
+                                        user: user,
                                         isPlaying: $viewModel.isPlaying,
                                         playCurrentTime: $viewModel.playCurrentTime,
                                         playbackFinished: $viewModel.playbackFinished,
