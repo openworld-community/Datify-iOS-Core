@@ -1,9 +1,9 @@
 //
-//  DtAudioPreviewModel.swift
-//  Datify-iOS-Core
-//
-//  Created by Ildar Khabibullin on 16.10.2023.
-//
+    //  DtAudioPreviewModel.swift
+    //  Datify-iOS-Core
+    //
+    //  Created by Ildar Khabibullin on 16.10.2023.
+    //
 
 import SwiftUI
 import Combine
@@ -14,9 +14,9 @@ struct BarChartDataPoint: Identifiable {
 }
 
 struct DtBarChartView: View {
-    @ObservedObject var viewModel: DtAudioPlayerViewModel
-    var user: DatingModel
+    @ObservedObject var viewModel: DatingViewModel
 
+    var dataPoints: [BarChartDataPoint] = .init()
     var barWidth: CGFloat = .init()
 
     var gradientColors: [(Double, Color)] {
@@ -30,8 +30,8 @@ struct DtBarChartView: View {
 
     var body: some View {
         HStack(alignment: .bottom, spacing: 2) {
-            ForEach(user.barData.indices, id: \.self) { index in
-                let gradientFraction = Double(index) / Double(user.barData.count - 1)
+            ForEach(dataPoints.indices, id: \.self) { index in
+                let gradientFraction = Double(index) / Double(dataPoints.count - 1)
                 let color = viewModel.playbackFinished ? Color.gray :
                 (gradientFraction < viewModel.playbackProgress || (gradientFraction == 0 && viewModel.playbackProgress > 0))
                 ? interpolatedColor(for: gradientFraction)
@@ -39,7 +39,7 @@ struct DtBarChartView: View {
 
                 Rectangle()
                     .fill(color)
-                    .frame(width: barWidth, height: min(20, CGFloat(user.barData[index].value)))
+                    .frame(width: barWidth, height: min(20, CGFloat(dataPoints[index].value)))
                     .cornerRadius(3)
             }
         }

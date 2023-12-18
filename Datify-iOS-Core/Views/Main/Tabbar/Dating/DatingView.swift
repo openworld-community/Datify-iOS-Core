@@ -1,8 +1,8 @@
 //
-//  MainView.swift
+//  DatingView.swift
 //  Datify-iOS-Core
 //
-//  Created by Ildar Khabibullin on 09.10.2023.
+//  Created by Ildar Khabibullin on 18.12.2023.
 //
 
 import SwiftUI
@@ -26,8 +26,6 @@ struct DatingView: View {
     var safeAreaTopInset: CGFloat? = .init()
     private let application: UIApplication
 
-    let audioPlayerManager = DtAudioPlayerManager()
-
     init(
         router: Router<AppRoute>,
         application: UIApplication = UIApplication.shared
@@ -47,15 +45,11 @@ struct DatingView: View {
                                 selectedPhotoIndex: $selectedPhotoIndex,
                                 currentUserIndex: $currentUserID,
                                 showDescription: $showDescription,
-                                isSwipeAndIndicatorsDisabled:
-                                    $isSwipeAndIndicatorsDisabled,
+                                isSwipeAndIndicatorsDisabled: $isSwipeAndIndicatorsDisabled,
                                 geometry: geometry,
                                 photos: user.photos
                             )
-                            .frame(
-                                width: geometry.size.width,
-                                height: geometry.size.height
-                            )
+                            .frame(width: geometry.size.width, height: geometry.size.height)
 
                             if showLikedAnimation {
                                 AnimatedIconView(
@@ -93,12 +87,15 @@ struct DatingView: View {
                                     )
                                 }
                                 .padding(.bottom, 12)
+
                                 HStack {
                                     DtAudioPlayerView(
-                                        viewModel: DtAudioPlayerViewModel(user: user.wrappedValue, audioPlayerManager: audioPlayerManager),
-                                        user: user.wrappedValue,
-                                        audioPlayerManager: audioPlayerManager,
-                                        currentUserID: currentUserID ?? ""
+                                        isPlaying: $viewModel.isPlaying,
+                                        playCurrentTime: $viewModel.playCurrentTime,
+                                        playbackFinished: $viewModel.playbackFinished,
+                                        totalDuration: $viewModel.totalDuration,
+                                        viewModel: viewModel,
+                                        screenSizeProvider: DtScreenSizeProvider()
                                     )
                                 }
                                 .padding(.bottom)
@@ -111,18 +108,15 @@ struct DatingView: View {
                     }
                 }
                 .scrollTargetLayout()
-                .onAppear {
-                    print("viewModel users: \(viewModel.users)")
-                }
             }
             .environment(\.colorScheme, .light)
             .scrollPosition(id: $currentUserID)
             .onChange(of: currentUserID) { _, newValue in
-
                 if let currentUserID = newValue {
                     viewModel.currentUserID = currentUserID
+                    viewModel.loadingAudioData()
                 }
-                selectedPhotoIndex = 0
+
                 showLikedAnimation = false
 
                 if isSwipeAndIndicatorsDisabled {
@@ -132,9 +126,16 @@ struct DatingView: View {
                 if showDescription {
                     showDescription = false
                 }
-                isAlertPresented = false
-            }
 
+                viewModel.isPlaying = false
+                viewModel.playbackFinished = true
+
+                viewModel.audioPlayerManager.stopPlayback()
+                viewModel.startProgressUpdates()
+
+                isAlertPresented = false
+
+            }
         }
         .edgesIgnoringSafeArea(.top)
         .scrollTargetBehavior(.paging)
@@ -161,6 +162,7 @@ struct DatingView: View {
                 }
             )
         }
+
     }
 
     func getSafeAreaTop() -> CGFloat? {
