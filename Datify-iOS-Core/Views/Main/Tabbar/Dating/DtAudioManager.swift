@@ -169,3 +169,66 @@ class DtAudioPlayerManager: NSObject, ObservableObject, AVAudioPlayerDelegate {
         }
     }
 }
+
+extension DtAudioPlayerManager {
+    func loadAudioDataForUI(for user: inout DatingModel, ofType type: String) async {
+        print("Начинается загрузка данных баров для пользователя с ID: \(user.id)")
+        print(user.barData)
+        guard let path = fileManager.filePath(forResource: user.audiofile, ofType: type),
+              let url = URL(string: path) else {
+            print("Ошибка: файл не найден")
+            return
+        }
+
+        do {
+            let audioFile = try AVAudioFile(forReading: url)
+            print("Файл загружен: \(url)")
+
+            let totalDurationInSeconds = Double(audioFile.length) / audioFile.fileFormat.sampleRate
+            let durationPerBar = totalDurationInSeconds / 55.0
+            let pointsPerBar = Int(durationPerBar * audioFile.processingFormat.sampleRate)
+            print("Длительность файла в секундах: \(totalDurationInSeconds)")
+
+            guard let audioBuffer = AVAudioPCMBuffer(
+                pcmFormat: audioFile.processingFormat,
+                frameCapacity: AVAudioFrameCount(audioFile.length)
+            ) else {
+                self.errorSubject.send(AudioPlayerError.bufferCreationFailed)
+                return
+            }
+
+            try audioFile.read(into: audioBuffer)
+            print("Аудиобуфер загружен")
+
+            if let floatData = audioBuffer.floatChannelData?.pointee {
+                let floatArray = Array(UnsafeBufferPointer(start: floatData, count: Int(audioFile.length)))
+
+                var compressedData: [Float] = []
+
+                for i in stride(from: 0, to: floatArray.count, by: pointsPerBar) {
+                    let subArray = floatArray[i..<min(i+pointsPerBar, floatArray.count)]
+                    let average = subArray.reduce(0, +) / Float(subArray.count)
+                    compressedData.append(average)
+                }
+
+                let maxCompressedValue = compressedData.max() ?? 1.0
+
+                let desiredMaxHeight = 50.0
+                let minimumBarHeight = 2.0
+                user.barData = compressedData.map { value in
+                    let normalizedValue = value / maxCompressedValue
+                    let barHeight = abs(Double(normalizedValue)) * desiredMaxHeight
+                    let finalBarHeight = barHeight + minimumBarHeight
+                    return BarChartDataPoint(value: finalBarHeight)
+                }
+
+                print("Данные баров записаны в модель")
+            }
+        } catch {
+            self.errorSubject.send(AudioPlayerError.audioPlayerInitializationFailed)
+            print("Ошибка при инициализации аудиофайла")
+        }
+        print("Данные баров успешно загружены для пользователя с ID: \(user.id)")
+        print(user.barData)
+    }
+}

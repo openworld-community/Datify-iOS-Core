@@ -20,6 +20,8 @@ struct DatingModel: Identifiable {
     var liked: Bool
     var bookmarked: Bool
     let audiofile: String
+    var barData: [BarChartDataPoint] = []
+    var audioFileDuration: String
 
     static var defaultUsers: [DatingModel] = [
         DatingModel(
@@ -35,7 +37,10 @@ struct DatingModel: Identifiable {
             description: "Я художник. Пробовала заниматься графическим дизайном и комиксами, но сейчас ищу что-то новое в области искусства и дизайна. У меня есть муж Лев, он гейм-дизайнер, и да, мы знаем, что поженились довольно рано, но на самом деле мы очень спокойные и дружелюбные люди) Сейчас нахожусь в Белграде, Сербии, я просто ищу кого-нибудь, с кем можно выпить кофе и посплетничать",
             liked: true,
             bookmarked: true,
-            audiofile: "recording"
+            audiofile: "recording",
+            barData: [],
+            audioFileDuration: ""
+
         ),
         DatingModel(
             id: UUID().uuidString,
@@ -49,7 +54,9 @@ struct DatingModel: Identifiable {
             description: "Всегда в поиске новых приключений и интересных знакомств. Люблю путешествовать, активный отдых и хорошую компанию.",
             liked: false,
             bookmarked: false,
-            audiofile: "recording5sec"
+            audiofile: "recording5sec",
+            barData: [],
+            audioFileDuration: ""
         ),
         DatingModel(
             id: UUID().uuidString,
@@ -63,7 +70,9 @@ struct DatingModel: Identifiable {
             description: "Музыка – моя страсть и профессия. Ищу человека с похожими интересами для совместного посещения концертов и не только.",
             liked: true,
             bookmarked: true,
-            audiofile: "recording15sec"
+            audiofile: "recording15sec",
+            barData: [],
+            audioFileDuration: ""
         )
         ]
 }

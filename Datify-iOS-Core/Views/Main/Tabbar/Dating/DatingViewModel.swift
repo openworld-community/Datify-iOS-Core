@@ -36,10 +36,7 @@ final class DatingViewModel: ObservableObject {
         self.router = router
         setupBindings()
         loadInitialData()
-        
-        for user in users {
-            audioPlayerViewModels[user.id] = DtAudioPlayerViewModel(user: user, audioPlayerManager: audioPlayerManager)
-        }
+
     }
 
     func setupBindings() {

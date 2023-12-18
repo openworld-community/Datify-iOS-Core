@@ -47,7 +47,8 @@ struct DatingView: View {
                                 selectedPhotoIndex: $selectedPhotoIndex,
                                 currentUserIndex: $currentUserID,
                                 showDescription: $showDescription,
-                                isSwipeAndIndicatorsDisabled: $isSwipeAndIndicatorsDisabled,
+                                isSwipeAndIndicatorsDisabled:
+                                    $isSwipeAndIndicatorsDisabled,
                                 geometry: geometry,
                                 photos: user.photos
                             )
@@ -94,6 +95,7 @@ struct DatingView: View {
                                 .padding(.bottom, 12)
                                 HStack {
                                     DtAudioPlayerView(
+                                        viewModel: DtAudioPlayerViewModel(user: user.wrappedValue, audioPlayerManager: audioPlayerManager),
                                         user: user.wrappedValue,
                                         audioPlayerManager: audioPlayerManager,
                                         currentUserID: currentUserID ?? ""
@@ -132,6 +134,7 @@ struct DatingView: View {
                 }
                 isAlertPresented = false
             }
+
         }
         .edgesIgnoringSafeArea(.top)
         .scrollTargetBehavior(.paging)

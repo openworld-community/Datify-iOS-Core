@@ -87,9 +87,10 @@ final class DtAudioPlayerViewModel: ObservableObject {
             .store(in: &cancellables)
 
         audioPlayerManager.$totalDuration
-            .receive(on: DispatchQueue.main)
             .sink { [weak self] totalDuration in
-                self?.totalDuration = totalDuration
+                DispatchQueue.main.async {
+                    self?.totalDuration = totalDuration
+                }
             }
             .store(in: &cancellables)
 
@@ -122,5 +123,11 @@ final class DtAudioPlayerViewModel: ObservableObject {
     func stopPlayback() {
         print("Вызов stopPlayback")
         audioPlayerManager.stopPlayback()
+    }
+
+    func loadBarDataForUser(userId: DatingModel.ID) async {
+        if user.barData.isEmpty {
+            await audioPlayerManager.loadAudioDataForUI(for: &user, ofType: "mp3")
+        }
     }
 }

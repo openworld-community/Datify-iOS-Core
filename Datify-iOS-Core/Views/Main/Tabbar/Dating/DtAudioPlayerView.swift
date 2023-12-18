@@ -10,7 +10,8 @@ import AVFoundation
 import Charts
 
 struct DtAudioPlayerView: View {
-    @StateObject var viewModel: DtAudioPlayerViewModel
+//    @StateObject var viewModel: DtAudioPlayerViewModel
+    @ObservedObject var viewModel: DtAudioPlayerViewModel
 
     @State private var isAlertPresented = false
     @State private var alertMessage = ""
@@ -26,8 +27,9 @@ struct DtAudioPlayerView: View {
 
     var desiredNumberOfBars = 60
 
-    init(user: DatingModel, audioPlayerManager: DtAudioPlayerManager, currentUserID: DatingModel.ID) {
-        _viewModel = StateObject(wrappedValue: DtAudioPlayerViewModel(user: user, audioPlayerManager: audioPlayerManager))
+    init(viewModel: DtAudioPlayerViewModel, user: DatingModel, audioPlayerManager: DtAudioPlayerManager, currentUserID: DatingModel.ID) {
+//        _viewModel = StateObject(wrappedValue: DtAudioPlayerViewModel(user: user, audioPlayerManager: audioPlayerManager))
+        self.viewModel = viewModel
         self.audioPlayerManager = audioPlayerManager
         self.currentUserID = currentUserID
     }
@@ -45,12 +47,18 @@ struct DtAudioPlayerView: View {
                     .dtTypo(.p3Regular, color: .white)
                     .frame(width: 48, alignment: .leading)
                     .fixedSize(horizontal: true, vertical: false)
-
-                DtBarChartView(
-                    viewModel: viewModel,
-                    dataPoints: viewModel.audioSamples,
-                    barWidth: computeBarWidth()
-                )
+//                DtBarChartView(
+//                    viewModel: viewModel,
+//                    dataPoints: viewModel.audioSamples,
+//                    barWidth: computeBarWidth()
+//                )
+                if let user = user {
+                    DtBarChartView(
+                        viewModel: viewModel,
+                        user: user,
+                        barWidth: computeBarWidth()
+                    )
+                }
                 Button(action: {
                     viewModel.togglePlayback()
                 }) {
@@ -64,13 +72,20 @@ struct DtAudioPlayerView: View {
             }
             .padding(.horizontal)
         }
-        .onChange(of: currentUserID) { _, _ in
+        .onChange(of: currentUserID) { _, newUserID in
             print("currentUserID from DtAudioPlayerView: \(currentUserID)")
 //            viewModel.loadingAudioData(audioFile: user?.audiofile ?? "")
             viewModel.isPlaying = false
             viewModel.playbackFinished = true
             viewModel.stopPlayback()
             viewModel.stopProgressUpdates()
+
+            Task {
+                if let newUserID = newUserID {
+                    await viewModel.loadBarDataForUser(userId: newUserID)
+                }
+            }
+
         }
     }
 
