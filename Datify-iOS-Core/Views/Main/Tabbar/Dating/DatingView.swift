@@ -124,9 +124,7 @@ struct DatingView: View {
                     isSwipeAndIndicatorsDisabled = false
                 }
 
-                if showDescription {
-                    showDescription = false
-                }
+                showDescription = false
 
                 viewModel.isPlaying = false
                 viewModel.playbackFinished = true

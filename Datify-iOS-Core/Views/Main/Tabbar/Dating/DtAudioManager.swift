@@ -172,23 +172,18 @@ class DtAudioPlayerManager: NSObject, ObservableObject, AVAudioPlayerDelegate {
 
 extension DtAudioPlayerManager {
     func loadAudioDataForUI(for user: inout DatingModel, ofType type: String) async {
-        print("Начинается загрузка данных баров для пользователя с ID: \(user.id)")
-        print(user.barData)
         guard let path = fileManager.filePath(forResource: user.audiofile, ofType: type),
               let url = URL(string: path) else {
-            print("Ошибка: файл не найден")
             return
         }
 
         do {
             let audioFile = try AVAudioFile(forReading: url)
-            print("Файл загружен: \(url)")
 
             let totalDurationInSeconds = Double(audioFile.length) / audioFile.fileFormat.sampleRate
             let formattedDuration = formatDuration(seconds: totalDurationInSeconds)
             let durationPerBar = totalDurationInSeconds / 55.0
             let pointsPerBar = Int(durationPerBar * audioFile.processingFormat.sampleRate)
-            print("Длительность файла в секундах: \(totalDurationInSeconds)")
 
             guard let audioBuffer = AVAudioPCMBuffer(
                 pcmFormat: audioFile.processingFormat,
@@ -199,7 +194,6 @@ extension DtAudioPlayerManager {
             }
 
             try audioFile.read(into: audioBuffer)
-            print("Аудиобуфер загружен")
 
             if let floatData = audioBuffer.floatChannelData?.pointee {
                 let floatArray = Array(UnsafeBufferPointer(start: floatData, count: Int(audioFile.length)))
@@ -224,15 +218,11 @@ extension DtAudioPlayerManager {
                     let finalBarHeight = barHeight + minimumBarHeight
                     return BarChartDataPoint(value: finalBarHeight)
                 }
-
-                print("Данные баров записаны в модель")
             }
         } catch {
             self.errorSubject.send(AudioPlayerError.audioPlayerInitializationFailed)
             print("Ошибка при инициализации аудиофайла")
         }
-        print("Данные баров успешно загружены для пользователя с ID: \(user.id)")
-        print(user.barData)
     }
 
     func formatDuration(seconds: Double) -> String {

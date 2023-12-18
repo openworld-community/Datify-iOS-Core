@@ -43,7 +43,7 @@ struct PhotoSliderView: View {
             )
             .position(
                 x: geometry.size.width / 2,
-                y: geometry.size.height * 0.76
+                y: geometry.size.height * 0.785
             ), alignment: .center
         )
 
