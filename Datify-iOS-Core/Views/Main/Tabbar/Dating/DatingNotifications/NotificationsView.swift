@@ -22,19 +22,13 @@ struct NotificationsView: View {
         switchState(loadingState: viewModel.loadingState)
             .task {
                 viewModel.minYUpdateTimer?.invalidate()
-                do {
-                    try await viewModel.loadData()
-                } catch {
-                    viewModel.loadingState = .error
-                    viewModel.isError = true
-                }
+                try? await viewModel.loadData()
             }
             .alert("Some error occured", isPresented: $viewModel.isError) {
                 Button("Ok") {
-                    viewModel.loadingState = .idle
+                    viewModel.resetState()
                 }
             }
-
             .navigationTitle("Notifications")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -51,11 +45,6 @@ struct NotificationsView: View {
                 }
             }
             .navigationBarBackButtonHidden()
-            .overlay(alignment: .center) {
-                if viewModel.loadingState == .loading {
-                    DtSpinnerView(size: 56)
-                }
-            }
         }
 }
 
@@ -72,7 +61,7 @@ private extension NotificationsView {
         switch loadingState {
         case .success:
             VStack(spacing: 0) {
-                if !(viewModel.user?.likes.filter({ $0.isNew }).isEmpty ?? true) {
+                if !(viewModel.currentUser?.likes.filter({ $0.isNew }).isEmpty ?? true) {
                     likeSegment
                 }
                 if viewModel.allNotifications.isEmpty {
@@ -181,7 +170,7 @@ private extension NotificationsView {
                                 RoundedRectangle(cornerRadius: 6)
                                     .frame(width: 22, height: 16)
                                     .foregroundStyle(Color.DtGradient.brandDark)
-                                Text(String(viewModel.user?.likes.filter({$0.isNew}).count ?? 0))
+                                Text(String(viewModel.currentUser?.likes.filter({$0.isNew}).count ?? 0))
                                     .dtTypo(.p4Medium, color: .accentsWhite)
                             }
                         }

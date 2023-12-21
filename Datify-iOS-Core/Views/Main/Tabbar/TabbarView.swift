@@ -22,6 +22,7 @@ struct TabbarView: View {
         DtTabbar(tabsData: TabItem.allCases, selectedTab: $selectedTab, viewModel: viewModel) { item in
             createTabView(tab: item)
         }
+        .navigationBarBackButtonHidden()
     }
 
     @ViewBuilder

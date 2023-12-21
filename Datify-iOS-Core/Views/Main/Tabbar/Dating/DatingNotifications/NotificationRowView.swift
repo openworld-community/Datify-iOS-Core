@@ -12,39 +12,38 @@ struct NotificationRowView: View {
     @ObservedObject private var viewModel: NotificationsViewModel
     private let notification: NotificationModel
     private var sender: TempUserModel?
-    private let rowHeight: CGFloat = 72
-
     @State private var debouncedMinY: CGFloat = 0
-    @State private var xOffset: CGFloat = 0
-    @State private var initialXOffset: CGFloat?
-    private let actionWidth: CGFloat = 96
 
     init(notification: NotificationModel, viewModel: NotificationsViewModel) {
         self.notification = notification
         _viewModel = ObservedObject(wrappedValue: viewModel)
-        self.sender = viewModel.fetchUserForID(for: notification.senderID)
+        self.sender = viewModel.fetchUserForID(userID: notification.senderID)
     }
 
     var body: some View {
         GeometryReader { geometry in
-            ZStack(alignment: .trailing) {
-                favouriteButton
-                rowView
-            }
-            .onAppear {
-                viewModel.minYUpdateTimer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: true) { _ in
-                    debouncedMinY = geometry.frame(in: .global).minY
+            rowView
+                .dtSwipeAction(rowHeight: 72,
+                             labelImage: DtImage.favouriteStarWhite,
+                             labelText: "Favourite".localize(),
+                             labelColor: .accentsYellow,
+                             action: {
+                    viewModel.toggleFavourite(id: notification.id)
+                })
+                .onAppear {
+                    viewModel.minYUpdateTimer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: true) { _ in
+                        debouncedMinY = geometry.frame(in: .global).minY
+                    }
                 }
-            }
-            .onChange(of: debouncedMinY) { minY in
-                if isViewVisible(minY, geometry.size.height) &&
-                    notification.isNew &&
-                    !viewModel.viewedNotifications.contains(notification.id) {
-                    viewModel.viewedNotifications.insert(notification.id)
+                .onChange(of: debouncedMinY) { minY in
+                    if isViewVisible(minY, geometry.size.height) &&
+                        notification.isNew &&
+                        !viewModel.viewedNotifications.contains(notification.id) {
+                        viewModel.viewedNotifications.insert(notification.id)
+                    }
                 }
-            }
         }
-        .frame(height: rowHeight)
+        .frame(height: 72)
     }
 }
 
@@ -61,41 +60,14 @@ private extension NotificationRowView {
             userPhoto
             textSection
         }
-        .frame(height: rowHeight)
-        .padding(.horizontal, 12)
-        .background(
-            ZStack {
-                let opacity1 = 1 + (xOffset / actionWidth)
-                Color.backgroundSpecial
-                Color.backgroundPrimary.opacity(opacity1)
-            }
-        )
         .overlay(
             Image(DtImage.favouriteStar)
                 .foregroundStyle(Color.accentsYellow)
-                .opacity(((viewModel.user?.favouriteNotifications.contains(notification.id)) == true) ? 1 : 0)
-                .offset(x: -20, y: -16)
+                .opacity(((viewModel.currentUser?.favouriteNotifications.contains(notification.id)) == true) ? 1 : 0)
+                .offset(x: 0, y: -16)
             ,
             alignment: .bottomTrailing
         )
-        .offset(x: xOffset)
-        .gesture(swipeActionGesture())
-    }
-
-    var favouriteButton: some View {
-        Button {
-            viewModel.toggleFavourite(id: notification.id)
-            self.resetSwipe()
-        } label: {
-            VStack {
-                Image(DtImage.favouriteStarWhite)
-                Text("Favourite")
-                    .dtTypo(.p4Medium, color: .white)
-            }
-            .frame(width: 120, height: rowHeight)
-            .background(Color.accentsYellow)
-        }
-        .frame(width: actionWidth)
     }
 
     var userPhoto: some View {
@@ -103,7 +75,7 @@ private extension NotificationRowView {
                           blurRadius: notification.shouldBlur ? 3 : 0)
             .overlay {
                 Text(
-                    notification.shouldBlur ? "+\(String(viewModel.user?.newMessages ?? 0))" : "")
+                    notification.shouldBlur ? "+\(String(viewModel.currentUser?.newMessages ?? 0))" : "")
                 .dtTypo(.p1Medium, color: .accentsWhite)
                 if notification.isNew {
                     Circle()
@@ -143,43 +115,11 @@ private extension NotificationRowView {
         }
     }
 
-    func swipeActionGesture() -> some Gesture {
-        DragGesture()
-            .onChanged { value in
-                let deltaX = value.translation.width
-                if initialXOffset == nil {
-                    initialXOffset = xOffset
-                }
-                guard let initialXOffset = initialXOffset else { return }
-                let newOffset = max(-105, min(0, initialXOffset + deltaX))
-                if deltaX <= -actionWidth/4 || initialXOffset == -actionWidth {
-                    withAnimation {
-                        xOffset = newOffset
-                    }
-                }
-            }
-            .onEnded { value in
-                let deltaX = value.translation.width
-                if deltaX < 0 && ((initialXOffset ?? 0) + deltaX) <= -actionWidth/2 {
-                    withAnimation {
-                        xOffset = -actionWidth
-                    }
-                } else { resetSwipe() }
-                initialXOffset = nil
-            }
-    }
-
     func isViewVisible(_ minY: CGFloat, _ height: CGFloat) -> Bool {
         let maxY = minY + height
         // TODO: Replace with View extension
         let screenHeight = UIScreen.main.bounds.height
-        return minY < screenHeight - rowHeight && maxY > rowHeight
-    }
-
-    func resetSwipe() {
-        withAnimation {
-            xOffset = 0
-        }
+        return minY < screenHeight - 72 && maxY > 72
     }
 
     @ViewBuilder

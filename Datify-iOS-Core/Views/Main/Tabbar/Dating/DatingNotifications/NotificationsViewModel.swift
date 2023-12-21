@@ -17,16 +17,20 @@ final class NotificationsViewModel: ObservableObject {
     unowned let router: Router<AppRoute>
     @Published var loadingState: LoadingState = .idle
     @Published var isError: Bool = false
+
     @Published var allNotifications: [NotificationModel] = []
     @Published var todayNotifications: [NotificationModel] = []
     @Published var yesterdayNotifications: [NotificationModel] = []
     @Published var earlierNotifications: [NotificationModel] = []
     @Published var sortOption: SortOption = .earliest
-    @Published var user: TempUserModel?
+
+    @Published var currentUser: TempUserModel?
+    @Published var relatedUsers: [TempUserModel] = []
     @Published var viewedNotifications: Set<String> = []
     @Published var minYUpdateTimer: Timer?
     private var cancellables = Set<AnyCancellable>()
-    private var notificationsDataService: NotificationsDataService?
+    private var notificationsDataService: NotificationsDataService = NotificationsDataService()
+    private var userDataService: UserDataService = UserDataService()
 
     enum SortOption: String, CaseIterable, Equatable {
         case earliest, unread, visitors, favourite
@@ -38,47 +42,61 @@ final class NotificationsViewModel: ObservableObject {
         }
     }
 
-    // Temporary allUsers database
-    @Published var allUsers: [TempUserModel] = []
-
     init(router: Router<AppRoute>) {
         self.router = router
-        // TODO: Func to fetch current user
-        Task {
-            // Fetching current user
-            await fetchUser()
-            guard let user = user else { return }
-            // Fetching notifications for current user
-            self.notificationsDataService = NotificationsDataService(userID: user.id)
-            addSubscribers()
-            // Fetching array of UserModels that appear in User's notifications
-            allUsers = TempUserModel.defaultUserArray
-            self.isLoading = false
-        }
+        self.addSubscribers()
     }
 
     // MARK: Private
+
     private func addSubscribers() {
-        guard let dataService = notificationsDataService else { return }
-        dataService.$allNotifications
+        userDataService.$currentUser
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] userModel in
+                self?.currentUser = userModel
+            }
+            .store(in: &cancellables)
+
+        userDataService.$relatedUsers
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] relatedUsers in
+                self?.relatedUsers = relatedUsers
+            }
+            .store(in: &cancellables)
+
+        notificationsDataService.$allNotifications
             .combineLatest($sortOption)
+            .receive(on: DispatchQueue.main)
             .map(sortAndFilterNotifications)
             .sink { [weak self] notifications in
+                self?.userDataService.getUsers(for: notifications)
                 self?.allNotifications = notifications
                 self?.splitNotificationsByDate()
             }
             .store(in: &cancellables)
-    }
 
-    private func fetchUser() async {
-        // Func to fetch current user
-        try? await Task.sleep(nanoseconds: 1_000_000_000)
-        self.user = TempUserModel.defaultUser
+        userDataService.$loadingState
+            .combineLatest(notificationsDataService.$loadingState)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] usersState, notificationsState in
+                switch (usersState, notificationsState) {
+                case (.success, .success):
+                    self?.loadingState = .success
+                case (.error, _), (_, .error):
+                    self?.loadingState = .error
+                    self?.isError = true
+                case (.idle, .idle):
+                    self?.loadingState = .idle
+                default:
+                    self?.loadingState = .loading
+                }
+            }
+            .store(in: &cancellables)
     }
 
     private func sortAndFilterNotifications(notifications: [NotificationModel]?,
                                             sortOption: SortOption) -> [NotificationModel] {
-        guard let user = user, let notifications = notifications else { return [] }
+        guard let currentUser, let notifications else { return [] }
         switch sortOption {
         case .earliest:
             return notifications.sorted(by: { $0.date < $1.date })
@@ -87,7 +105,7 @@ final class NotificationsViewModel: ObservableObject {
         case .visitors:
             return notifications.filter({ $0.notificationType == .visitedProfile })
         case .favourite:
-            return notifications.filter({ user.favouriteNotifications.contains($0.id) })
+            return notifications.filter({ currentUser.favouriteNotifications.contains($0.id) })
         }
     }
 
@@ -118,52 +136,51 @@ final class NotificationsViewModel: ObservableObject {
     }
 
     // MARK: Public
+
     func loadData() async throws {
-        Task {
-            self.loadingState = .loading
-            // Fetching current user
-            await fetchUser()
-            guard let user = user else { return }
-            // Fetching notifications for current user
-            self.notificationsDataService = NotificationsDataService(userID: user.id)
-            addSubscribers()
-            // Fetching array of UserModels that appear in User's notifications
-            allUsers = [alexandra, evgeniya, anna]
-            self.loadingState = .success
+        do {
+            try await userDataService.getCurrentUser()
+            guard let currentUser else { return }
+            try await notificationsDataService.getData(userID: currentUser.id)
+        } catch {
+            self.isError = true
         }
     }
 
     func toggleFavourite(id: String) {
         // TODO: Func to add notification to User's favourites
-        guard let user = user else { return }
-        if user.favouriteNotifications.contains(id) {
-            self.user?.favouriteNotifications.remove(id)
+        guard let currentUser else { return }
+        if currentUser.favouriteNotifications.contains(id) {
+            self.currentUser?.favouriteNotifications.remove(id)
         } else {
-            self.user?.favouriteNotifications.insert(id)
+            self.currentUser?.favouriteNotifications.insert(id)
         }
     }
 
-    func fetchUserForID(for id: String) -> TempUserModel? {
-        // TODO: Func to fetch user from database
-        return self.allUsers.first(where: { $0.id == id })
-    }
-
     func getLastLikeUsers() -> (last: TempUserModel?, penult: TempUserModel?) {
-        guard let localUser = user, localUser.likes.count > 0 else { return (nil, nil) }
-        let lastUser = fetchUserForID(for: localUser.likes.last?.senderId ?? "")
-        let penultUser = fetchUserForID(for: localUser.likes.penultimate?.senderId ?? "")
+        guard let currentUser, currentUser.likes.count > 0 else { return (nil, nil) }
+        let lastUser = userDataService.getUserForID(for: currentUser.likes.last?.senderId ?? "")
+        let penultUser = userDataService.getUserForID(for: currentUser.likes.penultimate?.senderId ?? "")
         return (lastUser, penultUser)
     }
 
     func viewNotifications() {
         // TODO: Func to change "isNew" on viewed notifications to false
-        guard let dataService = notificationsDataService else { return }
         for id in viewedNotifications {
-            dataService.notificationIsViewed(id: id)
+            notificationsDataService.notificationIsViewed(id: id)
         }
         self.viewedNotifications.removeAll()
     }
-}
+
+    func resetState() {
+        userDataService.loadingState = .idle
+        notificationsDataService.loadingState = .idle
+    }
+
+    func fetchUserForID(userID: String) -> TempUserModel? {
+        userDataService.getUserForID(for: userID)
+    }
+ }
 
 private extension Array {
     var penultimate: Element? {

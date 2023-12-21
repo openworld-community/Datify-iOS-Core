@@ -73,7 +73,7 @@ private struct DtTabItem: View {
 
     var body: some View {
         Button {
-                selectedTab = tabItem
+            selectedTab = tabItem
         } label: {
             VStack(alignment: .center, spacing: 2.0) {
                 ZStack {

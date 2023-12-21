@@ -21,7 +21,6 @@ struct ChatRowView: View {
     var body: some View {
         if let interlocutor {
             HStack {
-                let lastMessage = chatModel.messages.last
                 Image(interlocutor.photoURL)
                     .resizableFill()
                     .clipShape(.circle)
@@ -36,7 +35,7 @@ struct ChatRowView: View {
                         Spacer()
                         HStack {
 
-                            switch lastMessage?.status {
+                            switch chatModel.lastMessage?.status {
                             case .sent:
                                 Image(DtImage.messageSent)
                             case .read:
@@ -44,13 +43,13 @@ struct ChatRowView: View {
                             default:
                                 EmptyView()
                             }
-                            Text(lastMessage?.dateToTimeString() ?? Date().dateToTimeString())
+                            Text(DtDateFormatter.advancedDate(date: chatModel.lastMessage?.date ?? Date()))
                                 .dtTypo(.p4Medium, color: .textSecondary)
                         }
                     }
 
                     HStack {
-                        Text(lastMessage?.message ?? "Start conversation by just saying Hello!")
+                        Text(chatModel.lastMessage?.message ?? "Start conversation by just saying Hello!")
                             .dtTypo(.p3Medium, color: .textSecondary)
                             .lineLimit(2)
                             .padding(.trailing, 40)
@@ -71,7 +70,10 @@ struct ChatRowView: View {
                 }
                 .frame(height: 56)
             }
+            .dtSwipeAction(rowHeight: 72, labelImage: DtImage.tabbarMenu,
+                         labelText: "Delete", labelColor: Color.accentsPink) {
 
+            }
         }
 
     }
@@ -79,12 +81,4 @@ struct ChatRowView: View {
 
 #Preview {
     ChatView(router: Router())
-}
-
-extension Date {
-    func dateToTimeString() -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm"
-        return formatter.string(from: self)
-    }
 }
