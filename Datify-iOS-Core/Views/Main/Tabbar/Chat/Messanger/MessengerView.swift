@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MessengerView: View {
     @Environment (\.colorScheme) var colorScheme
-    @StateObject var viewModel: MessengerViewModel
+    @StateObject var viewModel: MessengerViewModel = MessengerViewModel()
     @State var messageText: String = ""
     @State var isAtBottom: Bool = true
     @State var isTextfieldEmpty: Bool = true
@@ -172,13 +172,11 @@ private extension MessengerView {
 
             if isTextfieldEmpty {
                 Button {
-                    withAnimation(.snappy) {
-
-                    }
                 } label: {
                     Image(DtImage.messageVoice)
                         .frame(width: 40, height: 40)
                 }
+
             } else {
                 Button {
                     switch viewModel.actionType {

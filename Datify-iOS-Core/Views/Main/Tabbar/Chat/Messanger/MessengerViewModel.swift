@@ -8,6 +8,10 @@
 import Foundation
 import Combine
 
+enum ActionType {
+    case reply, edit
+}
+
 class MessengerViewModel: ObservableObject {
     @Published var currentUser: TempUserModel? = TempUserModel.defaultUser
     @Published var interlocutor: TempUserModel?
@@ -91,10 +95,6 @@ class MessengerViewModel: ObservableObject {
 
     init() {
         addSubscribers()
-    }
-
-    enum ActionType {
-        case reply, edit
     }
 
     func addSubscribers() {

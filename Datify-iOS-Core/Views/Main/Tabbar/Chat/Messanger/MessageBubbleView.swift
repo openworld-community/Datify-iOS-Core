@@ -39,29 +39,9 @@ struct MessageBubbleView: View {
             let mytext = attributedString + AttributedString(nonBreakingSpaces)
             VStack(alignment: .leading) {
                 if let replyMessage {
-                        HStack(spacing: 4) {
-                            Capsule()
-                                .frame(width: 2, height: 32)
-                                .foregroundStyle(isCurrentUser ? Color.backgroundPrimary : Color.accentsPrimary)
-                            VStack(alignment: .leading) {
-                                Text((viewModel.currentUser?.id == replyMessage.sender
-                                      ? viewModel.currentUser?.name
-                                      : viewModel.interlocutor?.name) ?? "Message")
-                                .dtTypo(.p3Medium, color: isCurrentUser ? .backgroundPrimary : .accentsPrimary)
-                                Text(replyMessage.message)
-                                    .dtTypo(.p4Regular, color: isCurrentUser ? .backgroundPrimary : .accentsPrimary)
-                            }
-                            .frame(width: .infinity)
-                            .lineLimit(1)
-
-                        }
-                        .onTapGesture {
-                            withAnimation {
-                                scrollProxy.scrollTo(replyMessage.id, anchor: .top)
-                            }
-
-                        }
+                    createReplyBar(replyMessage: replyMessage)
                 }
+                // TODO: Images segment
                 Text(mytext)
             }
             .multilineTextAlignment(.leading)
@@ -71,19 +51,14 @@ struct MessageBubbleView: View {
                                  style: style)
             .contextMenu(menuItems: {
                 Button("Reply") {
-                    replyAction()
+                    messageAction(actionType: .reply)
                 }
                 Button("Copy") {
                     UIPasteboard.general.string = message.message
                 }
                 if isCurrentUser {
                     Button("Edit") {
-                        viewModel.actionMessage = message
-                        viewModel.textfieldMessage = message.message
-                        viewModel.actionMessageText = message.message
-                        withAnimation {
-                            viewModel.actionType = .edit
-                        }
+                        messageAction(actionType: .edit)
                     }
                 }
                 Button("Delete", role: .destructive) {
@@ -104,7 +79,7 @@ struct MessageBubbleView: View {
                     .onEnded { value in
                         let deltaX = value.translation.width
                         if deltaX < -50 {
-                            replyAction()
+                            messageAction(actionType: .reply)
                             withAnimation {
                                 offset = 0
                             }
@@ -120,13 +95,40 @@ struct MessageBubbleView: View {
         .padding(isCurrentUser ? .leading : .trailing, 50)
         .padding(.horizontal, 8)
     }
+}
 
-    func replyAction() {
+private extension MessageBubbleView {
+
+    @ViewBuilder
+    func createReplyBar(replyMessage: MessageModel) -> some View {
+        HStack(spacing: 4) {
+            Capsule()
+                .frame(width: 2, height: 32)
+                .foregroundStyle(isCurrentUser ? Color.backgroundPrimary : Color.accentsPrimary)
+            VStack(alignment: .leading) {
+                Text((viewModel.currentUser?.id == replyMessage.sender
+                      ? viewModel.currentUser?.name
+                      : viewModel.interlocutor?.name) ?? "Message")
+                .dtTypo(.p3Medium, color: isCurrentUser ? .backgroundPrimary : .accentsPrimary)
+                Text(replyMessage.message)
+                    .dtTypo(.p4Regular, color: isCurrentUser ? .backgroundPrimary : .accentsPrimary)
+            }
+            .lineLimit(1)
+
+        }
+        .onTapGesture {
+            withAnimation {
+                scrollProxy.scrollTo(replyMessage.id, anchor: .top)
+            }
+        }
+    }
+
+    func messageAction(actionType: ActionType) {
         viewModel.actionMessage = message
-        viewModel.textfieldMessage = ""
+        viewModel.textfieldMessage = actionType == .edit ? message.message : ""
         viewModel.actionMessageText = message.message
-        withAnimation(.interactiveSpring) {
-            viewModel.actionType = .reply
+        withAnimation {
+            viewModel.actionType = actionType
         }
     }
 }
@@ -166,8 +168,6 @@ private struct MessageBubbleLayout: ViewModifier {
             }
 
             .messageBubbleShape(type: isCurrentUser ? .currentUser : .interlocutor, style: style)
-
-        //            .cornerRadius(16)
     }
 
     func backgroundColor() -> Color {
@@ -178,21 +178,27 @@ private struct MessageBubbleLayout: ViewModifier {
            : Color.backgroundSecondary)
     }
 
-    var statusImage: Image {
+    var statusImage: Image? {
         switch message.status {
         case .sent:
             Image(DtImage.messageSent)
         case .read:
             Image(DtImage.messageReadWhite)
         default:
-            Image("")
+            nil
         }
     }
 }
 
 private extension View {
-    func messageBubbleLayout(isCurrentUser: Bool, message: MessageModel, colorScheme: ColorScheme, style: MessageBubbleStyle) -> some View {
-        self.modifier(MessageBubbleLayout(colorScheme: colorScheme, isCurrentUser: isCurrentUser, message: message, style: style))
+    func messageBubbleLayout(isCurrentUser: Bool,
+                             message: MessageModel,
+                             colorScheme: ColorScheme,
+                             style: MessageBubbleStyle) -> some View {
+        self.modifier(MessageBubbleLayout(colorScheme: colorScheme,
+                                          isCurrentUser: isCurrentUser,
+                                          message: message,
+                                          style: style))
     }
 }
 

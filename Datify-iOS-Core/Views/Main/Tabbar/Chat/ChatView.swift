@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ChatView: View {
     @StateObject private var viewModel: ChatViewModel
+    @State private var showSheet: Bool = false
+    @State private var blurRadius: CGFloat = 0
 
     init(router: Router<AppRoute>) {
         _viewModel = StateObject(wrappedValue: ChatViewModel(router: router))
@@ -16,15 +18,19 @@ struct ChatView: View {
 
     var body: some View {
         switchState(loadingState: viewModel.loadingState)
-        .task {
-            try? await viewModel.loadData()
-        }
-        .alert("Some error occured", isPresented: $viewModel.isError) {
-            Button("Ok") {
-                viewModel.resetState()
+            .sheet(isPresented: $showSheet, content: {
+                filterSheetView
+            })
+            .blur(radius: blurRadius)
+            .task {
+                try? await viewModel.loadData()
             }
-        }
-        .navigationBarBackButtonHidden()
+            .alert("Some error occured", isPresented: $viewModel.isError) {
+                Button("Ok") {
+                    viewModel.resetState()
+                }
+            }
+            .navigationBarBackButtonHidden()
     }
 }
 
@@ -39,6 +45,58 @@ private extension ChatView {
             }
         default: DtSpinnerView(size: 56)
         }
+    }
+
+    var filterSheetView: some View {
+        NavigationStack {
+            GeometryReader { geometry in
+                ZStack {
+                    Color.backgroundPrimary.ignoresSafeArea()
+                    VStack(spacing: 8) {
+                        ForEach(ChatViewModel.SortOption.allCases, id: \.self) { option in
+                            DtSelectorButton(isSelected: viewModel.sortOption == option, title: option.title) {
+                                viewModel.sortOption = option
+                            }
+                        }
+                    }
+                    .padding(.horizontal, 12)
+                    .toolbar {
+                        ToolbarItem(placement: .topBarTrailing) {
+                            DtXMarkButton()
+                        }
+                        ToolbarItem(placement: .topBarLeading) {
+                            Text("Sort chats")
+                                .dtTypo(.h3Medium, color: .textPrimary)
+                        }
+                    }
+                }
+                .onChange(of: geometry.frame(in: .global).minY) { minY in
+                    withAnimation {
+                        blurRadius = interpolatedValue(for: minY)
+                    }
+                }
+            }
+        }
+        .presentationDetents([.height(400)])
+        .presentationDragIndicator(.visible)
+    }
+
+    func interpolatedValue(for height: CGFloat) -> CGFloat {
+        // TODO: Replace with View extension
+        let screenHeight = UIScreen.main.bounds.height
+        let startHeight = screenHeight
+        let endHeight = screenHeight - 350
+        let startValue: CGFloat = 0.0
+        let endValue: CGFloat = 10.0
+
+        if height >= startHeight || height <= 100 {
+            return startValue
+        } else if height <= endHeight {
+            return endValue
+        }
+
+        let slope = (endValue - startValue) / (endHeight - startHeight)
+        return startValue + slope * (height - startHeight)
     }
 
     var topToolbar: some View {
@@ -97,14 +155,18 @@ private extension ChatView {
                 Text("Messages")
                     .dtTypo(.p2Medium, color: .textPrimary)
                 Spacer()
-                Image(systemName: "slider.horizontal.3")
+                Button {
+                    showSheet.toggle()
+                } label: {
+                    Image(systemName: "slider.horizontal.3")
+                }
             }
             .padding(.horizontal, 12)
             .padding(.top, 24)
             VStack(spacing: 0) {
                 Divider()
                 LazyVStack(spacing: 0) {
-                    ForEach(viewModel.allChats) { chat in
+                    ForEach(viewModel.sortedChats) { chat in
                         VStack(spacing: 0) {
                             ChatRowView(chatModel: chat, viewModel: viewModel)
                                 .frame(height: 72)

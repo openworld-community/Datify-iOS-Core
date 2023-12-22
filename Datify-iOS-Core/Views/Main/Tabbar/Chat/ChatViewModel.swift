@@ -13,9 +13,11 @@ final class ChatViewModel: ObservableObject {
     unowned let router: Router<AppRoute>
     @Published var loadingState: LoadingState = .idle
     @Published var isError: Bool = false
+    @Published var sortOption: SortOption = .recent
 
     @Published var currentUser: TempUserModel?
     @Published var allChats: [ChatModel] = []
+    @Published var sortedChats: [ChatModel] = []
     @Published var relatedUsers: [TempUserModel] = []
 
     private var cancellables = Set<AnyCancellable>()
@@ -25,6 +27,25 @@ final class ChatViewModel: ObservableObject {
     init(router: Router<AppRoute>) {
         self.router = router
         addSubscribers()
+    }
+
+    enum SortOption: CaseIterable {
+        case recent, unread, online, favourites, toRespond
+
+        var title: String {
+            switch self {
+            case .recent:
+                return "Recent".localize()
+            case .unread:
+                return "Unread".localize()
+            case .online:
+                return "Online".localize()
+            case .favourites:
+                return "Favourites".localize()
+            case .toRespond:
+                return "Wait for respond".localize()
+            }
+        }
     }
 
     private func addSubscribers() {
@@ -67,6 +88,31 @@ final class ChatViewModel: ObservableObject {
                 }
             }
             .store(in: &cancellables)
+
+        $allChats
+            .combineLatest($sortOption)
+            .receive(on: DispatchQueue.main)
+            .map(sortChats)
+            .sink { [weak self] chats in
+                self?.sortedChats = chats
+            }
+            .store(in: &cancellables)
+    }
+
+    private func sortChats(allChats: [ChatModel], sortOption: SortOption) -> [ChatModel] {
+        guard let currentUser else { return [] }
+        switch sortOption {
+        case .recent:
+            return allChats.sorted(by: { $0.lastMessage?.date ?? Date() < $1.lastMessage?.date ?? Date() })
+        case .unread:
+            return allChats.filter({ $0.lastMessage?.sender != currentUser.id && $0.lastMessage?.status != .read })
+        case .online:
+            return allChats.filter({ userDataService.fetchInterlocutor(for: $0)?.isOnline ?? false })
+        case .favourites:
+            return allChats
+        case .toRespond:
+            return allChats.filter({ $0.messages.isNotEmpty && $0.messages.filter({ $0.sender == currentUser.id }).isEmpty })
+        }
     }
 
     func loadData() async throws {
