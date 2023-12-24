@@ -34,8 +34,7 @@ struct BigUserCardView: View {
                 ZStack(alignment: .topTrailing) {
                     if let photo = user.photos.first {
                         Image(photo)
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
+                            .resizableFill()
                             .frame(width: size.width * 0.92, height: size.height * 0.86)
                             .cornerRadius(10)
                             .animation(.none, value: selectedItem)
@@ -43,9 +42,7 @@ struct BigUserCardView: View {
                     Button(action: {
                         // TODO: Create a function to check whether a chat exists with a user
                         showInformationView = true
-                        withAnimation {
-                            blurRadius = 10
-                        }
+                        blurRadius = 10
                     }, label: {
                         Image(DtImage.chatIcon)
                             .frame(width: 48, height: 48)

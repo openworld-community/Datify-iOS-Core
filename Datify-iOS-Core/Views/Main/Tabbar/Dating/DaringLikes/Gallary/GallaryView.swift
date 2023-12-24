@@ -29,7 +29,7 @@ struct GallaryView: View {
             if likes.isNotEmpty {
                 ScrollView(showsIndicators: false) {
                     ForEach(likes.indices, id: \.self) { index in
-                        HStack(alignment: index == 0 ? .top  :  .bottom, 
+                        HStack(alignment: index == 0 ? .top  :  .bottom,
                                spacing: spacingGalleryCard) {
                                 GalleryItemView(like: likes[index][0],
                                                    currentUser: currentUser,

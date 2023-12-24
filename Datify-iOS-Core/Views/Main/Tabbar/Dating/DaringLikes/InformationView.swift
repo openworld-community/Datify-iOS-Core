@@ -40,6 +40,7 @@ struct InformationView: View {
                         .resizableFill()
                         .frame(width: 32, height: 32)
                 }
+                .shadow(radius: 6, y: 5)
                 .padding(.vertical)
                 Text(title)
                     .dtTypo(.p2Medium, color: .textPrimary)
@@ -55,7 +56,7 @@ struct InformationView: View {
             }
             .padding()
             .frame(width: widthScreen * 0.98)
-            .background(Color.backgroundSpecial)
+            .background(Color.backgroundPrimary)
             .cornerRadius(32)
         }
     }

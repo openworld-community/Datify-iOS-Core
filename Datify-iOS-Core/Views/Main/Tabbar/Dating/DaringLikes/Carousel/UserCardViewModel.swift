@@ -18,7 +18,6 @@ class UserCardViewModel: ObservableObject {
     }
 
     func getUser(userId: String) {
-        let userTemp = dataService.getUserData(for: userId)
-        user = userTemp
+        user = dataService.getUserData(for: userId)
     }
 }

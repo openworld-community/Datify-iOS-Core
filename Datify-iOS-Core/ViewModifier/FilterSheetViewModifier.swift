@@ -8,14 +8,6 @@
 import SwiftUI
 import UIKit
 
-struct FilterSizePreferenceKey: PreferenceKey {
-    static var defaultValue: CGSize = .zero
-
-    static func reduce(value: inout CGSize, nextValue: () -> CGSize) {
-        value = nextValue()
-    }
-}
-
 struct FilterSheetViewModifier<T: View>: ViewModifier {
     @Binding private var isPresented: Bool
     @Binding private var blurRadius: CGFloat
@@ -39,15 +31,9 @@ struct FilterSheetViewModifier<T: View>: ViewModifier {
                         ZStack {
                             Color.backgroundPrimary.ignoresSafeArea()
                             viewBilder()
-                                .background(
-                                    GeometryReader {  geometry in
-                                        Color.clear
-                                            .preference(key: NewSizePreferenceKey.self, value: geometry.size)
-                                    }
-                                )
-                                .onPreferenceChange(NewSizePreferenceKey.self) { newSizes in
+                                .readSize(onChange: { newSizes in
                                     sizes = newSizes
-                                }
+                                })
                                 .toolbar {
                                     ToolbarItem(placement: .topBarTrailing) {
                                         DtXMarkButton()

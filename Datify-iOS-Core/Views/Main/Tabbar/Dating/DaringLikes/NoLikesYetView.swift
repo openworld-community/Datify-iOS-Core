@@ -17,26 +17,24 @@ struct NoLikesYetView: View {
     }
 
     var body: some View {
-        GeometryReader { _ in
+        VStack {
             VStack {
-                VStack {
-                    VStack(spacing: 7) {
-                        Text("No likes yet")
-                            .dtTypo(.p2Medium, color: .textPrimary)
-                        Text("Like and study the profiles of other people, so they can pay attention to your activity and show reciprocity")
-                            .dtTypo(.p3Medium, color: .textTertiary)
-                            .multilineTextAlignment(.center)
-                            .padding(.horizontal)
-                    }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(Color.backgroundSecondary)
-                    .cornerRadius(10)
+                VStack(spacing: 7) {
+                    Text("No likes yet")
+                        .dtTypo(.p2Medium, color: .textPrimary)
+                    Text("Like and study the profiles of other people, so they can pay attention to your activity and show reciprocity")
+                        .dtTypo(.p3Medium, color: .textTertiary)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal)
                 }
-                Spacer()
-                DtButton(title: "Continue".localize(), style: .main) { }
-                    .frame(width: width)
-                    .padding(.bottom)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(Color.backgroundSecondary)
+                .cornerRadius(10)
             }
+            Spacer()
+            DtButton(title: "Continue".localize(), style: .main) { }
+                .frame(width: width)
+                .padding(.bottom)
         }
         .frame(width: width, height: height)
     }

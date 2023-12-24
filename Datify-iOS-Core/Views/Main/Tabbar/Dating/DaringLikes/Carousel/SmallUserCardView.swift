@@ -26,8 +26,7 @@ struct SmallUserCardView: View {
             HStack {
                 if let photo = user.photos.first {
                     Image(photo)
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
+                        .resizableFill()
                         .frame(width: size.width*0.07, height: size.height*0.06)
                         .cornerRadius(3)
                 }
