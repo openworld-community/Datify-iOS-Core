@@ -87,10 +87,19 @@
 		79F9EFFF2B0A39C400F2C4EF /* Array+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F9EFFE2B0A39C400F2C4EF /* Array+extension.swift */; };
 		79F9F0012B0A893000F2C4EF /* PermissionCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F9F0002B0A893000F2C4EF /* PermissionCenter.swift */; };
 		980895BA2A9F4A5700F82F02 /* DtSpinnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980895B92A9F4A5700F82F02 /* DtSpinnerView.swift */; };
+		9809ACCF2B1CA50600F19B52 /* DtConfirmationDialogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9809ACCE2B1CA50600F19B52 /* DtConfirmationDialogView.swift */; };
+		9809ACD12B1E099700F19B52 /* ComplainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9809ACD02B1E099700F19B52 /* ComplainView.swift */; };
 		98553B0A2AAE4A43005C80B3 /* View+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98553B092AAE4A43005C80B3 /* View+extension.swift */; };
+		9856CC982B1BB191007B3C49 /* BlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9856CC972B1BB191007B3C49 /* BlockView.swift */; };
+		9856CC9A2B1BB4EB007B3C49 /* ConfirmationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9856CC992B1BB4EB007B3C49 /* ConfirmationView.swift */; };
 		98747F902AFE271E005618CB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98747F8F2AFE271E005618CB /* LaunchScreen.storyboard */; };
 		9888E7862AC4747400F5B86F /* DtLimitedPhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9888E7852AC4747400F5B86F /* DtLimitedPhotoPicker.swift */; };
 		9888E78B2AC5B20100F5B86F /* DtCropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9888E78A2AC5B20100F5B86F /* DtCropView.swift */; };
+		98A8B0932B27AF7D001E16D0 /* ComplaintModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A8B0922B27AF7D001E16D0 /* ComplaintModel.swift */; };
+		98C55E9C2B1A74D200BD0450 /* DtGroupBoxStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C55E9B2B1A74D200BD0450 /* DtGroupBoxStyle.swift */; };
+		98C55E9E2B1A75A300BD0450 /* DtConfirmationDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C55E9D2B1A75A300BD0450 /* DtConfirmationDialog.swift */; };
+		98C55EA22B1B450300BD0450 /* DtSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C55EA12B1B450300BD0450 /* DtSheet.swift */; };
+		98C55EA42B1B724000BD0450 /* DtButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C55EA32B1B724000BD0450 /* DtButtonStyle.swift */; };
 		98E38EB42AB351A0007FC35A /* RegPhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E38EB32AB351A0007FC35A /* RegPhotoView.swift */; };
 		98E38EB62AB358F8007FC35A /* RegPhotoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E38EB52AB358F8007FC35A /* RegPhotoViewModel.swift */; };
 		98F3B6D62A9E4F9D0097B5C0 /* DtLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F3B6D52A9E4F9D0097B5C0 /* DtLogoView.swift */; };
@@ -207,12 +216,21 @@
 		79F9EFFE2B0A39C400F2C4EF /* Array+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+extension.swift"; sourceTree = "<group>"; };
 		79F9F0002B0A893000F2C4EF /* PermissionCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionCenter.swift; sourceTree = "<group>"; };
 		980895B92A9F4A5700F82F02 /* DtSpinnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtSpinnerView.swift; sourceTree = "<group>"; };
+		9809ACCE2B1CA50600F19B52 /* DtConfirmationDialogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtConfirmationDialogView.swift; sourceTree = "<group>"; };
+		9809ACD02B1E099700F19B52 /* ComplainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplainView.swift; sourceTree = "<group>"; };
 		98553B092AAE4A43005C80B3 /* View+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+extension.swift"; sourceTree = "<group>"; };
+		9856CC972B1BB191007B3C49 /* BlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockView.swift; sourceTree = "<group>"; };
+		9856CC992B1BB4EB007B3C49 /* ConfirmationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationView.swift; sourceTree = "<group>"; };
 		98747F8F2AFE271E005618CB /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9888E7852AC4747400F5B86F /* DtLimitedPhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtLimitedPhotoPicker.swift; sourceTree = "<group>"; };
 		9888E7872AC55E3600F5B86F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		9888E78A2AC5B20100F5B86F /* DtCropView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtCropView.swift; sourceTree = "<group>"; };
 		9898B2BE2AAA49DE007CA714 /* RegEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RegEmailViewModel.swift; path = "Datify-iOS-Core/Views/Main/Welcome/Registration/RegEmailViewModel.swift"; sourceTree = SOURCE_ROOT; };
+		98A8B0922B27AF7D001E16D0 /* ComplaintModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplaintModel.swift; sourceTree = "<group>"; };
+		98C55E9B2B1A74D200BD0450 /* DtGroupBoxStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtGroupBoxStyle.swift; sourceTree = "<group>"; };
+		98C55E9D2B1A75A300BD0450 /* DtConfirmationDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtConfirmationDialog.swift; sourceTree = "<group>"; };
+		98C55EA12B1B450300BD0450 /* DtSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtSheet.swift; sourceTree = "<group>"; };
+		98C55EA32B1B724000BD0450 /* DtButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtButtonStyle.swift; sourceTree = "<group>"; };
 		98E38EB32AB351A0007FC35A /* RegPhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegPhotoView.swift; sourceTree = "<group>"; };
 		98E38EB52AB358F8007FC35A /* RegPhotoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegPhotoViewModel.swift; sourceTree = "<group>"; };
 		98F3B6D52A9E4F9D0097B5C0 /* DtLogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtLogoView.swift; sourceTree = "<group>"; };
@@ -328,8 +346,12 @@
 				2002C9F52AB465540043B51E /* DtCustomPicker.swift */,
 				20FD2D2C2ADDCCF90051C894 /* DtSegmentedPicker.swift */,
 				205C6D8A2AE0010A0051FB77 /* DtXMarkButton.swift */,
+				98C55E9B2B1A74D200BD0450 /* DtGroupBoxStyle.swift */,
+				98C55E9D2B1A75A300BD0450 /* DtConfirmationDialog.swift */,
 				201DC0502AF826C900DA0E69 /* DtDoubleAvatar.swift */,
 				20B2A3F72B16780A00FC61FA /* DtToolbarButton.swift */,
+				98C55EA12B1B450300BD0450 /* DtSheet.swift */,
+				98C55EA32B1B724000BD0450 /* DtButtonStyle.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -386,6 +408,7 @@
 				634EF7332ADC48220061E13A /* DatingViewModel.swift */,
 				2081F01B2AF1493900B9659E /* DatingNotifications */,
 				207BFD852AE6ACBB00D6FB99 /* DatingFilter */,
+				9856CC962B1BB0B0007B3C49 /* Report&Block */,
 			);
 			path = Dating;
 			sourceTree = "<group>";
@@ -580,6 +603,18 @@
 				63A729662AA48CAA00AC60E3 /* Regex.swift */,
 			);
 			path = CustomTextField;
+			sourceTree = "<group>";
+		};
+		9856CC962B1BB0B0007B3C49 /* Report&Block */ = {
+			isa = PBXGroup;
+			children = (
+				9856CC972B1BB191007B3C49 /* BlockView.swift */,
+				9856CC992B1BB4EB007B3C49 /* ConfirmationView.swift */,
+				9809ACCE2B1CA50600F19B52 /* DtConfirmationDialogView.swift */,
+				9809ACD02B1E099700F19B52 /* ComplainView.swift */,
+				98A8B0922B27AF7D001E16D0 /* ComplaintModel.swift */,
+			);
+			path = "Report&Block";
 			sourceTree = "<group>";
 		};
 		98F9F2022AB0C64800F7DAB8 /* Recovered References */ = {
@@ -855,6 +890,7 @@
 				4A4CE2EA2A9B5FB80098FF80 /* DtButton.swift in Sources */,
 				98F536A42AFE4FBD0051D751 /* RegPasswordView.swift in Sources */,
 				4A4CE2D42A9B44280098FF80 /* RegistrationFlow.swift in Sources */,
+				9856CC982B1BB191007B3C49 /* BlockView.swift in Sources */,
 				2020736A2AB378B200CBBE42 /* DtCustomDatePicker.swift in Sources */,
 				2076AF302AB085F400AF5E11 /* Image+extension.swift in Sources */,
 				980895BA2A9F4A5700F82F02 /* DtSpinnerView.swift in Sources */,
@@ -869,9 +905,12 @@
 				D0C185302AA1D0E1000D71E5 /* SignInWithButton.swift in Sources */,
 				2081F0232AF1493900B9659E /* NotificationsDataService.swift in Sources */,
 				632A7F5E2AAC897B005DA819 /* DtCustomTFView+extension.swift in Sources */,
+				98C55EA22B1B450300BD0450 /* DtSheet.swift in Sources */,
+				98C55E9C2B1A74D200BD0450 /* DtGroupBoxStyle.swift in Sources */,
 				634EF72A2ADC48010061E13A /* TabItem.swift in Sources */,
 				98F536A22AFE4B380051D751 /* SMSView.swift in Sources */,
 				4A4CE2DC2A9B485B0098FF80 /* WelcomeView.swift in Sources */,
+				9809ACCF2B1CA50600F19B52 /* DtConfirmationDialogView.swift in Sources */,
 				63A5B8B52AC5F0BA00DEB54A /* CountryAndCityView.swift in Sources */,
 				63A7295F2AA3A30E00AC60E3 /* SecureTFView.swift in Sources */,
 				98E38EB62AB358F8007FC35A /* RegPhotoViewModel.swift in Sources */,
@@ -880,12 +919,15 @@
 				4A4CE2E82A9B58590098FF80 /* DtTypography.swift in Sources */,
 				63203C712AAC6B2600F8803A /* UIApplication+extension.swift in Sources */,
 				638D1E862ABAB45C0001CED4 /* LocationView.swift in Sources */,
+				9809ACD12B1E099700F19B52 /* ComplainView.swift in Sources */,
 				2081F0212AF1493900B9659E /* NotificationModel.swift in Sources */,
 				638D1E892ABAB45C0001CED4 /* CountryModel.swift in Sources */,
 				634EF7352ADC48220061E13A /* DatingViewModel.swift in Sources */,
 				D0C8965A2AA217630084FA62 /* DtImage.swift in Sources */,
 				634EF7392ADC48300061E13A /* MenuViewModel.swift in Sources */,
 				D0DC465F2A92699D0097CFF3 /* MainAppView.swift in Sources */,
+				98C55EA42B1B724000BD0450 /* DtButtonStyle.swift in Sources */,
+				98C55E9E2B1A75A300BD0450 /* DtConfirmationDialog.swift in Sources */,
 				634EF7382ADC48300061E13A /* MenuView.swift in Sources */,
 				634EF7282ADC48010061E13A /* TabbarViewModel.swift in Sources */,
 				2081F0222AF1493900B9659E /* NotificationRowView.swift in Sources */,
@@ -904,9 +946,11 @@
 				98F3B6D62A9E4F9D0097B5C0 /* DtLogoView.swift in Sources */,
 				634EF73B2ADC51EB0061E13A /* MainFlow.swift in Sources */,
 				208D05522AB903790071E1B7 /* DtSelectorButton.swift in Sources */,
+				9856CC9A2B1BB4EB007B3C49 /* ConfirmationView.swift in Sources */,
 				63A729692AA4A94B00AC60E3 /* CountryCodeButton.swift in Sources */,
 				2019CEBE2B16567000272BC6 /* DtDateFormatter.swift in Sources */,
 				634EF7292ADC48010061E13A /* DtTabbar.swift in Sources */,
+				98A8B0932B27AF7D001E16D0 /* ComplaintModel.swift in Sources */,
 				79F9EFFF2B0A39C400F2C4EF /* Array+extension.swift in Sources */,
 				797CA5582AE86584004DACFA /* VoiceGraphViewModel.swift in Sources */,
 				638D1E872ABAB45C0001CED4 /* LocationViewModel.swift in Sources */,

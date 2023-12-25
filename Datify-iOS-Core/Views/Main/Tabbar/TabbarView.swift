@@ -22,12 +22,44 @@ struct TabbarView: View {
         DtTabbar(tabsData: TabItem.allCases, selectedTab: $selectedTab, viewModel: viewModel) { item in
             createTabView(tab: item)
         }
+        .ignoresSafeArea(.keyboard)
+        .dtConfirmationDialog(isPresented: $viewModel.dtConfDialogIsPresented) {
+            DtConfirmationDialogView(
+                onBlock: {
+                    viewModel.askToBlock()
+                },
+                onComplain: {
+                    viewModel.complain()
+                }
+            )
+        }
+        .dtSheet(isPresented: $viewModel.blockingSheetIsPresented) {
+            BlockView(
+                onConfirm: {
+                    viewModel.confirmBlock()
+                },
+                onCancel: {
+                    viewModel.cancelBlock()
+                }
+            )
+        }
+        .dtSheet(isPresented: $viewModel.confirmationSheetIsPresented) {
+            ConfirmationView(
+                confirmationType: viewModel.confirmationType) {
+                viewModel.finish()
+            }
+        }
     }
 
     @ViewBuilder
     func createTabView(tab: TabItem) -> some View {
         switch tab {
-        case .dating: viewBuilder.createDatingView()
+        case .dating: viewBuilder.createDatingView(
+            dtConfDialogIsPresented: $viewModel.dtConfDialogIsPresented,
+            complainSheetIsPresented: $viewModel.complainSheetIsPresented,
+            confirmationSheetIsPresented: $viewModel.confirmationSheetIsPresented,
+            confirmationType: $viewModel.confirmationType
+        )
         case .chat: viewBuilder.createChatView()
         case .menu: viewBuilder.createMenuView()
         }

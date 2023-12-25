@@ -17,7 +17,6 @@ struct DtTabbar<Content: View>: View {
         GeometryReader { geometry in
             VStack {
                 tabView(selectedTab)
-                Spacer()
                 ZStack(alignment: .bottom) {
                     HStack(alignment: .center) {
                         ForEach(tabsData, id: \.self) { datum in

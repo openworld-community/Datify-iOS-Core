@@ -11,12 +11,11 @@ struct WelcomeView: View {
     @State private var phoneNumber: String = .init()
     @State private var isError: Bool = false
     // titles
-    private let appTitle: String = "Datify"
     private let mainText: String = "Find new acquaintance"
     private let mainTextGradient: String = "right now"
     private let orTitle: String = "or"
     // buttons
-    private let signInButtonTitle: String = "Sign in"
+    private let signInButtonTitle: String = "Sign in".localize()
 
     private unowned let router: Router<AppRoute>
 

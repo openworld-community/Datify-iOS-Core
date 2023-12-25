@@ -75,6 +75,7 @@ private extension RegRecordView {
             }
             DtButton(title: "Continue".localize(), style: viewModel.isFileExist ? .main : .secondary) {
                 // TODO: - Proceed button action
+                viewModel.router.push(.registrationFinish)
             }
             .disabled(!viewModel.isFileExist)
         }

@@ -13,8 +13,14 @@ final class DatingViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     var filterDataService = FilterDataService()
     @Published var userFilterModel: FilterModel?
+    @Published var filterSheetIsPresented: Bool = false
+    @Published var dtConfDialogIsPresented: Bool = false
+    @Published var complainSheetIsPresented: Bool = false
+    @Published var sheetSize: CGSize = .zero
 
-    init(router: Router<AppRoute>) {
+    init(
+        router: Router<AppRoute>
+    ) {
         self.router = router
         self.addSubscribers()
     }

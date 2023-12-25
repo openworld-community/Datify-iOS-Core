@@ -101,7 +101,7 @@ private extension DatingFilterView {
                 .dtTypo(.p2Medium, color: .primary)
             // TODO: Location section
             // TEMPORARY PLACEHOLDER
-            DtButton(title: "Location", style: .secondary) {}
+            DtButton(title: "Location".localize(), style: .secondary) {}
         }
     }
     private var distanceFilter: some View {

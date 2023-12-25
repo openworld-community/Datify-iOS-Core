@@ -78,7 +78,7 @@ struct LoginView: View {
 
             VStack(spacing: 8) {
                 DtButton(
-                    title: String(localized: "Sign in"),
+                    title: "Sign in".localize(),
                     style: .main
                 ) {
                     viewModel.authenticate()
