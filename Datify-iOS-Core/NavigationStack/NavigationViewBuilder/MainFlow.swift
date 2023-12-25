@@ -11,6 +11,7 @@ protocol MainFlow {
     associatedtype Dating: View
     associatedtype Chat: View
     associatedtype Menu: View
+    associatedtype Notifications: View
 
     func createDatingView(
         dtConfDialogIsPresented: Binding<Bool>,
@@ -19,6 +20,7 @@ protocol MainFlow {
         confirmationType: Binding<ConfirmationView.ConfirmationType>) -> Dating
     func createChatView() -> Chat
     func createMenuView() -> Menu
+    func createNotificationsView() -> Notifications
 }
 
 extension NavigationViewBuilder: MainFlow {
@@ -35,6 +37,9 @@ extension NavigationViewBuilder: MainFlow {
             confirmationSheetIsPresented: confirmationSheetIsPresented,
             confirmationType: confirmationType
         )
+    }
+    func createNotificationsView() -> some View {
+        NotificationsView(router: router)
     }
     func createChatView() -> some View {
         ChatView(router: router)

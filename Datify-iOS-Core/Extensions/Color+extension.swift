@@ -21,6 +21,7 @@ extension Color {
     static let backgroundPrimary: Color = Color("BackgroundPrimary")
     static let backgroundSecondary: Color = Color("BackgroundSecondary")
     static let backgroundStroke: Color = Color("BackgroundStroke")
+    static let backgroundSpecial: Color = Color("BackgroundSpecial")
 
     static let iconsPrimary: Color = Color("IconsPrimary")
     static let iconsSecondary: Color = Color("IconsSecondary")

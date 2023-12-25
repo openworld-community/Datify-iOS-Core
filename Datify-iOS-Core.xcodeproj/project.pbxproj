@@ -11,6 +11,8 @@
 		2012EF642AAF479400B01688 /* DtBackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2012EF632AAF479400B01688 /* DtBackButton.swift */; };
 		2012EF662AAF719C00B01688 /* DtTermsAndConditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2012EF652AAF719C00B01688 /* DtTermsAndConditions.swift */; };
 		201878B32AB2F8B20029C66C /* RegBirthdayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 201878B22AB2F8B20029C66C /* RegBirthdayView.swift */; };
+		2019CEBE2B16567000272BC6 /* DtDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2019CEBD2B16567000272BC6 /* DtDateFormatter.swift */; };
+		201DC0512AF826C900DA0E69 /* DtDoubleAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 201DC0502AF826C900DA0E69 /* DtDoubleAvatar.swift */; };
 		2020736A2AB378B200CBBE42 /* DtCustomDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202073692AB378B200CBBE42 /* DtCustomDatePicker.swift */; };
 		20551DE52AE6A84F0018D2D9 /* UIPickerView+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20551DE42AE6A84F0018D2D9 /* UIPickerView+extension.swift */; };
 		205C6D872ADFF4D30051FB77 /* FilterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205C6D862ADFF4D30051FB77 /* FilterModel.swift */; };
@@ -19,9 +21,15 @@
 		205C6D8D2AE00F870051FB77 /* FilterDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205C6D8C2AE00F870051FB77 /* FilterDataService.swift */; };
 		2076AF2E2AB080DB00AF5E11 /* String+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2076AF2D2AB080DB00AF5E11 /* String+extension.swift */; };
 		2076AF302AB085F400AF5E11 /* Image+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2076AF2F2AB085F400AF5E11 /* Image+extension.swift */; };
+		2081F0212AF1493900B9659E /* NotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2081F01C2AF1493900B9659E /* NotificationModel.swift */; };
+		2081F0222AF1493900B9659E /* NotificationRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2081F01D2AF1493900B9659E /* NotificationRowView.swift */; };
+		2081F0232AF1493900B9659E /* NotificationsDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2081F01E2AF1493900B9659E /* NotificationsDataService.swift */; };
+		2081F0242AF1493900B9659E /* NotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2081F01F2AF1493900B9659E /* NotificationsView.swift */; };
+		2081F0252AF1493900B9659E /* NotificationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2081F0202AF1493900B9659E /* NotificationsViewModel.swift */; };
 		208A426D2AB9061000E90C94 /* RegFinalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208A426C2AB9061000E90C94 /* RegFinalView.swift */; };
 		208D05502AB8F5EB0071E1B7 /* RegOccupationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208D054F2AB8F5EB0071E1B7 /* RegOccupationView.swift */; };
 		208D05522AB903790071E1B7 /* DtSelectorButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208D05512AB903790071E1B7 /* DtSelectorButton.swift */; };
+		20B2A3F82B16780A00FC61FA /* DtToolbarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B2A3F72B16780A00FC61FA /* DtToolbarButton.swift */; };
 		20BF9D932AB1BE85008B3CEB /* RegSelectGenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20BF9D922AB1BE85008B3CEB /* RegSelectGenderView.swift */; };
 		20C081052AB1E1B200BB2910 /* RegEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C081042AB1E1B200BB2910 /* RegEmailView.swift */; };
 		20C081072AB1E1D400BB2910 /* RegEnterNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C081062AB1E1D400BB2910 /* RegEnterNameView.swift */; };
@@ -69,6 +77,15 @@
 		63A7295F2AA3A30E00AC60E3 /* SecureTFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A7295E2AA3A30E00AC60E3 /* SecureTFView.swift */; };
 		63A729672AA48CAA00AC60E3 /* Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A729662AA48CAA00AC60E3 /* Regex.swift */; };
 		63A729692AA4A94B00AC60E3 /* CountryCodeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A729682AA4A94B00AC60E3 /* CountryCodeButton.swift */; };
+		797CA5522AE85184004DACFA /* RegRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797CA5512AE85184004DACFA /* RegRecordView.swift */; };
+		797CA5562AE86519004DACFA /* VoiceGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797CA5552AE86519004DACFA /* VoiceGraphView.swift */; };
+		797CA5582AE86584004DACFA /* VoiceGraphViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797CA5572AE86584004DACFA /* VoiceGraphViewModel.swift */; };
+		797D6D462AFB6BEC0087829A /* RecordManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797D6D452AFB6BEC0087829A /* RecordManager.swift */; };
+		79BE96E72AF7689E008E943C /* DtCircleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BE96E62AF7689E008E943C /* DtCircleButton.swift */; };
+		79C5F14D2B1DDD1700FF43EF /* RegEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F9F2062AB0C80A00F7DAB8 /* RegEmailViewModel.swift */; };
+		79F306C92AFCBE25003DCE85 /* RegRecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F306C82AFCBE25003DCE85 /* RegRecordViewModel.swift */; };
+		79F9EFFF2B0A39C400F2C4EF /* Array+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F9EFFE2B0A39C400F2C4EF /* Array+extension.swift */; };
+		79F9F0012B0A893000F2C4EF /* PermissionCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F9F0002B0A893000F2C4EF /* PermissionCenter.swift */; };
 		980895BA2A9F4A5700F82F02 /* DtSpinnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980895B92A9F4A5700F82F02 /* DtSpinnerView.swift */; };
 		9809ACCF2B1CA50600F19B52 /* DtConfirmationDialogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9809ACCE2B1CA50600F19B52 /* DtConfirmationDialogView.swift */; };
 		9809ACD12B1E099700F19B52 /* ComplainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9809ACD02B1E099700F19B52 /* ComplainView.swift */; };
@@ -78,7 +95,6 @@
 		98747F902AFE271E005618CB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98747F8F2AFE271E005618CB /* LaunchScreen.storyboard */; };
 		9888E7862AC4747400F5B86F /* DtLimitedPhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9888E7852AC4747400F5B86F /* DtLimitedPhotoPicker.swift */; };
 		9888E78B2AC5B20100F5B86F /* DtCropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9888E78A2AC5B20100F5B86F /* DtCropView.swift */; };
-		9898B2BF2AAA49DE007CA714 /* RegEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9898B2BE2AAA49DE007CA714 /* RegEmailViewModel.swift */; };
 		98A8B0932B27AF7D001E16D0 /* ComplaintModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A8B0922B27AF7D001E16D0 /* ComplaintModel.swift */; };
 		98C55E9C2B1A74D200BD0450 /* DtGroupBoxStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C55E9B2B1A74D200BD0450 /* DtGroupBoxStyle.swift */; };
 		98C55E9E2B1A75A300BD0450 /* DtConfirmationDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C55E9D2B1A75A300BD0450 /* DtConfirmationDialog.swift */; };
@@ -89,7 +105,6 @@
 		98F3B6D62A9E4F9D0097B5C0 /* DtLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F3B6D52A9E4F9D0097B5C0 /* DtLogoView.swift */; };
 		98F536A22AFE4B380051D751 /* SMSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F536A12AFE4B380051D751 /* SMSView.swift */; };
 		98F536A42AFE4FBD0051D751 /* RegPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F536A32AFE4FBD0051D751 /* RegPasswordView.swift */; };
-		98F536A62AFE52700051D751 /* RegRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F536A52AFE52700051D751 /* RegRecordView.swift */; };
 		98FA18E52B0A34C5003EE71A /* RecoveryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98FA18E42B0A34C5003EE71A /* RecoveryView.swift */; };
 		98FA18E72B0A4497003EE71A /* RegPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98FA18E62B0A4497003EE71A /* RegPasswordViewModel.swift */; };
 		D050B1B12AA84AA0008EC0AB /* DividerLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D050B1B02AA84AA0008EC0AB /* DividerLine.swift */; };
@@ -126,6 +141,8 @@
 		2012EF632AAF479400B01688 /* DtBackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtBackButton.swift; sourceTree = "<group>"; };
 		2012EF652AAF719C00B01688 /* DtTermsAndConditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtTermsAndConditions.swift; sourceTree = "<group>"; };
 		201878B22AB2F8B20029C66C /* RegBirthdayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegBirthdayView.swift; sourceTree = "<group>"; };
+		2019CEBD2B16567000272BC6 /* DtDateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtDateFormatter.swift; sourceTree = "<group>"; };
+		201DC0502AF826C900DA0E69 /* DtDoubleAvatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtDoubleAvatar.swift; sourceTree = "<group>"; };
 		202073692AB378B200CBBE42 /* DtCustomDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtCustomDatePicker.swift; sourceTree = "<group>"; };
 		20551DE42AE6A84F0018D2D9 /* UIPickerView+extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIPickerView+extension.swift"; sourceTree = "<group>"; };
 		205C6D862ADFF4D30051FB77 /* FilterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterModel.swift; sourceTree = "<group>"; };
@@ -134,9 +151,15 @@
 		205C6D8C2AE00F870051FB77 /* FilterDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterDataService.swift; sourceTree = "<group>"; };
 		2076AF2D2AB080DB00AF5E11 /* String+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+extension.swift"; sourceTree = "<group>"; };
 		2076AF2F2AB085F400AF5E11 /* Image+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+extension.swift"; sourceTree = "<group>"; };
+		2081F01C2AF1493900B9659E /* NotificationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationModel.swift; sourceTree = "<group>"; };
+		2081F01D2AF1493900B9659E /* NotificationRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationRowView.swift; sourceTree = "<group>"; };
+		2081F01E2AF1493900B9659E /* NotificationsDataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsDataService.swift; sourceTree = "<group>"; };
+		2081F01F2AF1493900B9659E /* NotificationsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsView.swift; sourceTree = "<group>"; };
+		2081F0202AF1493900B9659E /* NotificationsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsViewModel.swift; sourceTree = "<group>"; };
 		208A426C2AB9061000E90C94 /* RegFinalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegFinalView.swift; sourceTree = "<group>"; };
 		208D054F2AB8F5EB0071E1B7 /* RegOccupationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegOccupationView.swift; sourceTree = "<group>"; };
 		208D05512AB903790071E1B7 /* DtSelectorButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtSelectorButton.swift; sourceTree = "<group>"; };
+		20B2A3F72B16780A00FC61FA /* DtToolbarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtToolbarButton.swift; sourceTree = "<group>"; };
 		20BF9D922AB1BE85008B3CEB /* RegSelectGenderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegSelectGenderView.swift; sourceTree = "<group>"; };
 		20C081042AB1E1B200BB2910 /* RegEmailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegEmailView.swift; sourceTree = "<group>"; };
 		20C081062AB1E1D400BB2910 /* RegEnterNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegEnterNameView.swift; sourceTree = "<group>"; };
@@ -184,6 +207,14 @@
 		63A7295E2AA3A30E00AC60E3 /* SecureTFView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureTFView.swift; sourceTree = "<group>"; };
 		63A729662AA48CAA00AC60E3 /* Regex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Regex.swift; sourceTree = "<group>"; };
 		63A729682AA4A94B00AC60E3 /* CountryCodeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCodeButton.swift; sourceTree = "<group>"; };
+		797CA5512AE85184004DACFA /* RegRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegRecordView.swift; sourceTree = "<group>"; };
+		797CA5552AE86519004DACFA /* VoiceGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceGraphView.swift; sourceTree = "<group>"; };
+		797CA5572AE86584004DACFA /* VoiceGraphViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceGraphViewModel.swift; sourceTree = "<group>"; };
+		797D6D452AFB6BEC0087829A /* RecordManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordManager.swift; sourceTree = "<group>"; };
+		79BE96E62AF7689E008E943C /* DtCircleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtCircleButton.swift; sourceTree = "<group>"; };
+		79F306C82AFCBE25003DCE85 /* RegRecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegRecordViewModel.swift; sourceTree = "<group>"; };
+		79F9EFFE2B0A39C400F2C4EF /* Array+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+extension.swift"; sourceTree = "<group>"; };
+		79F9F0002B0A893000F2C4EF /* PermissionCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionCenter.swift; sourceTree = "<group>"; };
 		980895B92A9F4A5700F82F02 /* DtSpinnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtSpinnerView.swift; sourceTree = "<group>"; };
 		9809ACCE2B1CA50600F19B52 /* DtConfirmationDialogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtConfirmationDialogView.swift; sourceTree = "<group>"; };
 		9809ACD02B1E099700F19B52 /* ComplainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplainView.swift; sourceTree = "<group>"; };
@@ -205,7 +236,6 @@
 		98F3B6D52A9E4F9D0097B5C0 /* DtLogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtLogoView.swift; sourceTree = "<group>"; };
 		98F536A12AFE4B380051D751 /* SMSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSView.swift; sourceTree = "<group>"; };
 		98F536A32AFE4FBD0051D751 /* RegPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegPasswordView.swift; sourceTree = "<group>"; };
-		98F536A52AFE52700051D751 /* RegRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegRecordView.swift; sourceTree = "<group>"; };
 		98F9F2062AB0C80A00F7DAB8 /* RegEmailViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegEmailViewModel.swift; sourceTree = "<group>"; };
 		98FA18E42B0A34C5003EE71A /* RecoveryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryView.swift; sourceTree = "<group>"; };
 		98FA18E62B0A4497003EE71A /* RegPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegPasswordViewModel.swift; sourceTree = "<group>"; };
@@ -262,6 +292,18 @@
 			path = DatingFilter;
 			sourceTree = "<group>";
 		};
+		2081F01B2AF1493900B9659E /* DatingNotifications */ = {
+			isa = PBXGroup;
+			children = (
+				2081F01F2AF1493900B9659E /* NotificationsView.swift */,
+				2081F0202AF1493900B9659E /* NotificationsViewModel.swift */,
+				2081F01D2AF1493900B9659E /* NotificationRowView.swift */,
+				2081F01C2AF1493900B9659E /* NotificationModel.swift */,
+				2081F01E2AF1493900B9659E /* NotificationsDataService.swift */,
+			);
+			path = DatingNotifications;
+			sourceTree = "<group>";
+		};
 		4A4CE2C02A9B39FB0098FF80 /* NavigationStack */ = {
 			isa = PBXGroup;
 			children = (
@@ -286,6 +328,7 @@
 			children = (
 				98553B0B2AAF0CF3005C80B3 /* CustomTextField */,
 				4A4CE2E92A9B5FB80098FF80 /* DtButton.swift */,
+				79BE96E62AF7689E008E943C /* DtCircleButton.swift */,
 				2012EF632AAF479400B01688 /* DtBackButton.swift */,
 				208D05512AB903790071E1B7 /* DtSelectorButton.swift */,
 				20FD2D2E2ADDCD060051C894 /* DtCheckBoxButton.swift */,
@@ -305,6 +348,8 @@
 				205C6D8A2AE0010A0051FB77 /* DtXMarkButton.swift */,
 				98C55E9B2B1A74D200BD0450 /* DtGroupBoxStyle.swift */,
 				98C55E9D2B1A75A300BD0450 /* DtConfirmationDialog.swift */,
+				201DC0502AF826C900DA0E69 /* DtDoubleAvatar.swift */,
+				20B2A3F72B16780A00FC61FA /* DtToolbarButton.swift */,
 				98C55EA12B1B450300BD0450 /* DtSheet.swift */,
 				98C55EA32B1B724000BD0450 /* DtButtonStyle.swift */,
 			);
@@ -323,7 +368,6 @@
 		4A4CE2CB2A9B3FFB0098FF80 /* Welcome */ = {
 			isa = PBXGroup;
 			children = (
-				638D1E812ABAB44B0001CED4 /* Location */,
 				98F9F2032AB0C67300F7DAB8 /* Registration */,
 				4A4CE2DB2A9B485B0098FF80 /* WelcomeView.swift */,
 				98F536A12AFE4B380051D751 /* SMSView.swift */,
@@ -362,6 +406,7 @@
 			children = (
 				634EF7322ADC48220061E13A /* DatingView.swift */,
 				634EF7332ADC48220061E13A /* DatingViewModel.swift */,
+				2081F01B2AF1493900B9659E /* DatingNotifications */,
 				207BFD852AE6ACBB00D6FB99 /* DatingFilter */,
 				9856CC962B1BB0B0007B3C49 /* Report&Block */,
 			);
@@ -420,6 +465,7 @@
 				2076AF2F2AB085F400AF5E11 /* Image+extension.swift */,
 				4A4CE2F02A9B67B90098FF80 /* Text+extension.swift */,
 				2076AF2D2AB080DB00AF5E11 /* String+extension.swift */,
+				79F9EFFE2B0A39C400F2C4EF /* Array+extension.swift */,
 				98553B092AAE4A43005C80B3 /* View+extension.swift */,
 				63203C702AAC6B2600F8803A /* UIApplication+extension.swift */,
 				632A7F5D2AAC897B005DA819 /* DtCustomTFView+extension.swift */,
@@ -441,6 +487,8 @@
 			children = (
 				4A4CE2EC2A9B60A60098FF80 /* AppConstants.swift */,
 				D0C896592AA217630084FA62 /* DtImage.swift */,
+				2019CEBD2B16567000272BC6 /* DtDateFormatter.swift */,
+				79F9F0002B0A893000F2C4EF /* PermissionCenter.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -465,6 +513,85 @@
 				63A729682AA4A94B00AC60E3 /* CountryCodeButton.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		797CA5502AE85134004DACFA /* Voice */ = {
+			isa = PBXGroup;
+			children = (
+				797CA5512AE85184004DACFA /* RegRecordView.swift */,
+				79F306C82AFCBE25003DCE85 /* RegRecordViewModel.swift */,
+				797CA5552AE86519004DACFA /* VoiceGraphView.swift */,
+				797CA5572AE86584004DACFA /* VoiceGraphViewModel.swift */,
+				797D6D452AFB6BEC0087829A /* RecordManager.swift */,
+			);
+			path = Voice;
+			sourceTree = "<group>";
+		};
+		79C5F14A2B1DDB3500FF43EF /* Gender */ = {
+			isa = PBXGroup;
+			children = (
+				20BF9D922AB1BE85008B3CEB /* RegSelectGenderView.swift */,
+			);
+			path = Gender;
+			sourceTree = "<group>";
+		};
+		79C5F14B2B1DDBF600FF43EF /* Name */ = {
+			isa = PBXGroup;
+			children = (
+				20C081062AB1E1D400BB2910 /* RegEnterNameView.swift */,
+			);
+			path = Name;
+			sourceTree = "<group>";
+		};
+		79C5F14C2B1DDD0900FF43EF /* Email */ = {
+			isa = PBXGroup;
+			children = (
+				20C081042AB1E1B200BB2910 /* RegEmailView.swift */,
+				98F9F2062AB0C80A00F7DAB8 /* RegEmailViewModel.swift */,
+			);
+			path = Email;
+			sourceTree = "<group>";
+		};
+		79C5F14E2B1DDD5100FF43EF /* Birthday */ = {
+			isa = PBXGroup;
+			children = (
+				201878B22AB2F8B20029C66C /* RegBirthdayView.swift */,
+			);
+			path = Birthday;
+			sourceTree = "<group>";
+		};
+		79C5F14F2B1DDD6A00FF43EF /* Occupation */ = {
+			isa = PBXGroup;
+			children = (
+				208D054F2AB8F5EB0071E1B7 /* RegOccupationView.swift */,
+			);
+			path = Occupation;
+			sourceTree = "<group>";
+		};
+		79C5F1512B1DDD8E00FF43EF /* Password */ = {
+			isa = PBXGroup;
+			children = (
+				98F536A32AFE4FBD0051D751 /* RegPasswordView.swift */,
+				98FA18E62B0A4497003EE71A /* RegPasswordViewModel.swift */,
+			);
+			path = Password;
+			sourceTree = "<group>";
+		};
+		79C5F1522B1DDDBB00FF43EF /* Finish */ = {
+			isa = PBXGroup;
+			children = (
+				208A426C2AB9061000E90C94 /* RegFinalView.swift */,
+			);
+			path = Finish;
+			sourceTree = "<group>";
+		};
+		79C5F1532B1DE4F200FF43EF /* Photo */ = {
+			isa = PBXGroup;
+			children = (
+				98E38EB52AB358F8007FC35A /* RegPhotoViewModel.swift */,
+				98E38EB32AB351A0007FC35A /* RegPhotoView.swift */,
+			);
+			path = Photo;
 			sourceTree = "<group>";
 		};
 		98553B0B2AAF0CF3005C80B3 /* CustomTextField */ = {
@@ -501,18 +628,16 @@
 		98F9F2032AB0C67300F7DAB8 /* Registration */ = {
 			isa = PBXGroup;
 			children = (
-				98F9F2062AB0C80A00F7DAB8 /* RegEmailViewModel.swift */,
-				20C081042AB1E1B200BB2910 /* RegEmailView.swift */,
-				20BF9D922AB1BE85008B3CEB /* RegSelectGenderView.swift */,
-				20C081062AB1E1D400BB2910 /* RegEnterNameView.swift */,
-				98E38EB32AB351A0007FC35A /* RegPhotoView.swift */,
-				98E38EB52AB358F8007FC35A /* RegPhotoViewModel.swift */,
-				208D054F2AB8F5EB0071E1B7 /* RegOccupationView.swift */,
-				208A426C2AB9061000E90C94 /* RegFinalView.swift */,
-				201878B22AB2F8B20029C66C /* RegBirthdayView.swift */,
-				98F536A32AFE4FBD0051D751 /* RegPasswordView.swift */,
-				98F536A52AFE52700051D751 /* RegRecordView.swift */,
-				98FA18E62B0A4497003EE71A /* RegPasswordViewModel.swift */,
+				79C5F14A2B1DDB3500FF43EF /* Gender */,
+				79C5F14B2B1DDBF600FF43EF /* Name */,
+				79C5F14E2B1DDD5100FF43EF /* Birthday */,
+				79C5F14F2B1DDD6A00FF43EF /* Occupation */,
+				79C5F1512B1DDD8E00FF43EF /* Password */,
+				79C5F14C2B1DDD0900FF43EF /* Email */,
+				638D1E812ABAB44B0001CED4 /* Location */,
+				79C5F1532B1DE4F200FF43EF /* Photo */,
+				797CA5502AE85134004DACFA /* Voice */,
+				79C5F1522B1DDDBB00FF43EF /* Finish */,
 			);
 			path = Registration;
 			sourceTree = "<group>";
@@ -770,12 +895,15 @@
 				2076AF302AB085F400AF5E11 /* Image+extension.swift in Sources */,
 				980895BA2A9F4A5700F82F02 /* DtSpinnerView.swift in Sources */,
 				20E518332ADDF63100A0463A /* DtStepSliderSegment.swift in Sources */,
+				797CA5522AE85184004DACFA /* RegRecordView.swift in Sources */,
 				63A7295D2AA395A200AC60E3 /* ConstantsTF.swift in Sources */,
 				208D05502AB8F5EB0071E1B7 /* RegOccupationView.swift in Sources */,
 				4A4CE2CA2A9B3E8C0098FF80 /* NavigationViewBuilder.swift in Sources */,
 				4A4CE2C82A9B3B620098FF80 /* Router.swift in Sources */,
 				634EF72B2ADC48010061E13A /* TabbarView.swift in Sources */,
+				79F9F0012B0A893000F2C4EF /* PermissionCenter.swift in Sources */,
 				D0C185302AA1D0E1000D71E5 /* SignInWithButton.swift in Sources */,
+				2081F0232AF1493900B9659E /* NotificationsDataService.swift in Sources */,
 				632A7F5E2AAC897B005DA819 /* DtCustomTFView+extension.swift in Sources */,
 				98C55EA22B1B450300BD0450 /* DtSheet.swift in Sources */,
 				98C55E9C2B1A74D200BD0450 /* DtGroupBoxStyle.swift in Sources */,
@@ -792,6 +920,7 @@
 				63203C712AAC6B2600F8803A /* UIApplication+extension.swift in Sources */,
 				638D1E862ABAB45C0001CED4 /* LocationView.swift in Sources */,
 				9809ACD12B1E099700F19B52 /* ComplainView.swift in Sources */,
+				2081F0212AF1493900B9659E /* NotificationModel.swift in Sources */,
 				638D1E892ABAB45C0001CED4 /* CountryModel.swift in Sources */,
 				634EF7352ADC48220061E13A /* DatingViewModel.swift in Sources */,
 				D0C8965A2AA217630084FA62 /* DtImage.swift in Sources */,
@@ -801,22 +930,29 @@
 				98C55E9E2B1A75A300BD0450 /* DtConfirmationDialog.swift in Sources */,
 				634EF7382ADC48300061E13A /* MenuView.swift in Sources */,
 				634EF7282ADC48010061E13A /* TabbarViewModel.swift in Sources */,
+				2081F0222AF1493900B9659E /* NotificationRowView.swift in Sources */,
 				63A729592AA3937500AC60E3 /* RegularTFView.swift in Sources */,
 				20BF9D932AB1BE85008B3CEB /* RegSelectGenderView.swift in Sources */,
 				205C6D8D2AE00F870051FB77 /* FilterDataService.swift in Sources */,
+				2081F0252AF1493900B9659E /* NotificationsViewModel.swift in Sources */,
 				4A4CE2E32A9B53E70098FF80 /* Color+extension.swift in Sources */,
+				201DC0512AF826C900DA0E69 /* DtDoubleAvatar.swift in Sources */,
 				205C6D892ADFFAB20051FB77 /* DatingFilterViewModel.swift in Sources */,
+				79BE96E72AF7689E008E943C /* DtCircleButton.swift in Sources */,
 				208A426D2AB9061000E90C94 /* RegFinalView.swift in Sources */,
 				2076AF2E2AB080DB00AF5E11 /* String+extension.swift in Sources */,
 				20FD2D312ADDCEAA0051C894 /* DatingFilterView.swift in Sources */,
-				9898B2BF2AAA49DE007CA714 /* RegEmailViewModel.swift in Sources */,
+				79C5F14D2B1DDD1700FF43EF /* RegEmailViewModel.swift in Sources */,
 				98F3B6D62A9E4F9D0097B5C0 /* DtLogoView.swift in Sources */,
 				634EF73B2ADC51EB0061E13A /* MainFlow.swift in Sources */,
 				208D05522AB903790071E1B7 /* DtSelectorButton.swift in Sources */,
 				9856CC9A2B1BB4EB007B3C49 /* ConfirmationView.swift in Sources */,
 				63A729692AA4A94B00AC60E3 /* CountryCodeButton.swift in Sources */,
+				2019CEBE2B16567000272BC6 /* DtDateFormatter.swift in Sources */,
 				634EF7292ADC48010061E13A /* DtTabbar.swift in Sources */,
 				98A8B0932B27AF7D001E16D0 /* ComplaintModel.swift in Sources */,
+				79F9EFFF2B0A39C400F2C4EF /* Array+extension.swift in Sources */,
+				797CA5582AE86584004DACFA /* VoiceGraphViewModel.swift in Sources */,
 				638D1E872ABAB45C0001CED4 /* LocationViewModel.swift in Sources */,
 				634EF7312ADC48100061E13A /* ChatViewModel.swift in Sources */,
 				D0DC465D2A92699D0097CFF3 /* DatifyiOSCoreApp.swift in Sources */,
@@ -824,16 +960,19 @@
 				634EF7342ADC48220061E13A /* DatingView.swift in Sources */,
 				4A4CE2D62A9B44C20098FF80 /* LoginFlow.swift in Sources */,
 				98E38EB42AB351A0007FC35A /* RegPhotoView.swift in Sources */,
-				98F536A62AFE52700051D751 /* RegRecordView.swift in Sources */,
 				20C081072AB1E1D400BB2910 /* RegEnterNameView.swift in Sources */,
 				20FD2D2F2ADDCD060051C894 /* DtCheckBoxButton.swift in Sources */,
 				20551DE52AE6A84F0018D2D9 /* UIPickerView+extension.swift in Sources */,
+				20B2A3F82B16780A00FC61FA /* DtToolbarButton.swift in Sources */,
+				797D6D462AFB6BEC0087829A /* RecordManager.swift in Sources */,
+				797CA5562AE86519004DACFA /* VoiceGraphView.swift in Sources */,
 				20C081052AB1E1B200BB2910 /* RegEmailView.swift in Sources */,
 				20FD2D2D2ADDCCF90051C894 /* DtSegmentedPicker.swift in Sources */,
 				205C6D872ADFF4D30051FB77 /* FilterModel.swift in Sources */,
 				98553B0A2AAE4A43005C80B3 /* View+extension.swift in Sources */,
 				4A4CE2D82A9B47060098FF80 /* LoginView.swift in Sources */,
 				2012EF662AAF719C00B01688 /* DtTermsAndConditions.swift in Sources */,
+				2081F0242AF1493900B9659E /* NotificationsView.swift in Sources */,
 				4A4CE2ED2A9B60A60098FF80 /* AppConstants.swift in Sources */,
 				2012EF642AAF479400B01688 /* DtBackButton.swift in Sources */,
 				634EF7302ADC48100061E13A /* ChatView.swift in Sources */,
@@ -846,6 +985,7 @@
 				9888E78B2AC5B20100F5B86F /* DtCropView.swift in Sources */,
 				4A4CE2DA2A9B47650098FF80 /* LoginViewModel.swift in Sources */,
 				D050B1B12AA84AA0008EC0AB /* DividerLine.swift in Sources */,
+				79F306C92AFCBE25003DCE85 /* RegRecordViewModel.swift in Sources */,
 				63A729672AA48CAA00AC60E3 /* Regex.swift in Sources */,
 				9888E7862AC4747400F5B86F /* DtLimitedPhotoPicker.swift in Sources */,
 				205C6D8B2AE0010A0051FB77 /* DtXMarkButton.swift in Sources */,
@@ -1009,13 +1149,14 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Datify-iOS-Core/Preview Content\"";
-				DEVELOPMENT_TEAM = 2S52Q5VDX5;
+				DEVELOPMENT_TEAM = 6AB63DZ9S3;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/Datify-mobile-shared/shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Datify-iOS-Core/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Datify;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Our geolocation-based dating app helps you find suitable partners both in your local area and beyond. We utilize geopositioning to generate more precise and personalized recommendations, taking your location into consideration.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "this app uses the microphone";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1032,7 +1173,7 @@
 					"-framework",
 					shared,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.a.pride.Datify-iOS-Core";
+				PRODUCT_BUNDLE_IDENTIFIER = "acom.a.pride.Datify-iOS-Core";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -1053,13 +1194,14 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Datify-iOS-Core/Preview Content\"";
-				DEVELOPMENT_TEAM = 2S52Q5VDX5;
+				DEVELOPMENT_TEAM = 6AB63DZ9S3;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/Datify-mobile-shared/shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Datify-iOS-Core/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Datify;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Our geolocation-based dating app helps you find suitable partners both in your local area and beyond. We utilize geopositioning to generate more precise and personalized recommendations, taking your location into consideration.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "this app uses the microphone";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1076,7 +1218,7 @@
 					"-framework",
 					shared,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.a.pride.Datify-iOS-Core";
+				PRODUCT_BUNDLE_IDENTIFIER = "acom.a.pride.Datify-iOS-Core";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
