@@ -38,11 +38,15 @@ struct BlockView: View {
 
                 VStack(spacing: 8) {
                     DtButton(
-                        title: "Yes, block",
-                        style: .main) {
-                            onConfirm()
-                        }
-                    DtButton(title: "No, cancel", style: .picker) {
+                        title: "Yes, block".localize(),
+                        style: .main
+                    ) {
+                        onConfirm()
+                    }
+                    DtButton(
+                        title: "No, cancel".localize(),
+                        style: .picker
+                    ) {
                         onCancel()
                     }
                 }

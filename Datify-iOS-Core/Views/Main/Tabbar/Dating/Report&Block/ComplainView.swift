@@ -122,7 +122,10 @@ private extension ComplainView {
                     .focused($textFieldIsFocused)
 
                 if !textFieldIsFocused {
-                    DtButton(title: "Send a complaint", style: .main) {
+                    DtButton(
+                        title: "Send a complaint".localize(),
+                        style: .main
+                    ) {
                         // TODO: action
                         Task { @MainActor in
                             isPresented = false

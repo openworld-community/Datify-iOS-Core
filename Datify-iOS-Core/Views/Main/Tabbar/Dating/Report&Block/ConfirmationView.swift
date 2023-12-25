@@ -74,12 +74,13 @@ struct ConfirmationView: View {
             }
 
             DtButton(
-                title: "Got it",
-                style: .main) {
-                    Task { @MainActor in
-                        onConfirm()
-                    }
+                title: "Got it".localize(),
+                style: .main
+            ) {
+                Task { @MainActor in
+                    onConfirm()
                 }
+            }
         }
         .padding(.top, confirmationType == .block ? 90 : 0)
     }
