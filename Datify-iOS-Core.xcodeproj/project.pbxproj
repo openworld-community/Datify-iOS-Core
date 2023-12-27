@@ -89,6 +89,7 @@
 		980895BA2A9F4A5700F82F02 /* DtSpinnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980895B92A9F4A5700F82F02 /* DtSpinnerView.swift */; };
 		9809ACCF2B1CA50600F19B52 /* DtConfirmationDialogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9809ACCE2B1CA50600F19B52 /* DtConfirmationDialogView.swift */; };
 		9809ACD12B1E099700F19B52 /* ComplainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9809ACD02B1E099700F19B52 /* ComplainView.swift */; };
+		981CCEF12B3B4D37000860C3 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981CCEF02B3B4D37000860C3 /* ProfileView.swift */; };
 		98553B0A2AAE4A43005C80B3 /* View+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98553B092AAE4A43005C80B3 /* View+extension.swift */; };
 		9856CC982B1BB191007B3C49 /* BlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9856CC972B1BB191007B3C49 /* BlockView.swift */; };
 		9856CC9A2B1BB4EB007B3C49 /* ConfirmationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9856CC992B1BB4EB007B3C49 /* ConfirmationView.swift */; };
@@ -218,6 +219,7 @@
 		980895B92A9F4A5700F82F02 /* DtSpinnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtSpinnerView.swift; sourceTree = "<group>"; };
 		9809ACCE2B1CA50600F19B52 /* DtConfirmationDialogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtConfirmationDialogView.swift; sourceTree = "<group>"; };
 		9809ACD02B1E099700F19B52 /* ComplainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplainView.swift; sourceTree = "<group>"; };
+		981CCEF02B3B4D37000860C3 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		98553B092AAE4A43005C80B3 /* View+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+extension.swift"; sourceTree = "<group>"; };
 		9856CC972B1BB191007B3C49 /* BlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockView.swift; sourceTree = "<group>"; };
 		9856CC992B1BB4EB007B3C49 /* ConfirmationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationView.swift; sourceTree = "<group>"; };
@@ -404,6 +406,7 @@
 		4A4CE2CF2A9B41B90098FF80 /* Dating */ = {
 			isa = PBXGroup;
 			children = (
+				981CCEEF2B3B4D18000860C3 /* Profile */,
 				634EF7322ADC48220061E13A /* DatingView.swift */,
 				634EF7332ADC48220061E13A /* DatingViewModel.swift */,
 				2081F01B2AF1493900B9659E /* DatingNotifications */,
@@ -592,6 +595,14 @@
 				98E38EB32AB351A0007FC35A /* RegPhotoView.swift */,
 			);
 			path = Photo;
+			sourceTree = "<group>";
+		};
+		981CCEEF2B3B4D18000860C3 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				981CCEF02B3B4D37000860C3 /* ProfileView.swift */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 		98553B0B2AAF0CF3005C80B3 /* CustomTextField */ = {
@@ -926,6 +937,7 @@
 				D0C8965A2AA217630084FA62 /* DtImage.swift in Sources */,
 				634EF7392ADC48300061E13A /* MenuViewModel.swift in Sources */,
 				D0DC465F2A92699D0097CFF3 /* MainAppView.swift in Sources */,
+				981CCEF12B3B4D37000860C3 /* ProfileView.swift in Sources */,
 				98C55EA42B1B724000BD0450 /* DtButtonStyle.swift in Sources */,
 				98C55E9E2B1A75A300BD0450 /* DtConfirmationDialog.swift in Sources */,
 				634EF7382ADC48300061E13A /* MenuView.swift in Sources */,
