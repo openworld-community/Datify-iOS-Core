@@ -16,6 +16,7 @@ struct DtButton: View {
         case secondary
         case main
         case picker
+        case delete
         case other
     }
 
@@ -64,6 +65,9 @@ struct DtButton: View {
             case .picker:
                 createBody(title: title, titleColor: .textPrimary)
                     .buttonBackground(color: .backgroundSecondary)
+            case .delete:
+                createBody(title: title, titleColor: .accentsError)
+                    .buttonBackground(color: .backgroundPrimary)
             case .other:
                 createBody(title: title, titleColor: .textPrimary)
                     .buttonBackground(color: .backgroundPrimary)
@@ -108,6 +112,7 @@ struct DtButton_Previews: PreviewProvider {
             DtButton(title: "gradient", style: .gradient, action: {})
             DtButton(title: "secondary", style: .secondary, action: {})
             DtButton(title: "picker", style: .picker, action: {})
+            DtButton(title: "other", style: .delete, action: {})
             DtButton(title: "other", style: .other, action: {})
         }
     }

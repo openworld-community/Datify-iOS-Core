@@ -88,6 +88,9 @@
 		79F9F0012B0A893000F2C4EF /* PermissionCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F9F0002B0A893000F2C4EF /* PermissionCenter.swift */; };
 		79FB1AE12B3C34CC00ED94C1 /* MenuTempUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79FB1AE02B3C34CC00ED94C1 /* MenuTempUserModel.swift */; };
 		79FB1AE32B3C365B00ED94C1 /* MenuDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79FB1AE22B3C365B00ED94C1 /* MenuDataService.swift */; };
+		79FB1AE52B3F1AF100ED94C1 /* DtMenuShortButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79FB1AE42B3F1AF100ED94C1 /* DtMenuShortButton.swift */; };
+		79FB1AE72B3F23F400ED94C1 /* DtMenuLongButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79FB1AE62B3F23F400ED94C1 /* DtMenuLongButton.swift */; };
+		79FB1AE92B3F280D00ED94C1 /* AccountManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79FB1AE82B3F280D00ED94C1 /* AccountManagementView.swift */; };
 		980895BA2A9F4A5700F82F02 /* DtSpinnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980895B92A9F4A5700F82F02 /* DtSpinnerView.swift */; };
 		9809ACCF2B1CA50600F19B52 /* DtConfirmationDialogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9809ACCE2B1CA50600F19B52 /* DtConfirmationDialogView.swift */; };
 		9809ACD12B1E099700F19B52 /* ComplainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9809ACD02B1E099700F19B52 /* ComplainView.swift */; };
@@ -219,6 +222,9 @@
 		79F9F0002B0A893000F2C4EF /* PermissionCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionCenter.swift; sourceTree = "<group>"; };
 		79FB1AE02B3C34CC00ED94C1 /* MenuTempUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTempUserModel.swift; sourceTree = "<group>"; };
 		79FB1AE22B3C365B00ED94C1 /* MenuDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuDataService.swift; sourceTree = "<group>"; };
+		79FB1AE42B3F1AF100ED94C1 /* DtMenuShortButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtMenuShortButton.swift; sourceTree = "<group>"; };
+		79FB1AE62B3F23F400ED94C1 /* DtMenuLongButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtMenuLongButton.swift; sourceTree = "<group>"; };
+		79FB1AE82B3F280D00ED94C1 /* AccountManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountManagementView.swift; sourceTree = "<group>"; };
 		980895B92A9F4A5700F82F02 /* DtSpinnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtSpinnerView.swift; sourceTree = "<group>"; };
 		9809ACCE2B1CA50600F19B52 /* DtConfirmationDialogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtConfirmationDialogView.swift; sourceTree = "<group>"; };
 		9809ACD02B1E099700F19B52 /* ComplainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplainView.swift; sourceTree = "<group>"; };
@@ -334,6 +340,8 @@
 				4A4CE2E92A9B5FB80098FF80 /* DtButton.swift */,
 				79BE96E62AF7689E008E943C /* DtCircleButton.swift */,
 				2012EF632AAF479400B01688 /* DtBackButton.swift */,
+				79FB1AE42B3F1AF100ED94C1 /* DtMenuShortButton.swift */,
+				79FB1AE62B3F23F400ED94C1 /* DtMenuLongButton.swift */,
 				208D05512AB903790071E1B7 /* DtSelectorButton.swift */,
 				20FD2D2E2ADDCD060051C894 /* DtCheckBoxButton.swift */,
 				20E518322ADDF63100A0463A /* DtStepSliderSegment.swift */,
@@ -431,6 +439,7 @@
 			children = (
 				634EF7362ADC48300061E13A /* MenuView.swift */,
 				634EF7372ADC48300061E13A /* MenuViewModel.swift */,
+				79FB1AE82B3F280D00ED94C1 /* AccountManagementView.swift */,
 				79FB1AE02B3C34CC00ED94C1 /* MenuTempUserModel.swift */,
 				79FB1AE22B3C365B00ED94C1 /* MenuDataService.swift */,
 			);
@@ -947,6 +956,7 @@
 				201DC0512AF826C900DA0E69 /* DtDoubleAvatar.swift in Sources */,
 				205C6D892ADFFAB20051FB77 /* DatingFilterViewModel.swift in Sources */,
 				79BE96E72AF7689E008E943C /* DtCircleButton.swift in Sources */,
+				79FB1AE92B3F280D00ED94C1 /* AccountManagementView.swift in Sources */,
 				208A426D2AB9061000E90C94 /* RegFinalView.swift in Sources */,
 				2076AF2E2AB080DB00AF5E11 /* String+extension.swift in Sources */,
 				20FD2D312ADDCEAA0051C894 /* DatingFilterView.swift in Sources */,
@@ -961,6 +971,7 @@
 				98A8B0932B27AF7D001E16D0 /* ComplaintModel.swift in Sources */,
 				79F9EFFF2B0A39C400F2C4EF /* Array+extension.swift in Sources */,
 				797CA5582AE86584004DACFA /* VoiceGraphViewModel.swift in Sources */,
+				79FB1AE72B3F23F400ED94C1 /* DtMenuLongButton.swift in Sources */,
 				638D1E872ABAB45C0001CED4 /* LocationViewModel.swift in Sources */,
 				634EF7312ADC48100061E13A /* ChatViewModel.swift in Sources */,
 				D0DC465D2A92699D0097CFF3 /* DatifyiOSCoreApp.swift in Sources */,
@@ -988,6 +999,7 @@
 				4A4CE2F12A9B67B90098FF80 /* Text+extension.swift in Sources */,
 				4A4CE2EF2A9B66DC0098FF80 /* TempView.swift in Sources */,
 				2002C9F62AB465540043B51E /* DtCustomPicker.swift in Sources */,
+				79FB1AE52B3F1AF100ED94C1 /* DtMenuShortButton.swift in Sources */,
 				63A365A32AA04FFB00CBF5CD /* DtCustomTF.swift in Sources */,
 				4A4CE2C62A9B3A5F0098FF80 /* AppRoute.swift in Sources */,
 				9888E78B2AC5B20100F5B86F /* DtCropView.swift in Sources */,

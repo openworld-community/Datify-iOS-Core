@@ -12,7 +12,7 @@ struct MenuTempUserModel {
     var photo: String
     var name: String
     var age: Int
-    var phoneNumber: Int
-    var googleGccount: String
-    var appleAccount: String
+    var phoneNumber: Int?
+    var googleGccount: String?
+    var appleAccount: String?
 }
