@@ -27,4 +27,10 @@ enum DtImage {
     static let play = "play"
     static let pause = "pause"
     static let delete = "delete"
+    static let likeFilter = "likeFilter"
+    static let likeGallery = "likeGallery"
+    static var likeIcons = "likeIcons"
+    static var chatIcon = "chatIcon"
+    static var heart = "heart"
+    static var exclamationPoint = "exclamationPoint"
 }

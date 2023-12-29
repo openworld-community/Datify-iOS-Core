@@ -16,14 +16,22 @@ extension View {
         background(
             GeometryReader { geometryProxy in
                 Color.clear
-                    .preference(key: SizePreferenceKey.self, value: geometryProxy.size)
+                    .preference(key: NewSizePreferenceKey.self, value: geometryProxy.size)
             }
         )
-        .onPreferenceChange(SizePreferenceKey.self, perform: onChange)
+        .onPreferenceChange(NewSizePreferenceKey.self, perform: onChange)
+    }
+
+    func sheetFilter<Content: View>(isPresented: Binding<Bool>,
+                                    title: String,
+                                    content: @escaping () -> Content) -> some View {
+        return self.modifier(FilterSheetViewModifier(isPresented: isPresented,
+                                                     title: title,
+                                                     content: content))
     }
 }
 
-private struct SizePreferenceKey: PreferenceKey {
+struct NewSizePreferenceKey: PreferenceKey {
     static var defaultValue: CGSize = .zero
     static func reduce(value: inout CGSize, nextValue: () -> CGSize) {}
 }

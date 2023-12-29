@@ -20,9 +20,7 @@ struct DtSelectorButton: View {
 
     var body: some View {
         Button {
-            // Не уверен что нужно withAnimation, но мне так больше нравится)
-            withAnimation(.spring()) { action() }
-//            withAnimation { action() }
+           action()
         } label: {
             HStack {
                 Text(title)
@@ -32,7 +30,6 @@ struct DtSelectorButton: View {
                     .stroke(isSelected ? Color.accentsPrimary : Color.backgroundStroke,
                             lineWidth: isSelected ? 6 : 1)
                     .frame(width: 24)
-
             }
             .padding(.horizontal)
             .frame(maxWidth: .infinity, minHeight: AppConstants.Visual.buttonHeight)
