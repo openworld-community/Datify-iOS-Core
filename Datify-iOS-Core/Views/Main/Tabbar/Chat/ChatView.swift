@@ -16,10 +16,19 @@ struct ChatView: View {
     }
 
     var body: some View {
-        ZStack {
-            Text("ChatView")
-                .dtTypo(.h1Medium, color: .customBlack)
+        VStack {
+            Spacer()
+            HStack {
+                Spacer()
+                Text("ChatView")
+                    .dtTypo(.h1Medium, color: .customBlack)
+                Spacer()
+            }
+
+            Spacer()
         }
+//        .frame(maxHeight: .infinity)
+        .background(.green)
     }
 }
 

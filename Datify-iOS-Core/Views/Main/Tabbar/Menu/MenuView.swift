@@ -16,10 +16,47 @@ struct MenuView: View {
     }
 
     var body: some View {
-        ZStack {
+        VStack {
+            Spacer()
+            if let user = viewModel.currentUser {
+                Image(user.photo)
+                    .resizableFill()
+                    .frame(width: 120, height: 120)
+                    .cornerRadius(60)
+                HStack {
+                    Text("\(user.name),")
+                    Text("\(user.age)")
+                }
+                .dtTypo(.h3Regular, color: .customBlack)
+            }
+            HStack {
+                Spacer()
+                VStack {
+                    Image("menuHeart")
+                    Text("likes")
+                }
+                .frame(width: 120, height: 60)
+                .background(Color.backgroundSecondary)
+                .cornerRadius(16)
 
-            Text("MenuView")
-                .dtTypo(.h1Medium, color: .customBlack)
+                VStack {
+                    Image("menuNotification")
+                    Text("notifications")
+                }
+                .frame(width: 120, height: 60)
+                .background(Color.backgroundSecondary)
+                .cornerRadius(16)
+                VStack {
+                    Image("menuProfile")
+                    Text("profile")
+                }
+                .frame(width: 120, height: 60)
+                .background(Color.backgroundSecondary)
+                .cornerRadius(16)
+                Spacer()
+            }
+            .dtTypo(.p3Medium, color: .customBlack)
+            Spacer()
         }
     }
 }

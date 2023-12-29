@@ -86,7 +86,8 @@
 		79F306C92AFCBE25003DCE85 /* RegRecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F306C82AFCBE25003DCE85 /* RegRecordViewModel.swift */; };
 		79F9EFFF2B0A39C400F2C4EF /* Array+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F9EFFE2B0A39C400F2C4EF /* Array+extension.swift */; };
 		79F9F0012B0A893000F2C4EF /* PermissionCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F9F0002B0A893000F2C4EF /* PermissionCenter.swift */; };
-		79FB1ADF2B3AE12300ED94C1 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79FB1ADE2B3AE12300ED94C1 /* SettingsView.swift */; };
+		79FB1AE12B3C34CC00ED94C1 /* MenuTempUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79FB1AE02B3C34CC00ED94C1 /* MenuTempUserModel.swift */; };
+		79FB1AE32B3C365B00ED94C1 /* MenuDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79FB1AE22B3C365B00ED94C1 /* MenuDataService.swift */; };
 		980895BA2A9F4A5700F82F02 /* DtSpinnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980895B92A9F4A5700F82F02 /* DtSpinnerView.swift */; };
 		9809ACCF2B1CA50600F19B52 /* DtConfirmationDialogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9809ACCE2B1CA50600F19B52 /* DtConfirmationDialogView.swift */; };
 		9809ACD12B1E099700F19B52 /* ComplainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9809ACD02B1E099700F19B52 /* ComplainView.swift */; };
@@ -216,7 +217,8 @@
 		79F306C82AFCBE25003DCE85 /* RegRecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegRecordViewModel.swift; sourceTree = "<group>"; };
 		79F9EFFE2B0A39C400F2C4EF /* Array+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+extension.swift"; sourceTree = "<group>"; };
 		79F9F0002B0A893000F2C4EF /* PermissionCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionCenter.swift; sourceTree = "<group>"; };
-		79FB1ADE2B3AE12300ED94C1 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		79FB1AE02B3C34CC00ED94C1 /* MenuTempUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTempUserModel.swift; sourceTree = "<group>"; };
+		79FB1AE22B3C365B00ED94C1 /* MenuDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuDataService.swift; sourceTree = "<group>"; };
 		980895B92A9F4A5700F82F02 /* DtSpinnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtSpinnerView.swift; sourceTree = "<group>"; };
 		9809ACCE2B1CA50600F19B52 /* DtConfirmationDialogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtConfirmationDialogView.swift; sourceTree = "<group>"; };
 		9809ACD02B1E099700F19B52 /* ComplainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplainView.swift; sourceTree = "<group>"; };
@@ -399,7 +401,6 @@
 				4A4CE2CF2A9B41B90098FF80 /* Dating */,
 				4A4CE2D02A9B41C40098FF80 /* Chat */,
 				4A4CE2D12A9B41D20098FF80 /* Menu */,
-				79FB1ADE2B3AE12300ED94C1 /* SettingsView.swift */,
 			);
 			path = Tabbar;
 			sourceTree = "<group>";
@@ -430,6 +431,8 @@
 			children = (
 				634EF7362ADC48300061E13A /* MenuView.swift */,
 				634EF7372ADC48300061E13A /* MenuViewModel.swift */,
+				79FB1AE02B3C34CC00ED94C1 /* MenuTempUserModel.swift */,
+				79FB1AE22B3C365B00ED94C1 /* MenuDataService.swift */,
 			);
 			path = Menu;
 			sourceTree = "<group>";
@@ -902,11 +905,13 @@
 				63A7295D2AA395A200AC60E3 /* ConstantsTF.swift in Sources */,
 				208D05502AB8F5EB0071E1B7 /* RegOccupationView.swift in Sources */,
 				4A4CE2CA2A9B3E8C0098FF80 /* NavigationViewBuilder.swift in Sources */,
+				79FB1AE12B3C34CC00ED94C1 /* MenuTempUserModel.swift in Sources */,
 				4A4CE2C82A9B3B620098FF80 /* Router.swift in Sources */,
 				634EF72B2ADC48010061E13A /* TabbarView.swift in Sources */,
 				79F9F0012B0A893000F2C4EF /* PermissionCenter.swift in Sources */,
 				D0C185302AA1D0E1000D71E5 /* SignInWithButton.swift in Sources */,
 				2081F0232AF1493900B9659E /* NotificationsDataService.swift in Sources */,
+				79FB1AE32B3C365B00ED94C1 /* MenuDataService.swift in Sources */,
 				632A7F5E2AAC897B005DA819 /* DtCustomTFView+extension.swift in Sources */,
 				98C55EA22B1B450300BD0450 /* DtSheet.swift in Sources */,
 				98C55E9C2B1A74D200BD0450 /* DtGroupBoxStyle.swift in Sources */,
@@ -914,7 +919,6 @@
 				98F536A22AFE4B380051D751 /* SMSView.swift in Sources */,
 				4A4CE2DC2A9B485B0098FF80 /* WelcomeView.swift in Sources */,
 				9809ACCF2B1CA50600F19B52 /* DtConfirmationDialogView.swift in Sources */,
-				79FB1ADF2B3AE12300ED94C1 /* SettingsView.swift in Sources */,
 				63A5B8B52AC5F0BA00DEB54A /* CountryAndCityView.swift in Sources */,
 				63A7295F2AA3A30E00AC60E3 /* SecureTFView.swift in Sources */,
 				98E38EB62AB358F8007FC35A /* RegPhotoViewModel.swift in Sources */,

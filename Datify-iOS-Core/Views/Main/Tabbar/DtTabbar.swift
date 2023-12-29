@@ -18,7 +18,7 @@ struct DtTabbar<Content: View>: View {
             VStack {
                 tabView(selectedTab)
                 ZStack(alignment: .bottom) {
-                    HStack(alignment: .center) {
+                    HStack(alignment: .center, spacing: 0) {
                         ForEach(tabsData, id: \.self) { datum in
                             ZStack(alignment: .center) {
                                 DtTabItem(
@@ -33,7 +33,7 @@ struct DtTabbar<Content: View>: View {
                     }
                     .padding(.top)
                 }
-                .background(Color.customBlack)
+                .background(Color.customWhite)
             }
         }
     }
@@ -72,7 +72,7 @@ private struct DtTabItem: View {
 
     var body: some View {
         Button {
-                selectedTab = tabItem
+            selectedTab = tabItem
         } label: {
             VStack(alignment: .center, spacing: 2.0) {
                 ZStack {
@@ -80,11 +80,11 @@ private struct DtTabItem: View {
                         .resizable()
                         .renderingMode(.template)
                         .frame(width: 24, height: 24)
-                        .foregroundStyle(selectedTab == tabItem ? Color.customWhite : Color.customGray)
+                        .foregroundStyle(selectedTab == tabItem ? Color.customBlack : Color.customGray)
                 }
                 Text(tabItem.title())
-                    .dtTypo(.p5Medium, color: (selectedTab == tabItem ? Color.customWhite : Color.customGray))
-                    .foregroundStyle(selectedTab == tabItem ? Color.customWhite : Color.customGray)
+                    .dtTypo(.p5Medium, color: (selectedTab == tabItem ? Color.customBlack : Color.customGray))
+                    .foregroundStyle(selectedTab == tabItem ? Color.customBlack : Color.customGray)
             }
             .frame(width: itemWidth)
         }

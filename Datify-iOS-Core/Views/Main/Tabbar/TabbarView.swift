@@ -10,7 +10,7 @@ import SwiftUI
 struct TabbarView: View {
     @StateObject private var viewModel: TabbarViewModel
     @State private var selectedTab: TabItem
-    unowned let viewBuilder: NavigationViewBuilder
+    let viewBuilder: NavigationViewBuilder
 
     init(viewBuilder: NavigationViewBuilder, selectedTab: TabItem = .dating) {
         self.viewBuilder = viewBuilder
@@ -65,3 +65,7 @@ struct TabbarView: View {
         }
     }
 }
+
+ #Preview {
+    TabbarView(viewBuilder: NavigationViewBuilder(router: Router()), selectedTab: .menu)
+ }
