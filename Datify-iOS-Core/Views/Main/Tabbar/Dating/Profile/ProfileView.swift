@@ -12,6 +12,7 @@ struct ProfileView: View {
     @State private var sheetIsPresented: Bool = true
     @State private var infoHeaderHeight: CGFloat = .zero
     @State private var infoTotalHeight: CGFloat = .zero
+    @State private var dtConfDialogIsPresented: Bool = false
     let images: [Image]
 
     var body: some View {
@@ -25,6 +26,10 @@ struct ProfileView: View {
                             .clipped()
                             .ignoresSafeArea()
                             .tag(index)
+                            .onTapGesture {}
+                            .onLongPressGesture {
+                                dtConfDialogIsPresented = true
+                            }
                     }
                 }
             }
@@ -65,6 +70,13 @@ struct ProfileView: View {
                     .readSize(onChange: { size in
                         infoTotalHeight = size.height - geo.safeAreaInsets.bottom
                     })
+            }
+        }
+        .dtConfirmationDialog(isPresented: $dtConfDialogIsPresented) {
+            DtConfirmationDialogView {
+
+            } onComplain: {
+
             }
         }
     }
