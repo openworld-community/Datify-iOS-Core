@@ -67,8 +67,7 @@ struct DatingView: View {
         )
         .scaleEffect(
             viewModel.filterSheetIsPresented ||
-            complainSheetIsPresented ||
-            dtConfDialogIsPresented ?
+            complainSheetIsPresented ?
             1.2 : 1
         )
         .sheet(isPresented: $viewModel.filterSheetIsPresented) {

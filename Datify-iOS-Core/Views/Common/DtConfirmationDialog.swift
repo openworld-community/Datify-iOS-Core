@@ -16,6 +16,7 @@ struct DtConfirmationDialogModifier<A>: ViewModifier where A: View {
             content
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .blur(radius: isPresented ? 10 : 0)
+                .scaleEffect(isPresented ? 1.2 : 1)
 
                 if isPresented {
                     LinearGradient(
