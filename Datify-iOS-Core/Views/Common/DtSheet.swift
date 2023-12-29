@@ -40,6 +40,7 @@ struct DtSheet<LabelContent: View>: ViewModifier {
                 .groupBoxStyle(DtGroupBoxStyle())
                 .padding(.horizontal, 8)
                 .transition(.move(edge: .bottom))
+                .zIndex(1)
             }
         }
         .animation(.easeOut(duration: 0.3), value: isPresented)

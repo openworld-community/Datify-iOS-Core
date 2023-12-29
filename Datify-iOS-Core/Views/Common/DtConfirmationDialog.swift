@@ -56,6 +56,7 @@ struct DtConfirmationDialogModifier<A>: ViewModifier where A: View {
                     }
                     .padding(.horizontal, 24)
                     .transition(.move(edge: .bottom))
+                    .zIndex(1)
                 }
         }
         .animation(.easeOut(duration: 0.3), value: isPresented)
