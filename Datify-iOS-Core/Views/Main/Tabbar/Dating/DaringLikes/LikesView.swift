@@ -25,7 +25,7 @@ struct LikesView: View {
                                                               userDataService: UserDataService.shared,
                                                               likesDataService: LikesDataService.shared))
     }
-    
+
     var body: some View {
         GeometryReader { geometry in
             ZStack(alignment: .bottom) {
@@ -46,7 +46,7 @@ struct LikesView: View {
                         }
                     }
                 }
-                .sheetFilter(isPresented: $showFilters, blurRadius: $blurRadius, title: "Filter") {
+                .sheetFilter(isPresented: $showFilters, title: "Filter") {
                     FilterView(sortOption: $viewModel.sortOption)
                 }
                 InformationView(showView: $showInformationView,

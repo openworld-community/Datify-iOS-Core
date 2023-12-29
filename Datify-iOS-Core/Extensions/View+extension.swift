@@ -23,13 +23,11 @@ extension View {
     }
 
     func sheetFilter<Content: View>(isPresented: Binding<Bool>,
-                                    blurRadius: Binding<CGFloat>,
                                     title: String,
                                     content: @escaping () -> Content) -> some View {
         return self.modifier(FilterSheetViewModifier(isPresented: isPresented,
-                                             blurRadius: blurRadius,
-                                             title: title,
-                                             content: content))
+                                                     title: title,
+                                                     content: content))
     }
 }
 

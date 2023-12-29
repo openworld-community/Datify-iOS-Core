@@ -42,7 +42,6 @@ struct NotificationsView: View {
                     viewModel.viewNotifications()
                     dismiss()
                 }
-
                 // TODO: Replace with image from assets
                 dtToolbarButton(placement: .topBarTrailing, image: DtImage.arrowRight) {
                     withAnimation {
@@ -56,7 +55,7 @@ struct NotificationsView: View {
                     DtSpinnerView(size: 56)
                 }
             }
-        }
+    }
 }
 
 #Preview {
@@ -94,7 +93,7 @@ private extension NotificationsView {
                     blurRadius = newValue ? 10.0 : 0
                 }
             }
-            .sheetFilter(isPresented: $showFilters, blurRadius: $blurRadius, title: "Filters", content: {
+            .sheetFilter(isPresented: $showFilters, title: "Filters", content: {
                 FilterView(sortOption: $viewModel.sortOption)
             })
         default: DtSpinnerView(size: 56)

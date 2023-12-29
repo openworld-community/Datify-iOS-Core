@@ -10,21 +10,20 @@ import UIKit
 
 struct FilterSheetViewModifier<T: View>: ViewModifier {
     @Binding private var isPresented: Bool
-    @Binding private var blurRadius: CGFloat
+    @State private var blurRadius: CGFloat = 10
     @State private var sizes: CGSize = .zero
     private var title: String
     private let viewBilder: () -> T
 
-    init(isPresented: Binding<Bool>, blurRadius: Binding<CGFloat>, title: String, content: @escaping () -> T) {
+    init(isPresented: Binding<Bool>, title: String, content: @escaping () -> T) {
         _isPresented = isPresented
-        _blurRadius = blurRadius
         self.title = title
         self.viewBilder = content
     }
 
     func body(content: Content) -> some View {
         content
-            .blur(radius: blurRadius)
+            .blur(radius: isPresented ? blurRadius : 0)
             .sheet(isPresented: $isPresented) {
                 NavigationStack {
                     GeometryReader { geometry in
