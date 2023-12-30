@@ -49,7 +49,6 @@ struct ProfileView: View {
 
                 Button(action: {
                     // TODO: action
-                    sheetIsPresented.toggle()
                 }, label: {
                     Image("ellipsis")
                         .resizable()
@@ -74,7 +73,7 @@ struct ProfileView: View {
 //                let headerHeight = infoHeaderHeight - geo.safeAreaInsets.bottom
 //
 //                infoView
-//                    .presentationDetents([.height(headerHeight), .height(infoTotalHeight)])
+//                    .presentationDetents([.large, .fraction(0.25), .height(headerHeight), .height(infoTotalHeight)])
 //                    .menuIndicator(.visible)
 //                    .interactiveDismissDisabled()
 //                    .presentationBackgroundInteraction(.enabled(upThrough: .height(headerHeight)))
@@ -83,6 +82,7 @@ struct ProfileView: View {
 //                    })
 //            }
 //        }
+
         .dtConfirmationDialog(isPresented: $dtConfDialogIsPresented) {
             DtConfirmationDialogView {
 

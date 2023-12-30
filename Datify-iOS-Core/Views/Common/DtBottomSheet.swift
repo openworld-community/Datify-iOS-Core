@@ -10,7 +10,7 @@ import SwiftUI
 struct DtBottomSheet<LabelContent: View>: ViewModifier {
     @State private var dragAmount: CGFloat = .zero
     @State private var currentHeight: CGFloat = .zero
-    
+
     @Binding var isPresented: Bool
     let interactiveDismissable: Bool
     let presentationDetents: Set<CGFloat>
@@ -35,7 +35,6 @@ struct DtBottomSheet<LabelContent: View>: ViewModifier {
                 content
                     .onChange(of: presentationDetents, perform: { value in
                         if let minHeight = value.min() {
-                            print("minHeight = \(minHeight)")
                             currentHeight = minHeight
                         }
                     })
@@ -67,11 +66,13 @@ struct DtBottomSheet<LabelContent: View>: ViewModifier {
                             }
                         }
 
-                    RoundedRectangle(cornerRadius: .infinity)
-                        .foregroundStyle(Color.labelsTertiary)
-                        .frame(width: 36, height: 5)
-                        .frame(maxHeight: .infinity, alignment: .top)
-                        .padding(.top, 5)
+                    if presentationDetents.count > 1 {
+                        RoundedRectangle(cornerRadius: .infinity)
+                            .foregroundStyle(Color.labelsTertiary)
+                            .frame(width: 36, height: 5)
+                            .frame(maxHeight: .infinity, alignment: .top)
+                            .padding(.top, 5)
+                    }
                 }
                 .frame(
                     width: .infinity,
@@ -83,59 +84,14 @@ struct DtBottomSheet<LabelContent: View>: ViewModifier {
                 .offset(y: dragAmount)
                 .gesture(
                     DragGesture()
-                        .onChanged {
-                            if presentationDetents.count <= 1 {
-                                if interactiveDismissable {
-                                    dragAmount = max($0.translation.height, -5)
-                                } else {
-                                    dragAmount = min(max($0.translation.height, -5), 5)
-                                }
-                            } else {
-                                if currentHeight == presentationDetents.min() {
-                                    dragAmount = min(max($0.translation.height, currentHeight - (presentationDetents.max() ?? 0) - 5), 5)
-                                } else if currentHeight == presentationDetents.max() {
-                                    dragAmount = max(min($0.translation.height, currentHeight - (presentationDetents.min() ?? 0) + 5), -5)
-                                } else {
-                                    dragAmount = $0.translation.height
-                                }
+                        .onChanged { value in
+                            withAnimation {
+                                onChangedDragGesture(value: value)
                             }
                         }
                         .onEnded { value in
-                            withAnimation {
-                                if presentationDetents.count <= 1 {
-                                    if interactiveDismissable {
-                                        if value.translation.height > currentHeight / 2 {
-                                            isPresented = false
-                                            dragAmount = .zero
-                                        } else {
-                                            dragAmount = .zero
-                                        }
-                                    } else {
-                                        dragAmount = .zero
-                                    }
-                                } else {
-                                    let presentationDetentsSorted = presentationDetents.sorted(by: { $0 < $1 })
-
-                                    if currentHeight == presentationDetentsSorted.first {
-                                        let difference = presentationDetentsSorted[1] - currentHeight
-
-                                        if value.translation.height < -(difference / 2) {
-                                            currentHeight = presentationDetentsSorted[1]
-                                            dragAmount = .zero
-                                        } else {
-                                            dragAmount = .zero
-                                        }
-                                    } else if currentHeight == presentationDetentsSorted.last {
-                                        let difference = currentHeight - presentationDetentsSorted[presentationDetentsSorted.count - 2]
-
-                                        if value.translation.height > difference / 2 {
-                                            currentHeight = presentationDetentsSorted[presentationDetentsSorted.count - 2]
-                                            dragAmount = .zero
-                                        } else {
-                                            dragAmount = .zero
-                                        }
-                                    }
-                                }
+                            withAnimation(.spring) {
+                                onEndedDragGesture(value: value)
                             }
                         }
                 )
@@ -143,6 +99,70 @@ struct DtBottomSheet<LabelContent: View>: ViewModifier {
         }
         .ignoresSafeArea(edges: .bottom)
         .animation(.easeOut(duration: 0.3), value: isPresented)
+    }
+    // swiftlint:enable function_body_length
+}
+
+private extension DtBottomSheet {
+    func onChangedDragGesture(value: DragGesture.Value) {
+        if presentationDetents.count <= 1 {
+            if interactiveDismissable {
+                dragAmount = max(value.translation.height, -10)
+            } else {
+                dragAmount = min(max(value.translation.height, -10), 10)
+            }
+        } else {
+            if currentHeight == presentationDetents.min() {
+                dragAmount = min(
+                    max(value.translation.height, currentHeight - (presentationDetents.max() ?? 0) - 10),
+                    10
+                )
+            } else if currentHeight == presentationDetents.max() {
+                dragAmount = max(
+                    min(value.translation.height, currentHeight - (presentationDetents.min() ?? 0) + 10),
+                    -10
+                )
+            } else {
+                dragAmount = value.translation.height
+            }
+        }
+    }
+
+    func onEndedDragGesture(value: _ChangedGesture<DragGesture>.Value) {
+        if presentationDetents.count <= 1 {
+            if interactiveDismissable {
+                if value.translation.height > currentHeight / 2 {
+                    isPresented = false
+                    dragAmount = .zero
+                } else {
+                    dragAmount = .zero
+                }
+            } else {
+                dragAmount = .zero
+            }
+        } else {
+            let presentationDetentsSorted = presentationDetents.sorted(by: { $0 < $1 })
+
+            if currentHeight == presentationDetentsSorted.first {
+                let difference = presentationDetentsSorted[1] - currentHeight
+
+                if value.translation.height < -(difference / 2) {
+                    currentHeight = presentationDetentsSorted[1]
+                    dragAmount = .zero
+                } else {
+                    dragAmount = .zero
+                }
+            } else if currentHeight == presentationDetentsSorted.last {
+                let difference = currentHeight - presentationDetentsSorted[presentationDetentsSorted.count - 2]
+
+                if value.translation.height > difference / 2 {
+                    currentHeight = presentationDetentsSorted[presentationDetentsSorted.count - 2]
+                    dragAmount = .zero
+                } else {
+                    dragAmount = .zero
+                }
+            }
+        }
     }
 }
 
