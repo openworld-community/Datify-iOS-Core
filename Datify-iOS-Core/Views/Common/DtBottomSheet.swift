@@ -9,38 +9,42 @@ import SwiftUI
 
 struct DtBottomSheet<LabelContent: View>: ViewModifier {
     @State private var dragAmount: CGFloat = .zero
+    @State private var currentHeight: CGFloat = .zero
+    
+    @Binding var isPresented: Bool
+    let interactiveDismissable: Bool
+    let presentationDetents: Set<CGFloat>
+    let label: () -> LabelContent
 
-    @State private var currentHeight: CGFloat // = .zero
-    @Binding private var isPresented: Bool
-    private let concealable: Bool
-    private let presentationDetents: Set<CGFloat>
-    private let label: () -> LabelContent
-
-    init(
-        isPresented: Binding<Bool>,
-        concealable: Bool,
-        presentationDetents: Set<CGFloat>,
-        label: @escaping () -> LabelContent
-    ) {
-        _isPresented = isPresented
-        self.concealable = concealable
-        self.presentationDetents = presentationDetents
-        self.label = label
-
-        _currentHeight = .init(wrappedValue: presentationDetents.min() ?? .zero)
-
-        print("presentationDetents.min() = \(presentationDetents.min() ?? .zero)")
-        print("self.currentHeight = \(self.currentHeight)")
-    }
-
+    // swiftlint:disable function_body_length
     func body(content: Content) -> some View {
         ZStack(alignment: .bottom) {
-            content
-                .onTapGesture {
-                    if concealable {
-                        isPresented = false
+            if #available(iOS 17.0, *) {
+                content
+                    .onChange(of: presentationDetents, {
+                        if let minHeight = presentationDetents.min() {
+                            currentHeight = minHeight
+                        }
+                    })
+                    .onTapGesture {
+                        if interactiveDismissable {
+                            isPresented = false
+                        }
                     }
-                }
+            } else {
+                content
+                    .onChange(of: presentationDetents, perform: { value in
+                        if let minHeight = value.min() {
+                            print("minHeight = \(minHeight)")
+                            currentHeight = minHeight
+                        }
+                    })
+                    .onTapGesture {
+                        if interactiveDismissable {
+                            isPresented = false
+                        }
+                    }
+            }
 
             if isPresented {
                 ZStack {
@@ -51,7 +55,7 @@ struct DtBottomSheet<LabelContent: View>: ViewModifier {
                                 topTrailingRadius: AppConstants.Visual.cornerRadius
                             )
                         )
-                        .padding(.bottom, -5)
+                        .padding(.bottom, -UIScreen.main.bounds.height)
 
                     label()
                         .readSize { labelSize in
@@ -81,7 +85,7 @@ struct DtBottomSheet<LabelContent: View>: ViewModifier {
                     DragGesture()
                         .onChanged {
                             if presentationDetents.count <= 1 {
-                                if concealable {
+                                if interactiveDismissable {
                                     dragAmount = max($0.translation.height, -5)
                                 } else {
                                     dragAmount = min(max($0.translation.height, -5), 5)
@@ -99,7 +103,7 @@ struct DtBottomSheet<LabelContent: View>: ViewModifier {
                         .onEnded { value in
                             withAnimation {
                                 if presentationDetents.count <= 1 {
-                                    if concealable {
+                                    if interactiveDismissable {
                                         if value.translation.height > currentHeight / 2 {
                                             isPresented = false
                                             dragAmount = .zero
@@ -145,13 +149,13 @@ struct DtBottomSheet<LabelContent: View>: ViewModifier {
 extension View {
     func dtBottomSheet<LabelContent: View>(
         isPresented: Binding<Bool>,
-        concealable: Bool = false,
+        interactiveDismissable: Bool = false,
         presentationDetents: Set<CGFloat> = .init(),
         label: @escaping () -> LabelContent
     ) -> some View {
         modifier(DtBottomSheet(
             isPresented: isPresented,
-            concealable: concealable,
+            interactiveDismissable: interactiveDismissable,
             presentationDetents: presentationDetents,
             label: label
         ))

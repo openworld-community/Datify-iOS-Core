@@ -61,7 +61,6 @@ struct ProfileView: View {
         }
         .dtBottomSheet(
             isPresented: $sheetIsPresented,
-            concealable: true,
             presentationDetents: [infoHeaderHeight, infoTotalHeight]
         ) {
             infoView
