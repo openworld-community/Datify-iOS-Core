@@ -49,6 +49,7 @@ struct ProfileView: View {
 
                 Button(action: {
                     // TODO: action
+                    sheetIsPresented.toggle()
                 }, label: {
                     Image("ellipsis")
                         .resizable()
@@ -58,20 +59,31 @@ struct ProfileView: View {
             }
             .padding(.horizontal)
         }
-        .sheet(isPresented: $sheetIsPresented) {
-            GeometryReader { geo in
-                let headerHeight = infoHeaderHeight - geo.safeAreaInsets.bottom
-
-                infoView
-                    .presentationDetents([.height(headerHeight), .height(infoTotalHeight)])
-                    .menuIndicator(.visible)
-                    .interactiveDismissDisabled()
-                    .presentationBackgroundInteraction(.enabled(upThrough: .height(headerHeight)))
-                    .readSize(onChange: { size in
-                        infoTotalHeight = size.height - geo.safeAreaInsets.bottom
-                    })
-            }
+        .dtBottomSheet(
+            isPresented: $sheetIsPresented,
+            concealable: true,
+            presentationDetents: [infoHeaderHeight, infoTotalHeight]
+        ) {
+            infoView
+                .readSize(onChange: { size in
+                    infoTotalHeight = size.height
+                })
         }
+
+//        .sheet(isPresented: $sheetIsPresented) {
+//            GeometryReader { geo in
+//                let headerHeight = infoHeaderHeight - geo.safeAreaInsets.bottom
+//
+//                infoView
+//                    .presentationDetents([.height(headerHeight), .height(infoTotalHeight)])
+//                    .menuIndicator(.visible)
+//                    .interactiveDismissDisabled()
+//                    .presentationBackgroundInteraction(.enabled(upThrough: .height(headerHeight)))
+//                    .readSize(onChange: { size in
+//                        infoTotalHeight = size.height - geo.safeAreaInsets.bottom
+//                    })
+//            }
+//        }
         .dtConfirmationDialog(isPresented: $dtConfDialogIsPresented) {
             DtConfirmationDialogView {
 

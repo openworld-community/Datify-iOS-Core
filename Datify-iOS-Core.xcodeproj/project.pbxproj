@@ -97,6 +97,7 @@
 		9888E7862AC4747400F5B86F /* DtLimitedPhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9888E7852AC4747400F5B86F /* DtLimitedPhotoPicker.swift */; };
 		9888E78B2AC5B20100F5B86F /* DtCropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9888E78A2AC5B20100F5B86F /* DtCropView.swift */; };
 		98A8B0932B27AF7D001E16D0 /* ComplaintModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A8B0922B27AF7D001E16D0 /* ComplaintModel.swift */; };
+		98C2ADFB2B3F35DF000C0A28 /* DtBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C2ADFA2B3F35DF000C0A28 /* DtBottomSheet.swift */; };
 		98C55E9C2B1A74D200BD0450 /* DtGroupBoxStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C55E9B2B1A74D200BD0450 /* DtGroupBoxStyle.swift */; };
 		98C55E9E2B1A75A300BD0450 /* DtConfirmationDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C55E9D2B1A75A300BD0450 /* DtConfirmationDialog.swift */; };
 		98C55EA22B1B450300BD0450 /* DtSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C55EA12B1B450300BD0450 /* DtSheet.swift */; };
@@ -229,6 +230,7 @@
 		9888E78A2AC5B20100F5B86F /* DtCropView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtCropView.swift; sourceTree = "<group>"; };
 		9898B2BE2AAA49DE007CA714 /* RegEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RegEmailViewModel.swift; path = "Datify-iOS-Core/Views/Main/Welcome/Registration/RegEmailViewModel.swift"; sourceTree = SOURCE_ROOT; };
 		98A8B0922B27AF7D001E16D0 /* ComplaintModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplaintModel.swift; sourceTree = "<group>"; };
+		98C2ADFA2B3F35DF000C0A28 /* DtBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtBottomSheet.swift; sourceTree = "<group>"; };
 		98C55E9B2B1A74D200BD0450 /* DtGroupBoxStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtGroupBoxStyle.swift; sourceTree = "<group>"; };
 		98C55E9D2B1A75A300BD0450 /* DtConfirmationDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtConfirmationDialog.swift; sourceTree = "<group>"; };
 		98C55EA12B1B450300BD0450 /* DtSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtSheet.swift; sourceTree = "<group>"; };
@@ -354,6 +356,7 @@
 				20B2A3F72B16780A00FC61FA /* DtToolbarButton.swift */,
 				98C55EA12B1B450300BD0450 /* DtSheet.swift */,
 				98C55EA32B1B724000BD0450 /* DtButtonStyle.swift */,
+				98C2ADFA2B3F35DF000C0A28 /* DtBottomSheet.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -945,6 +948,7 @@
 				2081F0222AF1493900B9659E /* NotificationRowView.swift in Sources */,
 				63A729592AA3937500AC60E3 /* RegularTFView.swift in Sources */,
 				20BF9D932AB1BE85008B3CEB /* RegSelectGenderView.swift in Sources */,
+				98C2ADFB2B3F35DF000C0A28 /* DtBottomSheet.swift in Sources */,
 				205C6D8D2AE00F870051FB77 /* FilterDataService.swift in Sources */,
 				2081F0252AF1493900B9659E /* NotificationsViewModel.swift in Sources */,
 				4A4CE2E32A9B53E70098FF80 /* Color+extension.swift in Sources */,
