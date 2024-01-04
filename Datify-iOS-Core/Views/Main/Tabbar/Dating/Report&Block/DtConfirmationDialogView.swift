@@ -8,28 +8,59 @@
 import SwiftUI
 
 struct DtConfirmationDialogView: View {
+    @Binding var isPresented: Bool
     let onBlock: () -> Void
     let onComplain: () -> Void
 
     var body: some View {
-        Button {
-            onBlock()
-        } label: {
-            Text("Block")
-                .frame(maxWidth: .infinity)
-                .padding(.vertical)
-        }
-        .dtTypo(.p2Medium, color: .textPrimary)
+        VStack(spacing: 12) {
+            GroupBox {
+                VStack(spacing: 0) {
+                    Button {
+                        onBlock()
+                    } label: {
+                        Text("Block")
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical)
+                    }
+                    .dtTypo(.p2Medium, color: .textPrimary)
 
-        Divider()
+                    Divider()
 
-        Button {
-            onComplain()
-        } label: {
-            Text("Complain")
-                .frame(maxWidth: .infinity)
-                .padding(.vertical)
+                    Button {
+                        onComplain()
+                    } label: {
+                        Text("Complain")
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical)
+                    }
+                    .dtTypo(.p2Medium, color: .accentsPink)
+                }
+            }
+            .groupBoxStyle(DtGroupBoxStyle())
+            .clipShape(RoundedRectangle(cornerRadius: AppConstants.Visual.cornerRadius))
+
+            GroupBox {
+                Button(role: .cancel) {
+                    withAnimation {
+                        isPresented = false
+                    }
+                } label: {
+                    Text("Cancel")
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical)
+                }
+                .dtTypo(.p2Medium, color: .textPrimary)
+            }
+            .groupBoxStyle(DtGroupBoxStyle())
+            .clipShape(RoundedRectangle(cornerRadius: AppConstants.Visual.cornerRadius))
         }
-        .dtTypo(.p2Medium, color: .accentsPink)
+        .padding(.horizontal, 24)
+        .padding(.vertical)
     }
+}
+
+#Preview {
+    DtConfirmationDialogView(isPresented: .constant(true), onBlock: {}, onComplain: {})
+        .background(Color.gray)
 }

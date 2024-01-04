@@ -34,6 +34,7 @@ struct BlockView: View {
                     Text("The user will be blocked and will no longer be able to find your profile on Datify")
                         .dtTypo(.p2Regular, color: .textSecondary)
                         .multilineTextAlignment(.center)
+                        .fixedSize(horizontal: false, vertical: true)
                 }
 
                 VStack(spacing: 8) {
@@ -60,9 +61,15 @@ struct BlockView: View {
                 trailing: 16
             )
         )
+        .background(
+            Color.backgroundPrimary
+                .mask(RoundedRectangle(cornerRadius: 32, style: .continuous))
+        )
+        .padding(8)
     }
 }
 
 #Preview {
     BlockView(onConfirm: {}, onCancel: {})
+        .background(Color.gray)
 }

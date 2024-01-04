@@ -13,29 +13,17 @@ protocol MainFlow {
     associatedtype Menu: View
     associatedtype Notifications: View
 
-    func createDatingView(
-        dtConfDialogIsPresented: Binding<Bool>,
-        complainSheetIsPresented: Binding<Bool>,
-        confirmationSheetIsPresented: Binding<Bool>,
-        confirmationType: Binding<ConfirmationView.ConfirmationType>) -> Dating
+    func createDatingView(isSheetPresented: Binding<Bool>) -> Dating
     func createChatView() -> Chat
     func createMenuView() -> Menu
     func createNotificationsView() -> Notifications
 }
 
 extension NavigationViewBuilder: MainFlow {
-    func createDatingView(
-        dtConfDialogIsPresented: Binding<Bool>,
-        complainSheetIsPresented: Binding<Bool>,
-        confirmationSheetIsPresented: Binding<Bool>,
-        confirmationType: Binding<ConfirmationView.ConfirmationType>
-    ) -> some View {
+    func createDatingView(isSheetPresented: Binding<Bool>) -> some View {
         DatingView(
             router: router,
-            dtConfDialogIsPresented: dtConfDialogIsPresented,
-            complainSheetIsPresented: complainSheetIsPresented,
-            confirmationSheetIsPresented: confirmationSheetIsPresented,
-            confirmationType: confirmationType
+            isSheetPresented: isSheetPresented
         )
     }
     func createNotificationsView() -> some View {

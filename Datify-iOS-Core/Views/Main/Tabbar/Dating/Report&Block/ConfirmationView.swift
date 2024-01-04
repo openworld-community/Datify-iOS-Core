@@ -52,6 +52,11 @@ struct ConfirmationView: View {
                 trailing: 16
             )
         )
+        .background(
+            Color.backgroundPrimary
+                .mask(RoundedRectangle(cornerRadius: 32, style: .continuous))
+        )
+        .padding(8)
     }
 
     private func getDescription() -> some View {
@@ -91,4 +96,13 @@ struct ConfirmationView: View {
         confirmationType: .complain,
         onConfirm: {}
     )
+    .background(Color.gray)
+}
+
+#Preview {
+    ConfirmationView(
+        confirmationType: .block,
+        onConfirm: {}
+    )
+    .background(Color.gray)
 }

@@ -49,7 +49,7 @@ private extension ComplainView {
                     .dtTypo(.h3Medium, color: .textPrimary)
                 Spacer()
                 Button {
-                    isPresented = false
+                    animatedDismiss()
                 } label: {
                     ZStack {
                         Circle()
@@ -128,13 +128,19 @@ private extension ComplainView {
                     ) {
                         // TODO: action
                         Task { @MainActor in
-                            isPresented = false
+                            animatedDismiss()
                             onCompleted()
                         }
                     }
                 }
             }
             .hideKeyboardTapOutside()
+        }
+    }
+
+    func animatedDismiss() {
+        withAnimation {
+            isPresented = false
         }
     }
 }
