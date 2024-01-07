@@ -9,26 +9,33 @@ import SwiftUI
 
 struct DatingView: View {
     @StateObject private var viewModel: DatingViewModel
-    @Binding private var dtConfDialogIsPresented: Bool
-    @Binding private var complainSheetIsPresented: Bool
-    @Binding private var confirmationSheetIsPresented: Bool
-    @Binding private var confirmationType: ConfirmationView.ConfirmationType
+    @Binding private var isSheetPresented: Bool
+
+    private var isSheeted: Bool {
+        viewModel.dtConfDialogIsPresented ||
+        viewModel.complainSheetIsPresented ||
+        viewModel.confirmationSheetIsPresented ||
+        viewModel.blockingSheetIsPresented
+    }
 
     init(
         router: Router<AppRoute>,
-        dtConfDialogIsPresented: Binding<Bool>,
-        complainSheetIsPresented: Binding<Bool>,
-        confirmationSheetIsPresented: Binding<Bool>,
-        confirmationType: Binding<ConfirmationView.ConfirmationType>
+        isSheetPresented: Binding<Bool>
     ) {
         _viewModel = StateObject(wrappedValue: DatingViewModel(router: router))
-        _dtConfDialogIsPresented = dtConfDialogIsPresented
-        _complainSheetIsPresented = complainSheetIsPresented
-        _confirmationSheetIsPresented = confirmationSheetIsPresented
-        _confirmationType = confirmationType
+        _isSheetPresented = isSheetPresented
     }
 
     var body: some View {
+        content
+            .onChange(of: isSheeted) { _, newValue in
+                withAnimation {
+                    isSheetPresented = newValue
+                }
+            }
+    }
+
+    private var content: some View {
         VStack {
             HStack {
                 DtLogoView()
@@ -58,18 +65,18 @@ struct DatingView: View {
                 .resizableFill()
                 .ignoresSafeArea()
                 .onLongPressGesture {
-                    dtConfDialogIsPresented = true
+                    withAnimation {
+                        viewModel.dtConfDialogIsPresented = true
+                    }
                 }
         )
         .blur(
-            radius: viewModel.filterSheetIsPresented ||
-                    complainSheetIsPresented ? 10 : 0
+            radius: viewModel.filterSheetIsPresented ? 10 : 0
         )
         .scaleEffect(
-            viewModel.filterSheetIsPresented ||
-            complainSheetIsPresented ||
-            dtConfDialogIsPresented ?
-            1.2 : 1
+            viewModel.filterSheetIsPresented ?
+            1.2 :
+            isSheeted ? 1.1 : 1
         )
         .sheet(isPresented: $viewModel.filterSheetIsPresented) {
             if let userFilterModel = viewModel.userFilterModel {
@@ -80,12 +87,24 @@ struct DatingView: View {
             }
 
         }
-        .sheet(isPresented: $complainSheetIsPresented) {
+        .sheet(isPresented: $viewModel.dtConfDialogIsPresented) {
+            DtConfirmationDialogView(isPresented: $viewModel.dtConfDialogIsPresented) {
+                viewModel.askToBlock()
+            } onComplain: {
+                viewModel.complain()
+            }
+            .readSize { newSize in
+                viewModel.sheetSize = newSize
+            }
+            .presentationDetents([.height(viewModel.sheetSize.height)])
+            .interactiveDismissDisabled()
+            .presentationBackground(.clear)
+        }
+        .sheet(isPresented: $viewModel.complainSheetIsPresented) {
             ComplainView(
-                isPresented: $complainSheetIsPresented,
+                isPresented: $viewModel.complainSheetIsPresented,
                 onCompleted: {
-                    confirmationType = .complain
-                    confirmationSheetIsPresented = true
+                    viewModel.sendComplaint()
                 }
             )
             .readSize { newSize in
@@ -93,16 +112,38 @@ struct DatingView: View {
             }
             .presentationDetents([.height(viewModel.sheetSize.height)])
             .presentationDragIndicator(.visible)
+            .interactiveDismissDisabled()
+        }
+        .sheet(isPresented: $viewModel.confirmationSheetIsPresented) {
+            ConfirmationView(
+                confirmationType: viewModel.confirmationType) {
+                    viewModel.finish()
+                }
+                .readSize { newSize in
+                    viewModel.sheetSize = newSize
+                }
+                .presentationDetents([.height(viewModel.sheetSize.height)])
+                .interactiveDismissDisabled()
+                .presentationBackground(.clear)
+        }
+        .sheet(isPresented: $viewModel.blockingSheetIsPresented) {
+            BlockView {
+                viewModel.confirmBlock()
+            } onCancel: {
+                viewModel.cancelBlock()
+            }
+            .readSize { newSize in
+                viewModel.sheetSize = newSize
+            }
+            .presentationDetents([.height(viewModel.sheetSize.height)])
+            .interactiveDismissDisabled()
+            .presentationBackground(.clear)
         }
     }
 }
 
 #Preview {
     DatingView(
-        router: Router(),
-        dtConfDialogIsPresented: .constant(false),
-        complainSheetIsPresented: .constant(true),
-        confirmationSheetIsPresented: .constant(false),
-        confirmationType: .constant(.complain)
+        router: Router(), isSheetPresented: .constant(true)
     )
 }

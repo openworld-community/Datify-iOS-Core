@@ -10,13 +10,16 @@ import SwiftUI
 struct DtBackButton: View {
 
     private let size: CGFloat
+    private let padding: CGFloat
     private let action: () async -> Void
 
     init(
         size: CGFloat = AppConstants.Visual.buttonHeight,
+        padding: CGFloat = 16,
         action: @escaping () async -> Void
     ) {
         self.size = size
+        self.padding = padding
         self.action = action
     }
 
@@ -28,7 +31,7 @@ struct DtBackButton: View {
         } label: {
             Image(DtImage.backButton)
                 .resizableFit()
-                .padding()
+                .padding(padding)
                 .frame(width: size,
                        height: size)
                 .background(Color.backgroundSecondary)

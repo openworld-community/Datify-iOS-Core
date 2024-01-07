@@ -1,19 +1,26 @@
 //
-//  DatingViewModel.swift
+//  ProfileViewModel.swift
 //  Datify-iOS-Core
 //
-//  Created by Ildar Khabibullin on 09.10.2023.
+//  Created by Reek i on 06.01.2024.
 //
 
 import SwiftUI
-import Combine
 
-final class DatingViewModel: ObservableObject {
-    unowned let router: Router<AppRoute>
-    private var cancellables = Set<AnyCancellable>()
-    var filterDataService = FilterDataService()
-    @Published var userFilterModel: FilterModel?
-    @Published var filterSheetIsPresented: Bool = false
+final class ProfileViewModel: ObservableObject {
+    unowned private let router: Router<AppRoute>
+
+    @Published var images: [Image]
+    @Published var name: String
+    @Published var age: Int
+    @Published var distance: Int
+    @Published var bio: String
+
+    @Published var currentIndex: Int?
+    @Published var sheetIsPresented: Bool = true
+    @Published var infoHeaderHeight: CGFloat = .zero
+    @Published var infoTotalHeight: CGFloat = .zero
+    @Published var sheetHeight: CGFloat = .zero
 
     @Published var dtConfDialogIsPresented: Bool = false
     @Published var blockingSheetIsPresented: Bool = false
@@ -21,21 +28,27 @@ final class DatingViewModel: ObservableObject {
     @Published var complainSheetIsPresented: Bool = false
     @Published var confirmationType: ConfirmationView.ConfirmationType = .block
 
-    @Published var sheetSize: CGSize = .zero
-
-    init(
-        router: Router<AppRoute>
-    ) {
-        self.router = router
-        self.addSubscribers()
+    var isSheeted: Bool {
+        dtConfDialogIsPresented ||
+        complainSheetIsPresented ||
+        confirmationSheetIsPresented ||
+        blockingSheetIsPresented
     }
 
-    func addSubscribers() {
-        filterDataService.$userFilterModel
-            .sink { [weak self] fetchedFilterModel in
-                self?.userFilterModel = fetchedFilterModel
-            }
-            .store(in: &cancellables)
+    init(
+        router: Router<AppRoute>,
+        images: [Image],
+        name: String,
+        age: Int,
+        distance: Int,
+        bio: String
+    ) {
+        self.router = router
+        self.images = images
+        self.name = name
+        self.age = age
+        self.distance = distance
+        self.bio = bio
     }
 
     func askToBlock() {
@@ -82,5 +95,9 @@ final class DatingViewModel: ObservableObject {
         withAnimation {
             confirmationSheetIsPresented = false
         }
+    }
+
+    func back() {
+        router.pop()
     }
 }

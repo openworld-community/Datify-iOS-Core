@@ -48,6 +48,7 @@ struct MainAppView: View {
             navViewBuilder.createSMSView()
         case .registrationPassword:
             navViewBuilder.createRegPasswordView()
+        case .profile: navViewBuilder.createProfileView()
         }
     }
 }
