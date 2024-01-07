@@ -2,71 +2,46 @@
 //  DtBottomSheet.swift
 //  Datify-iOS-Core
 //
-//  Created by Reek i on 29.12.2023.
+//  Created by Reek i on 31.12.2023.
 //
 
 import SwiftUI
 
 struct DtBottomSheet<LabelContent: View>: ViewModifier {
-    @State private var dragAmount: CGFloat = .zero
-    @State private var currentHeight: CGFloat = .zero
-
+    @State private var translationY: CGFloat = .zero
+    @State private var offsetY: CGFloat = 0
     @Binding var isPresented: Bool
+    //    let screenHeight: CGFloat
+    let isBackground: Bool
     let interactiveDismissable: Bool
     let presentationDetents: Set<CGFloat>
     let label: () -> LabelContent
 
-    // swiftlint:disable function_body_length
     func body(content: Content) -> some View {
+        let screenHeight: CGFloat = UIScreen.main.bounds.height
+
         ZStack(alignment: .bottom) {
-            if #available(iOS 17.0, *) {
-                content
-                    .onChange(of: presentationDetents, {
-                        if let minHeight = presentationDetents.min() {
-                            currentHeight = minHeight
-                        }
-                    })
-                    .onTapGesture {
-                        if interactiveDismissable {
-                            isPresented = false
-                        }
+            content
+                .simultaneousGesture(TapGesture()
+                    .onEnded {
+                        onTapped(screenHeight: screenHeight)
                     }
-            } else {
-                content
-                    .onChange(of: presentationDetents, perform: { value in
-                        if let minHeight = value.min() {
-                            currentHeight = minHeight
-                        }
-                    })
-                    .onTapGesture {
-                        if interactiveDismissable {
-                            isPresented = false
-                        }
-                    }
-            }
+                )
+                .onChange(of: presentationDetents) { _, newValue in
+                    onChanged(value: newValue, screenHeight: screenHeight)
+                }
 
             if isPresented {
                 ZStack {
-                    Color.backgroundPrimary
-                        .clipShape(
-                            .rect(
-                                topLeadingRadius: AppConstants.Visual.cornerRadius,
-                                topTrailingRadius: AppConstants.Visual.cornerRadius
-                            )
-                        )
-                        .padding(.bottom, -UIScreen.main.bounds.height)
-
                     label()
                         .readSize { labelSize in
-                            if let minHeight = presentationDetents.min() {
-                                currentHeight = minHeight
-                            }
-                            if currentHeight <= 0 {
-                                currentHeight = labelSize.height
+                            if presentationDetents.isEmpty {
+                                offsetY = screenHeight - labelSize.height
                             }
                         }
+                        .frame(maxHeight: .infinity, alignment: .top)
 
-                    if presentationDetents.count > 1 {
+                    if !presentationDetents.isEmpty {
                         RoundedRectangle(cornerRadius: .infinity)
                             .foregroundStyle(Color.labelsTertiary)
                             .frame(width: 36, height: 5)
@@ -74,94 +49,74 @@ struct DtBottomSheet<LabelContent: View>: ViewModifier {
                             .padding(.top, 5)
                     }
                 }
-                .frame(
-                    width: .infinity,
-                    height: currentHeight,
-                    alignment: .top
+                .background(
+                    Color.backgroundPrimary
+                        .mask(RoundedRectangle(cornerRadius: AppConstants.Visual.cornerRadius, style: .continuous))
+                        .padding(.bottom, -screenHeight)
                 )
                 .transition(.move(edge: .bottom))
                 .zIndex(1)
-                .offset(y: dragAmount)
+                .offset(y: translationY + offsetY)
                 .gesture(
                     DragGesture()
                         .onChanged { value in
-                            withAnimation {
-                                onChangedDragGesture(value: value)
-                            }
+                            translationY = value.translation.height
                         }
-                        .onEnded { value in
-                            withAnimation(.spring) {
-                                onEndedDragGesture(value: value)
-                            }
+                        .onEnded { _ in
+                            onEndedDragGesture(screenHeight: screenHeight)
                         }
                 )
             }
         }
-        .ignoresSafeArea(edges: .bottom)
-        .animation(.easeOut(duration: 0.3), value: isPresented)
+        .ignoresSafeArea()
+        .animation(.interactiveSpring(response: 0.5, dampingFraction: 0.9), value: isPresented)
+        .blur(radius: isBackground ? 10 : 0)
     }
-    // swiftlint:enable function_body_length
-}
 
-private extension DtBottomSheet {
-    func onChangedDragGesture(value: DragGesture.Value) {
-        if presentationDetents.count <= 1 {
-            if interactiveDismissable {
-                dragAmount = max(value.translation.height, -10)
-            } else {
-                dragAmount = min(max(value.translation.height, -10), 10)
-            }
-        } else {
-            if currentHeight == presentationDetents.min() {
-                dragAmount = min(
-                    max(value.translation.height, currentHeight - (presentationDetents.max() ?? 0) - 10),
-                    10
-                )
-            } else if currentHeight == presentationDetents.max() {
-                dragAmount = max(
-                    min(value.translation.height, currentHeight - (presentationDetents.min() ?? 0) + 10),
-                    -10
-                )
-            } else {
-                dragAmount = value.translation.height
+    private func onTapped(screenHeight: CGFloat) {
+        if interactiveDismissable {
+            isPresented = false
+        } else if !presentationDetents.isEmpty,
+                  let minHeight = presentationDetents.min() {
+            withAnimation {
+                offsetY = screenHeight - minHeight
             }
         }
     }
 
-    func onEndedDragGesture(value: _ChangedGesture<DragGesture>.Value) {
-        if presentationDetents.count <= 1 {
-            if interactiveDismissable {
-                if value.translation.height > currentHeight / 2 {
+    private func onChanged(value: Set<CGFloat>, screenHeight: CGFloat) {
+        if let minHeight = value.min() {
+            offsetY = screenHeight - minHeight
+        }
+    }
+
+    private func onEndedDragGesture(screenHeight: CGFloat) {
+        withAnimation(
+            .interactiveSpring(response: 0.5, dampingFraction: 0.9)
+        ) {
+            let snap = translationY + offsetY
+
+            if !presentationDetents.isEmpty {
+                let offsets = presentationDetents.map {screenHeight - $0}
+
+                if snap > (offsets.max() ?? 0) + (screenHeight - (offsets.max() ?? 0)) / 2 && interactiveDismissable {
                     isPresented = false
-                    dragAmount = .zero
                 } else {
-                    dragAmount = .zero
+                    offsetY = (offsets.min(by: {
+                        abs($0 - snap) < abs($1 - snap)
+                    }) ?? 0)
                 }
             } else {
-                dragAmount = .zero
-            }
-        } else {
-            let presentationDetentsSorted = presentationDetents.sorted(by: { $0 < $1 })
+                if interactiveDismissable {
+                    let maxOffset = offsetY + (screenHeight - offsetY) / 2
 
-            if currentHeight == presentationDetentsSorted.first {
-                let difference = presentationDetentsSorted[1] - currentHeight
-
-                if value.translation.height < -(difference / 2) {
-                    currentHeight = presentationDetentsSorted[1]
-                    dragAmount = .zero
-                } else {
-                    dragAmount = .zero
-                }
-            } else if currentHeight == presentationDetentsSorted.last {
-                let difference = currentHeight - presentationDetentsSorted[presentationDetentsSorted.count - 2]
-
-                if value.translation.height > difference / 2 {
-                    currentHeight = presentationDetentsSorted[presentationDetentsSorted.count - 2]
-                    dragAmount = .zero
-                } else {
-                    dragAmount = .zero
+                    if snap > maxOffset {
+                        isPresented = false
+                    }
                 }
             }
+
+            translationY = .zero
         }
     }
 }
@@ -169,15 +124,19 @@ private extension DtBottomSheet {
 extension View {
     func dtBottomSheet<LabelContent: View>(
         isPresented: Binding<Bool>,
+        isBackground: Bool = false,
         interactiveDismissable: Bool = false,
         presentationDetents: Set<CGFloat> = .init(),
         label: @escaping () -> LabelContent
     ) -> some View {
-        modifier(DtBottomSheet(
-            isPresented: isPresented,
-            interactiveDismissable: interactiveDismissable,
-            presentationDetents: presentationDetents,
-            label: label
-        ))
+        modifier(
+            DtBottomSheet(
+                isPresented: isPresented,
+                isBackground: isBackground,
+                interactiveDismissable: interactiveDismissable,
+                presentationDetents: presentationDetents,
+                label: label
+            )
+        )
     }
 }

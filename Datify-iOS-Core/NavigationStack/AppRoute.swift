@@ -5,8 +5,7 @@
 //  Created by Sergei Volkov on 27.08.2023.
 //
 
-import Foundation
-import SwiftUI
+ import SwiftUI
 
 enum AppRoute {
     case temp
@@ -26,6 +25,7 @@ enum AppRoute {
     case registrationOccupation
     case sms
     case registrationPassword
+    case profile
 }
 
 extension AppRoute: Hashable, Equatable {
@@ -48,6 +48,7 @@ extension AppRoute: Hashable, Equatable {
         case (.registrationOccupation, .registrationOccupation): return true
         case (.sms, .sms): return true
         case (.registrationPassword, .registrationPassword): return true
+        case (.profile, .profile): return true
         default: return false
         }
     }

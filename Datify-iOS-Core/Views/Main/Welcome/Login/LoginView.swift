@@ -16,7 +16,6 @@ struct LoginView: View {
 
     var body: some View {
         checkState()
-            .navigationBarBackButtonHidden()
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     DtLogoView()

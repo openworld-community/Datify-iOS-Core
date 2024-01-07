@@ -12,11 +12,13 @@ protocol MainFlow {
     associatedtype Chat: View
     associatedtype Menu: View
     associatedtype Notifications: View
+    associatedtype Profile: View
 
     func createDatingView(isSheetPresented: Binding<Bool>) -> Dating
     func createChatView() -> Chat
     func createMenuView() -> Menu
     func createNotificationsView() -> Notifications
+    func createProfileView() -> Profile
 }
 
 extension NavigationViewBuilder: MainFlow {
@@ -34,5 +36,8 @@ extension NavigationViewBuilder: MainFlow {
     }
     func createMenuView() -> some View {
         MenuView(router: router)
+    }
+    func createProfileView() -> some View {
+        ProfileView(router: router)
     }
 }

@@ -27,21 +27,12 @@ struct DatingView: View {
     }
 
     var body: some View {
-        if #available(iOS 17.0, *) {
-            content
-                .onChange(of: isSheeted) { _, newValue in
-                    withAnimation {
-                        isSheetPresented = newValue
-                    }
+        content
+            .onChange(of: isSheeted) { _, newValue in
+                withAnimation {
+                    isSheetPresented = newValue
                 }
-        } else {
-            content
-                .onChange(of: isSheeted, perform: { value in
-                    withAnimation {
-                        isSheetPresented = value
-                    }
-                })
-        }
+            }
     }
 
     private var content: some View {

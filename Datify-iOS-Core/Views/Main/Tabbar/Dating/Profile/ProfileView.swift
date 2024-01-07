@@ -8,169 +8,184 @@
 import SwiftUI
 
 struct ProfileView: View {
-    @State private var currentIndex: Int = 0
-    @State private var sheetIsPresented: Bool = true
-    @State private var infoHeaderHeight: CGFloat = .zero
-    @State private var infoTotalHeight: CGFloat = .zero
-    @State private var dtConfDialogIsPresented: Bool = false
-    let images: [Image]
+    @StateObject private var viewModel: ProfileViewModel
+
+    init(
+        router: Router<AppRoute>,
+        // temporarily values, so you don't have to deal with NavigationViewBuilder
+        images: [Image] = [
+            Image("AvatarPhoto"),
+            Image("AvatarPhoto2"),
+            Image("AvatarPhoto3"),
+            Image("exampleImage")
+        ],
+        // temporarily values, so you don't have to deal with NavigationViewBuilder
+        name: String = "Alexandra",
+        // temporarily values, so you don't have to deal with NavigationViewBuilder
+        age: Int = 24,
+        // temporarily values, so you don't have to deal with NavigationViewBuilder
+        distance: Int = 500,
+        // temporarily, so you don't have to deal with NavigationViewBuilder
+        // swiftlint: disable line_length
+        bio: String = """
+        I'm an artist. Tried my hand at graphic design and comics, but now I'm looking for something new in art and design. I have a husband Lev, he is a game designer, and yes we know we got married quite early, but we are actually very calm and friendly people)
+        I'm in Belgrade, Serbia right now, I'm just looking for someone to have a coffee and gossip with
+        """
+    ) {
+        _viewModel = StateObject(
+            wrappedValue: ProfileViewModel(
+                router: router,
+                images: images,
+                name: name,
+                age: age,
+                distance: distance,
+                bio: bio
+            )
+        )
+    }
 
     var body: some View {
-        ZStack(alignment: .top) {
-            TabView(selection: $currentIndex) {
-                ForEach(images.indices, id: \.self) { index in
-                    if index < images.count {
-                        images[index]
-                            .resizableFill()
-                            .frame(maxWidth: UIScreen.main.bounds.width)
-                            .clipped()
-                            .ignoresSafeArea()
-                            .tag(index)
-                            .onTapGesture {}
-                            .onLongPressGesture {
-                                dtConfDialogIsPresented = true
-                            }
-                    }
-                }
+        GeometryReader { geo in
+            ZStack(alignment: .top) {
+                imageSection(screenWidth: geo.size.width)
+                progressAndButton(paddingTopSize: geo.safeAreaInsets.top)
             }
-            .tabViewStyle(.page(indexDisplayMode: .never))
             .ignoresSafeArea()
-
-            VStack(spacing: 16) {
-                HStack(spacing: 4) {
-                    ForEach(images.indices, id: \.self) { index in
-                        if index < images.count {
-                            RoundedRectangle(cornerRadius: 2)
-                                .frame(height: 4)
-                                .foregroundStyle(index == currentIndex ? .white : .white.opacity(0.3))
-                        }
-                    }
-                }
-
-                Button(action: {
-                    // TODO: action
-                }, label: {
-                    Image("ellipsis")
-                        .resizable()
-                        .frame(width: 24, height: 24)
-                        .frame(maxWidth: .infinity, alignment: .trailing)
-                })
-            }
-            .padding(.horizontal)
-        }
-        .dtBottomSheet(
-            isPresented: $sheetIsPresented,
-            presentationDetents: [infoHeaderHeight, infoTotalHeight]
-        ) {
-            infoView
+            .scaleEffect(viewModel.isSheeted ? 1.2 : 1)
+            .dtBottomSheet(
+                isPresented: $viewModel.sheetIsPresented,
+                isBackground: viewModel.isSheeted,
+                presentationDetents: [viewModel.infoHeaderHeight, viewModel.infoTotalHeight]
+            ) {
+                ProfileSheetView(
+                    infoHeaderHeight: $viewModel.infoHeaderHeight,
+                    distance: viewModel.distance,
+                    name: viewModel.name,
+                    age: viewModel.age,
+                    bio: viewModel.bio,
+                    backAction: {
+                        viewModel.back()
+                    }, likeAction: {
+                        // TODO: action
+                    })
                 .readSize(onChange: { size in
-                    infoTotalHeight = size.height
+                    viewModel.infoTotalHeight = size.height
                 })
-        }
-
-//        .sheet(isPresented: $sheetIsPresented) {
-//            GeometryReader { geo in
-//                let headerHeight = infoHeaderHeight - geo.safeAreaInsets.bottom
-//
-//                infoView
-//                    .presentationDetents([.large, .fraction(0.25), .height(headerHeight), .height(infoTotalHeight)])
-//                    .menuIndicator(.visible)
-//                    .interactiveDismissDisabled()
-//                    .presentationBackgroundInteraction(.enabled(upThrough: .height(headerHeight)))
-//                    .readSize(onChange: { size in
-//                        infoTotalHeight = size.height - geo.safeAreaInsets.bottom
-//                    })
-//            }
-//        }
-
-        .dtConfirmationDialog(isPresented: $dtConfDialogIsPresented) {
-            DtConfirmationDialogView {
-
-            } onComplain: {
-
             }
+            .sheet(isPresented: $viewModel.dtConfDialogIsPresented) {
+                DtConfirmationDialogView(isPresented: $viewModel.dtConfDialogIsPresented) {
+                    viewModel.askToBlock()
+                } onComplain: {
+                    viewModel.complain()
+                }
+                .readSize { newSize in
+                    viewModel.sheetHeight = newSize.height
+                }
+                .presentationDetents([.height(viewModel.sheetHeight)])
+                .interactiveDismissDisabled()
+                .presentationBackground(.clear)
+            }
+            .sheet(isPresented: $viewModel.complainSheetIsPresented) {
+                ComplainView(
+                    isPresented: $viewModel.complainSheetIsPresented,
+                    onCompleted: {
+                        viewModel.sendComplaint()
+                    }
+                )
+                .readSize { newSize in
+                    viewModel.sheetHeight = newSize.height
+                }
+                .presentationDetents([.height(viewModel.sheetHeight)])
+                .presentationDragIndicator(.visible)
+                .interactiveDismissDisabled()
+            }
+            .sheet(isPresented: $viewModel.confirmationSheetIsPresented) {
+                ConfirmationView(
+                    confirmationType: viewModel.confirmationType) {
+                        viewModel.finish()
+                    }
+                    .readSize { newSize in
+                        viewModel.sheetHeight = newSize.height
+                    }
+                    .presentationDetents([.height(viewModel.sheetHeight)])
+                    .interactiveDismissDisabled()
+                    .presentationBackground(.clear)
+            }
+            .sheet(isPresented: $viewModel.blockingSheetIsPresented) {
+                BlockView {
+                    viewModel.confirmBlock()
+                } onCancel: {
+                    viewModel.cancelBlock()
+                }
+                .readSize { newSize in
+                    viewModel.sheetHeight = newSize.height
+                }
+                .presentationDetents([.height(viewModel.sheetHeight)])
+                .interactiveDismissDisabled()
+                .presentationBackground(.clear)
+            }
+            .toolbar(.hidden, for: .navigationBar)
         }
     }
 }
 
 private extension ProfileView {
-    var infoView: some View {
-        VStack(spacing: 0) {
-            infoHeader
-                .readSize { size in
-                    infoHeaderHeight = size.height
+    func imageSection(screenWidth: CGFloat) -> some View {
+        ScrollView(.horizontal) {
+            LazyHStack(spacing: 0) {
+                ForEach(viewModel.images.indices, id: \.self) { index in
+                    if index < viewModel.images.count {
+                        viewModel.images[index]
+                            .resizableFill()
+                            .frame(maxWidth: screenWidth)
+                            .clipped()
+                            .ignoresSafeArea()
+                            .id(index)
+                            .onTapGesture {}
+                            .onLongPressGesture {
+                                withAnimation {
+                                    viewModel.dtConfDialogIsPresented = true
+                                }
+                            }
+                    }
                 }
-
-            remainingInfo
+            }
+            .scrollTargetLayout()
         }
-        .padding(.horizontal)
-        .padding(.bottom, 40)
+        .scrollPosition(id: $viewModel.currentIndex)
+        .scrollTargetBehavior(.paging)
+        .scrollIndicators(.hidden)
     }
 
-    var infoHeader: some View {
-        HStack {
-            DtBackButton(size: 48, padding: 12) {
-                // TODO: action
+    func progressAndButton(paddingTopSize: CGFloat) -> some View {
+        VStack(spacing: 16) {
+            if viewModel.images.count > 1 {
+                DtProgressBarView(
+                    count: viewModel.images.count,
+                    currentIndex: viewModel.currentIndex ?? 0
+                )
             }
-
-            Spacer()
-
-            VStack(spacing: 0) {
-                HStack(spacing: 4) {
-                    Image("location")
-                    Text("500 m away from you")
-                        .dtTypo(.p3Regular, color: .textPrimary)
-                }
-
-                Text("Aleksandra, 24")
-                    .dtTypo(.h3Medium, color: .textPrimary)
-            }
-            .padding(.horizontal, 24)
-
-            Spacer()
 
             Button {
                 // TODO: action
             } label: {
-                Image("heart")
-                    .resizableFit()
+                Image("ellipsis")
+                    .resizable()
                     .frame(width: 24, height: 24)
-                    .padding(12)
-                    .background(
-                        RoundedRectangle(cornerRadius: AppConstants.Visual.cornerRadius)
-                            .foregroundStyle(Color.backgroundSecondary)
-                    )
             }
+            .frame(maxWidth: .infinity, alignment: .trailing)
         }
-        .frame(maxWidth: .infinity)
-        .padding(.top, 22)
-        .padding(.bottom, 24)
-    }
-
-    var remainingInfo: some View {
-        VStack(spacing: 24) {
-            VStack(alignment: .leading, spacing: 12) {
-                Text("Voice message")
-                    .dtTypo(.p2Medium, color: .textPrimary)
-
-                RoundedRectangle(cornerRadius: 16)
-                    .fill(Color.backgroundSecondary)
-                    .frame(height: 48)
-            }
-
-            VStack(alignment: .leading, spacing: 12) {
-                Text("About myself")
-                    .dtTypo(.p2Medium, color: .textPrimary)
-
-                // swiftlint:disable line_length
-                Text("""
-                     I'm an artist. Tried my hand at graphic design and comics, but now I'm looking for something new in art and design. I have a husband Lev, he is a game designer, and yes we know we got married quite early, but we are actually very calm and friendly people)
-                     I'm in Belgrade, Serbia right now, I'm just looking for someone to have a coffee and gossip with
-                     """)
-                .dtTypo(.p2Regular, color: .textPrimary)
-                .fixedSize(horizontal: false, vertical: true)
-            }
-        }
+        .padding([.horizontal, .bottom])
+        .padding(.top, paddingTopSize)
+        .background(
+            LinearGradient(
+                stops: [
+                    Gradient.Stop(color: .black.opacity(0.16), location: 0.00),
+                    Gradient.Stop(color: .black.opacity(0), location: 1.00)
+                ],
+                startPoint: UnitPoint(x: 0.5, y: 0),
+                endPoint: UnitPoint(x: 0.5, y: 1))
+        )
     }
 }
 
@@ -191,5 +206,16 @@ private extension ProfileView {
         }
     }
 
-    return ProfileView(images: images)
+    return ProfileView(
+        router: Router(),
+        images: images,
+        name: "Alexa",
+        age: 22,
+        distance: 500,
+        bio: """
+                     I'm an artist. Tried my hand at graphic design and comics, but now I'm looking for something new in art and design. I have a husband Lev, he is a game designer, and yes we know we got married quite early, but we are actually very calm and friendly people)
+                     I'm in Belgrade, Serbia right now, I'm just looking for someone to have a coffee and gossip with
+                     """
+        // swiftlint: enable line_length
+    )
 }
